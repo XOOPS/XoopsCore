@@ -185,7 +185,7 @@ class Comments extends Xoops\Module\Helper\HelperAbstract
             }
             $redirect_page = $this->url('admin/main.php?com_modid=' . $modid . '&amp;com_itemid');
         } else {
-            if (static::APPROVE_NONE == $xoops->getModuleConfig('com_rule', $module->getVar('dirname'))) {
+            if (static::APPROVE_NONE == $xoops->getModuleConfig('com_rule', $moddir)) {
                 $xoops->redirect(\XoopsBaseConfig::get('url'), 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
             }
             $redirect_page = '';
@@ -348,7 +348,7 @@ class Comments extends Xoops\Module\Helper\HelperAbstract
                                 $notify_event = 'comment';
                             } else {
                                 $comment->setVar('dohtml', 0);
-                                switch ($xoops->getModuleConfig('com_rule')) {
+                                switch ($xoops->getModuleConfig('com_rule', $moddir)) {
                                     case static::APPROVE_ALL:
                                     case static::APPROVE_USER:
                                         $comment->setVar('status', static::STATUS_ACTIVE);
@@ -386,7 +386,7 @@ class Comments extends Xoops\Module\Helper\HelperAbstract
                             }
                         }
                         if ($comment->getVar('uid') == 0) {
-                            switch ($xoops->getModuleConfig('com_rule')) {
+                            switch ($xoops->getModuleConfig('com_rule', $moddir)) {
                                 case static::APPROVE_ALL:
                                     $comment->setVar('status', static::STATUS_ACTIVE);
                                     $add_userpost = true;

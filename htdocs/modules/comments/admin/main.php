@@ -9,25 +9,33 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xmf\Jwt\TokenFactory;
+use Xmf\Jwt\TokenReader;
+use Xmf\Request;
+use Xoops\Core\Locale\Time;
+use Xoops\Core\Kernel\Criteria;
+use Xoops\Core\Kernel\CriteriaCompo;
+
 /**
  * Comments Manager
  *
- * @copyright       XOOPS Project (http://xoops.org)
- * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @copyright       2014-2919 XOOPS Project (https://xoops.org)
+ * @license         GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  * @author          Kazumi Ono (AKA onokazu)
  * @package         comments
- * @version         $Id$
  */
 
 include __DIR__ . '/header.php';
 
 // Get main instance
 $xoops = Xoops::getInstance();
-$system = System::getInstance();
 $helper = $xoops->getModuleHelper('comments');
 
+// JWT claims we want to assert (verify)
+$assertPurgeClaims = ['aud' => 'comments-purge', 'uid' => $xoops->user->uid()];
+
 // Get Action type
-$op = $system->cleanVars($_REQUEST, 'op', 'default', 'string');
+$op = \Xmf\Request::getString('op', 'default');
 // Call Header
 $xoops->header('admin:comments/comments.tpl');
 
@@ -45,11 +53,11 @@ $status_array2 = array(
 $start = 0;
 $status_array[0] = _AM_COMMENTS_FORM_ALL_STATUS;
 
-$comments = array();
+$comments = [];
 $status = (!isset($_REQUEST['status']) || !in_array((int)($_REQUEST['status']), array_keys($status_array))) ? 0
     : (int)($_REQUEST['status']);
 
-$module = !isset($_REQUEST['module']) ? 0 : (int)($_REQUEST['module']);
+$module = Request::getInt('module', 0);
 
 $modules_array = array();
 $module_handler = $xoops->getHandlerModule();
@@ -66,7 +74,7 @@ $comment_handler = $helper->getHandlerComment();
 switch ($op) {
 
     case 'comments_jump':
-        $id = $system->cleanVars($_GET, 'item_id', 0, 'int');
+        $id = Request::getInt('item_id', 0, 'get');
         if ($id > 0) {
             $comment = $comment_handler->get($id);
             if (is_object($comment)) {
@@ -115,37 +123,38 @@ switch ($op) {
         $verif = false;
         if (isset($_POST['comments_after']) && isset($_POST['comments_before'])) {
             if ($_POST['comments_after'] != $_POST['comments_before']) {
-                $after = $system->cleanVars($_POST, 'comments_after', time(), 'date');
-                $before = $system->cleanVars($_POST, 'comments_before', time(), 'date');
-                if ($after) {
-                    $criteria->add(new Criteria('created', $after, ">"));
+                $defaultDateTime = Time::cleanTime();
+                $after = Request::getDateTime('comments_after', null, 'post');
+                $before = Request::getDateTime('comments_before', null, 'post');
+                if (null !== $after) {
+                    $criteria->add(new Criteria('created', $after->getTimestamp(), ">"));
                 }
-                if ($before) {
-                    $criteria->add(new Criteria('created', $before, "<"));
+                if (null !== $before) {
+                    $criteria->add(new Criteria('created', $before->getTimestamp(), "<"));
                 }
                 $verif = true;
             }
         }
-        $modid = $system->cleanVars($_POST, 'comments_modules', 0, 'int');
+        $modid = Request::getInt('comments_modules', 0, 'post');
         if ($modid > 0) {
             $criteria->add(new Criteria('modid', $modid));
             $verif = true;
         }
-        $comments_status = $system->cleanVars($_POST, 'comments_status', 0, 'int');
+        $comments_status = Request::getInt('comments_status', 0, 'post');
         if ($comments_status > 0) {
             $criteria->add(new Criteria('status', $_POST['comments_status']));
             $verif = true;
         }
-        $comments_userid = $system->cleanVars($_POST, 'comments_userid', '', 'string');
-        if ($comments_userid != '') {
-            foreach ($_REQUEST['comments_userid'] as $del) {
+        $comments_userid = Request::getArray('comments_userid', [], 'post');
+        if (!empty($comments_userid)) {
+            foreach ($comments_userid as $del) {
                 $criteria->add(new Criteria('uid', $del), 'OR');
             }
             $verif = true;
         }
-        $comments_groupe = $system->cleanVars($_POST, 'comments_groupe', '', 'string');
-        if ($comments_groupe != '') {
-            foreach ($_POST['comments_groupe'] as $del => $u_name) {
+        $comments_groupe = Request::getArray('comments_groupe', [], 'post');
+        if (!empty($comments_groupe)) {
+            foreach ($comments_groupe as $del => $u_name) {
                 $member_handler = $xoops->getHandlerMember();
                 $members = $member_handler->getUsersByGroup($u_name, true);
                 $mcount = count($members);
@@ -169,12 +178,39 @@ switch ($op) {
             $verif = true;
         }
         if ($verif == true) {
-            if ($comment_handler->deleteAll($criteria)) {
-                $helper->redirect("admin/main.php", 3, XoopsLocale::S_DATABASE_UPDATED);
+            $toBeDeleted = $comment_handler->getCount($criteria);
+            $serialized = serialize($criteria);
+            if ($toBeDeleted) {
+                $claims = array_merge($assertPurgeClaims, array('criteria' => $serialized));
+                $token = TokenFactory::build('comments', $claims, 120);
+
+                $confirmForm = $xoops->confirm(
+                    ['jwt' => $token, 'op' => 'confirm_purge'],
+                    '',
+                    sprintf('Confirm delete of %d comments.', $toBeDeleted),
+                    'OK',
+                    false
+                );
+                $xoops->tpl()->assign('form', $confirmForm);
             }
         } else {
-            $helper->redirect("admin/main.php", 3, XoopsLocale::S_DATABASE_UPDATED);
+            $helper->redirect("admin/main.php", 3, 'Nothing to purge.');
         }
+        break;
+
+    case 'confirm_purge':
+        $token = TokenReader::fromRequest('comments', 'jwt', $assertPurgeClaims);
+        if (false === $token) {
+            $helper->redirect("admin/main.php", 3, 'Not authorized');
+        }
+
+        $criteria = unserialize(
+            $token->criteria,
+            ['allowed_classes' => [Criteria::class, CriteriaCompo::class]]
+        );
+        $comment_handler->deleteAll($criteria);
+
+        $helper->redirect("admin/main.php", 3, XoopsLocale::S_DATABASE_UPDATED);
         break;
 
     default:
@@ -187,12 +223,12 @@ switch ($op) {
         $comments_status = '';
 
         $criteria = new CriteriaCompo();
-        $comments_module = $system->cleanVars($_REQUEST, 'comments_module', 0, 'int');
+        $comments_module = Request::getInt('comments_module', 0);
         if ($comments_module > 0) {
             $criteria->add(new Criteria('modid', $comments_module));
             $comments_module = $_REQUEST['comments_module'];
         }
-        $comments_status = $system->cleanVars($_REQUEST, 'comments_status', 0, 'int');
+        $comments_status = Request::getInt('comments_status', 0);
         if ($comments_status > 0) {
             $criteria->add(new Criteria('status', $comments_status));
             $comments_status = $_REQUEST['comments_status'];
@@ -209,8 +245,8 @@ switch ($op) {
         $comments_start = 0;
         $comments_limit = 0;
         if ($comments_count > 0) {
-            $comments_start = $system->cleanVars($_REQUEST, 'comments_start', 0, 'int');
-            $comments_limit = $system->cleanVars($_REQUEST, 'comments_limit', 0, 'int');
+            $comments_start = Request::getInt('comments_start', 0);
+            $comments_limit = Request::getInt('comments_limit', 0);
             if (!in_array($comments_limit, $limit_array)) {
                 $comments_limit = $helper->getConfig('com_pager');
             }

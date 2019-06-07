@@ -12,10 +12,9 @@
 /**
  * Comments
  *
- * @copyright       XOOPS Project (http://xoops.org)
- * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @copyright       2012-2019 XOOPS Project (https://xoops.org)
+ * @license         GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id$
  */
 
 $modversion                = array();
@@ -34,10 +33,10 @@ $modversion['dirname']     = 'comments';
 
 //about
 $modversion['release_date']        = '2012/12/23';
-$modversion['module_website_url']  = 'http://www.xoops.org/';
+$modversion['module_website_url']  = 'https://xoops.org/';
 $modversion['module_website_name'] = 'XOOPS';
 $modversion['module_status']       = 'ALPHA 1';
-$modversion['min_php']             = '5.3.7';
+$modversion['min_php']             = '7.1.0';
 $modversion['min_xoops']           = '2.6.0';
 
 // paypal
