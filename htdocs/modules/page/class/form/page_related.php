@@ -87,7 +87,7 @@ class PagePage_relatedForm extends Xoops\Form\ThemeForm
         $buttonTray->addElement($buttonReset);
 
         $buttonCancel = new Xoops\Form\Button('', 'cancel', XoopsLocale::A_CANCEL, 'button');
-        $buttonCancel->setExtra("onclick='javascript:history.go(-1);'");
+        $buttonCancel->set('onclick', 'window.history.go(-1); return false;');
         $buttonCancel->setClass('btn btn-danger');
         $buttonTray->addElement($buttonCancel);
 

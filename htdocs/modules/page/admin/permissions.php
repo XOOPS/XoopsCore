@@ -33,7 +33,7 @@ $admin_page->renderNavigation('permissions.php');
 
 $opform = new Xoops\Form\SimpleForm('', 'opform', 'permissions.php', 'get');
 $op_select = new Xoops\Form\Select('', 'op', $op);
-$op_select->setExtra('onchange="document.forms.opform.submit()"');
+$op_select->set('onchange', 'document.forms.opform.submit()');
 $op_select->addOption('global', PageLocale::PERMISSIONS_RATE);
 $op_select->addOption('view', PageLocale::PERMISSIONS_VIEW);
 $opform->addElement($op_select);
