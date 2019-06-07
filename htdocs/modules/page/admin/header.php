@@ -14,18 +14,15 @@ use Xmf\Request;
 /**
  * page module
  *
- * @copyright       XOOPS Project (http://xoops.org)
- * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @copyright       XOOPS Project (https://xoops.org)
+ * @license         2014-2019 GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  * @package         page
- * @since           2.6.0
  * @author          Mage Grégory (AKA Mage)
- * @version         $Id$
  */
 require_once dirname(dirname(dirname(__DIR__))) . '/include/cp_header.php';
 
 // Get main instance
 XoopsLoad::load('system', 'system');
-$system = System::getInstance();
 
 $helper = Page::getInstance();
 $xoops = $helper->xoops();
