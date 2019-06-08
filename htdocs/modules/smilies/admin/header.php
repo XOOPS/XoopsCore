@@ -24,5 +24,4 @@ require_once dirname(dirname(dirname(__DIR__))) . '/include/cp_header.php';
 XoopsLoad::load('system', 'system');
 
 $xoops = Xoops::getInstance();
-$system = System::getInstance();
 $helper = Xoops\Module\Helper::getHelper('smilies');

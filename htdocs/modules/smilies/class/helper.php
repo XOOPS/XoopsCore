@@ -29,14 +29,6 @@ class Smilies extends Xoops\Module\Helper\HelperAbstract
     }
 
     /**
-     * @return Smilies
-     */
-    public static function getInstance()
-    {
-        return parent::getInstance();
-    }
-
-    /**
      * @return SmiliesSmileyHandler
      */
     public function getHandlerSmilies()
