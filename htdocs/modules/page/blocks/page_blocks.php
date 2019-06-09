@@ -27,7 +27,7 @@ function page_blocks_show($options)
     $xoops->theme()->addStylesheet($page->url('css/styles.css'));
     $xoops->theme()->addStylesheet($page->url('css/rating.css'));
 
-    $block = '';
+    $block = [];
     if ($options[0] === 'id') {
         $view_content = $page->getContentHandler()->get($options[1]);
 

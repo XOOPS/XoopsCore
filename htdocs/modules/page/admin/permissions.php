@@ -14,12 +14,10 @@ use Xmf\Request;
 /**
  * page module
  *
- * @copyright       XOOPS Project (http://xoops.org)
- * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @copyright       2014-2019 XOOPS Project (https://xoops.org)
+ * @license         GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  * @package         page
- * @since           2.6.0
  * @author          Mage Grégory (AKA Mage)
- * @version         $Id$
  */
 
 include __DIR__ . '/header.php';
@@ -35,7 +33,7 @@ $admin_page->renderNavigation('permissions.php');
 
 $opform = new Xoops\Form\SimpleForm('', 'opform', 'permissions.php', 'get');
 $op_select = new Xoops\Form\Select('', 'op', $op);
-$op_select->setExtra('onchange="document.forms.opform.submit()"');
+$op_select->set('onchange', 'document.forms.opform.submit()');
 $op_select->addOption('global', PageLocale::PERMISSIONS_RATE);
 $op_select->addOption('view', PageLocale::PERMISSIONS_VIEW);
 $opform->addElement($op_select);
@@ -96,9 +94,9 @@ switch ($op) {
         break;
 
     case 'update_view':
-        $content_id = $system->cleanVars($_REQUEST, 'content_id', 0, 'int');
-        $group = $system->cleanVars($_REQUEST, 'group', 0, 'int');
-        $status = $system->cleanVars($_REQUEST, 'status', '', 'string');
+        $content_id = Request::getInt('content_id', 0);
+        $group = Request::getInt('group', 0);
+        $status = Request::getString('status', '');
         if ($content_id > 0 && $group > 0 && $status != '') {
             if ($status === 'no') {
                 // deleting permissions
