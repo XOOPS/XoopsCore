@@ -48,7 +48,7 @@ $admin_page->addInfoBoxLine(sprintf(_AM_SMILIES_NBDISPLAY, '<span class="green">
 $admin_page->addInfoBoxLine(sprintf(_AM_SMILIES_NBNOTDISPLAY, '<span class="red">' . $smilies_notdisplay . '</span>'));
 
 $admin_page->addConfigBoxLine($folder_path, 'folder');
-$admin_page->addConfigBoxLine(array($folder_path, '777'), 'chmod');
+$admin_page->addConfigBoxLine(array($folder_path, '755'), 'chmod');
 
 $admin_page->displayIndex();
 

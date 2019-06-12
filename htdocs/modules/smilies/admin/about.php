@@ -22,7 +22,7 @@
 include __DIR__ . '/header.php';
 $xoops = Xoops::getInstance();
 $xoops->header();
-$aboutAdmin = new \Xoops\Module\Admin();
-$aboutAdmin->displayNavigation('about.php');
-$aboutAdmin->displayAbout(true);
+$admin = new \Xoops\Module\Admin();
+$admin->displayNavigation('about.php');
+$admin->displayAbout(true);
 $xoops->footer();
