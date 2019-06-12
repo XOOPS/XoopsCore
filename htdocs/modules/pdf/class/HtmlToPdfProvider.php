@@ -11,6 +11,7 @@
 
 use Xoops\Core\Service\AbstractContract;
 use Xoops\Core\Service\Contract\HtmlToPdfInterface;
+use Xoops\Core\Service\Response;
 
 /**
  * HtmlToPdf provider for service manager
@@ -200,7 +201,9 @@ class HtmlToPdfProvider extends AbstractContract implements HtmlToPdfInterface
     {
         $this->pageSize = $pageSize;
         if (isset($this->pdfEngine)) {
-            $this->pdfEngine->setPageFormat($this->pageSize, $this->pageOrientation);
+            $response->setSuccess(false);
+            $response->addErrorMessage('Cannot change pagesize now.');
+            //$this->pdfEngine->setPageFormat($this->pageSize, $this->pageOrientation);
         }
     }
 
@@ -412,7 +415,7 @@ class HtmlToPdfProvider extends AbstractContract implements HtmlToPdfInterface
     {
         $this->initPdf();
         $this->pdfEngine->lastPage();
-        $response->seValue($this->pdfEngine->Output('', 'S'));
+        $response->setValue($this->pdfEngine->Output('', 'S'));
     }
 
     /**
