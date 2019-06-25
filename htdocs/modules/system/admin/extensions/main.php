@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xmf\Request;
+
 /**
  * Plugins Manager
  *
@@ -35,8 +37,8 @@ if (!$xoops->isUser() || !$xoops->isModule() || !$xoops->user->isAdmin($xoops->m
 //}
 
 // Get Action type
-$op = $system->cleanVars($_REQUEST, 'op', 'list', 'string');
-$module = $system->cleanVars($_REQUEST, 'module', '', 'string');
+$op = Request::getString('op', 'list');
+$module = Request::getString('module', '');
 
 if (in_array($op, array('install', 'update', 'uninstall'))) {
     if (!$xoops->security()->check()) {
@@ -79,7 +81,7 @@ switch ($op) {
         break;
 
     case 'install':
-        $module = $system->cleanVars($_POST, 'dirname', '', 'string');
+        $module = Request::getString('dirname', '', 'post');
         // Call Header
         $xoops->header('admin:system/system_modules_logger.tpl');
         // Define Stylesheet
@@ -117,7 +119,7 @@ switch ($op) {
         break;
 
     case 'uninstall':
-        $mid = $system->cleanVars($_POST, 'mid', 0, 'int');
+        $mid = Request::getInt('mid', 0, 'post');
         $module_handler = $xoops->getHandlerModule();
         $module = $module_handler->getById($mid);
         // Call Header
@@ -153,7 +155,7 @@ switch ($op) {
         break;
 
     case 'update':
-        $mid = $system->cleanVars($_POST, 'mid', 0, 'int');
+        $mid = Request::getInt('mid', 0, 'post');
         $module_handler = $xoops->getHandlerModule();
         $block_handler = $xoops->getHandlerBlock();
         $module = $module_handler->getById($mid);

@@ -9,23 +9,25 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xmf\Request;
+
 /**
  * Extended User Profile
  *
- * @copyright       2000-2016 XOOPS Project (http://xoops.org)
- * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @copyright       2000-2019 XOOPS Project (https://xoops.org)
+ * @license         GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  * @package         profile
  * @since           2.3.0
  * @author          Jan Pedersen
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
  */
 include __DIR__ . '/header.php';
+
 // Get main instance
-$system = System::getInstance();
 $xoops = Xoops::getInstance();
 
 // Get Action type
-$op = $system->cleanVars($_REQUEST, 'op', 'list', 'string');
+$op = Request::getString('op', 'list');
 // Call header
 $xoops->header('admin:profile/steplist.tpl');
 // Get handler
@@ -57,7 +59,7 @@ switch ($op) {
         $admin_page->addItemButton(XoopsLocale::A_ADD . ' ' . _PROFILE_AM_STEP, 'step.php?op=new', 'add');
         $admin_page->addItemButton(_PROFILE_AM_STEP_LIST, 'step.php', 'application-view-detail');
         $admin_page->renderButton();
-        $id = $system->cleanVars($_REQUEST, 'id', 0, 'int');
+        $id = Request::getInt('id', 0);
         if ($id > 0) {
             $obj = $regstep_Handler->get($id);
             $form = $xoops->getModuleForm($obj, 'regstep');
@@ -71,16 +73,16 @@ switch ($op) {
         if (!$xoops->security()->check()) {
             $xoops->redirect('step.php', 3, implode(',', $xoops->security()->getErrors()));
         }
-        $id = $system->cleanVars($_REQUEST, 'id', 0, 'int');
+        $id = Request::getInt('id', 0);
         if ($id > 0) {
             $obj = $regstep_Handler->get($id);
         } else {
             $obj = $regstep_Handler->create();
         }
-        $obj->setVar('step_name', $_POST['step_name']);
-        $obj->setVar('step_order', $_POST['step_order']);
-        $obj->setVar('step_desc', $_POST['step_desc']);
-        $obj->setVar('step_save', $_POST['step_save']);
+        $obj->setVar('step_name', Request::getString('step_name', '', 'post'));
+        $obj->setVar('step_order', Request::getInt('step_order', 0, 'post'));
+        $obj->setVar('step_desc', Request::getString('step_desc', '', 'post'));
+        $obj->setVar('step_save', Request::getString('step_save', '', 'post'));
         if ($regstep_Handler->insert($obj)) {
             $xoops->redirect('step.php', 3, sprintf(_PROFILE_AM_SAVEDSUCCESS, _PROFILE_AM_STEP));
         }
@@ -93,7 +95,7 @@ switch ($op) {
         $admin_page->addItemButton(XoopsLocale::A_ADD . ' ' . _PROFILE_AM_STEP, 'step.php?op=new', 'add');
         $admin_page->addItemButton(_PROFILE_AM_STEP_LIST, 'step.php', 'application-view-detail');
         $admin_page->renderButton();
-        $id = $system->cleanVars($_REQUEST, 'id', 0, 'int');
+        $id = Request::getInt('id', 0);
         if ($id > 0) {
             $obj = $regstep_Handler->get($id);
             if (isset($_POST["ok"]) && $_POST["ok"] == 1) {
@@ -121,7 +123,7 @@ switch ($op) {
         break;
 
     case "step_update":
-        $id = $system->cleanVars($_POST, 'id', 0, 'int');
+        $id = Request::getInt('id', 0, 'post');
         if ($id > 0) {
             $obj = $regstep_Handler->get($id);
             $old = $obj->getVar('step_save');

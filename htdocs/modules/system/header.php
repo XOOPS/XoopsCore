@@ -43,7 +43,7 @@ include_once $xoops->path('/modules/system/include/functions.php');
 // include system category definitions
 include_once $xoops->path('/modules/system/constants.php');
 // Get request variable
-$fct = $system->cleanVars($_REQUEST, 'fct', '', 'string');
+$fct = \Xmf\Request::getString('fct', '');
 
 XoopsLoad::load('systembreadcrumb', 'system');
 

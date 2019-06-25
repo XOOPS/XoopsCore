@@ -9,11 +9,13 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xmf\Request;
+
 /**
  * Users Manager
  *
- * @copyright   XOOPS Project (http://xoops.org)
- * @license     GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @copyright   2000-2019 XOOPS Project (https://xoops.org)
+ * @license     GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  * @author      Maxime Cointin (AKA Kraven30)
  * @package     system
  * @version     $Id$
@@ -22,28 +24,21 @@
 include dirname(dirname(__DIR__)) . '/header.php';
 
 $xoops = Xoops::getInstance();
-$system = System::getInstance();
 
 if (!$xoops->isUser() || !$xoops->isModule() || !$xoops->user->isAdmin($xoops->module->mid())) {
     exit(XoopsLocale::E_NO_ACCESS_PERMISSION);
 }
 
 $xoops->logger()->quiet();
-//$xoops->disableErrorReporting();
 
-if (isset($_REQUEST["op"])) {
-    $op = $_REQUEST["op"];
-} else {
-    @$op = "default";
-}
+Request::getString('op', 'default');
 
 switch ($op) {
-
     // Display post
     case 'display_post':
         include_once $xoops->path('modules/system/include/functions.php');
 
-        $uid = $system->cleanVars($_REQUEST, 'uid', 'int');
+        $uid = Request::getInt('uid', 0);
         $total_posts = 0;
 
         /* @var $plugin SystemPluginInterface */
@@ -63,5 +58,7 @@ switch ($op) {
             ->setParameter(':uid', $uid);
         $row_count = $sql->execute();
         echo $row_count;
+        break;
+    default:
         break;
 }

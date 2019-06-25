@@ -71,7 +71,6 @@ function b_system_main_show()
 function b_system_main_edit($options)
 {
     $xoops = Xoops::getInstance();
-    $system = System::getInstance();
     $system_module = new SystemModule();
     $admin_page = new \Xoops\Module\Admin();
 

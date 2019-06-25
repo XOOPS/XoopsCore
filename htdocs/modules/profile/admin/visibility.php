@@ -9,6 +9,7 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xmf\Request;
 use Xoops\Core\FixedGroups;
 use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\Kernel\CriteriaCompo;
@@ -17,8 +18,8 @@ use Xoops\Core\Kernel\CriteriaCompo;
 /**
  * Extended User Profile
  *
- * @copyright       2000-2016 XOOPS Project (http://xoops.org)
- * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @copyright       2000-2019 XOOPS Project (https://xoops.org)
+ * @license         GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  * @package         profile
  * @since           2.3.0
  * @author          Jan Pedersen
@@ -26,7 +27,6 @@ use Xoops\Core\Kernel\CriteriaCompo;
  */
 include __DIR__ . '/header.php';
 // Get main instance
-$system = System::getInstance();
 $xoops = Xoops::getInstance();
 
 //there is no way to override current tabs when using system menu
@@ -34,7 +34,7 @@ $xoops = Xoops::getInstance();
 $_SERVER['REQUEST_URI'] = "admin/permissions.php";
 
 // Get Action type
-$op = $system->cleanVars($_REQUEST, 'op', 'visibility', 'string');
+$op = Request::getString('op', 'visibility');
 
 // Call header
 $xoops->header();

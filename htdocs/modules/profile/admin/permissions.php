@@ -9,6 +9,7 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xmf\Request;
 use Xoops\Core\FixedGroups;
 
 /**
@@ -23,11 +24,10 @@ use Xoops\Core\FixedGroups;
  */
 include __DIR__ . '/header.php';
 // Get main instance
-$system = System::getInstance();
 $xoops = Xoops::getInstance();
 
 // Get Action type
-$op = isset($_REQUEST['op']) ? $_REQUEST['op'] : 'edit';
+$op = Request::getString('op','edit');
 // Call header
 $xoops->header();
 

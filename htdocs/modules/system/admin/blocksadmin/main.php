@@ -13,6 +13,7 @@ use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\Kernel\CriteriaCompo;
 use Xoops\Core\FixedGroups;
 use Xoops\Core\Kernel\Handlers\XoopsBlock;
+use Xmf\Request;
 
 /**
  * Blocks Administration
@@ -36,13 +37,13 @@ if (!$xoops->isUser() || !$xoops->isModule() || !$xoops->user->isAdmin($xoops->m
 }
 
 // Get Action type
-$op = $system->cleanVars($_REQUEST, 'op', 'list', 'string');
+$op = Request::getString('op', 'list');
 
-$filter = $system->cleanVars($_GET, 'filter', 0, 'int');
+$filter = Request::getInt('filter', 0, 'get');
 if ($filter) {
-    $method = $_GET;
+    $method = 'get';
 } else {
-    $method = $_REQUEST;
+    $method = 'default';
 }
 
 $selmod = $selgen = $selgrp = $selvis = null;
@@ -54,11 +55,11 @@ $sel = array(
 );
 foreach ($sel as $key => $value) {
     $_{$key} = isset($_COOKIE[$key]) ? (int)($_COOKIE[$key]) : $value;
-    ${$key} = $system->cleanVars($method, $key, $_{$key}, 'int');
+    ${$key} = Request::getInt($key, $_{$key}, $method);
     setcookie($key, ${$key});
 }
 
-$type = $system->cleanVars($method, 'type', '', 'string');
+$type = Request::getString('type', '', $method);
 if ($type === 'preview') {
     $op = 'preview';
 }
@@ -225,8 +226,8 @@ switch ($op) {
         // Initialize blocks handler
         $block_handler = $xoops->getHandlerBlock();
         // Get variable
-        $block_id = $system->cleanVars($_POST, 'bid', 0, 'int');
-        $visible = $system->cleanVars($_POST, 'visible', 0, 'int');
+        $block_id = Request::getInt('bid', 0, 'post');
+        $visible = Request::getInt('visible', 0, 'post');
         if ($block_id > 0) {
             $block = $block_handler->get($block_id);
             $block->setVar('visible', $visible);
@@ -240,8 +241,8 @@ switch ($op) {
         // Initialize blocks handler
         $block_handler = $xoops->getHandlerBlock();
         // Get variable
-        $block_id = $system->cleanVars($_POST, 'bid', 0, 'int');
-        $side = $system->cleanVars($_POST, 'side', 0, 'int');
+        $block_id = Request::getInt('bid', 0, 'post');
+        $side = Request::getInt('side', 0, 'post');
         if ($block_id > 0) {
             $block = $block_handler->get($block_id);
             $block->setVar('side', $side);
@@ -295,13 +296,13 @@ switch ($op) {
         // Initialize blocks handler
         $block_handler = $xoops->getHandlerBlock();
         // Get avatar id
-        $block_id = $system->cleanVars($_POST, 'bid', 0, 'int');
+        $block_id = Request::getInt('bid', 0, 'post');
         if ($block_id > 0) {
             $block = $block_handler->get($block_id);
         } else {
             $block = $block_handler->create();
         }
-        $block_type = $system->cleanVars($_POST, 'block_type', '', 'string');
+        $block_type = Request::getString('block_type', '', 'post');
         $block->setVar('block_type', $block_type);
 
         if (!$block->isCustom()) {
@@ -400,7 +401,7 @@ switch ($op) {
         // Initialize blocks handler
         $block_handler = $xoops->getHandlerBlock();
         // Get avatar id
-        $block_id = $system->cleanVars($_REQUEST, 'bid', 0, 'int');
+        $block_id = Request::getInt('bid', 0);
         if ($block_id > 0) {
             // Call Header
             $xoops->header('admin:system/system_blocks.tpl');
@@ -446,7 +447,7 @@ switch ($op) {
         // Initialize blocks handler
         $block_handler = $xoops->getHandlerBlock();
         // Get avatar id
-        $block_id = $system->cleanVars($_REQUEST, 'bid', 0, 'int');
+        $block_id = Request::getInt('bid', 0);
         if ($block_id > 0) {
             $block = $block_handler->get($block_id);
             if ($block->getVar('block_type') === XoopsBlock::BLOCK_TYPE_SYSTEM) {
@@ -487,7 +488,7 @@ switch ($op) {
         // Initialize blocks handler
         $block_handler = $xoops->getHandlerBlock();
         // Get avatar id
-        $block_id = $system->cleanVars($_POST, 'bid', 0, 'int');
+        $block_id = Request::getInt('bid', 0, 'post');
         if ($block_id > 0) {
             $block = $block_handler->get($block_id);
             if ($block_handler->deleteBlock($block)) {
@@ -526,7 +527,7 @@ switch ($op) {
         // Initialize blocks handler
         $block_handler = $xoops->getHandlerBlock();
         // Get avatar id
-        $block_id = $system->cleanVars($_REQUEST, 'bid', 0, 'int');
+        $block_id = Request::getInt('bid', 0);
         if ($block_id > 0) {
             // Call Header
             $xoops->header('admin:system/system_blocks.tpl');

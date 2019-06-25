@@ -11,6 +11,7 @@
 
 use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\FixedGroups;
+use Xmf\Request;
 
 /**
  * System admin
@@ -77,10 +78,10 @@ if ($system->checkRight()) {
 }
 
 if (false != $error) {
-    $op = $system->cleanVars($_REQUEST, 'op', '', 'string');
+    $op = Request::getString('op', '');
     if ($op === 'system_activate') {
         \Xoops::getInstance()->logger()->quiet();
-        $part = $system->cleanVars($_REQUEST, 'type', '', 'string');
+        $part = Request::getString('type', '');
         $config_handler = $xoops->getHandlerConfig();
 
         $criteria = new Criteria('conf_name', 'active_' . $part);

@@ -33,7 +33,7 @@ if (!$xoops->isUser() || !$xoops->isModule() || !$xoops->user->isAdmin($xoops->m
 }
 
 // Get Action type
-$op = $system->cleanVars($_REQUEST, 'op', 'default', 'string');
+$op = Request::getString('op', 'default');
 
 // Call Header
 $xoops->header('admin:system/system_templates.tpl');
@@ -128,7 +128,7 @@ switch ($op) {
                     copy($indexFile, $template_overload . "/index.html");
                 }
 
-                $tplset = $system->cleanVars($POST, 'tplset', 'default', 'string');
+                $tplset = Request::getString('tplset', 'default', 'post');
 
                 //on crée uniquement les templates qui n'existent pas
                 $module_handler = $xoops->getHandlerModule();
@@ -334,7 +334,7 @@ switch ($op) {
             // Generate one module
             $xoops->tpl()->assign('index', true);
 
-            $tplset = $system->cleanVars($POST, 'tplset', 'default', 'string');
+            $tplset = Request::getString('tplset', 'default', 'post');
 
             $form = new Xoops\Form\ThemeForm(XoopsLocale::SELECT_TEMPLATES, "form", 'admin.php?fct=tplsets', "post", true);
 

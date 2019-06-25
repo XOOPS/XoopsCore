@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xmf\Request;
+
 /**
  * Modules Manager
  *
@@ -35,8 +37,8 @@ if (!$xoops->isUser() || !$xoops->isModule() || !$xoops->user->isAdmin($xoops->m
 //}
 
 // Get Action type
-$op = $system->cleanVars($_REQUEST, 'op', 'list', 'string');
-$module = $system->cleanVars($_REQUEST, 'module', '', 'string');
+$op = Request::getString('op', 'list');
+$module = Request::getString('module', '');
 
 if (in_array($op, array('install', 'update', 'uninstall'))) {
     if (!$xoops->security()->check()) {
@@ -73,7 +75,7 @@ switch ($op) {
         $list = $system_module->getModuleList();
         $install = $system_module->getInstalledModules();
 
-        $view = $system->cleanVars($_COOKIE, 'xoopsModsView', 'large', 'string');
+        $view = Request::getString('xoopsModsView', 'large', 'cookie');
         if ($view === 'large') {
             $xoops->tpl()->assign('view_large', '');
             $xoops->tpl()->assign('view_line', 'hide');
@@ -92,8 +94,8 @@ switch ($op) {
         $xoops->logger()->quiet();
         //$xoops->disableErrorReporting();
 
-        $mid = $system->cleanVars($_POST, 'id', 0, 'int');
-        $value = $system->cleanVars($_POST, 'value', '', 'string');
+        $mid = Request::getInt('id', 0, 'post');
+        $value = Request::getString('value', '', 'post');
         if ($mid != 0) {
             $module_handler = $xoops->getHandlerModule();
             $module = $module_handler->getById($mid);
@@ -133,7 +135,7 @@ switch ($op) {
         // Get module handler
         $module_handler = $xoops->getHandlerModule();
         $block_handler = $xoops->getHandlerBlock();
-        $module_id = $system->cleanVars($_POST, 'mid', 0, 'int');
+        $module_id = Request::getInt('mid', 0, 'post');
         if ($module_id > 0) {
             $module = $module_handler->getById($module_id);
             $old = $module->getVar('isactive');
@@ -160,7 +162,7 @@ switch ($op) {
         //$xoops->disableErrorReporting();
         // Get module handler
         $module_handler = $xoops->getHandlerModule();
-        $module_id = $system->cleanVars($_POST, 'mid', 0, 'int');
+        $module_id = Request::getInt('mid', 0, 'post');
         if ($module_id > 0) {
             $module = $module_handler->getById($module_id);
             $old = $module->getVar('weight');
@@ -175,7 +177,7 @@ switch ($op) {
         break;
 
     case 'install':
-        $module = $system->cleanVars($_POST, 'dirname', '', 'string');
+        $module = Request::getString('dirname', '', 'post');
         // Call Header
         $xoops->header('admin:system/system_modules_logger.tpl');
         // Define Stylesheet
@@ -213,7 +215,7 @@ switch ($op) {
         break;
 
     case 'uninstall':
-        $mid = $system->cleanVars($_POST, 'mid', 0, 'int');
+        $mid = Request::getInt('mid', 0, 'post');
         $module_handler = $xoops->getHandlerModule();
         $module = $module_handler->getById($mid);
         // Call Header
@@ -249,7 +251,7 @@ switch ($op) {
         break;
 
     case 'update':
-        $mid = $system->cleanVars($_POST, 'mid', 0, 'int');
+        $mid = Request::getInt('mid', 0, 'post');
         $module_handler = $xoops->getHandlerModule();
         $block_handler = $xoops->getHandlerBlock();
         $module = $module_handler->getById($mid);

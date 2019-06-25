@@ -11,6 +11,7 @@
 
 use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\XoopsTpl;
+use Xmf\Request;
 
 /**
  * Modules admin Manager
@@ -44,9 +45,9 @@ if (isset($_REQUEST)) {
     }
 }
 // Get Action type
-$op = $system->cleanVars($_REQUEST, 'op', 'showmod', 'string');
+$op = Request::getString('op', 'showmod');
 // Setting type
-$confcat_id = $system->cleanVars($_REQUEST, 'confcat_id', 0, 'int');
+$confcat_id = Request::getInt('confcat_id', 0);
 // Call Header
 $xoops->header('admin:system/system_preferences.tpl');
 // Define Stylesheet
@@ -61,7 +62,7 @@ switch ($op) {
 
     case 'show':
     case 'showmod':
-        $mod = $system->cleanVars($_GET, 'mod', 1, 'int');
+        $mod = Request::getInt('mod', 1, 'get');
         if (!$mod) {
             $xoops->redirect('admin.php?fct=preferences', 1);
         }
