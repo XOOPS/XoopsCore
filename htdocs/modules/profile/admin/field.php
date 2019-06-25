@@ -9,6 +9,7 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xmf\Request;
 use Xoops\Core\Kernel\Dtype;
 
 /**
@@ -23,11 +24,10 @@ use Xoops\Core\Kernel\Dtype;
  */
 include __DIR__ . '/header.php';
 // Get main instance
-$system = System::getInstance();
 $xoops = Xoops::getInstance();
 
 // Get Action type
-$op = $system->cleanVars($_REQUEST, 'op', 'list', 'string');
+$op = Request::getString('op', 'list');
 // Call header
 $xoops->header('admin:profile/fieldlist.tpl');
 // Get handler
@@ -113,7 +113,7 @@ switch ($op) {
         $admin_page->addItemButton(XoopsLocale::A_ADD . ' ' . _PROFILE_AM_FIELD, 'field.php?op=new', 'add');
         $admin_page->addItemButton(_PROFILE_AM_FIELD_LIST, 'field.php', 'application-view-detail');
         $admin_page->renderButton();
-        $id = $system->cleanVars($_REQUEST, 'id', 0, 'int');
+        $id = Request::getInt('id', 0);
         if ($id > 0) {
             $obj = $field_handler->get($id);
             $form = $xoops->getModuleForm($obj, 'field');
@@ -168,7 +168,7 @@ switch ($op) {
             $xoops->redirect('field.php', 3, implode(',', $xoops->security()->getErrors()));
         }
         $redirect_to_edit = false;
-        $id = $system->cleanVars($_REQUEST, 'id', 0, 'int');
+        $id = Request::getInt('id', 0);
         /*  @var $obj ProfileField */
         if ($id > 0) {
             $obj = $field_handler->get($id);
@@ -304,7 +304,7 @@ switch ($op) {
         $admin_page->addItemButton(XoopsLocale::A_ADD . ' ' . _PROFILE_AM_FIELD, 'field.php?op=new', 'add');
         $admin_page->addItemButton(_PROFILE_AM_FIELD_LIST, 'field.php', 'application-view-detail');
         $admin_page->renderButton();
-        $id = $system->cleanVars($_REQUEST, 'id', 0, 'int');
+        $id = Request::getInt('id', 0);
         if ($id > 0) {
             $obj = $field_handler->get($id);
             if (isset($_POST["ok"]) && $_POST["ok"] == 1) {

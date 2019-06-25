@@ -11,6 +11,7 @@
 
 use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\Kernel\CriteriaCompo;
+use Xmf\Request;
 
 /**
  * System help page
@@ -26,10 +27,9 @@ use Xoops\Core\Kernel\CriteriaCompo;
 include __DIR__ . '/header.php';
 
 $xoops = Xoops::getInstance();
-$system = System::getInstance();
 
-$page = $system->cleanVars($_REQUEST, 'page', '', 'string');
-$mid = $system->cleanVars($_REQUEST, 'mid', 0, 'int');
+$page = Request::getString('page', '');
+$mid = Request::getInt('mid', 0);
 
 // Define main template
 $xoops->header('admin:system/system_help.tpl');

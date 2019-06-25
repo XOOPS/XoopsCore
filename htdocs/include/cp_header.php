@@ -22,7 +22,7 @@
  * xoops_url/modules/module_directory_name/admin_directory_name/
  */
 
-include_once dirname(__DIR__) . '/mainfile.php';
+require_once dirname(__DIR__) . '/mainfile.php';
 
 $xoops = Xoops::getInstance();
 $xoops_url = \XoopsBaseConfig::get('url');

@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xmf\Request;
+
 /**
  * Extended User Profile
  *
@@ -21,11 +23,10 @@
 
 include __DIR__ . '/header.php';
 // Get main instance
-$system = System::getInstance();
 $xoops = Xoops::getInstance();
 
 // Get Action type
-$op = $system->cleanVars($_REQUEST, 'op', 'list', 'string');
+$op = Request::getString('op', 'list');
 // Call header
 $xoops->header('admin:profile/categorylist.tpl');
 // Get category handler
@@ -58,7 +59,7 @@ switch ($op) {
         $admin_page->addItemButton(XoopsLocale::A_ADD . ' ' . _PROFILE_AM_CATEGORY, 'category.php?op=new', 'add');
         $admin_page->addItemButton(_PROFILE_AM_CATEGORY_LIST, 'category.php', 'application-view-detail');
         $admin_page->renderButton();
-        $id = $system->cleanVars($_REQUEST, 'id', 0, 'int');
+        $id = Request::getInt('id', 0);
         if ($id > 0) {
             $obj = $category_Handler->get($id);
             $form = $xoops->getModuleForm($obj, 'category');
@@ -72,7 +73,7 @@ switch ($op) {
         if (!$xoops->security()->check()) {
             $xoops->redirect('category.php', 3, implode(',', $xoops->security()->getErrors()));
         }
-        $id = $system->cleanVars($_REQUEST, 'id', 0, 'int');
+        $id = Request::getInt('id', 0);
         if ($id > 0) {
             $obj = $category_Handler->get($id);
         } else {
@@ -93,7 +94,7 @@ switch ($op) {
         $admin_page->addItemButton(XoopsLocale::A_ADD . ' ' . _PROFILE_AM_CATEGORY, 'category.php?op=new', 'add');
         $admin_page->addItemButton(_PROFILE_AM_CATEGORY_LIST, 'category.php', 'application-view-detail');
         $admin_page->renderButton();
-        $id = $system->cleanVars($_REQUEST, 'id', 0, 'int');
+        $id = Request::getInt('id', 0);
         if ($id > 0) {
             $obj = $category_Handler->get($id);
             if (isset($_POST["ok"]) && $_POST["ok"] == 1) {

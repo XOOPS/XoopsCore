@@ -9,20 +9,19 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xmf\Request;
+
 /**
  * User rank Manager
  *
- * @copyright       XOOPS Project (http://xoops.org)
- * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @copyright       2013-2019 XOOPS Project (https://xoops.org)
+ * @license         GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  * @package         userrank
- * @since           2.6.0
  * @author          Cointin Maxime (AKA Kraven30)
- * @version         $Id$
  */
 include __DIR__ . '/header.php';
 
 // Get main instance
-$system = System::getInstance();
 $xoops = Xoops::getInstance();
 
 // Parameters
@@ -30,7 +29,7 @@ $nb_rank = $xoops->getModuleConfig('admin:userrank/userrank_pager');
 $mimetypes = array('image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png');
 $upload_size = 500000;
 // Get Action type
-$op = $system->cleanVars($_REQUEST, 'op', 'list', 'string');
+$op = Request::getString('op', 'list');
 // Get userrank handler
 $userrank_Handler = $xoops->getModuleHandler('rank', 'userrank');
 
@@ -53,7 +52,7 @@ switch ($op) {
         $admin_page->renderButton();
 
         // Get start pager
-        $start = $system->cleanVars($_REQUEST, 'start', 0, 'int');
+        $start = Request::getInt('start', 0);
         // Criteria
         $criteria = new CriteriaCompo();
         $criteria->setSort("rank_id");
@@ -106,7 +105,7 @@ switch ($op) {
         $admin_page->renderTips();
         $admin_page->renderButton();
         // Create form
-        $obj = $userrank_Handler->get($system->cleanVars($_REQUEST, 'rank_id', 0, 'int'));
+        $obj = $userrank_Handler->get(Request::getInt('rank_id', 0));
         $form = $xoops->getModuleForm($obj, 'ranks');
         $xoops->tpl()->assign('form', $form->render());
         break;
@@ -153,7 +152,7 @@ switch ($op) {
         $admin_page->addItemButton(_AM_USERRANK_ADD, './userrank.php?op=userrank_new', 'add');
         $admin_page->addItemButton(_AM_USERRANK_LIST, './userrank.php', 'list');
         $admin_page->renderButton();
-        $rank_id = $system->cleanVars($_REQUEST, 'rank_id', 0, 'int');
+        $rank_id = Request::getInt('rank_id', 0);
         $obj = $userrank_Handler->get($rank_id);
         if (isset($_POST["ok"]) && $_POST["ok"] == 1) {
             if (!$xoops->security()->check()) {
@@ -180,7 +179,7 @@ switch ($op) {
     // Update userrank status
     case 'userrank_update_special':
         // Get rank id
-        $rank_id = $system->cleanVars($_POST, 'rank_id', 0, 'int');
+        $rank_id = Request::getInt('rank_id', 0);
         if ($rank_id > 0) {
             $obj = $userrank_Handler->get($rank_id);
             $old = $obj->getVar('rank_special');

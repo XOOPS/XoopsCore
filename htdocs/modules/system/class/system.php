@@ -75,9 +75,18 @@ class System
      * @param string $default
      * @param string $type
      * @return int|mixed|string
+     *
+     * @deprecated To be removed
      */
     public function cleanVars(&$global, $key, $default = '', $type = 'int')
     {
+        $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 1);
+        @trigger_error(
+            "System::cleanVars() is deprecated, please use \\Xmf\\Request, " .
+            "accessed from {$trace[0]['file']} line {$trace[0]['line']},",
+            E_USER_DEPRECATED
+        );
+
         switch ($type) {
             case 'array':
                 $ret = (isset($global[$key]) && is_array($global[$key])) ? $global[$key] : $default;

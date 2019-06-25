@@ -42,7 +42,7 @@ if (!$xoops->isUser() || !$xoops->isModule() || !$xoops->userIsAdmin) {
 
 XoopsLoad::loadFile($xoops->path('modules/system/admin/users/users.php'));
 // Get Action type
-$op = $system->cleanVars($_REQUEST, 'op', 'default', 'string');
+$op = Request::getString('op', 'default');
 
 $member_handler = $xoops->getHandlerMember();
 
@@ -57,7 +57,7 @@ $xoops->theme()->addScript('modules/system/js/admin.js');
 // Define Breadcrumb and tips
 $system_breadcrumb->addLink(SystemLocale::USERS_MANAGEMENT, system_adminVersion('users', 'adminpath'));
 
-$uid = $system->cleanVars($_REQUEST, 'uid', 0);
+$uid = Request::getInt('uid', 0);
 switch ($op) {
 
     // Edit user
@@ -68,7 +68,7 @@ switch ($op) {
         $admin_page->addBreadcrumbLink(SystemLocale::USERS_MANAGEMENT, $system->adminVersion('users', 'adminpath'));
         $admin_page->addBreadcrumbLink(SystemLocale::EDIT_USER);
         $admin_page->renderBreadcrumb();
-        $uid = $system->cleanVars($_GET, 'uid', 0);
+        $uid = Request::getInt('uid', 0, 'get');
         $member_handler = $xoops->getHandlerMember();
         $user = $member_handler->getUser($uid);
         $form = $xoops->getModuleForm($user, 'user');

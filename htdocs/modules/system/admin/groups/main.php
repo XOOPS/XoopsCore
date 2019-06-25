@@ -12,6 +12,7 @@
 use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\Kernel\CriteriaCompo;
 use Xoops\Core\FixedGroups;
+use Xmf\Request;
 
 /**
  * Groups Manager
@@ -35,7 +36,7 @@ if (!$xoops->isUser() || !$xoops->isModule() || !$xoops->user->isAdmin($xoops->m
 // Parameters
 $nb_group = $xoops->getModuleConfig('groups_pager', 'system');
 // Get Action type
-$op = $system->cleanVars($_REQUEST, 'op', 'list', 'string');
+$op = Request::getString('op', 'list');
 // Get groups handler
 $groups_handler = $xoops->getHandlerGroup();
 $member_handler = $xoops->getHandlerMember();
@@ -64,7 +65,7 @@ switch ($op) {
         $admin_page->renderTips();
         $admin_page->renderButton();
         // Get start pager
-        $start = $system->cleanVars($_REQUEST, 'start', 0, 'int');
+        $start = Request::getInt('start', 0);
         // Criteria
         $criteria = new CriteriaCompo();
         $criteria->setSort("groupid");
@@ -143,7 +144,7 @@ switch ($op) {
         $admin_page->renderBreadcrumb();
         $admin_page->renderTips();
         // Create form
-        $groups_id = $system->cleanVars($_REQUEST, 'groups_id', 0, 'int');
+        $groups_id = Request::getInt('groups_id', 0);
         if ($groups_id > 0) {
             $obj = $groups_handler->get($groups_id);
             $form = $xoops->getModuleForm($obj, 'group');
@@ -159,15 +160,15 @@ switch ($op) {
         if (!$xoops->security()->check()) {
             $xoops->redirect('admin.php?fct=groups', 3, implode('<br />', $xoops->security()->getErrors()));
         }
-        $system_catids = $system->cleanVars($_POST, 'system_catids', array(), 'array');
-        $admin_mids = $system->cleanVars($_POST, 'admin_mids', array(), 'array');
-        $read_mids = $system->cleanVars($_POST, 'read_mids', array(), 'array');
-        $read_bids = $system->cleanVars($_POST, 'read_bids', array(), 'array');
+        $system_catids = Request::getArray('system_catids', [], 'post');
+        $admin_mids = Request::getArray('admin_mids', [], 'post');
+        $read_mids = Request::getArray('read_mids', [], 'post');
+        $read_bids = Request::getArray('read_bids', [], 'post');
 
         $member_handler = $xoops->getHandlerMember();
         $group = $member_handler->createGroup();
-        $group->setVar('name', $_POST["name"]);
-        $group->setVar('description', $_POST["desc"]);
+        $group->setVar('name', Request::getString('name', '', 'post'));
+        $group->setVar('description', Request::getString('desc', '', 'post'));
         if (count($system_catids) > 0) {
             $group->setVar('group_type', 'Admin');
         }
@@ -225,17 +226,18 @@ switch ($op) {
         if (!$xoops->security()->check()) {
             $xoops->redirect('admin.php?fct=groups', 3, implode('<br />', $xoops->security()->getErrors()));
         }
-        $system_catids = $system->cleanVars($_POST, 'system_catids', array(), 'array');
-        $admin_mids = $system->cleanVars($_POST, 'admin_mids', array(), 'array');
-        $read_mids = $system->cleanVars($_POST, 'read_mids', array(), 'array');
-        $read_bids = $system->cleanVars($_POST, 'read_bids', array(), 'array');
+        $system_catids = Request::getArray('system_catids', [], 'post');
+        $admin_mids = Request::getArray('admin_mids', [], 'post');
+        $read_mids = Request::getArray('read_mids', [], 'post');
+        $read_bids = Request::getArray('read_bids', [], 'post');
 
         $member_handler = $xoops->getHandlerMember();
-        $gid = $system->cleanVars($_POST, 'g_id', 0, 'int');
+        $gid = Request::getInt('g_id', 0, 'post');
         if ($gid > 0) {
             $group = $member_handler->getGroup($gid);
-            $group->setVar('name', $_POST["name"]);
-            $group->setVar('description', $_POST["desc"]);
+            $group->setVar('name', Request::getString('name', '', 'post'));
+            $group->setVar('description', Request::getString('desc', '', 'post'));
+
             // if this group is not one of the default groups
             if (!in_array($group->getVar('groupid'), array(FixedGroups::ADMIN, FixedGroups::USERS, FixedGroups::ANONYMOUS))
             ) {
@@ -313,7 +315,7 @@ switch ($op) {
         $admin_page->addBreadcrumbLink(SystemLocale::GROUPS_MANAGER, $system->adminVersion('groups', 'adminpath'));
         $admin_page->addBreadcrumbLink(SystemLocale::DELETE_GROUP);
         $admin_page->renderBreadcrumb();
-        $groups_id = $system->cleanVars($_REQUEST, 'groups_id', 0, 'int');
+        $groups_id = Request::getInt('groups_id', 0);
         if ($groups_id > 0) {
             $obj = $groups_handler->get($groups_id);
             if (isset($_POST["ok"]) && $_POST["ok"] == 1) {
