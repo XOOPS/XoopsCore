@@ -1,9 +1,10 @@
 <?php
+
 namespace Xoops\Core\Text\Sanitizer;
 
 use Xoops\Core\Text\Sanitizer;
 
-require_once __DIR__.'/../../../../../init_new.php';
+require_once __DIR__ . '/../../../../../init_new.php';
 
 class NullExtensionTest extends \PHPUnit\Framework\TestCase
 {
@@ -40,7 +41,7 @@ class NullExtensionTest extends \PHPUnit\Framework\TestCase
         $actual = $this->sanitizer->getDhtmlEditorSupport('nosuchextension', '');
         $this->assertEquals(['', ''], $actual);
         $expected = $this->object->registerExtensionProcessing('muck');
-        $actual = call_user_func_array(array($this->object, 'registerExtensionProcessing'), $args);
+        $actual = call_user_func_array([$this->object, 'registerExtensionProcessing'], $args);
         $this->assertSame($expected, $actual);
     }
 }

@@ -10,9 +10,9 @@
 */
 
 use Xoops\Core\Database\Connection;
+use Xoops\Core\Kernel\Handlers\XoopsUser;
 use Xoops\Core\Kernel\XoopsObject;
 use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
-use Xoops\Core\Kernel\Handlers\XoopsUser;
 
 /**
  * page module
@@ -23,11 +23,9 @@ use Xoops\Core\Kernel\Handlers\XoopsUser;
  * @since     2.6.0
  * @author    Mage Grégory (AKA Mage)
  */
-
 class PagePage_content extends XoopsObject
 {
-
-    public $options = array(
+    public $options = [
         'title',
         'author',
         'date',
@@ -39,8 +37,8 @@ class PagePage_content extends XoopsObject
         'ncoms',
         'notifications',
         'pdf',
-        'social'
-    );
+        'social',
+    ];
 
     /**
      * Constructor
@@ -88,6 +86,7 @@ class PagePage_content extends XoopsObject
         $ret['content_date'] = XoopsLocale::formatTimestamp($this->getVar('content_create'), $page->getConfig('page_dateformat'));
         $ret['content_time'] = XoopsLocale::formatTimestamp($this->getVar('content_create'), $page->getConfig('page_timeformat'));
         $ret['content_rating'] = number_format($this->getVar('content_rating'), 2);
+
         return $ret;
     }
 
@@ -95,57 +94,59 @@ class PagePage_content extends XoopsObject
     {
         $ret = parent::getValues();
         unset($ret['dohtml']);
+
         return $ret;
     }
 
     public function getOptions()
     {
         $xoops = Xoops::getInstance();
-        $ret = array();
-        if ($this->getVar('content_dotitle') == 1) {
+        $ret = [];
+        if (1 == $this->getVar('content_dotitle')) {
             array_push($ret, 'title');
         }
-        if ($this->getVar('content_doauthor') == 1) {
+        if (1 == $this->getVar('content_doauthor')) {
             array_push($ret, 'author');
         }
-        if ($this->getVar('content_dodate') == 1) {
+        if (1 == $this->getVar('content_dodate')) {
             array_push($ret, 'date');
         }
-        if ($this->getVar('content_dohits') == 1) {
+        if (1 == $this->getVar('content_dohits')) {
             array_push($ret, 'hits');
         }
-        if ($this->getVar('content_dorating') == 1) {
+        if (1 == $this->getVar('content_dorating')) {
             array_push($ret, 'rating');
         }
-        if ($this->getVar('content_doprint') == 1) {
+        if (1 == $this->getVar('content_doprint')) {
             array_push($ret, 'print');
         }
-        if ($this->getVar('content_domail') == 1) {
+        if (1 == $this->getVar('content_domail')) {
             array_push($ret, 'mail');
         }
         if ($xoops->isActiveModule('comments')) {
-            if ($this->getVar('content_docoms') == 1) {
+            if (1 == $this->getVar('content_docoms')) {
                 array_push($ret, 'coms');
             }
-            if ($this->getVar('content_doncoms') == 1) {
+            if (1 == $this->getVar('content_doncoms')) {
                 array_push($ret, 'ncoms');
             }
         }
         if ($xoops->isActiveModule('notifications')) {
-            if ($this->getVar('content_donotifications') == 1) {
+            if (1 == $this->getVar('content_donotifications')) {
                 array_push($ret, 'notifications');
             }
         }
         if ($xoops->isActiveModule('pdf')) {
-            if ($this->getVar('content_dopdf') == 1) {
+            if (1 == $this->getVar('content_dopdf')) {
                 array_push($ret, 'pdf');
             }
         }
         if ($xoops->isActiveModule('xoosocialnetwork')) {
-            if ($this->getVar('content_dosocial') == 1) {
+            if (1 == $this->getVar('content_dosocial')) {
                 array_push($ret, 'social');
             }
         }
+
         return $ret;
     }
 
@@ -157,9 +158,6 @@ class PagePage_content extends XoopsObject
 
 class PagePage_contentHandler extends XoopsPersistableObjectHandler
 {
-    /**
-     * @param null|Connection $db
-     */
     public function __construct(Connection $db = null)
     {
         parent::__construct($db, 'page_content', 'pagepage_content', 'content_id', 'content_title');
@@ -170,7 +168,6 @@ class PagePage_contentHandler extends XoopsPersistableObjectHandler
         $helper = Page::getInstance();
         $xoops = $helper->xoops();
         $module_id = $helper->getModule()->getVar('mid');
-
 
         // get permitted id
         $groups = $xoops->getUserGroups();
@@ -185,6 +182,7 @@ class PagePage_contentHandler extends XoopsPersistableObjectHandler
         $criteria->setOrder($order);
         $criteria->setStart($start);
         $criteria->setLimit($limit);
+
         return parent::getAll($criteria);
     }
 
@@ -207,6 +205,7 @@ class PagePage_contentHandler extends XoopsPersistableObjectHandler
         $criteria->setOrder($order);
         $criteria->setStart($start);
         $criteria->setLimit($limit);
+
         return parent::getCount($criteria);
     }
 
@@ -217,6 +216,7 @@ class PagePage_contentHandler extends XoopsPersistableObjectHandler
         $criteria->setOrder($order);
         $criteria->setStart($start);
         $criteria->setLimit($limit);
+
         return parent::getAll($criteria);
     }
 
@@ -227,6 +227,7 @@ class PagePage_contentHandler extends XoopsPersistableObjectHandler
         $criteria->setOrder($order);
         $criteria->setStart($start);
         $criteria->setLimit($limit);
+
         return parent::getCount($criteria);
     }
 
@@ -238,7 +239,8 @@ class PagePage_contentHandler extends XoopsPersistableObjectHandler
         }
         $criteria->setSort($sort);
         $criteria->setOrder($order);
-        return parent::getAll($criteria, array('content_id', 'content_title'), false);
+
+        return parent::getAll($criteria, ['content_id', 'content_title'], false);
     }
 
     public function getClone($content_id)
@@ -254,6 +256,7 @@ class PagePage_contentHandler extends XoopsPersistableObjectHandler
 
         $obj = parent::create();
         $obj->setVars($values);
+
         return $obj;
     }
 }

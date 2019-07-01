@@ -11,8 +11,8 @@
 
 namespace Xmf\Database;
 
-use Doctrine\DBAL\FetchMode;
 use Doctrine\DBAL\Driver\Statement;
+use Doctrine\DBAL\FetchMode;
 use Xmf\Language;
 use Xoops\Core\Database\Connection;
 use Xoops\Core\Database\Factory;
@@ -68,7 +68,6 @@ class Tables
 
     /**
      * Constructor
-     *
      */
     public function __construct()
     {
@@ -102,10 +101,10 @@ class Tables
      */
     public function addColumn($table, $column, $attributes)
     {
-        $columnDef = array(
+        $columnDef = [
             'name' => $column,
-            'attributes' => $attributes
-        );
+            'attributes' => $attributes,
+        ];
 
         // Find table def.
         if (isset($this->tables[$table])) {
@@ -115,7 +114,7 @@ class Tables
                 array_push($tableDef['columns'], $columnDef);
             } else {
                 foreach ($tableDef['columns'] as $col) {
-                    if (strcasecmp($col['name'], $column) == 0) {
+                    if (0 == strcasecmp($col['name'], $column)) {
                         return true;
                     }
                 }
@@ -210,10 +209,10 @@ class Tables
         $column = str_replace(' ', '', $columnName);
         $length = '';
 
-        $lengthPosition = strpos($column, '(');
+        $lengthPosition = mb_strpos($column, '(');
         if ($lengthPosition) {
-            $length = ' ' . substr($column, $lengthPosition);
-            $column = substr($column, 0, $lengthPosition);
+            $length = ' ' . mb_substr($column, $lengthPosition);
+            $column = mb_substr($column, 0, $lengthPosition);
         }
         $quotedName = "`{$column}`{$length}";
 
@@ -238,24 +237,23 @@ class Tables
             $this->tables[$table] = $tableDef;
 
             return true;
-        } else {
-            if ($tableDef === true) {
-                $tableDef = array(
+        }
+        if (true === $tableDef) {
+            $tableDef = [
                     'name' => $this->name($table),
                     'options' => 'ENGINE=InnoDB',
-                    'columns' => array(),
-                    'keys' => array(),
+                    'columns' => [],
+                    'keys' => [],
                     'create' => true,
-                );
-                $this->tables[$table] = $tableDef;
+                ];
+            $this->tables[$table] = $tableDef;
 
-                $this->queue[] = array('createtable' => $table);
+            $this->queue[] = ['createtable' => $table];
 
-                return true;
-            } else {
-                return false;
-            }
+            return true;
         }
+
+        return false;
     }
 
     /**
@@ -273,8 +271,10 @@ class Tables
         $tableDef = $this->getTable($table);
         if (is_array($tableDef)) {
             $this->tables[$table] = $tableDef;
+
             return true;
         }
+
         return false;
     }
 
@@ -293,7 +293,7 @@ class Tables
             $tableDef = $this->tables[$table];
             // loop thru and find the column
             foreach ($tableDef['columns'] as $col) {
-                if (strcasecmp($col['name'], $column) === 0) {
+                if (0 === strcasecmp($col['name'], $column)) {
                     return $col['attributes'];
                 }
             }
@@ -341,7 +341,7 @@ class Tables
             if (isset($tableDef['create']) && $tableDef['create']) {
                 // loop thru and find the column
                 foreach ($tableDef['columns'] as &$col) {
-                    if (strcasecmp($col['name'], $column) == 0) {
+                    if (0 == strcasecmp($col['name'], $column)) {
                         $col['name'] = $newName;
                         $col['attributes'] = $attributes;
                         break;
@@ -349,16 +349,15 @@ class Tables
                 }
 
                 return true;
-            } else {
-                $this->queue[] = "ALTER TABLE `{$tableDef['name']}` " .
+            }
+            $this->queue[] = "ALTER TABLE `{$tableDef['name']}` " .
                     "CHANGE COLUMN `{$column}` `{$newName}` {$attributes} ";
-                // loop thru and find the column
-                foreach ($tableDef['columns'] as &$col) {
-                    if (strcasecmp($col['name'], $column) == 0) {
-                        $col['name'] = $newName;
-                        $col['attributes'] = $attributes;
-                        break;
-                    }
+            // loop thru and find the column
+            foreach ($tableDef['columns'] as &$col) {
+                if (0 == strcasecmp($col['name'], $column)) {
+                    $col['name'] = $newName;
+                    $col['attributes'] = $attributes;
+                    break;
                 }
             }
         } else {
@@ -394,14 +393,14 @@ class Tables
                 $this->queue[] = "INSERT INTO `{$copy}` SELECT * FROM `{$original}` ;";
             } else {
                 $tableDef['create'] = true;
-                $this->queue[] = array('createtable' => $newTable);
+                $this->queue[] = ['createtable' => $newTable];
             }
             $this->tables[$newTable] = $tableDef;
 
             return true;
-        } else {
-            return false;
         }
+
+        return false;
     }
 
     /**
@@ -462,14 +461,14 @@ class Tables
             if (isset($tableDef['create']) && $tableDef['create']) {
                 // strip everything but the PRIMARY from definition
                 foreach ($tableDef['keys'] as $keyName => $key) {
-                    if ($keyName !== 'PRIMARY') {
+                    if ('PRIMARY' !== $keyName) {
                         unset($tableDef['keys'][$keyName]);
                     }
                 }
             } else {
                 // build drops to strip everything but the PRIMARY
                 foreach ($tableDef['keys'] as $keyName => $key) {
-                    if ($keyName !== 'PRIMARY') {
+                    if ('PRIMARY' !== $keyName) {
                         $this->queue[] = "ALTER TABLE `{$tableDef['name']}` DROP INDEX {$keyName}";
                     }
                 }
@@ -518,7 +517,6 @@ class Tables
         return true;
     }
 
-
     /**
      * Add rename table operation to the work queue
      *
@@ -559,17 +557,17 @@ class Tables
             // Is this on a table we are adding?
             if (isset($tableDef['create']) && $tableDef['create']) {
                 $tableDef['options'] = $options;
-                return true;
-            } else {
-                $this->queue[] = "ALTER TABLE `{$tableDef['name']}` {$options} ";
-                $tableDef['options'] = $options;
+
                 return true;
             }
-        } else {
-            return $this->tableNotEstablished();
-        }
-    }
+            $this->queue[] = "ALTER TABLE `{$tableDef['name']}` {$options} ";
+            $tableDef['options'] = $options;
 
+            return true;
+        }
+
+        return $this->tableNotEstablished();
+    }
 
     /**
      * Clear the work queue
@@ -578,8 +576,8 @@ class Tables
      */
     public function resetQueue()
     {
-        $this->tables = array();
-        $this->queue  = array();
+        $this->tables = [];
+        $this->queue = [];
     }
 
     /**
@@ -609,7 +607,6 @@ class Tables
 
         return true;
     }
-
 
     /**
      * Create a DELETE statement and add it to the work queue
@@ -642,9 +639,9 @@ class Tables
      *
      * @param string  $table      table
      * @param array   $columns    array of 'column'=>'value' entries
-     * @param boolean $quoteValue true to quote values, false if caller handles quoting
+     * @param bool $quoteValue true to quote values, false if caller handles quoting
      *
-     * @return boolean true if no errors, false if errors encountered
+     * @return bool true if no errors, false if errors encountered
      */
     public function insert($table, $columns, $quoteValue = true)
     {
@@ -664,9 +661,9 @@ class Tables
             $this->queue[] = $sql;
 
             return true;
-        } else {
-            return $this->tableNotEstablished();
         }
+
+        return $this->tableNotEstablished();
     }
 
     /**
@@ -675,9 +672,9 @@ class Tables
      * @param string                 $table      table
      * @param array                  $columns    array of 'column'=>'value' entries
      * @param string|CriteriaElement $criteria   string where clause or object criteria
-     * @param boolean                $quoteValue true to quote values, false if caller handles quoting
+     * @param bool                $quoteValue true to quote values, false if caller handles quoting
      *
-     * @return boolean true if no errors, false if errors encountered
+     * @return bool true if no errors, false if errors encountered
      */
     public function update($table, $columns, $criteria, $quoteValue = true)
     {
@@ -701,9 +698,9 @@ class Tables
             $this->queue[] = $sql;
 
             return true;
-        } else {
-            return $this->tableNotEstablished();
         }
+
+        return $this->tableNotEstablished();
     }
 
     /**
@@ -724,8 +721,6 @@ class Tables
 
         return true;
     }
-
-
 
     /**
      * return SQL to create the table
@@ -750,7 +745,7 @@ class Tables
             }
             $keySql = '';
             foreach ($tableDef['keys'] as $keyName => $key) {
-                if ($keyName === 'PRIMARY') {
+                if ('PRIMARY' === $keyName) {
                     $keySql .= ",\n  PRIMARY KEY ({$key['columns']})";
                 } else {
                     $unique = $key['unique'] ? 'UNIQUE ' : '';
@@ -761,9 +756,9 @@ class Tables
             $sql .= "\n) {$tableDef['options']}";
 
             return $sql;
-        } else {
-            return $this->tableNotEstablished();
         }
+
+        return $this->tableNotEstablished();
     }
 
     /**
@@ -812,9 +807,9 @@ class Tables
      */
     protected function getTable($table)
     {
-        $tableDef = array();
+        $tableDef = [];
 
-        $sql  = 'SELECT TABLE_NAME, ENGINE, CHARACTER_SET_NAME ';
+        $sql = 'SELECT TABLE_NAME, ENGINE, CHARACTER_SET_NAME ';
         $sql .= ' FROM `INFORMATION_SCHEMA`.`TABLES` t, ';
         $sql .= ' `INFORMATION_SCHEMA`.`COLLATIONS` c ';
         $sql .= ' WHERE t.TABLE_SCHEMA = \'' . $this->databaseName . '\' ';
@@ -833,7 +828,7 @@ class Tables
         $tableDef['options'] = 'ENGINE=' . $tableSchema['ENGINE'] . ' '
             . 'DEFAULT CHARSET=' . $tableSchema['CHARACTER_SET_NAME'];
 
-        $sql  = 'SELECT * ';
+        $sql = 'SELECT * ';
         $sql .= ' FROM `INFORMATION_SCHEMA`.`COLUMNS` ';
         $sql .= ' WHERE TABLE_SCHEMA = \'' . $this->databaseName . '\' ';
         $sql .= ' AND TABLE_NAME = \'' . $this->name($table) . '\' ';
@@ -843,19 +838,19 @@ class Tables
 
         while ($column = $this->fetch($result)) {
             $attributes = ' ' . $column['COLUMN_TYPE'] . ' '
-                . (($column['IS_NULLABLE'] === 'NO') ? ' NOT NULL ' : '')
-                . (($column['COLUMN_DEFAULT'] === null) ? '' : " DEFAULT '" . $column['COLUMN_DEFAULT'] . "' ")
+                . (('NO' === $column['IS_NULLABLE']) ? ' NOT NULL ' : '')
+                . ((null === $column['COLUMN_DEFAULT']) ? '' : " DEFAULT '" . $column['COLUMN_DEFAULT'] . "' ")
                 . $column['EXTRA'];
 
-            $columnDef = array(
+            $columnDef = [
                 'name' => $column['COLUMN_NAME'],
-                'attributes' => $attributes
-            );
+                'attributes' => $attributes,
+            ];
 
             $tableDef['columns'][] = $columnDef;
-        };
+        }
 
-        $sql  = 'SELECT `INDEX_NAME`, `SEQ_IN_INDEX`, `NON_UNIQUE`, ';
+        $sql = 'SELECT `INDEX_NAME`, `SEQ_IN_INDEX`, `NON_UNIQUE`, ';
         $sql .= ' `COLUMN_NAME`, `SUB_PART` ';
         $sql .= ' FROM `INFORMATION_SCHEMA`.`STATISTICS` ';
         $sql .= ' WHERE TABLE_SCHEMA = \'' . $this->databaseName . '\' ';
@@ -885,7 +880,7 @@ class Tables
                     $keyCols .= ' (' . $key['SUB_PART'] . ')';
                 }
             }
-        };
+        }
         if (!empty($lastKey)) {
             $tableDef['keys'][$lastKey]['columns'] = $keyCols;
             $tableDef['keys'][$lastKey]['unique'] = $keyUnique;
@@ -976,6 +971,7 @@ class Tables
     {
         $this->lastError = _DB_XMF_TABLE_IS_NOT_DEFINED;
         $this->lastErrNo = -1;
+
         return false;
     }
 }

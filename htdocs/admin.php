@@ -19,7 +19,6 @@ use Xmf\Request;
  * @package     core
  * @version     $Id$
  */
-
 include __DIR__ . '/mainfile.php';
 
 $xoops = Xoops::getInstance();
@@ -47,7 +46,7 @@ $xoops->header();
  * Error warning messages
  */
 if ($xoops->getConfig('admin_warnings_enable')) {
-    $error_msg = array();
+    $error_msg = [];
 
     $install_dir = $xoops->path('install');
     if (is_dir($install_dir)) {
@@ -75,12 +74,12 @@ if ($xoops->getConfig('admin_warnings_enable')) {
     //www fits inside www_private, lets add a trailing slash to make sure it doesn't
     $xoops_path = $xbc->get('lib-path');
     $xoops_root_path = $xbc->get('root-path');
-    if (strpos($xoops_path, $xoops_root_path) !== false || strpos($xoops_path, $_SERVER['DOCUMENT_ROOT']) !== false) {
+    if (false !== mb_strpos($xoops_path, $xoops_root_path) || false !== mb_strpos($xoops_path, $_SERVER['DOCUMENT_ROOT'])) {
         $error_msg[] = sprintf(XoopsLocale::EF_FOLDER_IS_INSIDE_DOCUMENT_ROOT, $xoops_path);
     }
 
     $var_path = $xoops->path('var');
-    if (strpos($var_path, $xoops_root_path) !== false || strpos($var_path, $_SERVER['DOCUMENT_ROOT']) !== false) {
+    if (false !== mb_strpos($var_path, $xoops_root_path) || false !== mb_strpos($var_path, $_SERVER['DOCUMENT_ROOT'])) {
         $error_msg[] = sprintf(XoopsLocale::EF_FOLDER_IS_INSIDE_DOCUMENT_ROOT, $var_path);
     }
     $xoops->tpl()->assign('error_msg', $error_msg);
@@ -90,26 +89,26 @@ $xoopsorgnews = Request::getString('xoopsorgnews', null, 'GET');
 if (!empty($xoopsorgnews)) {
     // Multiple feeds
     $myts = \Xoops\Core\Text\Sanitizer::getInstance();
-    $rssurl = array();
+    $rssurl = [];
     //$rssurl[] = 'http://sourceforge.net/export/rss2_projnews.php?group_id=41586&rss_fulltext=1';
     $rssurl[] = 'https://xoops.org/modules/publisher/backend.php';
     $rssurl = array_unique(array_merge($rssurl, XoopsLocale::getAdminRssUrls()));
     $rssfile = 'admin/rss/adminnews-' . $xoops->getConfig('locale');
     $xoops->cache()->delete($rssfile);
-    $items = $xoops->cache()->cacheRead($rssfile, 'buildRssFeedCache', 24*60*60, $rssurl);
-    if ($items != '') {
+    $items = $xoops->cache()->cacheRead($rssfile, 'buildRssFeedCache', 24 * 60 * 60, $rssurl);
+    if ('' != $items) {
         $ret = '<table class="outer width100">';
         foreach (array_keys($items) as $i) {
             $ret .= '<tr class="head"><td><a href="' . htmlspecialchars($items[$i]['link']) . '" rel="external">';
             $ret .= htmlspecialchars($items[$i]['title']) . '</a> (' . htmlspecialchars($items[$i]['pubdate']) . ')</td></tr>';
-            if ($items[$i]['description'] != "") {
+            if ('' != $items[$i]['description']) {
                 $ret .= '<tr><td class="odd">' . $items[$i]['description'];
                 if (!empty($items[$i]['guid'])) {
                     $ret .= '&nbsp;&nbsp;<a href="' . htmlspecialchars($items[$i]['guid']) . '" rel="external" title="">' . XoopsLocale::MORE . '</a>';
                 }
                 $ret .= '</td></tr>';
             } else {
-                if ($items[$i]['guid'] != "") {
+                if ('' != $items[$i]['guid']) {
                     $ret .= '<tr><td class="even aligntop"></td><td colspan="2" class="odd"><a href="' . htmlspecialchars($items[$i]['guid']) . '" rel="external">' . _MORE . '</a></td></tr>';
                 }
             }
@@ -137,7 +136,7 @@ function buildRssFeedCache($rssurl)
                 for ($i = 0; $i < $count; $i++) {
                     // $_items[$i]['title'] = XoopsLocale::convert_encoding($_items[$i]['title'], XoopsLocale::getCharset(), 'UTF-8');
                     // $_items[$i]['description'] = XoopsLocale::convert_encoding($_items[$i]['description'], XoopsLocale::getCharset(), 'UTF-8');
-                    $items[(string)(strtotime($_items[$i]['pubdate'])) . "-" . (string)(++$cnt)] = $_items[$i];
+                    $items[(string)(strtotime($_items[$i]['pubdate'])) . '-' . (string)(++$cnt)] = $_items[$i];
                 }
             } else {
                 echo $rss2parser->getErrors();
@@ -145,5 +144,6 @@ function buildRssFeedCache($rssurl)
         }
     }
     krsort($items);
+
     return $items;
 }

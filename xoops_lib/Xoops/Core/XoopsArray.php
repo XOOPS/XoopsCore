@@ -23,7 +23,6 @@ namespace Xoops\Core;
  */
 class XoopsArray extends \ArrayObject implements AttributeInterface
 {
-
     /**
      * Retrieve an attribute
      *
@@ -36,9 +35,9 @@ class XoopsArray extends \ArrayObject implements AttributeInterface
     {
         if ($this->offsetExists($name)) {
             return $this->offsetGet($name);
-        } else {
-            return $default;
         }
+
+        return $default;
     }
 
     /**
@@ -52,6 +51,7 @@ class XoopsArray extends \ArrayObject implements AttributeInterface
     public function set($name, $value)
     {
         $this->offsetSet($name, $value);
+
         return $this;
     }
 
@@ -60,7 +60,7 @@ class XoopsArray extends \ArrayObject implements AttributeInterface
      *
      * @param string $name Name of the attribute
      *
-     * @return boolean true if named attribute is set
+     * @return bool true if named attribute is set
      */
     public function has($name)
     {
@@ -93,6 +93,6 @@ class XoopsArray extends \ArrayObject implements AttributeInterface
      */
     public function clear()
     {
-        return $this->exchangeArray(array());
+        return $this->exchangeArray([]);
     }
 }

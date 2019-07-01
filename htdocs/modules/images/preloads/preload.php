@@ -9,8 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
-use Xoops\Core\PreloadItem;
 use Xmf\Request;
+use Xoops\Core\PreloadItem;
 
 /**
  * Images core preloads
@@ -24,9 +24,9 @@ class ImagesPreload extends PreloadItem
     public static function eventCoreIncludeCommonEnd($args)
     {
         $path = dirname(__DIR__);
-        XoopsLoad::addMap(array(
+        XoopsLoad::addMap([
             'images' => $path . '/class/helper.php',
-        ));
+        ]);
     }
 
     public static function eventCoreClassXoopsformFormdhtmltextareaCodeicon($args)
@@ -40,7 +40,7 @@ class ImagesPreload extends PreloadItem
     {
         $uri = '';
         foreach (Request::get() as $k => $v) {
-            $uri .=  urlencode($k) . '=' . urlencode($v) . '&';
+            $uri .= urlencode($k) . '=' . urlencode($v) . '&';
         }
         Xoops::getInstance()->redirect("modules/images/image.php?{$uri}", 0);
     }
@@ -49,7 +49,7 @@ class ImagesPreload extends PreloadItem
     {
         $uri = '';
         foreach (Request::get() as $k => $v) {
-            $uri .=  urlencode($k) . '=' . urlencode($v) . '&';
+            $uri .= urlencode($k) . '=' . urlencode($v) . '&';
         }
         Xoops::getInstance()->redirect("modules/images/imagemanager.php?{$uri}", 0);
     }

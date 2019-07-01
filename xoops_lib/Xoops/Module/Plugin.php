@@ -16,13 +16,12 @@ namespace Xoops\Module;
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author    trabis <lusopoemas@gmail.com>
  */
-
 class Plugin
 {
     /**
      * @var array
      */
-    protected static $plugins = array();
+    protected static $plugins = [];
 
     /**
      * @param string $dirname    module dirname
@@ -35,12 +34,13 @@ class Plugin
     {
         $inactiveModules = false;
         if ($force) {
-            $inactiveModules = array($dirname);
+            $inactiveModules = [$dirname];
         }
         $available = self::getPlugins($pluginName, $inactiveModules);
         if (!in_array($dirname, array_keys($available))) {
             return false;
         }
+
         return $available[$dirname];
     }
 
@@ -53,7 +53,7 @@ class Plugin
     public static function getPlugins($pluginName = 'system', $inactiveModules = false)
     {
         if (!isset(static::$plugins[$pluginName])) {
-            static::$plugins[$pluginName] = array();
+            static::$plugins[$pluginName] = [];
             $xoops = \Xoops::getInstance();
 
             //Load interface for this plugin
@@ -63,7 +63,7 @@ class Plugin
 
             $dirnames = $xoops->getActiveModules();
 
-            \Xoops::getInstance()->events()->triggerEvent('core.module.plugin.get.plugins', array(&$dirnames, $pluginName));
+            \Xoops::getInstance()->events()->triggerEvent('core.module.plugin.get.plugins', [&$dirnames, $pluginName]);
 
             if (is_array($inactiveModules)) {
                 $dirnames = array_merge($dirnames, $inactiveModules);
@@ -79,6 +79,7 @@ class Plugin
                 }
             }
         }
+
         return static::$plugins[$pluginName];
     }
 
@@ -88,6 +89,6 @@ class Plugin
      */
     public static function resetPluginsCache()
     {
-        static::$plugins = array();
+        static::$plugins = [];
     }
 }

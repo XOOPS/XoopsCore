@@ -29,11 +29,11 @@ class SystemBreadcrumb
     /**
      * @var array
      */
-    private $_bread = array();
+    private $_bread = [];
 
-    var $_help;
+    public $_help;
 
-    var $_tips;
+    public $_tips;
 
     /**
      * Actual System BreadCrumb Object
@@ -42,7 +42,7 @@ class SystemBreadcrumb
      */
     private function __construct($fct)
     {
-        if ($fct != '') {
+        if ('' != $fct) {
             $this->_directory = $fct;
         }
     }
@@ -55,13 +55,14 @@ class SystemBreadcrumb
      * @staticvar SystemBreadcrumb
      * @return SystemBreadcrumb
      */
-    static public function getInstance($fct = '')
+    public static function getInstance($fct = '')
     {
         static $instance;
         if (!isset($instance)) {
             $class = __CLASS__;
             $instance = new $class($fct);
         }
+
         return $instance;
     }
 
@@ -73,19 +74,23 @@ class SystemBreadcrumb
     /**
      * Add link to breadcrumb
 
+     * @param mixed $title
+     * @param mixed $link
+     * @param mixed $home
      */
-    function addLink($title = '', $link = '', $home = false)
+    public function addLink($title = '', $link = '', $home = false)
     {
-        $this->_bread[] = array(
-            'link' => $link, 'title' => $title, 'home' => $home
-        );
+        $this->_bread[] = [
+            'link' => $link, 'title' => $title, 'home' => $home,
+        ];
     }
 
     /**
      * Add Help link
 
+     * @param mixed $link
      */
-    function addHelp($link = '')
+    public function addHelp($link = '')
     {
         $this->_help = $link;
     }
@@ -93,17 +98,17 @@ class SystemBreadcrumb
     /**
      * Add Tips
 
+     * @param mixed $value
      */
-    function addTips($value)
+    public function addTips($value)
     {
         $this->_tips = $value;
     }
 
     /**
      * Render System BreadCrumb
-
      */
-    function render()
+    public function render()
     {
         $xoops = Xoops::getInstance();
         if ($xoops->tpl()) {
@@ -133,7 +138,7 @@ class SystemBreadcrumb
                 if ($menu['home']) {
                     $out .= '<li><a href="' . $menu['link'] . '" title="' . $menu['title'] . '"><img src="images/home.png" alt="' . $menu['title'] . '" class="home" /></a></li>';
                 } else {
-                    if ($menu['link'] != '') {
+                    if ('' != $menu['link']) {
                         $out .= '<li><a href="' . $menu['link'] . '" title="' . $menu['title'] . '">' . $menu['title'] . '</a></li>';
                     } else {
                         $out .= '<li>' . $menu['title'] . '</li>';

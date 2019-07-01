@@ -22,21 +22,21 @@
 class CodexLocalePl
 {
     // Module
-    const MODULE_NAME = "Codex";
-    const MODULE_DESC = "Przykłady kodu dla programistów";
+    const MODULE_NAME = 'Codex';
+    const MODULE_DESC = 'Przykłady kodu dla programistów';
 
     // Configs
-    const UCONF_ITEM1 = "Pozycja 1";
-    const UCONF_ITEM1_DESC = "Pozycja 1 desc";
-    const UCONF_ITEM2 = "Pozycja 2";
-    const UCONF_ITEM2_DESC = "Pozycja 2 desc";
-    const UCONF_CAT1 = "Cat 1";
-    const UCONF_CAT1_DESC = "Cat 1 desc";
-    const UCONF_CAT2 = "Cat 2";
-    const UCONF_CAT2_DESC = "Cat 2 desc";
+    const UCONF_ITEM1 = 'Pozycja 1';
+    const UCONF_ITEM1_DESC = 'Pozycja 1 desc';
+    const UCONF_ITEM2 = 'Pozycja 2';
+    const UCONF_ITEM2_DESC = 'Pozycja 2 desc';
+    const UCONF_CAT1 = 'Cat 1';
+    const UCONF_CAT1_DESC = 'Cat 1 desc';
+    const UCONF_CAT2 = 'Cat 2';
+    const UCONF_CAT2_DESC = 'Cat 2 desc';
 
-    const MY_DOG_NAME_AND_AGE = "Mój pies nazywa się {name}. On {years,plural,=0{nie jest jeszcze urodzony} =1{ma tylko jeden rok} =2{ma # lata}  =3{ma # lata}  =4{ma # lata} other{ma # lat}}";
-    const YOU_LIKED_THIS = "
+    const MY_DOG_NAME_AND_AGE = 'Mój pies nazywa się {name}. On {years,plural,=0{nie jest jeszcze urodzony} =1{ma tylko jeden rok} =2{ma # lata}  =3{ma # lata}  =4{ma # lata} other{ma # lat}}';
+    const YOU_LIKED_THIS = '
         Ty {likeCount,plural,
         offset: 1
         =0{tego nie lubiłeś}
@@ -44,7 +44,6 @@ class CodexLocalePl
         0{nikt inny tego nie lubił} 
         one{i jedna inna osoba to lubiliście}
         other{i # inne osoby polubiły to}
-    }";
-    const GENDER = "{name} jest {gender,select,woman{kobietą} man{mężczyzną} dog{ psem} picture{ obrazem} other{ kimś}} i {gender,select,woman{ona} man{on} other{on}} kocha XOOPS!";
-
+    }';
+    const GENDER = '{name} jest {gender,select,woman{kobietą} man{mężczyzną} dog{ psem} picture{ obrazem} other{ kimś}} i {gender,select,woman{ona} man{on} other{on}} kocha XOOPS!';
 }

@@ -21,7 +21,6 @@ use Xoops\Core\Kernel\XoopsObject;
  * @subpackage      userrank
  * @version         $Id$
  */
-
 class UserrankRanksForm extends Xoops\Form\ThemeForm
 {
     /**
@@ -56,7 +55,7 @@ class UserrankRanksForm extends Xoops\Form\ThemeForm
         \Xoops\Core\Lists\ImageFile::setOptionsArray($imageselect_img, $xoops->path('uploads/ranks'));
         $imageselect_img->setExtra("onchange='showImgSelected(\"xo-ranks-img\", \"rank_image\", \"ranks\", \"\", \"" . \XoopsBaseConfig::get('uploads-url') . "\")'");
         $imgtray_img->addElement($imageselect_img, false);
-        $imgtray_img->addElement(new Xoops\Form\Label('', "<br /><img src='" . \XoopsBaseConfig::get('uploads-url') . "/ranks/" . $blank_img . "' name='image_img' id='xo-ranks-img' alt='' />"));
+        $imgtray_img->addElement(new Xoops\Form\Label('', "<br /><img src='" . \XoopsBaseConfig::get('uploads-url') . '/ranks/' . $blank_img . "' name='image_img' id='xo-ranks-img' alt='' />"));
 
         $fileseltray_img = new Xoops\Form\ElementTray('<br />', '<br /><br />');
         $fileseltray_img->addElement(new Xoops\Form\File(_AM_USERRANK_UPLOAD, 'rank_image'), false);

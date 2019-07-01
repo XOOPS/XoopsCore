@@ -24,14 +24,14 @@ define('PROTECTOR_HTTPBL_KEY', '............');
 
 class protector_postcommon_post_deny_by_httpbl extends ProtectorFilterAbstract
 {
-    function execute()
+    public function execute()
     {
         $xoops = Xoops::getInstance();
 
         // http:bl servers (don't enable too many servers)
-        $rbls = array(
+        $rbls = [
             'http:BL' => PROTECTOR_HTTPBL_KEY . '.%s.dnsbl.httpbl.org',
-        );
+        ];
 
         $rev_ip = implode('.', array_reverse(explode('.', @$_SERVER['REMOTE_ADDR'])));
         // test
@@ -46,6 +46,7 @@ class protector_postcommon_post_deny_by_httpbl extends ProtectorFilterAbstract
                 die(_MD_PROTECTOR_DENYBYRBL);
             }
         }
+
         return true;
     }
 }

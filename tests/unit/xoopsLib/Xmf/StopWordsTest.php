@@ -1,4 +1,5 @@
 <?php
+
 namespace Xmf\Test;
 
 use Xmf\StopWords;
@@ -10,7 +11,7 @@ class MockStopWords extends \Xmf\StopWords
 {
     public function __construct()
     {
-        $this->stopwordList = array_fill_keys(array('it', 'is', 'our', 'mock'), true);
+        $this->stopwordList = array_fill_keys(['it', 'is', 'our', 'mock'], true);
     }
 }
 
@@ -27,7 +28,7 @@ class StopWordsTest extends \PHPUnit\Framework\TestCase
      */
     protected function setUp()
     {
-        $this->object = new MockStopWords;
+        $this->object = new MockStopWords();
     }
 
     /**

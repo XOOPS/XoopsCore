@@ -26,7 +26,7 @@ class SelectEditor extends ElementTray
     /**
      * @var array
      */
-    public $allowed_editors = array();
+    public $allowed_editors = [];
 
     /**
      * @var Form
@@ -54,7 +54,7 @@ class SelectEditor extends ElementTray
      * @param Form    $form            the form calling the editor selection
      * @param string  $name            editor name
      * @param string  $value           Pre-selected text value
-     * @param boolean $nohtml          dohtml disabled
+     * @param bool $nohtml          dohtml disabled
      * @param array   $allowed_editors allowed editors
      */
     public function __construct(
@@ -62,7 +62,7 @@ class SelectEditor extends ElementTray
         $name = 'editor',
         $value = null,
         $nohtml = false,
-        $allowed_editors = array()
+        $allowed_editors = []
     ) {
         parent::__construct(\XoopsLocale::A_SELECT);
         $this->allowed_editors = $allowed_editors;
@@ -81,12 +81,13 @@ class SelectEditor extends ElementTray
     {
         $editor_handler = \XoopsEditorHandler::getInstance();
         $editor_handler->allowed_editors = $this->allowed_editors;
-        $option_select = new Select("", $this->name, $this->value);
+        $option_select = new Select('', $this->name, $this->value);
         $onchangeCode = '"if(this.options[this.selectedIndex].value.length > 0 ){window.document.forms.'
             . $this->form->getName() . '.submit();}"';
         $option_select->set('onchange', $onchangeCode);
         $option_select->addOptionArray($editor_handler->getList($this->nohtml));
         $this->addElement($option_select);
+
         return parent::defaultRender();
     }
 }

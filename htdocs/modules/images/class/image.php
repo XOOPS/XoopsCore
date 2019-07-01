@@ -12,7 +12,6 @@
 use Xoops\Core\Database\Connection;
 use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\Kernel\CriteriaCompo;
-use Xoops\Core\Kernel\CriteriaElement;
 use Xoops\Core\Kernel\XoopsObject;
 use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 
@@ -23,7 +22,6 @@ use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
  * @author
  * @version         $Id$
  */
-
 class ImagesImage extends XoopsObject
 {
     /**
@@ -78,7 +76,6 @@ class ImagesImageHandler extends XoopsPersistableObjectHandler
     {
         $this->table_link = $this->db2->prefix('imagebody');
         $this->className = 'ImagesImage_Body';
-
 
         $criteria = new CriteriaCompo();
         $criteria->add(new Criteria('o.image_id', $image_id));

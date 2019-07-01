@@ -20,7 +20,6 @@ use Xmf\Request;
  * @since           2.0.0
  * @version         $Id$
  */
-
 include __DIR__ . '/mainfile.php';
 $xoops = Xoops::getInstance();
 $xoops->events()->triggerEvent('core.lostpass.start');
@@ -42,21 +41,21 @@ $getuser = $userHandler->getObjects(new Criteria('email', $email));
 
 if (empty($getuser)) {
     $msg = XoopsLocale::E_NO_USER_FOUND;
-    $xoops->redirect("user.php", 2, $msg);
+    $xoops->redirect('user.php', 2, $msg);
 } else {
     $userObject = $getuser[0]; // what if there was more than one?
     $code = Request::getCmd('code', '', 'GET');
-    $areyou = substr(md5($userObject->getVar("pass")), 0, 5);
-    if ($code != '' && $areyou == $code) {
+    $areyou = mb_substr(md5($userObject->getVar('pass')), 0, 5);
+    if ('' != $code && $areyou == $code) {
         $newpass = $xoops->makePass();
         $xoopsMailer = $xoops->getMailer();
         $xoopsMailer->useMail();
-        $xoopsMailer->setTemplate("lostpass2.tpl");
-        $xoopsMailer->assign("SITENAME", $xoops->getConfig('sitename'));
-        $xoopsMailer->assign("ADMINMAIL", $xoops->getConfig('adminmail'));
-        $xoopsMailer->assign("SITEURL", $xoops_url . "/");
-        $xoopsMailer->assign("IP", $_SERVER['REMOTE_ADDR']);
-        $xoopsMailer->assign("NEWPWD", $newpass);
+        $xoopsMailer->setTemplate('lostpass2.tpl');
+        $xoopsMailer->assign('SITENAME', $xoops->getConfig('sitename'));
+        $xoopsMailer->assign('ADMINMAIL', $xoops->getConfig('adminmail'));
+        $xoopsMailer->assign('SITEURL', $xoops_url . '/');
+        $xoopsMailer->assign('IP', $_SERVER['REMOTE_ADDR']);
+        $xoopsMailer->assign('NEWPWD', $newpass);
         $xoopsMailer->setToUsers($userObject);
         $xoopsMailer->setFromEmail($xoops->getConfig('adminmail'));
         $xoopsMailer->setFromName($xoops->getConfig('sitename'));
@@ -65,23 +64,23 @@ if (empty($getuser)) {
             echo $xoopsMailer->getErrors();
         }
         // Next step: add the new password to the database
-        $userObject->setVar("pass", password_hash($newpass, PASSWORD_DEFAULT));
+        $userObject->setVar('pass', password_hash($newpass, PASSWORD_DEFAULT));
         if (false === $userHandler->insert($userObject)) {
             $xoops->header();
             echo XoopsLocale::E_USER_NOT_UPDATED;
             $xoops->footer();
         }
-        $xoops->redirect("user.php", 3, sprintf(XoopsLocale::SF_PASSWORD_SENT_TO, $userObject->getVar("uname")), false);
-        // If no Code, send it
+        $xoops->redirect('user.php', 3, sprintf(XoopsLocale::SF_PASSWORD_SENT_TO, $userObject->getVar('uname')), false);
+    // If no Code, send it
     } else {
         $xoopsMailer = $xoops->getMailer();
         $xoopsMailer->useMail();
-        $xoopsMailer->setTemplate("lostpass1.tpl");
-        $xoopsMailer->assign("SITENAME", $xoops->getConfig('sitename'));
-        $xoopsMailer->assign("ADMINMAIL", $xoops->getConfig('adminmail'));
-        $xoopsMailer->assign("SITEURL", $xoops_url . "/");
-        $xoopsMailer->assign("IP", $_SERVER['REMOTE_ADDR']);
-        $xoopsMailer->assign("NEWPWD_LINK", $xoops_url . "/lostpass.php?email=" . $email . "&code=" . $areyou);
+        $xoopsMailer->setTemplate('lostpass1.tpl');
+        $xoopsMailer->assign('SITENAME', $xoops->getConfig('sitename'));
+        $xoopsMailer->assign('ADMINMAIL', $xoops->getConfig('adminmail'));
+        $xoopsMailer->assign('SITEURL', $xoops_url . '/');
+        $xoopsMailer->assign('IP', $_SERVER['REMOTE_ADDR']);
+        $xoopsMailer->assign('NEWPWD_LINK', $xoops_url . '/lostpass.php?email=' . $email . '&code=' . $areyou);
         $xoopsMailer->setToUsers($userObject);
         $xoopsMailer->setFromEmail($xoops->getConfig('adminmail'));
         $xoopsMailer->setFromName($xoops->getConfig('sitename'));
@@ -90,7 +89,7 @@ if (empty($getuser)) {
         if (!$xoopsMailer->send()) {
             echo $xoops->alert('error', $xoopsMailer->getErrors(false));
         } else {
-            echo $xoops->alert('success', sprintf(XoopsLocale::F_CONFIRMATION_EMAIL_SENT, $userObject->getVar("uname")));
+            echo $xoops->alert('success', sprintf(XoopsLocale::F_CONFIRMATION_EMAIL_SENT, $userObject->getVar('uname')));
         }
         $xoops->footer();
     }

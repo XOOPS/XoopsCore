@@ -11,7 +11,6 @@
 
 namespace Xoops\Core\Kernel\Dtype;
 
-use Xoops\Core\Kernel\Dtype;
 use Xoops\Core\Kernel\XoopsObject;
 
 /**
@@ -37,7 +36,8 @@ class DtypeDecimal extends DtypeAbstract
     public function cleanVar(XoopsObject $obj, $key)
     {
         $value = $obj->vars[$key]['value'];
-        $value = doubleval($value);
+        $value = floatval($value);
+
         return $value;
     }
 }

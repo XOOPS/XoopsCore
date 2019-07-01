@@ -19,7 +19,6 @@
  * @author          Mage Grégory (AKA Mage)
  * @version         $Id$
  */
-
 class PagePage_contentForm extends Xoops\Form\ThemeForm
 {
     /**
@@ -42,15 +41,15 @@ class PagePage_contentForm extends Xoops\Form\ThemeForm
 
         //Author
 //        if ($helper->isUserAdmin()) {
-            $content_author = $obj->isNew() ? $xoops->user->getVar('uid') : $obj->getVar('content_author');
-            $tab1->addElement(new Xoops\Form\SelectUser(XoopsLocale::AUTHOR, 'content_author', true, $content_author, 1, false), true);
+        $content_author = $obj->isNew() ? $xoops->user->getVar('uid') : $obj->getVar('content_author');
+        $tab1->addElement(new Xoops\Form\SelectUser(XoopsLocale::AUTHOR, 'content_author', true, $content_author, 1, false), true);
 //        }
         //date
         $tab1->addElement(new Xoops\Form\DateTimeSelect(XoopsLocale::DATE, 'content_create', $obj->getVar('content_create')));
         //title
         $tab1->addElement(new Xoops\Form\Text(XoopsLocale::TITLE, 'content_title', 12, 255, $obj->getVar('content_title'), ''), true);
         // editor
-        $editor_configs=array();
+        $editor_configs = [];
         $editor_configs['editor'] = $helper->getConfig('page_editor');
         $editor_configs['rows'] = 12;
         $editor_configs['cols'] = 12;
@@ -94,7 +93,7 @@ class PagePage_contentForm extends Xoops\Form\ThemeForm
         $checkbox = new Xoops\Form\Checkbox(XoopsLocale::OPTIONS, 'content_option', $content_option, false);
         $checkbox->setDescription(PageLocale::CONTENT_OPTIONS_DSC);
         foreach ($obj->options as $option) {
-            $checkbox->addOption($option, \Xoops\Locale::translate('L_CONTENT_DO' . strtoupper($option), 'page'));
+            $checkbox->addOption($option, \Xoops\Locale::translate('L_CONTENT_DO' . mb_strtoupper($option), 'page'));
         }
         $tab3->addElement($checkbox);
         //maindisplay

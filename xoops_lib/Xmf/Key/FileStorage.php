@@ -25,7 +25,6 @@ namespace Xmf\Key;
  */
 class FileStorage implements StorageInterface
 {
-
     /**
      * @var string $storagePath filesystem path to storage
      */
@@ -70,7 +69,8 @@ class FileStorage implements StorageInterface
         $db = \XoopsDatabaseFactory::getDatabaseConnection();
         $prefix = $db->prefix();
         $secret = md5($prefix);
-        $secret = substr($secret, 8, 8);
+        $secret = mb_substr($secret, 8, 8);
+
         return $secret;
     }
 
@@ -80,7 +80,7 @@ class FileStorage implements StorageInterface
      * @param string $name key name
      * @param string $data key data, serialized to string if required
      *
-     * @return boolean true if key saved, otherwise false
+     * @return bool true if key saved, otherwise false
      */
     public function save($name, $data)
     {
@@ -89,6 +89,7 @@ class FileStorage implements StorageInterface
         }
         $fileContents = "<?php\n//**Warning** modifying this file will break things!\n"
             . "return '{$data}';\n";
+
         return (false !== file_put_contents($this->fileName($name), $fileContents));
     }
 
@@ -109,7 +110,7 @@ class FileStorage implements StorageInterface
      *
      * @param string $name key name
      *
-     * @return boolean true if key exists, otherwise false
+     * @return bool true if key exists, otherwise false
      */
     public function exists($name)
     {
@@ -121,7 +122,7 @@ class FileStorage implements StorageInterface
      *
      * @param string $name key name
      *
-     * @return boolean true if key deleted, otherwise false
+     * @return bool true if key deleted, otherwise false
      */
     public function delete($name)
     {

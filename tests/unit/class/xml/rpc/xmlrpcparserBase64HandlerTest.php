@@ -1,12 +1,12 @@
 <?php
-require_once(__DIR__.'/../../../init_new.php');
+require_once(__DIR__ . '/../../../init_new.php');
 
 class RpcBase64HandlerTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass = 'RpcBase64Handler';
     protected $object = null;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->object = new $this->myclass();
     }

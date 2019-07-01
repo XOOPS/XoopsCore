@@ -1,7 +1,8 @@
 <?php
+
 namespace Xoops\Form;
 
-require_once(__DIR__.'/../../../init_new.php');
+require_once(__DIR__ . '/../../../init_new.php');
 
 class SelectCountryTest extends \PHPUnit\Framework\TestCase
 {
@@ -30,18 +31,18 @@ class SelectCountryTest extends \PHPUnit\Framework\TestCase
     public function testRender()
     {
         $value = $this->object->render();
-        $this->assertTrue(is_string($value));
-        $this->assertTrue(false !== strpos($value, '<select'));
-        $this->assertTrue(false !== strpos($value, 'name="name"'));
-        $this->assertTrue(false !== strpos($value, 'size="1"'));
-        $this->assertTrue(false !== strpos($value, 'title="Caption"'));
-        $this->assertTrue(false !== strpos($value, 'id="name"'));
+        $this->assertInternalType('string', $value);
+        $this->assertTrue(false !== mb_strpos($value, '<select'));
+        $this->assertTrue(false !== mb_strpos($value, 'name="name"'));
+        $this->assertTrue(false !== mb_strpos($value, 'size="1"'));
+        $this->assertTrue(false !== mb_strpos($value, 'title="Caption"'));
+        $this->assertTrue(false !== mb_strpos($value, 'id="name"'));
 
-        $this->assertTrue(false !== strpos($value, '<option'));
-        $this->assertTrue(false !== strpos($value, 'value="US"'));
-        $this->assertTrue(false !== strpos($value, '</option>'));
+        $this->assertTrue(false !== mb_strpos($value, '<option'));
+        $this->assertTrue(false !== mb_strpos($value, 'value="US"'));
+        $this->assertTrue(false !== mb_strpos($value, '</option>'));
 
-        $this->assertTrue(false !== strpos($value, '</select>'));
+        $this->assertTrue(false !== mb_strpos($value, '</select>'));
     }
 
     public function test__construct()

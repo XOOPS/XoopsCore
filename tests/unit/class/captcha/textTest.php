@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/../../init_new.php');
+require_once(__DIR__ . '/../../init_new.php');
 
 class TextTest extends \PHPUnit\Framework\TestCase
 {
@@ -17,7 +17,7 @@ class TextTest extends \PHPUnit\Framework\TestCase
         $instance = new $this->myclass();
 
         $value = $instance->render();
-        $this->assertTrue(is_string($value));
+        $this->assertInternalType('string', $value);
     }
 
     public function test_loadText()
@@ -25,6 +25,6 @@ class TextTest extends \PHPUnit\Framework\TestCase
         $instance = new $this->myclass();
 
         $value = $instance->loadText();
-        $this->assertTrue(is_string($value));
+        $this->assertInternalType('string', $value);
     }
 }

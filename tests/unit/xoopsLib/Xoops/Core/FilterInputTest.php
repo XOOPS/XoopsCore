@@ -1,7 +1,8 @@
 <?php
+
 namespace Xoops\Core;
 
-require_once(__DIR__.'/../../../init_new.php');
+require_once(__DIR__ . '/../../../init_new.php');
 
 class FilterInputTest extends \PHPUnit\Framework\TestCase
 {
@@ -65,25 +66,25 @@ class FilterInputTest extends \PHPUnit\Framework\TestCase
 
     public function testGather()
     {
-        $specs = array(
-            array('op','string'),
-            array('ok', 'boolean', false, false),
-            array('str', 'word', 'something', true, 5),
-        );
+        $specs = [
+            ['op', 'string'],
+            ['ok', 'boolean', false, false],
+            ['str', 'word', 'something', true, 5],
+        ];
 
         unset($_POST['op']);
         unset($_POST['ok']);
         $clean_input = FilterInput::gather('post', $specs, 'op');
         $this->assertFalse($clean_input);
 
-        $_POST['op']='test';
+        $_POST['op'] = 'test';
         $clean_input = FilterInput::gather('post', $specs, 'op');
         $this->assertEquals('test', $clean_input['op']);
         $this->assertFalse($clean_input['ok']);
         $this->assertEquals('somet', $clean_input['str']);
 
         unset($_POST['op']);
-        $_POST['ok']='1';
+        $_POST['ok'] = '1';
         $_POST['str'] = '  fred! ';
         $clean_input = FilterInput::gather('post', $specs);
         $this->assertEquals('', $clean_input['op']);
@@ -93,6 +94,5 @@ class FilterInputTest extends \PHPUnit\Framework\TestCase
         unset($_POST['op']);
         unset($_POST['ok']);
         unset($_POST['str']);
-
     }
 }

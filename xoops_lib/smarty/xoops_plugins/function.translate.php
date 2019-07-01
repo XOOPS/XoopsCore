@@ -14,13 +14,15 @@
  * @license     GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
+ * @param mixed $params
+ * @param mixed $smarty
  */
-
 function smarty_function_translate($params, &$smarty)
 {
     $key = isset($params['key']) ? $params['key'] : '';
     $dirname = isset($params['dirname']) ? $params['dirname'] : 'xoops';
     $values = isset($params['values']) ? $params['values'] : '';
+
     return \Xoops\Locale::translate($key, $dirname, $values);
     //return \Xoops\Core\Text\Sanitizer::getInstance()->escapeForJavascript(\Xoops\Locale::translate($key, $dirname));
 }

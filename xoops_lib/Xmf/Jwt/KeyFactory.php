@@ -34,9 +34,8 @@ class KeyFactory
      * @param string           $keyName name of the key
      * @param StorageInterface $storage key store to use, defaults to FileStorage
      *
-     * @return Basic
-     *
      * @throws \InvalidArgumentException on unusable key name
+     * @return Basic
      */
     public static function build($keyName, StorageInterface $storage = null)
     {

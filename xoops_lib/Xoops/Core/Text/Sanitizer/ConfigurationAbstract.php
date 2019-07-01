@@ -56,6 +56,7 @@ abstract class ConfigurationAbstract extends XoopsArray
     public function setAll($values)
     {
         $oldValues = $this->exchangeArray($values);
+
         return $oldValues;
     }
 
@@ -88,11 +89,11 @@ abstract class ConfigurationAbstract extends XoopsArray
      */
     public function setArrayItem($stem, $name, $value)
     {
-        $newValue = array();
+        $newValue = [];
         if ($this->offsetExists($stem)) {
             $newValue = $this->offsetGet($stem);
             if (!is_array($newValue)) {
-                $newValue = array();
+                $newValue = [];
             }
         }
         if (empty($name)) {
@@ -113,16 +114,17 @@ abstract class ConfigurationAbstract extends XoopsArray
      */
     public function getAllLike($nameLike = null)
     {
-        if ($nameLike === null) {
+        if (null === $nameLike) {
             return $this->getArrayCopy();
         }
 
-        $likeSet = array();
+        $likeSet = [];
         foreach ($this as $k => $v) {
-            if (mb_substr($k, 0, mb_strlen($nameLike))==$nameLike) {
-                $likeSet[$k]=$v;
+            if (mb_substr($k, 0, mb_strlen($nameLike)) == $nameLike) {
+                $likeSet[$k] = $v;
             }
         }
+
         return $likeSet;
     }
 }

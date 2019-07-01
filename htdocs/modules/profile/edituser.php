@@ -21,7 +21,6 @@ use Xoops\Html\Menu\Link;
  * @author          Jan Pedersen
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
  */
-
 include __DIR__ . '/header.php';
 $xoops = Xoops::getInstance();
 
@@ -34,13 +33,13 @@ $myts = \Xoops\Core\Text\Sanitizer::getInstance();
 $op = isset($_REQUEST['op']) ? $_REQUEST['op'] : 'editprofile';
 $xoops->getConfigs();
 
-if ($op === 'save') {
+if ('save' === $op) {
     if (!$xoops->security()->check()) {
-        $xoops->redirect(\XoopsBaseConfig::get('url') . "/modules/" . $xoops->module->getVar('dirname', 'n') . "/", 3, XoopsLocale::E_NO_ACTION_PERMISSION . "<br />" . implode('<br />', $xoops->security()->getErrors()));
+        $xoops->redirect(\XoopsBaseConfig::get('url') . '/modules/' . $xoops->module->getVar('dirname', 'n') . '/', 3, XoopsLocale::E_NO_ACTION_PERMISSION . '<br />' . implode('<br />', $xoops->security()->getErrors()));
         exit();
     }
     $uid = $xoops->user->getVar('uid');
-    $errors = array();
+    $errors = [];
     $edituser = $xoops->user;
     if ($xoops->user->isAdmin()) {
         $edituser->setVar('uname', trim($_POST['uname']));
@@ -51,7 +50,6 @@ if ($op === 'save') {
     if (!empty($stop)) {
         $op = 'editprofile';
     } else {
-
         // Dynamic fields
         /* @var $profile_handler ProfileProfileHandler */
         $profile_handler = \Xoops::getModuleHelper('profile')->getHandler('profile');
@@ -90,7 +88,7 @@ if ($op === 'save') {
     }
 }
 
-if ($op === 'editprofile') {
+if ('editprofile' === $op) {
     $xoops->header('module:profile/profile_editprofile.tpl');
     include_once __DIR__ . '/include/forms.php';
     $form = profile_getUserForm($xoops->user);

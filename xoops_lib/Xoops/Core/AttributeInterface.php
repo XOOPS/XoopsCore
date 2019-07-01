@@ -48,7 +48,7 @@ interface AttributeInterface
      *
      * @param string $name An attribute name.
      *
-     * @return boolean TRUE if the given attribute exists, otherwise FALSE.
+     * @return bool TRUE if the given attribute exists, otherwise FALSE.
      */
     public function has($name);
 

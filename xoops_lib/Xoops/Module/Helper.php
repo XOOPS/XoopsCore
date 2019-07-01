@@ -10,13 +10,13 @@
  */
 
 namespace Xoops\Module;
+
 /**
  * @copyright       XOOPS Project (http://xoops.org)
  * @license     GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
-
 class Helper
 {
     /**
@@ -26,9 +26,9 @@ class Helper
      */
     public static function getHelper($dirname = 'system')
     {
-        static $modules = array();
+        static $modules = [];
 
-        $dirname = strtolower($dirname);
+        $dirname = mb_strtolower($dirname);
         if (!isset($modules[$dirname])) {
             $modules[$dirname] = false;
             $xoops = \Xoops::getInstance();
@@ -51,6 +51,7 @@ class Helper
                 }
             }
         }
+
         return $modules[$dirname];
     }
 }

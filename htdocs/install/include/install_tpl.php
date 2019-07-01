@@ -24,7 +24,6 @@
  * @author      DuGris (aka L. JEN) <dugris@frxoops.org>
  * @version     $Id$
  **/
-
 defined('XOOPS_INSTALL') or die('XOOPS Installation wizard die');
 
 $pageHasHelp = $_SESSION['pageHasHelp'];
@@ -36,49 +35,48 @@ $wizard = $_SESSION['wizard'];
 
 $keys = array_keys($wizard->pages);
 $current = $wizard->pageIndex;
-if ($current == 0) {
-
-    $pages = array(
-        array(
+if (0 == $current) {
+    $pages = [
+        [
             'name' => $wizard->pages[$wizard->currentPage]['name'], 'index' => $wizard->pageIndex + 1,
-            'current' => true, 'past' => false
-        ), array(
+            'current' => true, 'past' => false,
+        ], [
             'name' => $wizard->pages[$keys[$current + 1]]['name'], 'index' => $wizard->pageIndex + 2,
-            'current' => false, 'past' => false
-        ), array(
+            'current' => false, 'past' => false,
+        ], [
             'name' => $wizard->pages[$keys[$current + 2]]['name'], 'index' => $wizard->pageIndex + 3,
-            'current' => false, 'past' => false
-        ), array(
+            'current' => false, 'past' => false,
+        ], [
             'name' => $wizard->pages[$keys[$current + 3]]['name'], 'index' => $wizard->pageIndex + 4,
-            'current' => false, 'past' => false
-        )
-    );
+            'current' => false, 'past' => false,
+        ],
+    ];
 } elseif ($current > 0 && $current < count($keys) - 1) {
-    $pages = array(
-        array(
+    $pages = [
+        [
             'name' => $wizard->pages[$keys[$current - 1]]['name'], 'index' => $wizard->pageIndex, 'current' => false,
-            'past' => true
-        ), array(
+            'past' => true,
+        ], [
             'name' => $wizard->pages[$wizard->currentPage]['name'], 'index' => $wizard->pageIndex + 1,
-            'current' => true, 'past' => false
-        ), array(
+            'current' => true, 'past' => false,
+        ], [
             'name' => $wizard->pages[$keys[$current + 1]]['name'], 'index' => $wizard->pageIndex + 2,
-            'current' => false, 'past' => false
-        )/*, array(
+            'current' => false, 'past' => false,
+        ],/*, array(
             'name' => $wizard->pages[$keys[$current + 2]]['name'], 'index' => $wizard->pageIndex + 3,
             'current' => false, 'past' => false
         ), array(
                 'name' => $wizard->pages[$keys[$current + 3]]['name'], 'index' => $wizard->pageIndex + 4,
                 'current' => false, 'past' => false
         )  */
-    );
+    ];
 } else {
-    $pages = array();
+    $pages = [];
     for ($i = count($keys) - 3; $i < count($keys); ++$i) {
-        $pages[] = array(
+        $pages[] = [
             'name' => $wizard->pages[$keys[$i]]['name'], 'index' => $i,
-            'current' => $i == $wizard->pageIndex ? true : false, 'past' => $i < $wizard->pageIndex ? true : false
-        );
+            'current' => $i == $wizard->pageIndex ? true : false, 'past' => $i < $wizard->pageIndex ? true : false,
+        ];
     }
 }
 
@@ -90,7 +88,7 @@ if ($current == 0) {
 <head>
     <title>
         <?php echo XOOPS_VERSION . ' : ' . XOOPS_INSTALL_WIZARD; ?>
-        (<?php echo ($wizard->pageIndex + 1) . '/' . count($wizard->pages); ?>)
+        (<?php echo($wizard->pageIndex + 1) . '/' . count($wizard->pages); ?>)
     </title>
     <meta http-equiv="Content-Type" content="text/html; charset=<?php echo _INSTALL_CHARSET ?>"/>
     <link rel="shortcut icon" type="image/ico" href="../favicon.ico"/>
@@ -126,7 +124,9 @@ if ($current == 0) {
     <form id='<?php echo $wizard->pages[$wizard->currentPage]['name']; ?>' action='<?php echo $_SERVER['PHP_SELF']; ?>'
           method='post'>
         <div id="xo-page-title">
-            <?php if (@$pageHasHelp) { echo "<img id=\"help_button\" src=\"./img/help.png\" alt=\"" . HELP_BUTTON_ALT . "\" title=\"" . HELP_BUTTON_ALT . "\" onclick=\"document.body.className = 'show-help';\" />"; }; ?>
+            <?php if (@$pageHasHelp) {
+        echo '<img id="help_button" src="./img/help.png" alt="' . HELP_BUTTON_ALT . '" title="' . HELP_BUTTON_ALT . "\" onclick=\"document.body.className = 'show-help';\" />";
+    } ?>
             <span class="index"><?php echo $wizard->pageIndex + 1; ?></span>
             <span class="setup"><?php echo XOOPS_INSTALL_WIZARD; ?></span>
             <span class="title"><?php echo $wizard->pages[$wizard->currentPage]['title']; ?></span>
@@ -135,7 +135,7 @@ if ($current == 0) {
             <?php echo $content; ?>
         </div>
         <div id="buttons">
-            <?php if ($wizard->pageIndex != 0) { ?>
+            <?php if (0 != $wizard->pageIndex) { ?>
             <button type="button" class="buttong" accesskey="p"
                     onclick="location.href='<?php echo $wizard->pageURI('-1'); ?>'">
                 <?php echo BUTTON_PREVIOUS; ?>

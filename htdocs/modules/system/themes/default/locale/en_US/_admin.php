@@ -21,7 +21,6 @@ define("_DEFAULT_MAILER","Mail Setup");
 define("_DEFAULT_AUTHENTICATION","Authentication Options");
 define("_DEFAULT_MODULESETTINGS","System Module Settings");*/
 
-
 // Control Panel
 //define("_DEFAULT_DASHBORD","Dashboard");
 //define("_DEFAULT_DASHBORD_DESC","Control and manage your site");
@@ -58,8 +57,6 @@ define("_DEFAULT_NEWMODULE","New Modules");
 define("_DEFAULT_XOOPSFAQ","XOOPS FAQ");
 define("_DEFAULT_CODESVN","Code SVN");
 define("_DEFAULT_REPORTBUG","Report Bug");*/
-
-
 
 //Add for styles name
 //define("_DEFAULT_SILVER","Silver");

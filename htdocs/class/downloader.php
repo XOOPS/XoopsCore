@@ -27,7 +27,6 @@
  */
 abstract class XoopsDownloader
 {
-
     /**
      * @var string
      */
@@ -42,7 +41,6 @@ abstract class XoopsDownloader
      * @var XoopsDownloader
      */
     protected $archiver;
-
 
     /**
      * Send the HTTP header
@@ -71,10 +69,10 @@ abstract class XoopsDownloader
     /**
      * @abstract
      * @param $filepath
-     * @param boolean|string $newfilename
+     * @param bool|string $newfilename
      * @return void
      */
-     abstract function addFile($filepath, $newfilename = null);
+    abstract public function addFile($filepath, $newfilename = null);
 
     /**
      * @abstract
@@ -82,7 +80,7 @@ abstract class XoopsDownloader
      * @param null $newfilename
      * @return void
      */
-    abstract function addBinaryFile($filepath, $newfilename = null);
+    abstract public function addBinaryFile($filepath, $newfilename = null);
 
     /**
      * @abstract
@@ -91,7 +89,7 @@ abstract class XoopsDownloader
      * @param int $time
      * @return void
      */
-    abstract function addFileData(&$data, $filename, $time = 0);
+    abstract public function addFileData(&$data, $filename, $time = 0);
 
     /**
      * @abstract
@@ -100,7 +98,7 @@ abstract class XoopsDownloader
      * @param int $time
      * @return void
      */
-    abstract function addBinaryFileData(&$data, $filename, $time = 0);
+    abstract public function addBinaryFileData(&$data, $filename, $time = 0);
 
     /**
      * @abstract
@@ -108,5 +106,5 @@ abstract class XoopsDownloader
      * @param bool $gzip
      * @return void
      */
-    abstract function download($name, $gzip = true);
+    abstract public function download($name, $gzip = true);
 }

@@ -1,15 +1,12 @@
 <?php
-require_once(__DIR__.'/../../../../../init_new.php');
-
-use Xoops\Core\Kernel\Handlers\XoopsTplSetHandler;
-use Xoops\Core\Kernel\Handlers\XoopsTplSet;
+require_once(__DIR__ . '/../../../../../init_new.php');
 
 class TplSetHandlerTest extends \PHPUnit\Framework\TestCase
 {
-    protected $myclass='Xoops\Core\Kernel\Handlers\XoopsTplSetHandler';
+    protected $myclass = 'Xoops\Core\Kernel\Handlers\XoopsTplSetHandler';
     protected $conn = null;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->conn = Xoops::getInstance()->db();
     }
@@ -25,7 +22,7 @@ class TplSetHandlerTest extends \PHPUnit\Framework\TestCase
 
     public function testContracts()
     {
-        $instance=new $this->myclass($this->conn);
+        $instance = new $this->myclass($this->conn);
         $this->assertInstanceOf('\Xoops\Core\Kernel\Handlers\XoopsTplSetHandler', $instance);
         $this->assertInstanceOf('\Xoops\Core\Kernel\XoopsPersistableObjectHandler', $instance);
     }
@@ -34,13 +31,13 @@ class TplSetHandlerTest extends \PHPUnit\Framework\TestCase
     {
         $instance = new $this->myclass($this->conn);
         $value = $instance->getByname(1);
-        $this->assertSame(false, $value);
+        $this->assertFalse($value);
     }
 
     public function test_getNameList()
     {
         $instance = new $this->myclass($this->conn);
         $value = $instance->getNameList();
-        $this->assertTrue(is_array($value));
+        $this->assertInternalType('array', $value);
     }
 }

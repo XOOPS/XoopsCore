@@ -34,14 +34,14 @@ class zipfile
      *
      * @var array $datasec
      */
-    public $datasec = array();
+    public $datasec = [];
 
     /**
      * Central directory
      *
      * @var array $ctrl_dir
      */
-    public $ctrl_dir = array();
+    public $ctrl_dir = [];
 
     /**
      * End of central directory record
@@ -53,7 +53,7 @@ class zipfile
     /**
      * Last offset position
      *
-     * @var integer $old_offset
+     * @var int $old_offset
      */
     public $old_offset = 0;
 
@@ -61,13 +61,13 @@ class zipfile
      * Converts an Unix timestamp to a four byte DOS date and time format (date
      * in high two bytes, time in low two bytes allowing magnitude comparison).
      *
-     * @param integer $unixtime the current Unix timestamp
-     * @return integer the current date in a four byte DOS format
+     * @param int $unixtime the current Unix timestamp
+     * @return int the current date in a four byte DOS format
      * @access private
      */
     public function unix2DosTime($unixtime = 0)
     {
-        $timearray = ($unixtime == 0) ? getdate() : getdate($unixtime);
+        $timearray = (0 == $unixtime) ? getdate() : getdate($unixtime);
         if ($timearray['year'] < 1980) {
             $timearray['year'] = 1980;
             $timearray['mon'] = 1;
@@ -77,14 +77,16 @@ class zipfile
             $timearray['seconds'] = 0;
         } // end if
         return (($timearray['year'] - 1980) << 25) | ($timearray['mon'] << 21) | ($timearray['mday'] << 16) | ($timearray['hours'] << 11) | ($timearray['minutes'] << 5) | ($timearray['seconds'] >> 1);
-    } // end of the 'unix2DosTime()' method
+    }
+
+    // end of the 'unix2DosTime()' method
 
     /**
      * Adds "file" to archive
      *
      * @param string $data file contents
      * @param string $name name of the file in the archive (may contains the path)
-     * @param integer $time the current timestamp
+     * @param int $time the current timestamp
      * @access public
      */
     public function addFile($data, $name, $time = 0)
@@ -101,15 +103,15 @@ class zipfile
         $fr .= "\x08\x00"; // compression method
         $fr .= $hexdtime; // last mod time and date
         // "local file header" segment
-        $unc_len = strlen($data);
+        $unc_len = mb_strlen($data);
         $crc = crc32($data);
         $zdata = gzcompress($data);
-        $zdata = substr(substr($zdata, 0, strlen($zdata) - 4), 2); // fix crc bug
-        $c_len = strlen($zdata);
+        $zdata = mb_substr(mb_substr($zdata, 0, mb_strlen($zdata) - 4), 2); // fix crc bug
+        $c_len = mb_strlen($zdata);
         $fr .= pack('V', $crc); // crc32
         $fr .= pack('V', $c_len); // compressed filesize
         $fr .= pack('V', $unc_len); // uncompressed filesize
-        $fr .= pack('v', strlen($name)); // length of filename
+        $fr .= pack('v', mb_strlen($name)); // length of filename
         $fr .= pack('v', 0); // extra field length
         $fr .= $name;
         // "file data" segment
@@ -121,7 +123,7 @@ class zipfile
         $fr .= pack('V', $unc_len); // uncompressed filesize
         // add this entry to array
         $this->datasec[] = $fr;
-        $new_offset = strlen(implode('', $this->datasec));
+        $new_offset = mb_strlen(implode('', $this->datasec));
         // now add to central directory record
         $cdrec = "\x50\x4b\x01\x02";
         $cdrec .= "\x00\x00"; // version made by
@@ -132,7 +134,7 @@ class zipfile
         $cdrec .= pack('V', $crc); // crc32
         $cdrec .= pack('V', $c_len); // compressed filesize
         $cdrec .= pack('V', $unc_len); // uncompressed filesize
-        $cdrec .= pack('v', strlen($name)); // length of filename
+        $cdrec .= pack('v', mb_strlen($name)); // length of filename
         $cdrec .= pack('v', 0); // extra field length
         $cdrec .= pack('v', 0); // file comment length
         $cdrec .= pack('v', 0); // disk number start
@@ -144,7 +146,9 @@ class zipfile
         // optional extra field, file comment goes here
         // save to central directory
         $this->ctrl_dir[] = $cdrec;
-    } // end of the 'addFile()' method
+    }
+
+    // end of the 'addFile()' method
 
     /**
      * Dumps out file
@@ -159,8 +163,10 @@ class zipfile
 
         return $data . $ctrldir . $this->eof_ctrl_dir . pack('v', count($this->ctrl_dir)) . // total # of entries "on this disk"
                pack('v', count($this->ctrl_dir)) . // total # of entries overall
-               pack('V', strlen($ctrldir)) . // size of central dir
-               pack('V', strlen($data)) . // offset to start of central dir
+               pack('V', mb_strlen($ctrldir)) . // size of central dir
+               pack('V', mb_strlen($data)) . // offset to start of central dir
                "\x00\x00"; // .zip file comment length
-    } // end of the 'file()' method
+    }
+
+    // end of the 'file()' method
 } // end of the 'zipfile' class

@@ -49,4 +49,4 @@
 //define("_MB_SYSTEM_NUMTHEME", "%s themes");
 //define("_MB_SYSTEM_THSHOW", "Display screenshot image");
 //define("_MB_SYSTEM_THWIDTH", "Screenshot image width");
-define("_MB_SYSTEM_REMEMBERME","Remember me");
+define('_MB_SYSTEM_REMEMBERME', 'Remember me');

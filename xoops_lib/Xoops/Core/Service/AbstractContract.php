@@ -28,13 +28,13 @@ namespace Xoops\Core\Service;
  */
 abstract class AbstractContract
 {
-    /** @var integer $priority - lowest value is highest priority */
+    /** @var int $priority - lowest value is highest priority */
     protected $priority = Manager::PRIORITY_MEDIUM;
 
     /**
      * setPriority - set the priority for this contract provider
      *
-     * @param integer $priority - priority of this contract provider
+     * @param int $priority - priority of this contract provider
      *
      * @return void
      */
@@ -46,7 +46,7 @@ abstract class AbstractContract
     /**
      * getPriority - get the priority for this contract provider
      *
-     * @return integer - priority of this contract provider
+     * @return int - priority of this contract provider
      */
     public function getPriority()
     {
@@ -57,11 +57,12 @@ abstract class AbstractContract
      * getMode - get the MODE for the contract. The MODE is set in the contract Interface, and
      * permissible values defined in Manager
      *
-     * @return integer - a MODE constant indicating how multiple services are handled
+     * @return int - a MODE constant indicating how multiple services are handled
      */
     public function getMode()
     {
         $class = get_called_class();
+
         return $class::MODE;
     }
 

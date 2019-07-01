@@ -18,6 +18,8 @@
  * @copyright 2015 XOOPS Project (http://xoops.org)/
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
+ * @param mixed $datetime
+ * @param mixed $format
  */
 
 /**
@@ -42,5 +44,6 @@
 function smarty_modifier_datetime($datetime, $format = 'medium')
 {
     $string = \XoopsLocale::formatTimestamp($datetime, $format);
+
     return $string;
 }

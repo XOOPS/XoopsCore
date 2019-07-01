@@ -21,7 +21,6 @@ use Xmf\Request;
  * @author          Xoops Core Development Team - Mage Grégory (AKA Mage) - Laurent JEN (aka DuDris)
  * @version         $Id$
  */
-
 include __DIR__ . '/header.php';
 
 // Call Header & ...
@@ -33,10 +32,10 @@ $xoops->theme()->addStylesheet('modules/system/css/admin.css');
 
 // Parameters
 $nb_smilies = $helper->getConfig('smilies_pager');
-$mimetypes = array('image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png');
+$mimetypes = ['image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png'];
 $upload_size = 50000;
 
-$info_msg = array(sprintf(_AM_SMILIES_ALERT_INFO_MIMETYPES, implode(", ", $mimetypes)), sprintf(_AM_SMILIES_ALERT_INFO_MAXFILE, $upload_size));
+$info_msg = [sprintf(_AM_SMILIES_ALERT_INFO_MIMETYPES, implode(', ', $mimetypes)), sprintf(_AM_SMILIES_ALERT_INFO_MAXFILE, $upload_size)];
 
 // Get $_GET, $_POST, ...
 $op = Request::getCmd('op', 'list');
@@ -62,7 +61,6 @@ switch ($op) {
             $xoops->tpl()->assign('nav_menu', $nav->renderNav(2));
         }
         break;
-
     // New smilie
     case 'add':
         $admin_page->addItemButton(_AM_SMILIES_LIST, 'smilies.php', 'application-view-detail');
@@ -73,7 +71,6 @@ switch ($op) {
         $form = $helper->getForm($obj, 'smilies');
         $xoops->tpl()->assign('form', $form->render());
         break;
-
     // Edit smilie
     case 'edit':
         $admin_page->addItemButton(_AM_SMILIES_LIST, 'smilies.php', 'application-view-detail');
@@ -85,7 +82,6 @@ switch ($op) {
         $form = $helper->getForm($obj, 'smilies');
         $xoops->tpl()->assign('form', $form->render());
         break;
-
     // Save smilie
     case 'save':
         if (!$xoops->security()->check()) {
@@ -93,7 +89,7 @@ switch ($op) {
         }
 
         $smiley_id = Request::getInt('smiley_id', 0);
-        if (isset($smiley_id) && $smiley_id !=0) {
+        if (isset($smiley_id) && 0 != $smiley_id) {
             $obj = $helper->getHandlerSmilies()->get($smiley_id);
         } else {
             $obj = $helper->getHandlerSmilies()->create();
@@ -103,10 +99,10 @@ switch ($op) {
         $obj->setVar('smiley_emotion', Request::getString('smiley_emotion', ''));
         $obj->setVar('smiley_display', Request::getBool('smiley_display', true));
         $obj->setVar('smiley_url', 'smilies/' . Request::getPath('smiley_url', ''));
-        $xoops_upload_file = Request::getArray('xoops_upload_file', array());
+        $xoops_upload_file = Request::getArray('xoops_upload_file', []);
 
         $error_msg = '';
-        if ($_FILES[$xoops_upload_file[0]]['error'] === 0) {
+        if (0 === $_FILES[$xoops_upload_file[0]]['error']) {
             $uploader = new XoopsMediaUploader(\XoopsBaseConfig::get('uploads-path') . '/smilies', $mimetypes, $upload_size, null, null);
             if ($uploader->fetchMedia($xoops_upload_file[0])) {
                 $uploader->setPrefix('smil');
@@ -118,7 +114,7 @@ switch ($op) {
                 }
             }
         }
-        if ($error_msg == '') {
+        if ('' == $error_msg) {
             if ($helper->getHandlerSmilies()->insert($obj)) {
                 $xoops->redirect('smilies.php', 2, _AM_SMILIES_SAVE);
             }
@@ -131,14 +127,13 @@ switch ($op) {
         $form = $helper->getForm($obj, 'smilies');
         $xoops->tpl()->assign('form', $form->render());
         break;
-
     //Del a smilie
     case 'del':
         $smiley_id = Request::getInt('smiley_id', 0);
         $ok = Request::getInt('ok', 0);
         $obj = $helper->getHandlerSmilies()->get($smiley_id);
 
-        if ($ok == 1) {
+        if (1 == $ok) {
             if (!$xoops->security()->check()) {
                 $xoops->redirect('smilies.php', 3, implode(',', $xoops->security()->getErrors()));
             }
@@ -154,12 +149,11 @@ switch ($op) {
             }
         } else {
             $smilies_img = ($obj->getVar('smiley_url')) ? $obj->getVar('smiley_url') : 'blank.gif';
-            echo $xoops->confirm(array(
-                                 'ok' => 1, 'smiley_id' => $smiley_id, 'op' => 'del'
-                            ), \XoopsBaseConfig::get('url') . '/modules/smilies/admin/smilies.php', sprintf(_AM_SMILIES_SUREDEL) . '<br /><strong>' . $obj->getVar('smiley_emotion') . '</strong><br /><img src="' . \XoopsBaseConfig::get('uploads-url') . '/' . $smilies_img . '" alt="' . $obj->getVar('smiley_emotion') . '"><br />');
+            echo $xoops->confirm([
+                                 'ok' => 1, 'smiley_id' => $smiley_id, 'op' => 'del',
+                            ], \XoopsBaseConfig::get('url') . '/modules/smilies/admin/smilies.php', sprintf(_AM_SMILIES_SUREDEL) . '<br /><strong>' . $obj->getVar('smiley_emotion') . '</strong><br /><img src="' . \XoopsBaseConfig::get('uploads-url') . '/' . $smilies_img . '" alt="' . $obj->getVar('smiley_emotion') . '"><br />');
         }
         break;
-
     case 'smilies_update_display':
         $xoops->logger()->quiet();
         $smiley_id = Request::getInt('smiley_id', 0);

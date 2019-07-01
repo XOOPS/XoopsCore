@@ -38,7 +38,7 @@ namespace Xoops\Core\Locale;
  */
 class LegacyCodes
 {
-    private static $rawCodes = array(
+    private static $rawCodes = [
         ['ar_SA', 'ar',      'ar-Arab-SA', ['arabic']],
         ['bg_BG', 'bg',      'bg-Cyrl-BG', ['bulgarian']],
         ['cs_CZ', 'cs',      'cs-Latn-CZ', ['czech']],
@@ -69,7 +69,7 @@ class LegacyCodes
         ['vi_VN', 'vi',      'vi-Latn-VN', ['vietnamese']],
         ['zh_CN', 'zh_Hans', 'zh-Hans-CN', ['schinese']],
         ['zh_TW', 'zh_Hant', 'zh-Hant-TW', ['tchinese', 'chinese_zh']],
-    );
+    ];
 
     private static $namesByCode = null;
     private static $codesByName = null;
@@ -94,12 +94,12 @@ class LegacyCodes
             return self::$namesByCode[$localeCode];
         }
 
-        $langOnly = substr($localeCode, 0, 2);
+        $langOnly = mb_substr($localeCode, 0, 2);
         if (isset(self::$namesByCode[$langOnly])) {
             return self::$namesByCode[$langOnly];
         }
 
-        return array();
+        return [];
     }
 
     /**

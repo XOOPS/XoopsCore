@@ -56,10 +56,10 @@ class HtmlToPdfProvider extends AbstractContract implements HtmlToPdfInterface
     /** @var string $fontFamily */
     protected $fontFamily;
 
-    /** @var string $fontStyle  */
+    /** @var string $fontStyle */
     protected $fontStyle;
 
-    /** @var float $fontSize   */
+    /** @var float $fontSize */
     protected $fontSize;
 
     /** @var string $monoFontFamily */
@@ -108,6 +108,7 @@ class HtmlToPdfProvider extends AbstractContract implements HtmlToPdfInterface
             $this->$property = empty($value) ? $default : $value;
         }
     }
+
     /**
      * resetPdf - resets to default state
      *
@@ -232,8 +233,6 @@ class HtmlToPdfProvider extends AbstractContract implements HtmlToPdfInterface
      * @param float    $topMargin    top margin in base units
      * @param float    $rightMargin  right margin in base units
      * @param float    $bottomMargin bottom margin in base units
-     *
-     * @return void - response->value set to absolute URL to avatar image
      */
     public function setMargins($response, $leftMargin, $topMargin, $rightMargin, $bottomMargin)
     {
@@ -263,8 +262,8 @@ class HtmlToPdfProvider extends AbstractContract implements HtmlToPdfInterface
     public function setBaseFont($response, $fontFamily, $fontStyle = '', $fontSize = null)
     {
         $this->fontFamily = $fontFamily;
-        $this->fontStyle  = $fontStyle;
-        $this->fontSize   = $fontSize;
+        $this->fontStyle = $fontStyle;
+        $this->fontSize = $fontSize;
         if (isset($this->pdfEngine)) {
             $this->pdfEngine->SetFont($this->fontFamily, $this->fontStyle, $this->fontSize);
         }
@@ -408,8 +407,6 @@ class HtmlToPdfProvider extends AbstractContract implements HtmlToPdfInterface
      * fetchPdf - fetch rendered document as a string
      *
      * @param Response $response \Xoops\Core\Service\Response object
-     *
-     * @return void - response->value set to string containing document
      */
     public function fetchPdf($response)
     {
@@ -469,18 +466,18 @@ class HtmlToPdfProvider extends AbstractContract implements HtmlToPdfInterface
      */
     private function decodeEntities($text)
     {
-        $text= html_entity_decode($text, ENT_QUOTES, "UTF-8");
-        $text= preg_replace_callback(
+        $text = html_entity_decode($text, ENT_QUOTES, 'UTF-8');
+        $text = preg_replace_callback(
             '/&#(\d+);/m',
             function ($m) {
                 return utf8_encode(chr($m[1]));
             },
             $text
         ); // decimal notation
-        $text= preg_replace_callback(
+        $text = preg_replace_callback(
             '/&#x([a-f0-9]+);/mi',
             function ($m) {
-                return utf8_encode(chr('0x'.$m[1]));
+                return utf8_encode(chr('0x' . $m[1]));
             },
             $text
         );  //hex notation

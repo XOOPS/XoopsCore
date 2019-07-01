@@ -1,12 +1,12 @@
 <?php
-require_once(__DIR__.'/../init_new.php');
+require_once(__DIR__ . '/../init_new.php');
 
 class xoopslistsTest extends \PHPUnit\Framework\TestCase
 {
     protected $myClass = 'XoopsLists';
     protected $conn = null;
 
-    public function setUp()
+    protected function setUp()
     {
         if (empty($this->conn)) {
             $this->conn = Xoops::getInstance()->db();
@@ -18,8 +18,8 @@ class xoopslistsTest extends \PHPUnit\Framework\TestCase
         $class = $this->myClass;
         $value = $class::getTimeZoneList();
         foreach ($value as $k => $v) {
-            $this->assertTrue(is_string($k));
-            $this->assertTrue(is_string($v));
+            $this->assertInternalType('string', $k);
+            $this->assertInternalType('string', $v);
         }
     }
 
@@ -59,11 +59,11 @@ class xoopslistsTest extends \PHPUnit\Framework\TestCase
         $class = $this->myClass;
         $xoops_root_path = \XoopsBaseConfig::get('root-path');
         $value = $class::getFileListAsArray($xoops_root_path . '/class/xoopseditor/');
-        $this->assertTrue(is_array($value));
-        $this->assertTrue(count($value)>0);
-        $prefix='toto';
+        $this->assertInternalType('array', $value);
+        $this->assertTrue(count($value) > 0);
+        $prefix = 'toto';
         $value = $class::getFileListAsArray($xoops_root_path . '/class/xoopseditor/', $prefix);
-        $this->assertSame(0, strncmp(array_shift($value), $prefix, strlen($prefix)));
+        $this->assertSame(0, strncmp(array_shift($value), $prefix, mb_strlen($prefix)));
     }
 
     public function test_getImgListAsArray()
@@ -71,11 +71,11 @@ class xoopslistsTest extends \PHPUnit\Framework\TestCase
         $class = $this->myClass;
         $xoops_root_path = \XoopsBaseConfig::get('root-path');
         $value = $class::getImgListAsArray($xoops_root_path . '/images/');
-        $this->assertTrue(is_array($value));
-        $this->assertTrue(count($value)>0);
-        $prefix='toto';
+        $this->assertInternalType('array', $value);
+        $this->assertTrue(count($value) > 0);
+        $prefix = 'toto';
         $value = $class::getImgListAsArray($xoops_root_path . '/images/', $prefix);
-        $this->assertSame(0, strncmp(array_shift($value), $prefix, strlen($prefix)));
+        $this->assertSame(0, strncmp(array_shift($value), $prefix, mb_strlen($prefix)));
     }
 
     public function test_getHtmlListAsArray()
@@ -83,11 +83,11 @@ class xoopslistsTest extends \PHPUnit\Framework\TestCase
         $class = $this->myClass;
         $xoops_root_path = \XoopsBaseConfig::get('root-path');
         $value = $class::getHtmlListAsArray($xoops_root_path . '/themes/');
-        $this->assertTrue(is_array($value));
-        $this->assertTrue(count($value)>0);
-        $prefix='toto';
+        $this->assertInternalType('array', $value);
+        $this->assertTrue(count($value) > 0);
+        $prefix = 'toto';
         $value = $class::getHtmlListAsArray($xoops_root_path . '/themes/', $prefix);
-        $this->assertSame(0, strncmp(array_shift($value), $prefix, strlen($prefix)));
+        $this->assertSame(0, strncmp(array_shift($value), $prefix, mb_strlen($prefix)));
     }
 
     public function test_getSubjectsList()
@@ -96,21 +96,21 @@ class xoopslistsTest extends \PHPUnit\Framework\TestCase
         $xoops_root_path = \XoopsBaseConfig::get('root-path');
         $d_subject = $xoops_root_path . '/images/subject/';
         $is_dir = is_dir($d_subject);
-        if (! $is_dir) {
+        if (!$is_dir) {
             mkdir($d_subject);
         }
         $value = $class::getSubjectsList();
-        $this->assertTrue(is_array($value));
-        $this->assertTrue(count($value)>0);
+        $this->assertInternalType('array', $value);
+        $this->assertTrue(count($value) > 0);
         $sdir = 'test_getSubjectsList';
-        $is_sdir = is_dir($d_subject.$sdir);
-        if (! $is_dir) {
-            mkdir($d_subject.$sdir);
+        $is_sdir = is_dir($d_subject . $sdir);
+        if (!$is_dir) {
+            mkdir($d_subject . $sdir);
         }
         $value = $class::getSubjectsList($sdir);
-        $this->assertTrue(is_array($value));
+        $this->assertInternalType('array', $value);
 
-        @rmdir($d_subject.$sdir);
+        @rmdir($d_subject . $sdir);
         @rmdir($d_subject);
     }
 
@@ -118,29 +118,29 @@ class xoopslistsTest extends \PHPUnit\Framework\TestCase
     {
         $class = $this->myClass;
         $value = $class::getLangList();
-        $this->assertTrue(is_array($value));
-        $this->assertTrue(count($value)>0);
+        $this->assertInternalType('array', $value);
+        $this->assertTrue(count($value) > 0);
     }
 
     public function test_getLocaleList()
     {
         $class = $this->myClass;
         $value = $class::getLocaleList();
-        $this->assertTrue(is_array($value));
-        $this->assertTrue(count($value)>0);
+        $this->assertInternalType('array', $value);
+        $this->assertTrue(count($value) > 0);
     }
 
     public function test_340()
     {
         $class = $this->myClass;
         $value = $class::getCountryList();
-        $this->assertTrue(is_array($value));
+        $this->assertInternalType('array', $value);
         foreach ($value as $k => $v) {
             if (empty($k)) {
                 $this->assertSame('-', $v);
             } else {
                 $this->assertRegExp('/^[A-Z][A-Z]$/', $k);
-                $this->assertTrue(is_string($v));
+                $this->assertInternalType('string', $v);
             }
         }
     }

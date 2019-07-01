@@ -12,7 +12,6 @@
 namespace Xoops\Core\Service\Data;
 
 use Xmf\Assert;
-use Xoops\Core\Service\Data\EmailAttachment;
 
 /**
  * The EmailAttachmentSet data object is a traversable list of EmailAttachment objects
@@ -39,7 +38,7 @@ class EmailAttachmentSet
 
     /* assert messages */
     protected const MESSAGE_ATTACHMENT = 'EmailAttachment is invalid';
-    protected const MESSAGE_LIST       = 'EmailAttachment list is empty';
+    protected const MESSAGE_LIST = 'EmailAttachment list is empty';
 
     /**
      *  constructor.
@@ -47,15 +46,15 @@ class EmailAttachmentSet
      * If an argument is null, the corresponding value will not be set. Values can be set
      * later with the with*() methods, but each will result in a new object.
      *
-     * @param null|EmailAttachment[] $addresses an array of EmailAddress objects
      *
      * @throws \InvalidArgumentException
      * @throws \LogicException
      */
     public function __construct(?array $attachments = null)
     {
-        if (null!==$attachments) {
+        if (null !== $attachments) {
             Assert::allIsInstanceOf($attachments, EmailAttachment::class, static::MESSAGE_ATTACHMENT);
+
             try {
                 /** @var EmailAttachment $attachment */
                 foreach ($attachments as $attachment) {
@@ -74,13 +73,13 @@ class EmailAttachmentSet
      *
      * @param EmailAttachment[] $attachments an array of EmailAttachment objects
      *
-     * @return EmailAttachmentSet
-     *
      * @throws \InvalidArgumentException
+     * @return EmailAttachmentSet
      */
-    public function withAddedAttachments(array $attachments) : EmailAttachmentSet
+    public function withAddedAttachments(array $attachments): self
     {
         Assert::allIsInstanceOf($attachments, EmailAttachment::class, static::MESSAGE_ATTACHMENT);
+
         try {
             /** @var EmailAttachment $attachment */
             foreach ($attachments as $attachment) {
@@ -93,17 +92,17 @@ class EmailAttachmentSet
         }
         $new = clone $this;
         $new->attachments = array_merge($existingAttachments, $attachments);
+
         return $new;
     }
 
     /**
      * getAttachments
      *
-     * @return EmailAttachment[] an array of EmailAttachment objects
-     *
      * @throws \LogicException (property was not properly set before used)
+     * @return EmailAttachment[] an array of EmailAttachment objects
      */
-    public function getAttachments() : array
+    public function getAttachments(): array
     {
         try {
             Assert::notNull($this->attachments, static::MESSAGE_LIST);
@@ -116,17 +115,17 @@ class EmailAttachmentSet
         } catch (\InvalidArgumentException $e) {
             throw new \LogicException($e->getMessage(), $e->getCode(), $e);
         }
+
         return $this->attachments;
     }
 
     /**
      * getEachAttachment - return each EmailAttachment in the list
      *
-     * @return \Generator|EmailAttachment[]
-     *
      * @throws \LogicException (property was not properly set before used)
+     * @return \Generator|EmailAttachment[]
      */
-    public function getEachAttachment() : \Generator
+    public function getEachAttachment(): \Generator
     {
         $this->getAttachments();
         foreach ($this->attachments as $attachment) {

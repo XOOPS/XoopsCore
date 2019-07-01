@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/../../../init_new.php');
+require_once(__DIR__ . '/../../../init_new.php');
 
 class Xoops_Auth_FactoryTest extends \PHPUnit\Framework\TestCase
 {
@@ -11,78 +11,76 @@ class Xoops_Auth_FactoryTest extends \PHPUnit\Framework\TestCase
         $this->assertInstanceOf($this->myClass, $instance);
     }
 
-	public function test_getAuthConnection()
-	{
-		$class = $this->myClass;
+    public function test_getAuthConnection()
+    {
+        $class = $this->myClass;
 
-		$xoops = \Xoops::getInstance();
+        $xoops = \Xoops::getInstance();
 
-		$uname = '';
-		$instance = $class::getAuthConnection($uname);
-		$this->assertInstanceOf('Xoops\Auth\Xoops', $instance);
-	}
+        $uname = '';
+        $instance = $class::getAuthConnection($uname);
+        $this->assertInstanceOf('Xoops\Auth\Xoops', $instance);
+    }
 
-    /**
-     *
-     */
-	public function test_getAuthConnection100()
-	{
-		$class = $this->myClass;
-		if (!extension_loaded('ldap')) $this->markTestSkipped();
+    public function test_getAuthConnection100()
+    {
+        $class = $this->myClass;
+        if (!extension_loaded('ldap')) {
+            $this->markTestSkipped();
+        }
 
-		$xoops = \Xoops::getInstance();
-		$xoops->setConfig('auth_method', 'ads');
+        $xoops = \Xoops::getInstance();
+        $xoops->setConfig('auth_method', 'ads');
 
-		$uname = '';
-		$instance = $class::getAuthConnection($uname, true);
-		$this->assertInstanceOf('Xoops\Auth\Ads', $instance);
+        $uname = '';
+        $instance = $class::getAuthConnection($uname, true);
+        $this->assertInstanceOf('Xoops\Auth\Ads', $instance);
+    }
 
-	}
+    public function test_getAuthConnection150()
+    {
+        $class = $this->myClass;
+        if (!extension_loaded('ldap')) {
+            $this->markTestSkipped();
+        }
 
-	public function test_getAuthConnection150()
-	{
-		$class = $this->myClass;
-		if (!extension_loaded('ldap')) $this->markTestSkipped();
+        $xoops = \Xoops::getInstance();
+        $xoops->setConfig('auth_method', 'ads');
 
-		$xoops = \Xoops::getInstance();
-		$xoops->setConfig('auth_method', 'ads');
+        $uname = 'admin';
+        $instance = $class::getAuthConnection($uname, true);
+        $this->assertInstanceOf('Xoops\Auth\Xoops', $instance);
+    }
 
-		$uname = 'admin';
-		$instance = $class::getAuthConnection($uname, true);
-		$this->assertInstanceOf('Xoops\Auth\Xoops', $instance);
-	}
+    public function test_getAuthConnection200()
+    {
+        $class = $this->myClass;
+        if (!extension_loaded('ldap')) {
+            $this->markTestSkipped();
+        }
 
-    /**
-     *
-     */
-	public function test_getAuthConnection200()
-	{
-		$class = $this->myClass;
-		if (!extension_loaded('ldap')) $this->markTestSkipped();
+        $xoops = \Xoops::getInstance();
 
-		$xoops = \Xoops::getInstance();
+        $xoops->setConfig('auth_method', 'ldap');
 
-		$xoops->setConfig('auth_method', 'ldap');
+        $uname = '';
+        $instance = $class::getAuthConnection($uname, true);
+        $this->assertInstanceOf('Xoops\Auth\Ldap', $instance);
+    }
 
-		$uname = '';
-		$instance = $class::getAuthConnection($uname, true);
-		$this->assertInstanceOf('Xoops\Auth\Ldap', $instance);
+    public function test_getAuthConnection250()
+    {
+        $class = $this->myClass;
+        if (!extension_loaded('ldap')) {
+            $this->markTestSkipped();
+        }
 
-	}
+        $xoops = \Xoops::getInstance();
 
-	public function test_getAuthConnection250()
-	{
-		$class = $this->myClass;
-		if (!extension_loaded('ldap')) $this->markTestSkipped();
+        $xoops->setConfig('auth_method', 'ldap');
 
-		$xoops = \Xoops::getInstance();
-
-		$xoops->setConfig('auth_method', 'ldap');
-
-		$uname = 'admin';
-		$instance = $class::getAuthConnection($uname, true);
-		$this->assertInstanceOf('Xoops\Auth\Xoops', $instance);
-
-	}
-
+        $uname = 'admin';
+        $instance = $class::getAuthConnection($uname, true);
+        $this->assertInstanceOf('Xoops\Auth\Xoops', $instance);
+    }
 }

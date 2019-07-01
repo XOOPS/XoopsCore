@@ -5,8 +5,6 @@ namespace XoopsConsole\Commands;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputOption;
 use Xoops\Core\XoopsTpl;
 
 class CiInstallCommand extends Command
@@ -17,10 +15,11 @@ class CiInstallCommand extends Command
      */
     protected function configure()
     {
-        $this->setName("ci-install")
-            ->setDescription("Install a minimal XOOPS for CI processes")
-            ->setDefinition(array())
-            ->setHelp(<<<EOT
+        $this->setName('ci-install')
+            ->setDescription('Install a minimal XOOPS for CI processes')
+            ->setDefinition([])
+            ->setHelp(
+                <<<EOT
 The <info>ci-install</info> command installs a default XOOPS system for use in the
 travis-ci continuous integration environment. This command expects on an
 appropriate mainfile.php to have been previously created, possibly using the
@@ -44,6 +43,7 @@ EOT
         $output->writeln(sprintf('Installing %s', $module));
         if (false !== $xoops->getModuleByDirname($module)) {
             $output->writeln(sprintf('<error>%s module is already installed!</error>', $module));
+
             return;
         }
         $xoops->setTpl(new XoopsTpl());
@@ -61,7 +61,7 @@ EOT
                 $output->writeln(strip_tags($message));
             }
         }
-        if ($result===false) {
+        if (false === $result) {
             $output->writeln(sprintf('<error>Install of %s module failed!</error>', $module));
         } else {
             $output->writeln(sprintf('<info>Install of %s module completed.</info>', $module));
@@ -74,17 +74,17 @@ EOT
         $regdate = time();
         $result = $xoops->db()->insertPrefix(
             'system_user',
-            array(
+            [
             //  'uid'             => 1,             // mediumint(8) unsigned NOT NULL auto_increment,
-                'uname'           => $adminname,    // varchar(25) NOT NULL default '',
-                'email'           => 'nobody@localhost',    // varchar(60) NOT NULL default '',
-                'user_regdate'    => $regdate,      // int(10) unsigned NOT NULL default '0',
-                'user_viewemail'  => 1,             // tinyint(1) unsigned NOT NULL default '0',
-                'pass'            => $adminpass,    // varchar(255) NOT NULL default '',
-                'rank'            => 7,             // smallint(5) unsigned NOT NULL default '0',
-                'level'           => 5,             // tinyint(3) unsigned NOT NULL default '1',
-                'last_login'      => $regdate,      // int(10) unsigned NOT NULL default '0',
-            )
+                'uname' => $adminname,    // varchar(25) NOT NULL default '',
+                'email' => 'nobody@localhost',    // varchar(60) NOT NULL default '',
+                'user_regdate' => $regdate,      // int(10) unsigned NOT NULL default '0',
+                'user_viewemail' => 1,             // tinyint(1) unsigned NOT NULL default '0',
+                'pass' => $adminpass,    // varchar(255) NOT NULL default '',
+                'rank' => 7,             // smallint(5) unsigned NOT NULL default '0',
+                'level' => 5,             // tinyint(3) unsigned NOT NULL default '1',
+                'last_login' => $regdate,      // int(10) unsigned NOT NULL default '0',
+            ]
         );
         $output->writeln(sprintf('<info>Inserted %d user.</info>', $result));
     }

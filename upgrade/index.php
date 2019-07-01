@@ -17,7 +17,6 @@
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
  * @version         $Id$
  */
-
 @include_once '../mainfile.php';
 
 @set_time_limit(0);
@@ -32,10 +31,10 @@ defined('XOOPS_ROOT_PATH') or die('Bad installation: please add this folder to t
  */
 function getDirList($dirname)
 {
-    $dirlist = array();
+    $dirlist = [];
     if (is_dir($dirname) && $handle = opendir($dirname)) {
         while (false !== ($file = readdir($handle))) {
-            if (substr( $file, 0, 1 ) != '.'  && strtolower($file) != 'cvs') {
+            if ('.' != mb_substr($file, 0, 1) && 'cvs' != mb_strtolower($file)) {
                 if (is_dir("{$dirname}/{$file}")) {
                     $dirlist[] = $file;
                 }
@@ -45,13 +44,14 @@ function getDirList($dirname)
         asort($dirlist);
         reset($dirlist);
     }
+
     return $dirlist;
 }
 
 function getDbValue($db, $table, $field, $condition = '')
 {
     $xoops = Xoops::getInstance();
-    $table = $db->prefix( $table );
+    $table = $db->prefix($table);
     $sql = "SELECT `{$field}` FROM `{$table}`";
     if ($condition) {
         $sql .= " WHERE {$condition}";
@@ -63,36 +63,36 @@ function getDbValue($db, $table, $field, $condition = '')
             return $row[0];
         }
     }
+
     return false;
 }
 
 $upgrade_language = $xoops->getConfig('language');
 // $xoopsConfig might not be able fetched
 if (empty($upgrade_language)) {
-    include_once "./language.php";
+    include_once './language.php';
     $upgrade_language = xoops_detectLanguage();
 }
 
 if (file_exists("./language/{$upgrade_language}/upgrade.php")) {
     include_once "./language/{$upgrade_language}/upgrade.php";
-} else if (file_exists("./language/{$upgrade_language}_utf8/upgrade.php")) {
+} elseif (file_exists("./language/{$upgrade_language}_utf8/upgrade.php")) {
     include_once "./language/{$upgrade_language}_utf8/upgrade.php";
-    $upgrade_language .= "_utf8";
-} else if (file_exists("./language/english/upgrade.php")) {
-    include_once "./language/english/upgrade.php";
+    $upgrade_language .= '_utf8';
+} elseif (file_exists('./language/english/upgrade.php')) {
+    include_once './language/english/upgrade.php';
     $upgrade_language = 'english';
 } else {
     echo 'no language file.';
     exit();
 }
 
-
 ob_start();
 if (!$xoops->isUser() || !$xoops->user->isAdmin()) {
-    include_once "login.php";
+    include_once 'login.php';
 } else {
     $op = @$_REQUEST['action'];
-    if (empty( $_SESSION['xoops_upgrade']['steps'])) {
+    if (empty($_SESSION['xoops_upgrade']['steps'])) {
         $op = '';
     }
     if (empty($op)) {
@@ -103,18 +103,18 @@ if (!$xoops->isUser() || !$xoops->user->isAdmin()) {
         $upgrader = include_once "{$next}/index.php";
         $res = $upgrader->apply();
         if ($message = $upgrader->message()) {
-            echo "<p>" . $message . "</p>";
+            echo '<p>' . $message . '</p>';
         }
 
         if (!$res) {
-            array_unshift( $_SESSION['xoops_upgrade']['steps'], $next );
+            array_unshift($_SESSION['xoops_upgrade']['steps'], $next);
             echo '<a id="link-next" href="index.php?action=next">' . _RELOAD . '</a>';
         } else {
-            if (empty( $_SESSION['xoops_upgrade']['steps'])) {
-                 $text = _FINISH;
+            if (empty($_SESSION['xoops_upgrade']['steps'])) {
+                $text = _FINISH;
             } else {
-                list($key, $val) = each( $_SESSION['xoops_upgrade']['steps'] );
-                $text = sprintf( _APPLY_NEXT, $val );
+                list($key, $val) = each($_SESSION['xoops_upgrade']['steps']);
+                $text = sprintf(_APPLY_NEXT, $val);
             }
             echo '<a id="link-next" href="index.php?action=next">' . $text . '</a>';
         }

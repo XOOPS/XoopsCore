@@ -1,7 +1,8 @@
 <?php
+
 namespace Xoops\Form;
 
-require_once(__DIR__.'/../../../init_new.php');
+require_once(__DIR__ . '/../../../init_new.php');
 
 class SimpleFormTest extends \PHPUnit\Framework\TestCase
 {
@@ -31,22 +32,22 @@ class SimpleFormTest extends \PHPUnit\Framework\TestCase
     {
         $this->object->insertBreak();
         $value = $this->object->render();
-        $this->assertTrue(false !== strpos($value, '<br />'));
+        $this->assertTrue(false !== mb_strpos($value, '<br />'));
 
-        $this->object->insertBreak('extra','class');
+        $this->object->insertBreak('extra', 'class');
         $value = $this->object->render();
-        $this->assertTrue(false !== strpos($value, '<br class="class" />extra'));
+        $this->assertTrue(false !== mb_strpos($value, '<br class="class" />extra'));
     }
 
     public function testRender()
     {
         $value = $this->object->render();
-        $this->assertTrue(is_string($value));
-        $this->assertTrue(false !== strpos($value, '<form'));
-        $this->assertTrue(false !== strpos($value, 'name="name"'));
-        $this->assertTrue(false !== strpos($value, 'id="name"'));
-        $this->assertTrue(false !== strpos($value, 'action="action"'));
-        $this->assertTrue(false !== strpos($value, 'method="post"'));
-        $this->assertTrue(false !== strpos($value, '</form>'));
+        $this->assertInternalType('string', $value);
+        $this->assertTrue(false !== mb_strpos($value, '<form'));
+        $this->assertTrue(false !== mb_strpos($value, 'name="name"'));
+        $this->assertTrue(false !== mb_strpos($value, 'id="name"'));
+        $this->assertTrue(false !== mb_strpos($value, 'action="action"'));
+        $this->assertTrue(false !== mb_strpos($value, 'method="post"'));
+        $this->assertTrue(false !== mb_strpos($value, '</form>'));
     }
 }

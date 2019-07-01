@@ -21,20 +21,20 @@
  */
 
 // Info module
-define("_MI_BANNERS_NAME", "Banners");
-define("_MI_BANNERS_DESC", "Module for managing banners");
+define('_MI_BANNERS_NAME', 'Banners');
+define('_MI_BANNERS_DESC', 'Module for managing banners');
 // Menu
-define("_MI_BANNERS_INDEX", "Home");
-define("_MI_BANNERS_CLIENTS", "Clients");
-define("_MI_BANNERS_BANNERS", "Banners manager");
-define("_MI_BANNERS_ABOUT", "About");
+define('_MI_BANNERS_INDEX', 'Home');
+define('_MI_BANNERS_CLIENTS', 'Clients');
+define('_MI_BANNERS_BANNERS', 'Banners manager');
+define('_MI_BANNERS_ABOUT', 'About');
 // Blocks
-define("_MI_BANNERS_BLOCKS_RANDOM", "Random Banners");
-define("_MI_BANNERS_BLOCKS_RANDOMDSC", "Display banners randomly");
-define("_MI_BANNERS_BLOCKS_ID", "ID Banners");
-define("_MI_BANNERS_BLOCKS_IDDSC", "Display banners by ID");
+define('_MI_BANNERS_BLOCKS_RANDOM', 'Random Banners');
+define('_MI_BANNERS_BLOCKS_RANDOMDSC', 'Display banners randomly');
+define('_MI_BANNERS_BLOCKS_ID', 'ID Banners');
+define('_MI_BANNERS_BLOCKS_IDDSC', 'Display banners by ID');
 // Preferences
-define("_MI_BANNERS_PREFERENCE_MYIP", "Your IP address");
-define("_MI_BANNERS_PREFERENCE_MYIPDSC", "This IP will not count as an impression for banners");
-define("_MI_BANNERS_PREFERENCE_PAGER", "Number of banners to display per page");
-define("_MI_BANNERS_PREFERENCE_CLIENTSPAGER", "Number of clients to display per page");
+define('_MI_BANNERS_PREFERENCE_MYIP', 'Your IP address');
+define('_MI_BANNERS_PREFERENCE_MYIPDSC', 'This IP will not count as an impression for banners');
+define('_MI_BANNERS_PREFERENCE_PAGER', 'Number of banners to display per page');
+define('_MI_BANNERS_PREFERENCE_CLIENTSPAGER', 'Number of clients to display per page');

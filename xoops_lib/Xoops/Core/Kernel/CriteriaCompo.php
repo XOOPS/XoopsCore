@@ -33,14 +33,14 @@ class CriteriaCompo extends CriteriaElement
      *
      * @var CriteriaElement[] array of objects
      */
-    protected $criteriaElements = array();
+    protected $criteriaElements = [];
 
     /**
      * Conditions
      *
      * @var array
      */
-    protected $conditions = array();
+    protected $conditions = [];
 
     /**
      * Constructor
@@ -67,6 +67,7 @@ class CriteriaCompo extends CriteriaElement
     {
         $this->criteriaElements[] = $criteriaElement;
         $this->conditions[] = $condition;
+
         return $this;
     }
 
@@ -83,7 +84,7 @@ class CriteriaCompo extends CriteriaElement
                 continue;
             }
             /* @var $element CriteriaElement */
-            if ($i == 0) {
+            if (0 == $i) {
                 $ret = $element->render();
             } else {
                 if (!$render = $element->render()) {
@@ -93,7 +94,8 @@ class CriteriaCompo extends CriteriaElement
             }
             $ret = "({$ret})";
         }
-        $ret = ($ret==='()') ? '(1)' : $ret;
+        $ret = ('()' === $ret) ? '(1)' : $ret;
+
         return $ret;
     }
 
@@ -105,7 +107,8 @@ class CriteriaCompo extends CriteriaElement
     public function renderWhere()
     {
         $ret = $this->render();
-        $ret = ($ret != '') ? 'WHERE ' . $ret : $ret;
+        $ret = ('' != $ret) ? 'WHERE ' . $ret : $ret;
+
         return $ret;
     }
 
@@ -120,14 +123,15 @@ class CriteriaCompo extends CriteriaElement
         $ret = '';
         foreach ($this->criteriaElements as $i => $element) {
             /* @var $element CriteriaElement */
-            if ($i == 0) {
+            if (0 == $i) {
                 $ret = $element->renderLdap();
             } else {
-                $cond = strtoupper($this->conditions[$i]);
-                $op = ($cond === "OR") ? "|" : "&";
-                $ret = "({$op}{$ret}" . $element->renderLdap() . ")";
+                $cond = mb_strtoupper($this->conditions[$i]);
+                $op = ('OR' === $cond) ? '|' : '&';
+                $ret = "({$op}{$ret}" . $element->renderLdap() . ')';
             }
         }
+
         return $ret;
     }
 
@@ -142,7 +146,7 @@ class CriteriaCompo extends CriteriaElement
      */
     public function renderQb(QueryBuilder $qb = null, $whereMode = '')
     {
-        if ($qb==null) {
+        if (null == $qb) {
             $qb = \Xoops::getInstance()->db()->createXoopsQueryBuilder();
             $whereMode = ''; // first entry in new instance must be where
         }
@@ -150,11 +154,11 @@ class CriteriaCompo extends CriteriaElement
         $expr = '';
         foreach ($this->criteriaElements as $i => $element) {
             $expr_part = $element->buildExpressionQb($qb);
-            if ($expr_part !== false) {
-                if ($i == 0) {
+            if (false !== $expr_part) {
+                if (0 == $i) {
                     $expr = $expr_part;
                 } else {
-                    $expr .= ' ' . strtoupper($this->conditions[$i]) . ' ' . $expr_part;
+                    $expr .= ' ' . mb_strtoupper($this->conditions[$i]) . ' ' . $expr_part;
                 }
             }
         }
@@ -162,7 +166,7 @@ class CriteriaCompo extends CriteriaElement
         if (!empty($expr)) {
             $expr = '(' . $expr . ')'; // group all conditions in this compo
 
-            switch (strtolower($whereMode)) {
+            switch (mb_strtolower($whereMode)) {
                 case 'and':
                     $qb->andWhere($expr);
                     break;
@@ -175,7 +179,7 @@ class CriteriaCompo extends CriteriaElement
             }
         }
 
-        if ($this->limit!=0 || $this->start!=0) {
+        if (0 != $this->limit || 0 != $this->start) {
             $qb->setFirstResult($this->start)
                 ->setMaxResults($this->limit);
         }
@@ -187,6 +191,7 @@ class CriteriaCompo extends CriteriaElement
         if (!empty($this->sort)) {
             $qb->orderBy($this->sort, $this->order);
         }
+
         return $qb;
     }
 
@@ -207,11 +212,11 @@ class CriteriaCompo extends CriteriaElement
         $expr = false;
         foreach ($this->criteriaElements as $i => $element) {
             $expr_part = $element->buildExpressionQb($qb);
-            if ($expr_part !== false) {
-                if ($i == 0) {
+            if (false !== $expr_part) {
+                if (0 == $i) {
                     $expr = $expr_part;
                 } else {
-                    $expr .= ' ' . strtoupper($this->conditions[$i]) . ' ' . $expr_part;
+                    $expr .= ' ' . mb_strtoupper($this->conditions[$i]) . ' ' . $expr_part;
                 }
             }
         }
@@ -219,6 +224,7 @@ class CriteriaCompo extends CriteriaElement
         if (!empty($expr)) {
             $expr = '(' . $expr . ')'; // group all conditions in this compo
         }
+
         return $expr;
     }
 }

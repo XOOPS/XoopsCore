@@ -1,7 +1,6 @@
 <?php
-require_once(__DIR__.'/../../../../init_new.php');
+require_once(__DIR__ . '/../../../../init_new.php');
 
-use Xoops\Core\Service\NullProvider;
 use Xoops\Core\Service\Manager;
 
 class NullProviderTest extends \PHPUnit\Framework\TestCase

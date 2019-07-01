@@ -9,14 +9,14 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Doctrine\DBAL\FetchMode;
+use Doctrine\DBAL\ParameterType;
 use Xoops\Core\Database\Connection;
 use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\Kernel\CriteriaCompo;
 use Xoops\Core\Kernel\CriteriaElement;
 use Xoops\Core\Kernel\XoopsObject;
 use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
-use Doctrine\DBAL\FetchMode;
-use Doctrine\DBAL\ParameterType;
 
 /**
  * @copyright 2000-2019 XOOPS Project (https://xoops.org)
@@ -213,14 +213,14 @@ class AvatarsAvatarHandler extends XoopsPersistableObjectHandler
      */
     public function getObjectsWithCount(CriteriaElement $criteria = null, $id_as_key = false)
     {
-        $ret = array();
-        if ($criteria === null) {
+        $ret = [];
+        if (null === $criteria) {
             $criteria = new Criteria('');
         }
         $criteria->setGroupby('a.avatar_id');
         $criteria->setSort('avatar_weight, avatar_id');
         $qb = $this->db2->createXoopsQueryBuilder();
-        $qb ->select('a.*', 'COUNT(u.user_id) AS count')
+        $qb->select('a.*', 'COUNT(u.user_id) AS count')
             ->fromPrefix('avatars_avatar', 'a')
             ->leftJoinPrefix('l', 'avatars_user_link', 'u', 'u.avatar_id=a.avatar_id');
         $criteria->renderQb($qb);
@@ -239,6 +239,7 @@ class AvatarsAvatarHandler extends XoopsPersistableObjectHandler
             }
             unset($avatar);
         }
+
         return $ret;
     }
 
@@ -259,7 +260,7 @@ class AvatarsAvatarHandler extends XoopsPersistableObjectHandler
         }
 
         $qb = $this->db2->createXoopsQueryBuilder();
-        $qb ->deletePrefix('avatars_user_link', 'l')
+        $qb->deletePrefix('avatars_user_link', 'l')
             ->where('l.user_id = :uid')
             ->setParameter(':uid', $user_id, ParameterType::INTEGER);
         $result = $qb->execute();
@@ -268,12 +269,12 @@ class AvatarsAvatarHandler extends XoopsPersistableObjectHandler
         }
 
         $qb = $this->db2->createXoopsQueryBuilder();
-        $qb ->insertPrefix('avatars_user_link')
+        $qb->insertPrefix('avatars_user_link')
             ->values(
-                array(
+                [
                     'avatar_id' => ':aid',
-                    'user_id' => ':uid'
-                )
+                    'user_id' => ':uid',
+                ]
             )
             ->setParameter(':aid', $avatar_id, ParameterType::INTEGER)
             ->setParameter(':uid', $user_id, ParameterType::INTEGER);
@@ -294,9 +295,9 @@ class AvatarsAvatarHandler extends XoopsPersistableObjectHandler
      */
     public function getUser(AvatarsAvatar $avatar)
     {
-        $ret = array();
+        $ret = [];
         $qb = $this->db2->createXoopsQueryBuilder();
-        $qb ->select('user_id')
+        $qb->select('user_id')
             ->fromPrefix('avatars_user_link', 'l')
             ->where('l.avatar_id = :bid')
             ->setParameter(':bid', $avatar->getVar('avatar_id'), ParameterType::INTEGER);
@@ -307,6 +308,7 @@ class AvatarsAvatarHandler extends XoopsPersistableObjectHandler
         while ($myrow = $result->fetch(FetchMode::ASSOCIATIVE)) {
             $ret[] = $myrow['user_id'];
         }
+
         return $ret;
     }
 
@@ -322,19 +324,20 @@ class AvatarsAvatarHandler extends XoopsPersistableObjectHandler
     {
         $criteria = new CriteriaCompo();
         if (isset($avatar_type)) {
-            $avatar_type = ($avatar_type === 'C') ? 'C' : 'S';
+            $avatar_type = ('C' === $avatar_type) ? 'C' : 'S';
             $criteria->add(new Criteria('avatar_type', $avatar_type));
         }
         if (isset($avatar_display)) {
             $criteria->add(new Criteria('avatar_display', (int)($avatar_display)));
         }
         $avatars = $this->getObjects($criteria, true);
-        $ret = array(
-            'avatars/blank.gif' => XoopsLocale::NONE
-        );
+        $ret = [
+            'avatars/blank.gif' => XoopsLocale::NONE,
+        ];
         foreach (array_keys($avatars) as $i) {
             $ret[$avatars[$i]->getVar('avatar_file')] = $avatars[$i]->getVar('avatar_name');
         }
+
         return $ret;
     }
 }

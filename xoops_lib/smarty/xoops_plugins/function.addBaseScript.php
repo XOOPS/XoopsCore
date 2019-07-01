@@ -5,6 +5,7 @@
  * @copyright   2015 XOOPS Project (http://xoops.org)
  * @license     GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author      Richard Griffith <richard@geekwright.com>
+ * @param mixed $params
  */
 
 /**
@@ -25,5 +26,6 @@ function smarty_function_addBaseScript($params, Smarty_Internal_Template $smarty
     if (!empty($assets)) {
         $xoops->theme()->addBaseScriptAssets($assets);
     }
+
     return '';
 }

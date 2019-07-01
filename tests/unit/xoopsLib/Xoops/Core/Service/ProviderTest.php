@@ -1,10 +1,10 @@
 <?php
-require_once(__DIR__.'/../../../../init_new.php');
-require_once(XOOPS_TU_ROOT_PATH.'/modules/avatars/class/AvatarsProvider.php');
+require_once(__DIR__ . '/../../../../init_new.php');
+require_once(XOOPS_TU_ROOT_PATH . '/modules/avatars/class/AvatarsProvider.php');
 
+use Xoops\Core\Kernel\Handlers\XoopsUser;
 use Xoops\Core\Service\Manager;
 use Xoops\Core\Service\Provider;
-use Xoops\Core\Kernel\Handlers\XoopsUser;
 
 class ProviderTest extends \PHPUnit\Framework\TestCase
 {
@@ -79,17 +79,17 @@ class ProviderTest extends \PHPUnit\Framework\TestCase
 
         $user = new XoopsUser();
         $result = $instance->getAvatarEditUrl($user);
-        $this->assertInstanceOf('\Xoops\Core\Service\Response',$result);
+        $this->assertInstanceOf('\Xoops\Core\Service\Response', $result);
         $this->assertTrue($result->isSuccess());
 
         $result = $instance->getAvatarUrl($provider);
-        $this->assertInstanceOf('\Xoops\Core\Service\Response',$result);
+        $this->assertInstanceOf('\Xoops\Core\Service\Response', $result);
         $this->assertFalse($result->isSuccess());
     }
 
     public function test__callStatic()
     {
         $result = Provider::staticDummyMethod();
-        $this->assertTrue(is_null($result));
+        $this->assertTrue(null === $result);
     }
 }

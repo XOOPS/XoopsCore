@@ -17,7 +17,6 @@
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
-
 class MenusDecorator
 {
     /**
@@ -25,23 +24,24 @@ class MenusDecorator
      *
      * @return bool
      */
-    static function getDecorators($dirname)
+    public static function getDecorators($dirname)
     {
         $available = self::getAvailableDecorators();
         if (!in_array($dirname, array_keys($available))) {
             return false;
         }
+
         return $available[$dirname];
     }
 
     /**
      * @return array
      */
-    static function getAvailableDecorators()
+    public static function getAvailableDecorators()
     {
         static $decorators = false;
         if (!is_array($decorators)) {
-            $decorators = array();
+            $decorators = [];
             $helper = Menus::getInstance();
 
             $dirnames = XoopsLists::getDirListAsArray($helper->path('decorators/'), '');
@@ -55,6 +55,7 @@ class MenusDecorator
                 }
             }
         }
+
         return $decorators;
     }
 }
@@ -76,39 +77,45 @@ class MenusDecoratorAbstract
     {
         $helper = Menus::getInstance();
 
-        $language =  XoopsLocale::getLegacyLanguage();
+        $language = XoopsLocale::getLegacyLanguage();
         $path = $helper->path("decorators/{$name}/language");
         if (!$ret = XoopsLoad::loadFile("{$path}/{$language}/decorator.php")) {
             $ret = XoopsLoad::loadFile("{$path}/english/decorator.php");
         }
+
         return $ret;
     }
 }
 
-interface MenusDecoratorInterface {
-
+interface MenusDecoratorInterface
+{
     /**
      * @return void
      */
-    function start();
+    public function start();
 
     /**
+     * @param mixed $menus
      * @return void
      */
-    function end(&$menus);
+    public function end(&$menus);
 
     /**
+     * @param mixed $menu
      * @return void
      */
-    function decorateMenu(&$menu);
+    public function decorateMenu(&$menu);
 
     /**
+     * @param mixed $menu
+     * @param mixed $hasAccess
      * @return void
      */
-    function hasAccess($menu, &$hasAccess);
+    public function hasAccess($menu, &$hasAccess);
 
     /**
+     * @param mixed $accessFilter
      * @return void
      */
-    function accessFilter(&$accessFilter);
+    public function accessFilter(&$accessFilter);
 }

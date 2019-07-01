@@ -9,9 +9,9 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
-use Xoops\Core\Kernel\Criteria;
-use Xoops\Core\FixedGroups;
 use Xmf\Request;
+use Xoops\Core\FixedGroups;
+use Xoops\Core\Kernel\Criteria;
 
 /**
  * System admin
@@ -32,8 +32,8 @@ $system_breadcrumb = SystemBreadcrumb::getInstance();
 
 $error = false;
 if ($system->checkRight()) {
-    if (isset($fct) && $fct != '') {
-        $fct = preg_replace("/[^a-z0-9_\-]/i", "", $fct);
+    if (isset($fct) && '' != $fct) {
+        $fct = preg_replace("/[^a-z0-9_\-]/i", '', $fct);
         if (XoopsLoad::fileExists($file = $xoops->path('modules/' . $xoopsModule->getVar('dirname', 'n') . '/admin/' . $fct . '/xoops_version.php'))) {
             // Load language file
             //system_loadLanguage($fct, $xoopsModule->getVar('dirname', 'n'));
@@ -59,7 +59,7 @@ if ($system->checkRight()) {
                 } else {
                     $error = true;
                 }
-            } elseif ($fct === 'version') {
+            } elseif ('version' === $fct) {
                 if (XoopsLoad::fileExists($file = $xoops->path('modules/' . $xoopsModule->getVar('dirname', 'n') . '/admin/version/main.php'))) {
                     include_once $file;
                     unset($file);
@@ -79,7 +79,7 @@ if ($system->checkRight()) {
 
 if (false != $error) {
     $op = Request::getString('op', '');
-    if ($op === 'system_activate') {
+    if ('system_activate' === $op) {
         \Xoops::getInstance()->logger()->quiet();
         $part = Request::getString('type', '');
         $config_handler = $xoops->getHandlerConfig();
@@ -120,7 +120,7 @@ if (false != $error) {
 
     $admin_dir = \XoopsBaseConfig::get('root-path') . '/modules/system/admin';
     $dirlist = XoopsLists::getDirListAsArray($admin_dir);
-    $inactive_section = array('blocksadmin', 'groups', 'modulesadmin', 'preferences', 'tplsets', 'extensions', 'users', 'services');
+    $inactive_section = ['blocksadmin', 'groups', 'modulesadmin', 'preferences', 'tplsets', 'extensions', 'users', 'services'];
     foreach ($dirlist as $directory) {
         if (XoopsLoad::fileExists($file = $admin_dir . '/' . $directory . '/xoops_version.php')) {
             require $file;

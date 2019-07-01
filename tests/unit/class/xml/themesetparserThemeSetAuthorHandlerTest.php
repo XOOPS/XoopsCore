@@ -1,12 +1,12 @@
 <?php
-require_once(__DIR__.'/../../init_new.php');
+require_once(__DIR__ . '/../../init_new.php');
 
 class ThemeSetAuthorHandlerTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass = 'ThemeSetAuthorHandler';
     protected $object = null;
-    
-    public function setUp()
+
+    protected function setUp()
     {
         $input = 'input';
         $this->object = new $this->myclass($input);
@@ -21,26 +21,26 @@ class ThemeSetAuthorHandlerTest extends \PHPUnit\Framework\TestCase
     public function test_getName()
     {
         $instance = $this->object;
-        
+
         $name = $instance->getName();
         $this->assertSame('author', $name);
     }
-    
+
     public function test_handleBeginElement()
     {
         $instance = $this->object;
 
         $input = 'input';
         $parser = new XoopsThemeSetParser($input);
-        $params = array();
+        $params = [];
         $x = $instance->handleBeginElement($parser, $params);
-        $this->assertSame(array(), $parser->tempArr);
+        $this->assertSame([], $parser->tempArr);
     }
 
     public function test_handleEndElement()
     {
         $instance = $this->object;
-        
+
         $this->markTestIncomplete();
     }
 }

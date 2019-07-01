@@ -70,9 +70,8 @@ class Language
      *
      * @param string $filename filename to load
      *
-     * @return bool true if file exists and was loaded
-     *
      * @throws \InvalidArgumentException
+     * @return bool true if file exists and was loaded
      */
     protected static function loadFile($filename)
     {
@@ -81,8 +80,10 @@ class Language
         }
         if (file_exists($filename)) {
             include_once $filename;
+
             return true;
         }
+
         return false;
     }
 }

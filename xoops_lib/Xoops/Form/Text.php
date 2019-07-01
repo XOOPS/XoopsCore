@@ -28,8 +28,8 @@ class Text extends Element
      *
      * @param string|array $caption     Caption or array of all attributes
      * @param string       $name        name attribute
-     * @param integer      $size        Size
-     * @param integer      $maxlength   Maximum length of text
+     * @param int      $size        Size
+     * @param int      $maxlength   Maximum length of text
      * @param string       $value       Initial text
      * @param string       $placeholder placeholder for this element.
      */
@@ -93,6 +93,7 @@ class Text extends Element
         }
 
         $attributes = $this->renderAttributeString();
-        return '<input ' . $attributes . ' ' . $this->getExtra() .' >';
+
+        return '<input ' . $attributes . ' ' . $this->getExtra() . ' >';
     }
 }

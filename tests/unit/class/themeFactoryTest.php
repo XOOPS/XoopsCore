@@ -1,11 +1,11 @@
 <?php
-require_once(__DIR__.'/../init_new.php');
+require_once(__DIR__ . '/../init_new.php');
 
 class ThemeFactoryTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass = 'XoopsThemeFactory';
 
-    public function setUp()
+    protected function setUp()
     {
     }
 
@@ -20,18 +20,19 @@ class ThemeFactoryTest extends \PHPUnit\Framework\TestCase
         $themefactory = new $this->myclass();
         $this->assertInstanceOf($this->myclass, $themefactory);
         $this->assertSame('XoopsThemeFactory', $themefactory->xoBundleIdentifier);
-        $this->assertSame(array(), $themefactory->allowedThemes);
+        $this->assertSame([], $themefactory->allowedThemes);
         $this->assertSame('default', $themefactory->defaultTheme);
-        $this->assertSame(true, $themefactory->allowUserSelection);
+        $this->assertTrue($themefactory->allowUserSelection);
     }
 
-    public function createInstance_check_level($themefactory, $params=null)
+    public function createInstance_check_level($themefactory, $params = null)
     {
         $level = ob_get_level();
         $value = $themefactory->createInstance($params);
         while (ob_get_level() > $level) {
             @ob_end_flush();
         }
+
         return $value;
     }
 
@@ -47,7 +48,7 @@ class ThemeFactoryTest extends \PHPUnit\Framework\TestCase
     {
         $themefactory = new $this->myclass();
         $this->assertInstanceOf($this->myclass, $themefactory);
-        $value = $this->createInstance_check_level($themefactory, array('titi'=>'toto'));
+        $value = $this->createInstance_check_level($themefactory, ['titi' => 'toto']);
         $this->assertInstanceOf('\Xoops\Core\Theme\XoopsTheme', $value);
         $this->assertSame('toto', $value->titi);
         $this->assertTrue(!empty($value->path));
@@ -57,10 +58,10 @@ class ThemeFactoryTest extends \PHPUnit\Framework\TestCase
     public function test_isThemeAllowed()
     {
         $themefactory = new $this->myclass();
-        $this->assertSame(array(), $themefactory->allowedThemes);
+        $this->assertSame([], $themefactory->allowedThemes);
         $name = 'toto';
         $this->assertTrue($themefactory->isThemeAllowed($name));
-        $themefactory->allowedThemes = array($name);
+        $themefactory->allowedThemes = [$name];
         $value = $themefactory->isThemeAllowed($name);
         $this->assertTrue($themefactory->isThemeAllowed($name));
         $this->assertFalse($themefactory->isThemeAllowed('titi'));

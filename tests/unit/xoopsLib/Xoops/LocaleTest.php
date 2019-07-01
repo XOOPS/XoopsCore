@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/../../init_new.php');
+require_once(__DIR__ . '/../../init_new.php');
 
 class Xoops_LocaleTest extends \PHPUnit\Framework\TestCase
 {
@@ -9,16 +9,16 @@ class Xoops_LocaleTest extends \PHPUnit\Framework\TestCase
     {
         $class = $this->myClass;
         $x = $class::loadLanguage(null);
-        $this->assertSame(false, $x);
+        $this->assertFalse($x);
 
         $path = '';
         $name = '_user';
         $language = 'english';
         $x = $class::loadLanguage($name, null, $language);
-        $this->assertSame(true, $x);
+        $this->assertTrue($x);
 
         $x = $class::loadLanguage($name, null, 'dummy');
-        $this->assertSame(true, $x);
+        $this->assertTrue($x);
     }
 
     public function test_loadLocale()
@@ -35,7 +35,7 @@ class Xoops_LocaleTest extends \PHPUnit\Framework\TestCase
     {
         $class = $this->myClass;
         $x = $class::loadMailerLocale();
-        $this->assertSame(true, $x);
+        $this->assertTrue($x);
 
         $map = XoopsLoad::getMap();
         $this->assertTrue(isset($map['xoopsmailerlocale']));
@@ -53,15 +53,15 @@ class Xoops_LocaleTest extends \PHPUnit\Framework\TestCase
     public function test_translateTheme()
     {
         $path = \XoopsBaseConfig::get('root-path');
-        if (! class_exists('Comments', false)) {
-            \XoopsLoad::addMap(array(
-                'comments'          => $path . '/modules/comments/class/helper.php',
-            ));
+        if (!class_exists('Comments', false)) {
+            \XoopsLoad::addMap([
+                'comments' => $path . '/modules/comments/class/helper.php',
+            ]);
         }
-        if (! class_exists('MenusDecorator', false)) {
-            \XoopsLoad::addMap(array(
-                'menusdecorator'    => $path . '/modules/menus/class/decorator.php',
-            ));
+        if (!class_exists('MenusDecorator', false)) {
+            \XoopsLoad::addMap([
+                'menusdecorator' => $path . '/modules/menus/class/decorator.php',
+            ]);
         }
 
         $class = $this->myClass;
@@ -78,7 +78,7 @@ class Xoops_LocaleTest extends \PHPUnit\Framework\TestCase
 
         $dirname = 'xoops';
         $x = $class::getClassFromDirname($dirname);
-        $this->assertSame(ucfirst($dirname).'Locale', $x);
+        $this->assertSame(ucfirst($dirname) . 'Locale', $x);
     }
 
     public function test_getThemeClassFromDirname()
@@ -88,7 +88,7 @@ class Xoops_LocaleTest extends \PHPUnit\Framework\TestCase
 
         $dirname = 'xoops';
         $x = $class::getThemeClassFromDirname($dirname);
-        $this->assertSame(ucfirst($dirname).'ThemeLocale', $x);
+        $this->assertSame(ucfirst($dirname) . 'ThemeLocale', $x);
     }
 
     public function test_getUserLocales()
@@ -96,7 +96,7 @@ class Xoops_LocaleTest extends \PHPUnit\Framework\TestCase
         $class = $this->myClass;
 
         $locales = $class::getUserLocales();
-        $this->assertTrue(is_array($locales));
+        $this->assertInternalType('array', $locales);
         $this->assertTrue(in_array('en_US', $locales));
     }
 

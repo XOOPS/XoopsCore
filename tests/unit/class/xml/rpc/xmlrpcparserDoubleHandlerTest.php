@@ -1,12 +1,12 @@
 <?php
-require_once(__DIR__.'/../../../init_new.php');
+require_once(__DIR__ . '/../../../init_new.php');
 
 class RpcDoubleHandlerTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass = 'RpcDoubleHandler';
     protected $object = null;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->object = new $this->myclass();
     }

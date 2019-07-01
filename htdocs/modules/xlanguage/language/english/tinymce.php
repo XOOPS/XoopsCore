@@ -16,8 +16,7 @@
  * @author          Laurent JEN (Aka DuGris)
  * @version         $Id$
  */
-
-define("_XLANGUAGE_TINYMCE_INS", "Insert multi-language content");
-define("_XLANGUAGE_TINYMCE_ADD", "Add language");
-define("_XLANGUAGE_TINYMCE_SUBTITLE", "Select a language and type/paste the content in the box below:");
-define("_XLANGUAGE_TINYMCE_SELECT", "Select language");
+define('_XLANGUAGE_TINYMCE_INS', 'Insert multi-language content');
+define('_XLANGUAGE_TINYMCE_ADD', 'Add language');
+define('_XLANGUAGE_TINYMCE_SUBTITLE', 'Select a language and type/paste the content in the box below:');
+define('_XLANGUAGE_TINYMCE_SELECT', 'Select language');

@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/../../../init_new.php');
+require_once(__DIR__ . '/../../../init_new.php');
 
 class FormDhtmlTextAreaTest extends \PHPUnit\Framework\TestCase
 {
@@ -11,7 +11,7 @@ class FormDhtmlTextAreaTest extends \PHPUnit\Framework\TestCase
         $this->assertInstanceOf($this->myclass, $instance);
         $this->assertInstanceOf('XoopsEditor', $instance);
 
-        $items = array('_hiddenText');
+        $items = ['_hiddenText'];
         foreach ($items as $item) {
             $reflection = new ReflectionProperty($this->myclass, $item);
             $this->assertTrue($reflection->isPrivate());

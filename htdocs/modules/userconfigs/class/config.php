@@ -12,9 +12,8 @@
 use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\Kernel\CriteriaCompo;
 use Xoops\Core\Kernel\CriteriaElement;
-use Xoops\Core\Kernel\XoopsObjectHandler;
 use Xoops\Core\Kernel\Handlers\XoopsModule;
-
+use Xoops\Core\Kernel\XoopsObjectHandler;
 
 /**
  * Userconfigs
@@ -24,7 +23,6 @@ use Xoops\Core\Kernel\Handlers\XoopsModule;
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
-
 class UserconfigsConfigHandler extends XoopsObjectHandler
 {
     /**
@@ -50,7 +48,7 @@ class UserconfigsConfigHandler extends XoopsObjectHandler
      * @var     array
      * @access  private
      */
-    private $_cachedConfigs = array();
+    private $_cachedConfigs = [];
 
     /**
      * Constructor
@@ -71,6 +69,7 @@ class UserconfigsConfigHandler extends XoopsObjectHandler
     public function createConfig()
     {
         $instance = $this->_iHandler->create();
+
         return $instance;
     }
 
@@ -86,9 +85,10 @@ class UserconfigsConfigHandler extends XoopsObjectHandler
     {
         /* @var $config UserconfigsItem */
         $config = $this->_iHandler->get($id);
-        if ($withoptions == true) {
+        if (true == $withoptions) {
             $config->setConfOptions($this->getConfigOptions(new Criteria('conf_id', $id)));
         }
+
         return $config;
     }
 
@@ -118,6 +118,7 @@ class UserconfigsConfigHandler extends XoopsObjectHandler
         if (!empty($this->_cachedConfigs[$config->getVar('conf_modid')][$config->getVar('conf_uid')])) {
             unset($this->_cachedConfigs[$config->getVar('conf_modid')][$config->getVar('conf_uid')]);
         }
+
         return true;
     }
 
@@ -135,7 +136,7 @@ class UserconfigsConfigHandler extends XoopsObjectHandler
         }
         $options = $config->getConfOptions();
         $count = count($options);
-        if ($count == 0) {
+        if (0 == $count) {
             $options = $this->getConfigOptions(new Criteria('conf_id', $config->getVar('conf_id')));
             $count = count($options);
         }
@@ -147,6 +148,7 @@ class UserconfigsConfigHandler extends XoopsObjectHandler
         if (!empty($this->_cachedConfigs[$config->getVar('conf_modid')][$config->getVar('conf_uid')])) {
             unset($this->_cachedConfigs[$config->getVar('conf_modid')][$config->getVar('conf_uid')]);
         }
+
         return true;
     }
 
@@ -171,6 +173,7 @@ class UserconfigsConfigHandler extends XoopsObjectHandler
             $criteria2->setSort('conf_order');
             $criteria2->setOrder('ASC');
         }
+
         return $this->_iHandler->getObjects($criteria2, $id_as_key);
     }
 
@@ -195,7 +198,7 @@ class UserconfigsConfigHandler extends XoopsObjectHandler
      */
     public function getConfigsByModule($module = 0)
     {
-        $ret = array();
+        $ret = [];
         $criteria = new Criteria('conf_modid', (int)($module));
         $configs = $this->getConfigs($criteria, true);
         if (is_array($configs)) {
@@ -204,6 +207,7 @@ class UserconfigsConfigHandler extends XoopsObjectHandler
             }
         }
         $_cachedConfigs[$module] = $ret;
+
         return $_cachedConfigs[$module];
     }
 
@@ -222,8 +226,10 @@ class UserconfigsConfigHandler extends XoopsObjectHandler
             foreach (array_keys($configs) as $i) {
                 $this->deleteConfig($configs[$i]);
             }
+
             return true;
         }
+
         return false;
     }
 
@@ -240,19 +246,19 @@ class UserconfigsConfigHandler extends XoopsObjectHandler
         static $_cachedConfigs;
         if (!empty($_cachedConfigs[$moduleId][$uid])) {
             return $_cachedConfigs[$moduleId][$uid];
-        } else {
-            $ret = array();
-            $criteria = new CriteriaCompo(new Criteria('conf_modid', (int)($moduleId)));
-            $criteria->add(new Criteria('conf_uid', (int)($uid)));
-            $configs = $this->getConfigs($criteria, true);
-            if (is_array($configs)) {
-                foreach (array_keys($configs) as $i) {
-                    $ret[$configs[$i]->getVar('conf_name')] = $configs[$i]->getConfValueForOutput();
-                }
-            }
-            $_cachedConfigs[$moduleId][$uid] = $ret;
-            return $_cachedConfigs[$moduleId][$uid];
         }
+        $ret = [];
+        $criteria = new CriteriaCompo(new Criteria('conf_modid', (int)($moduleId)));
+        $criteria->add(new Criteria('conf_uid', (int)($uid)));
+        $configs = $this->getConfigs($criteria, true);
+        if (is_array($configs)) {
+            foreach (array_keys($configs) as $i) {
+                $ret[$configs[$i]->getVar('conf_name')] = $configs[$i]->getConfValueForOutput();
+            }
+        }
+        $_cachedConfigs[$moduleId][$uid] = $ret;
+
+        return $_cachedConfigs[$moduleId][$uid];
     }
 
     /**
@@ -263,6 +269,7 @@ class UserconfigsConfigHandler extends XoopsObjectHandler
     public function createConfigOption()
     {
         $inst = $this->_oHandler->create();
+
         return $inst;
     }
 
@@ -276,6 +283,7 @@ class UserconfigsConfigHandler extends XoopsObjectHandler
     public function getConfigOption($id)
     {
         $inst = $this->_oHandler->get($id);
+
         return $inst;
     }
 
@@ -316,22 +324,22 @@ class UserconfigsConfigHandler extends XoopsObjectHandler
     {
         if (!empty($this->_cachedConfigs[$conf_modid][$conf_uid])) {
             return $this->_cachedConfigs[$conf_modid][$conf_uid];
-        } else {
-            $criteria = new CriteriaCompo(new Criteria('conf_modid', $conf_modid));
-            if (empty($conf_uid)) {
-                $criteria->add(new Criteria('conf_uid', $conf_uid));
-            }
-            $criteria->setSort('conf_order');
-            $criteria->setOrder('ASC');
-            $configs = $this->_iHandler->getObjects($criteria);
-            $confcount = count($configs);
-            $ret = array();
-            for ($i = 0; $i < $confcount; ++$i) {
-                $ret[$configs[$i]->getVar('conf_name')] = $configs[$i]->getConfValueForOutput();
-            }
-            $this->_cachedConfigs[$conf_modid][$conf_uid] = $ret;
-            return $ret;
         }
+        $criteria = new CriteriaCompo(new Criteria('conf_modid', $conf_modid));
+        if (empty($conf_uid)) {
+            $criteria->add(new Criteria('conf_uid', $conf_uid));
+        }
+        $criteria->setSort('conf_order');
+        $criteria->setOrder('ASC');
+        $configs = $this->_iHandler->getObjects($criteria);
+        $confcount = count($configs);
+        $ret = [];
+        for ($i = 0; $i < $confcount; ++$i) {
+            $ret[$configs[$i]->getVar('conf_name')] = $configs[$i]->getConfValueForOutput();
+        }
+        $this->_cachedConfigs[$conf_modid][$conf_uid] = $ret;
+
+        return $ret;
     }
 
     public function createDefaultUserConfigs($uid, XoopsModule $module)
@@ -341,7 +349,7 @@ class UserconfigsConfigHandler extends XoopsObjectHandler
             // now reinsert them with the new settings
             $configs = $plugin->configs();
             if (!is_array($configs)) {
-                $configs = array();
+                $configs = [];
             }
 
             if (is_array($configs) && count($configs) > 0) {

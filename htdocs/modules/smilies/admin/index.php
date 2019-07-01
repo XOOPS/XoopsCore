@@ -26,15 +26,15 @@ $xoops->header();
 // smilies not display
 $criteria = new CriteriaCompo();
 $criteria->add(new Criteria('smiley_display', 0));
-$smilies_notdisplay =  $helper->getHandlerSmilies()->getCount($criteria);
+$smilies_notdisplay = $helper->getHandlerSmilies()->getCount($criteria);
 
 // smilies display
 $criteria = new CriteriaCompo();
 $criteria->add(new Criteria('smiley_display', 0, '!='));
-$smilies_display =  $helper->getHandlerSmilies()->getCount($criteria);
+$smilies_display = $helper->getHandlerSmilies()->getCount($criteria);
 
 // total smilies
-$smilies_total= $smilies_notdisplay + $smilies_display;
+$smilies_total = $smilies_notdisplay + $smilies_display;
 
 // folder path
 $folder_path = \XoopsBaseConfig::get('root-path') . '/uploads/smilies';
@@ -48,7 +48,7 @@ $admin_page->addInfoBoxLine(sprintf(_AM_SMILIES_NBDISPLAY, '<span class="green">
 $admin_page->addInfoBoxLine(sprintf(_AM_SMILIES_NBNOTDISPLAY, '<span class="red">' . $smilies_notdisplay . '</span>'));
 
 $admin_page->addConfigBoxLine($folder_path, 'folder');
-$admin_page->addConfigBoxLine(array($folder_path, '755'), 'chmod');
+$admin_page->addConfigBoxLine([$folder_path, '755'], 'chmod');
 
 $admin_page->displayIndex();
 

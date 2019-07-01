@@ -19,7 +19,6 @@
  * @author          Mage Grégory (AKA Mage)
  * @version         $Id$
  */
-
 class AvatarsAvatarForm extends Xoops\Form\ThemeForm
 {
     public function __construct(AvatarsAvatar $obj)
@@ -34,20 +33,20 @@ class AvatarsAvatarForm extends Xoops\Form\ThemeForm
         $title = $obj->isNew() ? XoopsLocale::A_ADD : XoopsLocale::A_EDIT;
 
         $action = $_SERVER['REQUEST_URI'];
-        parent::__construct($title, 'avatar_form', $action, "post", true);
+        parent::__construct($title, 'avatar_form', $action, 'post', true);
         $this->setExtra('enctype="multipart/form-data"');
         // Name
         $this->addElement(new Xoops\Form\Text(XoopsLocale::NAME, 'avatar_name', 5, 255, $obj->getVar('avatar_name', 'e')), true);
         // Upload part
         $imgtray_img = new Xoops\Form\ElementTray(XoopsLocale::FILE, '<br />');
-		$avatars_path = \XoopsBaseConfig::get('uploads-path') . '/avatars';
+        $avatars_path = \XoopsBaseConfig::get('uploads-path') . '/avatars';
         $imageselect_img = new Xoops\Form\Select(sprintf(XoopsLocale::F_FILE_EXISTS_IN, $avatars_path . '/'), 'avatar_file', $blank_img);
         $imageselect_img->addOption($blank_img, $blank_img);
         \Xoops\Core\Lists\ImageFile::setOptionsArray($imageselect_img, $avatars_path);
-		$xoops_upload_url = \XoopsBaseConfig::get('uploads-url');
+        $xoops_upload_url = \XoopsBaseConfig::get('uploads-url');
         $imageselect_img->setExtra("onchange='showImgSelected(\"xo-avatar-img\", \"avatar_file\", \"avatars\", \"\", \"" . $xoops_upload_url . "\")'");
         $imgtray_img->addElement($imageselect_img, false);
-        $imgtray_img->addElement(new Xoops\Form\Label('', "<br /><img src='" . $xoops_upload_url . "/avatars/" . $blank_img . "' name='image_img' id='xo-avatar-img' alt='' />"));
+        $imgtray_img->addElement(new Xoops\Form\Label('', "<br /><img src='" . $xoops_upload_url . '/avatars/' . $blank_img . "' name='image_img' id='xo-avatar-img' alt='' />"));
         $fileseltray_img = new Xoops\Form\ElementTray('<br />', '<br /><br />');
         $fileseltray_img->addElement(new Xoops\Form\File(XoopsLocale::A_UPLOAD, 'avatar_file'), false);
         // , $xoops->getModuleConfig('avatars_imagefilesize')

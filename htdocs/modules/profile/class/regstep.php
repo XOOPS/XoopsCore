@@ -24,7 +24,6 @@ use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
  * @author          Jan Pedersen
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
  */
-
 class ProfileRegstep extends XoopsObject
 {
     public function __construct()
@@ -39,9 +38,6 @@ class ProfileRegstep extends XoopsObject
 
 class ProfileRegstepHandler extends XoopsPersistableObjectHandler
 {
-    /**
-     * @param null|Connection $db
-     */
     public function __construct(Connection $db = null)
     {
         parent::__construct($db, 'profile_regstep', 'profileregstep', 'step_id', 'step_name');
@@ -60,8 +56,10 @@ class ProfileRegstepHandler extends XoopsPersistableObjectHandler
     {
         if (parent::delete($obj, $force)) {
             $field_handler = \Xoops::getModuleHelper('profile')->getHandler('field');
+
             return $field_handler->updateAll('step_id', 0, new Criteria('step_id', $obj->getVar('step_id')), $force);
         }
+
         return false;
     }
 }

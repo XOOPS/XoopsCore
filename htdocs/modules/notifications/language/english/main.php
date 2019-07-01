@@ -15,7 +15,6 @@
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
-
 define('_MD_NOTIFICATIONS', 'Notifications');
 define('_MD_NOTIFICATIONS_NOTIFICATIONOPTIONS', 'Notification Options');
 define('_MD_NOTIFICATIONS_UPDATENOW', 'Update Now');
@@ -85,6 +84,6 @@ define('_MD_NOTIFICATIONS_NOTHINGTODELETE', 'There is nothing to delete.');
 //added on 2.6.0
 define('_MD_NOTIFICATIONS_RUSUREDEL', 'Are you sure you want to delete this notification?');
 
-define("_MD_NOTIFICATIONS_DELETE","Deleting notifications...");
-define("_MD_NOTIFICATIONS_DELETE_ERROR","ERROR: Could not delete notifications");
-define("_MD_NOTIFICATIONS_DELETED","Notifications deleted");
+define('_MD_NOTIFICATIONS_DELETE', 'Deleting notifications...');
+define('_MD_NOTIFICATIONS_DELETE_ERROR', 'ERROR: Could not delete notifications');
+define('_MD_NOTIFICATIONS_DELETED', 'Notifications deleted');

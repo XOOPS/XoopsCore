@@ -23,7 +23,6 @@ use Xmf\Request;
  * @version         $Id$
  * @todo            Modularize; Both search algorithms and interface will be redesigned
  */
-
 include __DIR__ . '/mainfile.php';
 
 $xoops = Xoops::getInstance();
@@ -34,5 +33,5 @@ if ($xoops->isActiveModule('search')) {
     }
     $xoops->redirect("modules/search/index.php?{$uri}", 0);
 } else {
-    $xoops->redirect("index.php", 10, 'Oops, Please install search module!!!!');
+    $xoops->redirect('index.php', 10, 'Oops, Please install search module!!!!');
 }

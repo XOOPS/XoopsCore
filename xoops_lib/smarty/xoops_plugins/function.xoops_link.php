@@ -54,17 +54,17 @@ function smarty_function_xoops_link($params, &$smarty)
     $urlstr = '';
     if (isset($params['urlvars'])) {
         $szvars = explode('&', $params['urlvars']);
-        $vars = array();
+        $vars = [];
         // Split the string making an array from the ('name','value') pairs
         foreach ($szvars as $szvar) {
-            $pos = strpos($szvar, '=');
-            if ($pos != false) { // If a value is specified, use it
-                $vars[] = array('name' => substr($szvar, 0, $pos), 'value' => substr($szvar, $pos + 1));
+            $pos = mb_strpos($szvar, '=');
+            if (false != $pos) { // If a value is specified, use it
+                $vars[] = ['name' => mb_substr($szvar, 0, $pos), 'value' => mb_substr($szvar, $pos + 1)];
             } else { // Otherwise use current one (if any)
                 if (isset($_POST[$szvar])) {
-                    $vars[] = array('name' => $szvar, 'value' => $_POST[$szvar]);
+                    $vars[] = ['name' => $szvar, 'value' => $_POST[$szvar]];
                 } elseif (isset($_GET[$szvar])) {
-                    $vars[] = array('name' => $szvar, 'value' => $_GET[$szvar]);
+                    $vars[] = ['name' => $szvar, 'value' => $_GET[$szvar]];
                 }
             }
         }
@@ -72,8 +72,8 @@ function smarty_function_xoops_link($params, &$smarty)
         foreach ($vars as $var) {
             $urlstr = "$urlstr&{$var['name']}={$var['value']}";
         }
-        if (strlen($urlstr) > 0) {
-            $urlstr = '?' . substr($urlstr, 1);
+        if (mb_strlen($urlstr) > 0) {
+            $urlstr = '?' . mb_substr($urlstr, 1);
         }
     }
 
@@ -88,7 +88,7 @@ function smarty_function_xoops_link($params, &$smarty)
     }
     if (!isset($params['page'])) {
         $cur = $_SERVER['PHP_SELF'];
-        $page = substr($cur, strrpos($cur, '/') + 1);
+        $page = mb_substr($cur, mb_strrpos($cur, '/') + 1);
     } else {
         $page = $params['page'];
     }

@@ -11,9 +11,9 @@
 
 namespace Xoops\Core\Kernel\Model;
 
+use Doctrine\DBAL\FetchMode;
 use Xoops\Core\Kernel\CriteriaElement;
 use Xoops\Core\Kernel\XoopsModelAbstract;
-use Doctrine\DBAL\FetchMode;
 
 /**
  * Object stats handler class.
@@ -55,6 +55,7 @@ class Stats extends XoopsModelAbstract
         if (isset($criteria) && ($criteria instanceof CriteriaElement)) {
             $qb = $criteria->renderQb($qb);
         }
+
         try {
             $result = $qb->execute();
             if (!$result) {
@@ -62,19 +63,21 @@ class Stats extends XoopsModelAbstract
             }
         } catch (\Exception $e) {
             \Xoops::getInstance()->events()->triggerEvent('core.exception', $e);
+
             return 0;
         }
 
-        if ($groupBy == false) {
-            list ($count) = $result->fetch(FetchMode::NUMERIC);
+        if (false == $groupBy) {
+            list($count) = $result->fetch(FetchMode::NUMERIC);
+
             return $count;
-        } else {
-            $ret = array();
-            while (list ($id, $count) = $result->fetch(FetchMode::NUMERIC)) {
-                $ret[$id] = $count;
-            }
-            return $ret;
         }
+        $ret = [];
+        while (list($id, $count) = $result->fetch(FetchMode::NUMERIC)) {
+            $ret[$id] = $count;
+        }
+
+        return $ret;
     }
 
     /**
@@ -88,7 +91,7 @@ class Stats extends XoopsModelAbstract
     {
         $qb = \Xoops::getInstance()->db()->createXoopsQueryBuilder();
 
-        $ret = array();
+        $ret = [];
         $limit = null;
         $start = null;
         $groupby_key = $this->handler->keyName;
@@ -109,9 +112,10 @@ class Stats extends XoopsModelAbstract
         if (!$result) {
             return $ret;
         }
-        while (list ($id, $count) = $result->fetch(FetchMode::NUMERIC)) {
+        while (list($id, $count) = $result->fetch(FetchMode::NUMERIC)) {
             $ret[$id] = $count;
         }
+
         return $ret;
     }
 }

@@ -16,17 +16,16 @@
  * @author          Laurent JEN (Aka DuGris)
  * @version         $Id$
  */
+define('_AM_XLANGUAGE_ACTION', 'Action');
 
-define("_AM_XLANGUAGE_ACTION", "Action");
-
-define("_AM_XLANGUAGE_DELETE_CFM", "Are you sure you want to delete the language?");
-define("_AM_XLANGUAGE_DELETED", "The language has been deleted");
-define("_AM_XLANGUAGE_SAVED", "The language has been saved");
-define("_AM_XLANGUAGE_CREATED", "The config file has been created");
-define("_AM_XLANGUAGE_LANGLIST", "language list");
-define("_AM_XLANGUAGE_NAME", "Name");
-define("_AM_XLANGUAGE_DESCRIPTION", "Description");
-define("_AM_XLANGUAGE_CHARSET", "charset");
-define("_AM_XLANGUAGE_CODE", "code");
-define("_AM_XLANGUAGE_IMAGE", "Image");
-define("_AM_XLANGUAGE_WEIGHT", "Weight");
+define('_AM_XLANGUAGE_DELETE_CFM', 'Are you sure you want to delete the language?');
+define('_AM_XLANGUAGE_DELETED', 'The language has been deleted');
+define('_AM_XLANGUAGE_SAVED', 'The language has been saved');
+define('_AM_XLANGUAGE_CREATED', 'The config file has been created');
+define('_AM_XLANGUAGE_LANGLIST', 'language list');
+define('_AM_XLANGUAGE_NAME', 'Name');
+define('_AM_XLANGUAGE_DESCRIPTION', 'Description');
+define('_AM_XLANGUAGE_CHARSET', 'charset');
+define('_AM_XLANGUAGE_CODE', 'code');
+define('_AM_XLANGUAGE_IMAGE', 'Image');
+define('_AM_XLANGUAGE_WEIGHT', 'Weight');

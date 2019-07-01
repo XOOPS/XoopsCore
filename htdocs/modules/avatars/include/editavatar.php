@@ -9,8 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
-use Xmf\Request;
 use Doctrine\DBAL\ParameterType;
+use Xmf\Request;
 
 /**
  * avatars module
@@ -21,7 +21,6 @@ use Doctrine\DBAL\ParameterType;
  * @since     2.6.0
  * @author    Mage Grégory (AKA Mage)
  */
-
 include dirname(dirname(dirname(__DIR__))) . '/mainfile.php';
 
 $xoops = Xoops::getInstance();
@@ -44,18 +43,18 @@ $xoops->header('module:avatars/avatars_editavatar.tpl');
 $avatar_Handler = $helper->getHandlerAvatar();
 
 // Parameters
-$mimetypes = array('image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png');
+$mimetypes = ['image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png'];
 $upload_size = $helper->getConfig('avatars_imagefilesize');
 $width = $helper->getConfig('avatars_imagewidth');
 $height = $helper->getConfig('avatars_imageheight');
-if ($helper->getConfig('avatars_allowupload') == 1
+if (1 == $helper->getConfig('avatars_allowupload')
     && $xoops->user->getVar('posts') >= $helper->getConfig('avatars_postsrequired')
 ) {
-    $info_msg = array(
-        sprintf(AvatarsLocale::ALERT_INFO_MIMETYPES, implode(", ", $mimetypes)),
+    $info_msg = [
+        sprintf(AvatarsLocale::ALERT_INFO_MIMETYPES, implode(', ', $mimetypes)),
         sprintf(AvatarsLocale::ALERT_INFO_MAXFILE, $upload_size / 1000),
-        sprintf(AvatarsLocale::ALERT_INFO_PIXELS, $width, $height)
-    );
+        sprintf(AvatarsLocale::ALERT_INFO_PIXELS, $width, $height),
+    ];
 } else {
     $info_msg = '';
 }
@@ -63,13 +62,13 @@ if ($helper->getConfig('avatars_allowupload') == 1
 switch ($op) {
     case 'list':
     default:
-        $xoops->tpl()->assign('uid', $xoops->user->getVar("uid"));
+        $xoops->tpl()->assign('uid', $xoops->user->getVar('uid'));
         $xoops->tpl()->assign('info_msg', $xoops->alert('info', $info_msg, XoopsLocale::INFORMATION_FOR_UPLOADS));
         $oldavatar = $xoops->user->getVar('user_avatar');
-        if (!empty($oldavatar) && $oldavatar !== 'blank.gif') {
-            $warning_msg = '<p>' . AvatarsLocale::ALERT_WARNING_OLD .'</p>';
+        if (!empty($oldavatar) && 'blank.gif' !== $oldavatar) {
+            $warning_msg = '<p>' . AvatarsLocale::ALERT_WARNING_OLD . '</p>';
             $xoops_upload_url = \XoopsBaseConfig::get('uploads-url');
-            $warning_msg .= "<img src='" . $xoops_upload_url . '/' . $oldavatar ."' alt='&nbsp;' />";
+            $warning_msg .= "<img src='" . $xoops_upload_url . '/' . $oldavatar . "' alt='&nbsp;' />";
             $xoops->tpl()->assign('warning_msg', $xoops->alert('warning', $warning_msg, XoopsLocale::WARNING));
         }
 
@@ -79,8 +78,7 @@ switch ($op) {
         // Assign form
         $xoops->tpl()->assign('form', $form->render());
         break;
-
-    case "save":
+    case 'save':
         // Check security
         if (!$xoops->security()->check()) {
             $xoops->redirect('/index.php', 3, implode('<br />', $xoops->security()->getErrors()));
@@ -108,18 +106,18 @@ switch ($op) {
                 $obj->setVar('avatar_display', 1);
                 $obj->setVar('avatar_type', 'C');
 
-                if ($error_msg == '') {
+                if ('' == $error_msg) {
                     if ($avatar_Handler->insert($obj)) {
                         $oldavatar = $xoops->user->getVar('user_avatar');
                         $criteria = new CriteriaCompo();
                         $criteria->add(new Criteria('avatar_type', 'C'));
                         $criteria->add(new Criteria('avatar_file', $oldavatar));
                         $avatars = $avatar_Handler->getObjects($criteria);
-                        if (! empty($avatars) && count($avatars) == 1 && is_object($avatars[0])) {
+                        if (!empty($avatars) && 1 == count($avatars) && is_object($avatars[0])) {
                             $avatar_Handler->delete($avatars[0]);
                             $xoops_upload_path = \XoopsBaseConfig::get('uploads-path');
                             $oldavatar_path = realpath($xoops_upload_path . '/' . $oldavatar);
-                            if (0 === strpos($oldavatar_path, realpath($xoops_upload_path))
+                            if (0 === mb_strpos($oldavatar_path, realpath($xoops_upload_path))
                                 && is_file($oldavatar_path)
                             ) {
                                 unlink($oldavatar_path);
@@ -154,15 +152,15 @@ switch ($op) {
             $criteria->add(new Criteria('avatar_type', 'C'));
             $criteria->add(new Criteria('avatar_file', $oldavatar));
             $avatars = $avatar_Handler->getObjects($criteria);
-            if (!empty($avatars) && count($avatars) == 1 && is_object($avatars[0])) {
+            if (!empty($avatars) && 1 == count($avatars) && is_object($avatars[0])) {
                 $avatar_Handler->delete($avatars[0]);
                 $xoops_upload_path = \XoopsBaseConfig::get('uploads-path');
                 $oldavatar_path = realpath($xoops_upload_path . '/' . $oldavatar);
-                if (0 === strpos($oldavatar_path, realpath($xoops_upload_path)) && is_file($oldavatar_path)) {
+                if (0 === mb_strpos($oldavatar_path, realpath($xoops_upload_path)) && is_file($oldavatar_path)) {
                     unlink($oldavatar_path);
                 }
             }
-            if ($user_avatar !== 'blank.gif') {
+            if ('blank.gif' !== $user_avatar) {
                 $avatars = $avatar_Handler->getObjects(new Criteria('avatar_file', $user_avatar));
                 if (is_object($avatars[0])) {
                     $avatar_Handler->addUser($avatars[0]->getVar('avatar_id'), $xoops->user->getVar('uid'));
@@ -170,7 +168,7 @@ switch ($op) {
             }
             $xoops->redirect($xoops->url('userinfo.php?uid=' . $uid), 2, XoopsLocale::S_ITEM_SAVED);
         }
-        $xoops->tpl()->assign('uid', $xoops->user->getVar("uid"));
+        $xoops->tpl()->assign('uid', $xoops->user->getVar('uid'));
         $xoops->tpl()->assign('info_msg', $xoops->alert('info', $info_msg, XoopsLocale::INFORMATION_FOR_UPLOADS));
         $xoops->tpl()->assign('error_msg', $xoops->alert('error', $error_msg, XoopsLocale::ERRORS));
         $form = $xoops->getModuleForm($obj, 'avatar_user');

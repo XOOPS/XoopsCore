@@ -1,12 +1,11 @@
 <?php
-require_once(__DIR__.'/../init_new.php');
+require_once(__DIR__ . '/../init_new.php');
 
 require_once(XOOPS_TU_ROOT_PATH . '/kernel/block.php');
 
 class legacy_blockTest extends \PHPUnit\Framework\TestCase
 {
-
-    public function setUp()
+    protected function setUp()
     {
     }
 

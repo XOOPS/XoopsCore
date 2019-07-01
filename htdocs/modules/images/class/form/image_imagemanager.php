@@ -19,12 +19,12 @@
  */
 class ImagesImage_imagemanagerForm extends Xoops\Form\ThemeForm
 {
-
     /**
      * @param Array
      *
      *        'obj'     => ImagesImage|XoopsObject $obj
      *        'target'  => textarea id
+     * @param mixed $param
      */
     public function __construct($param)
     {
@@ -82,7 +82,6 @@ class ImagesImage_imagemanagerForm extends Xoops\Form\ThemeForm
                 $buttonClose->setClass('btn btn-danger');
                 $buttonTray->addElement($buttonClose);
                 break;
-
             case 'images':
             default:
                 $buttonCancel = new Xoops\Form\Button('', 'cancel', XoopsLocale::A_CANCEL, 'button');

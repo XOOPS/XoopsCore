@@ -16,7 +16,6 @@
  * @version         $Id$
  * @todo            Will be refactored
  */
-
 use Xmf\Request;
 use Xoops\Core\FixedGroups;
 
@@ -27,7 +26,7 @@ $xoops_url = \XoopsBaseConfig::get('url');
 // from $_POST we use keys: uname, pass, rememberme, xoops_redirect
 $uname = Request::getString('uname', '', 'POST');
 $pass = Request::getString('pass', '', 'POST');
-if ($uname == '' || $pass == '') {
+if ('' == $uname || '' == $pass) {
     $xoops->redirect($xoops_url . '/user.php', 1, XoopsLocale::E_INCORRECT_LOGIN);
     exit();
 }
@@ -49,7 +48,7 @@ if (false != $user) {
         $xoops->redirect($xoops_url . '/index.php', 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
         exit();
     }
-    if ($xoops->getConfig('closesite') == 1) {
+    if (1 == $xoops->getConfig('closesite')) {
         $allowed = false;
         foreach ($user->getGroups() as $group) {
             if (in_array($group, $xoops->getConfig('closesite_okgrp')) || FixedGroups::ADMIN == $group) {
@@ -74,7 +73,7 @@ if (false != $user) {
 
     $xoops->events()->triggerEvent('core.include.checklogin.success');
 
-    if (!empty($xoops_redirect) && !strpos($xoops_redirect, 'register')) {
+    if (!empty($xoops_redirect) && !mb_strpos($xoops_redirect, 'register')) {
         $xoops_redirect = rawurldecode($xoops_redirect);
         $parsed = parse_url($xoops_url);
         $url = isset($parsed['scheme']) ? $parsed['scheme'] . '://' : 'http://';
@@ -87,7 +86,7 @@ if (false != $user) {
             $url .= $_SERVER['HTTP_HOST'];
         }
         if (@$parsed['path']) {
-            if (strncmp($parsed['path'], $xoops_redirect, strlen($parsed['path']))) {
+            if (strncmp($parsed['path'], $xoops_redirect, mb_strlen($parsed['path']))) {
                 $url .= $parsed['path'];
             }
         }

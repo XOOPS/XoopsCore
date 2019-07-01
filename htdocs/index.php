@@ -23,7 +23,6 @@ use Xoops\Core\FixedGroups;
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
  * @version         $Id$
  */
-
 $mainfile = __DIR__ . '/mainfile.php';
 if (file_exists($mainfile)) {
     include $mainfile;
@@ -31,7 +30,6 @@ if (file_exists($mainfile)) {
     header('Location: install/index.php');
     exit;
 }
-
 
 $xoops = Xoops::getInstance();
 $xoops->events()->triggerEvent('core.index.start');
@@ -44,7 +42,7 @@ if ($xoops->isActiveModule($xoops->getConfig('startpage'))) {
     $xoops->module = $xoops->getModuleByDirname($xoops->getConfig('startpage'));
     if (!$xoops->isModule() || !$xoops->module->getVar('isactive')) {
         $xoops->header();
-        echo "<h4>" . XoopsLocale::E_NO_MODULE . "</h4>";
+        echo '<h4>' . XoopsLocale::E_NO_MODULE . '</h4>';
         $xoops->footer();
     }
     $moduleperm_handler = $xoops->getHandlerGroupPermission();
@@ -55,12 +53,12 @@ if ($xoops->isActiveModule($xoops->getConfig('startpage'))) {
         $xoops->userIsAdmin = $xoops->user->isAdmin($xoops->module->getVar('mid'));
     } else {
         if (!$moduleperm_handler->checkRight('module_read', $xoops->module->getVar('mid'), FixedGroups::ANONYMOUS)) {
-            $xoops->redirect(\XoopsBaseConfig::get('url') . "/user.php", 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
+            $xoops->redirect(\XoopsBaseConfig::get('url') . '/user.php', 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
         }
     }
-    if ($xoops->module->getVar('hasconfig') == 1
-        || $xoops->module->getVar('hascomments') == 1
-        || $xoops->module->getVar('hasnotification') == 1
+    if (1 == $xoops->module->getVar('hasconfig')
+        || 1 == $xoops->module->getVar('hascomments')
+        || 1 == $xoops->module->getVar('hasnotification')
     ) {
         $xoops->moduleConfig = $xoops->getModuleConfigs();
     }
@@ -79,11 +77,10 @@ if ($xoops->isActiveModule($xoops->getConfig('startpage'))) {
     }
 
     $_SERVER['REQUEST_URI'] =
-        substr(\XoopsBaseConfig::get('url'), strlen($url)) . '/modules/' . $xoops->getConfig('startpage') . '/index.php';
+        mb_substr(\XoopsBaseConfig::get('url'), mb_strlen($url)) . '/modules/' . $xoops->getConfig('startpage') . '/index.php';
     include $xoops->path('modules/' . $xoops->getConfig('startpage') . '/index.php');
     exit();
-} else {
-    $xoops->setOption('show_cblock', 1);
-    $xoops->header("module:system/system_homepage.tpl");
-    $xoops->footer();
 }
+    $xoops->setOption('show_cblock', 1);
+    $xoops->header('module:system/system_homepage.tpl');
+    $xoops->footer();

@@ -21,10 +21,10 @@
  */
 
 // Info module
-define("_MI_MAINTENANCE_NAME", "Maintenance");
-define("_MI_MAINTENANCE_DESC", "Extensions for maintenance");
+define('_MI_MAINTENANCE_NAME', 'Maintenance');
+define('_MI_MAINTENANCE_DESC', 'Extensions for maintenance');
 // Menu
-define("_MI_MAINTENANCE_INDEX", "Home");
-define("_MI_MAINTENANCE_CENTER", "Maintenance");
-define("_MI_MAINTENANCE_DUMP", "Dump");
-define("_MI_MAINTENANCE_ABOUT", "About");
+define('_MI_MAINTENANCE_INDEX', 'Home');
+define('_MI_MAINTENANCE_CENTER', 'Maintenance');
+define('_MI_MAINTENANCE_DUMP', 'Dump');
+define('_MI_MAINTENANCE_ABOUT', 'About');

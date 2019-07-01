@@ -1,12 +1,12 @@
 <?php
-require_once(__DIR__.'/../../../init_new.php');
+require_once(__DIR__ . '/../../../init_new.php');
 
 class RpcArrayHandlerTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass = 'RpcArrayHandler';
     protected $object = null;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->object = new $this->myclass();
     }
@@ -36,13 +36,13 @@ class RpcArrayHandlerTest extends \PHPUnit\Framework\TestCase
         $instance->handleBeginElement($parser, $data);
         $workingLevel = $parser->getWorkingLevel();
         $tempArray = $parser->getTempArray();
-        $this->assertSame(array(), $tempArray);
+        $this->assertSame([], $tempArray);
         $this->assertNotSame($workingLevelBefore, $workingLevel);
 
         $instance->handleEndElement($parser, $data);
         $workingLevel = $parser->getWorkingLevel();
         $tempArray = $parser->getTempArray();
-        $this->assertSame(null, $tempArray);
+        $this->assertNull($tempArray);
         $this->assertSame($workingLevelBefore, $workingLevel);
     }
 }

@@ -23,7 +23,6 @@ use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
  * @author          DuGris (aka Laurent JEN)
  * @version         $Id$
  */
-
 class PagePage_related_link extends XoopsObject
 {
     /**
@@ -44,6 +43,7 @@ class PagePage_related_link extends XoopsObject
     public function getValues($keys = null, $format = null, $maxDepth = null)
     {
         $ret = parent::getValues($keys, $format, $maxDepth);
+
         return $ret;
     }
 
@@ -51,15 +51,13 @@ class PagePage_related_link extends XoopsObject
     {
         $xoops = Xoops::getInstance();
         $new_id = $xoopsDB->getInsertId();
+
         return $new_id;
     }
 }
 
 class PagePage_related_linkHandler extends XoopsPersistableObjectHandler
 {
-    /**
-     * @param null|Connection $db
-     */
     public function __construct(Connection $db = null)
     {
         parent::__construct($db, 'page_related_link', 'pagepage_related_link', 'link_id', 'link_related_id');
@@ -71,11 +69,11 @@ class PagePage_related_linkHandler extends XoopsPersistableObjectHandler
         $this->field_link = 'content_id';
         $this->field_object = 'link_content_id';
 
-
         $criteria = new CriteriaCompo();
         $criteria->add(new Criteria('link_related_id', $related_id));
         $criteria->setSort($sort);
         $criteria->setOrder($order);
+
         return parent::getByLink($criteria, null, false);
     }
 
@@ -86,20 +84,22 @@ class PagePage_related_linkHandler extends XoopsPersistableObjectHandler
         $criteria->setSort($sort);
         $criteria->setOrder($order);
 
-        $ret = array();
-        $result = parent::getAll($criteria, array('link_content_id'), false);
+        $ret = [];
+        $result = parent::getAll($criteria, ['link_content_id'], false);
         foreach ($result as $k) {
             $ret[] = $k['link_content_id'];
         }
+
         return $ret;
     }
 
     public function getContentUsed()
     {
-        $result = parent::getAll(null, array('link_content_id'), false);
+        $result = parent::getAll(null, ['link_content_id'], false);
         foreach ($result as $k) {
             $ret[] = $k['link_content_id'];
         }
+
         return $ret;
     }
 
@@ -107,6 +107,7 @@ class PagePage_related_linkHandler extends XoopsPersistableObjectHandler
     {
         $criteria = new CriteriaCompo();
         $criteria->add(new Criteria('link_id', '(' . implode(', ', $links_ids) . ')', 'IN'));
+
         return parent::deleteAll($criteria);
     }
 
@@ -124,19 +125,21 @@ class PagePage_related_linkHandler extends XoopsPersistableObjectHandler
             $keys = array_keys($ret['related_links']);
             foreach ($keys as $k => $i) {
                 if ($content_id == $ret['related_links'][$i]['content_id']) {
-                    if (($k-1) >= 0) {
-                        $ret['prev_id'] = $ret['related_links'][$keys[($k-1)]]['content_id'];
-                        $ret['prev_title'] = $ret['related_links'][$keys[($k-1)]]['content_title'];
+                    if (($k - 1) >= 0) {
+                        $ret['prev_id'] = $ret['related_links'][$keys[($k - 1)]]['content_id'];
+                        $ret['prev_title'] = $ret['related_links'][$keys[($k - 1)]]['content_title'];
                     }
-                    if (($k+1) < count($keys)) {
-                        $ret['next_id'] = $ret['related_links'][$keys[($k+1)]]['content_id'];
-                        $ret['next_title'] = $ret['related_links'][$keys[($k+1)]]['content_title'];
+                    if (($k + 1) < count($keys)) {
+                        $ret['next_id'] = $ret['related_links'][$keys[($k + 1)]]['content_id'];
+                        $ret['next_title'] = $ret['related_links'][$keys[($k + 1)]]['content_title'];
                     }
                     break;
                 }
             }
+
             return $ret;
         }
-        return array();
+
+        return [];
     }
 }

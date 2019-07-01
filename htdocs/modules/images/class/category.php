@@ -23,7 +23,6 @@ use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
  * @author
  * @version         $Id$
  */
-
 class ImagesCategory extends XoopsObject
 {
     /**
@@ -58,6 +57,9 @@ class ImagesCategoryHandler extends XoopsPersistableObjectHandler
     /**
      * @param CriteriaElement|null $criteria
      * @param bool $id_as_key
+     * @param mixed $start
+     * @param mixed $limit
+     * @param mixed $asobject
      *
      * @return array
      */
@@ -88,7 +90,7 @@ class ImagesCategoryHandler extends XoopsPersistableObjectHandler
      *
      * @return array Array of {@link ImagesImage} objects
      */
-    public function getListByPermission($groups = array(), $perm = 'imgcat_read', $display = null, $storetype = null)
+    public function getListByPermission($groups = [], $perm = 'imgcat_read', $display = null, $storetype = null)
     {
         $xoops = Xoops::getInstance();
         $criteria = new CriteriaCompo();
@@ -98,7 +100,7 @@ class ImagesCategoryHandler extends XoopsPersistableObjectHandler
                 $criteriaTray->add(new Criteria('gperm_groupid', $gid), 'OR');
             }
             $criteria->add($criteriaTray);
-            if ($perm === 'imgcat_read' || $perm === 'imgcat_write') {
+            if ('imgcat_read' === $perm || 'imgcat_write' === $perm) {
                 $criteria->add(new Criteria('gperm_name', $perm));
                 $mid = $xoops->getModuleByDirname('images')->getVar('mid');
                 $criteria->add(new Criteria('gperm_modid', $mid));
@@ -111,10 +113,11 @@ class ImagesCategoryHandler extends XoopsPersistableObjectHandler
             $criteria->add(new Criteria('imgcat_storetype', $storetype));
         }
         $categories = $this->getPermittedObjects($criteria, 0, 0, true);
-        $ret = array();
+        $ret = [];
         foreach (array_keys($categories) as $i) {
             $ret[$i] = $categories[$i]->getVar('imgcat_name');
         }
+
         return $ret;
     }
 }

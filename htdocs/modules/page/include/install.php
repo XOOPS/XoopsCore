@@ -19,9 +19,8 @@
  * @author          Mage Grégory (AKA Mage)
  * @version         $Id$
  */
-
-function xoops_module_install_page() {
-
+function xoops_module_install_page()
+{
     /*$namemodule = 'page';
 
     //Create dir '.$namemodule.'/

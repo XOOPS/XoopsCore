@@ -27,7 +27,7 @@ class XoopsLoad
      *
      * @var array
      */
-    protected static $map = array();
+    protected static $map = [];
 
     /**
      * Allow modules/preloads/etc to add their own maps
@@ -39,9 +39,9 @@ class XoopsLoad
      */
     public static function addMap(array $map)
     {
-        XoopsLoad::$map = array_merge(XoopsLoad::$map, $map);
+        self::$map = array_merge(self::$map, $map);
 
-        return XoopsLoad::$map;
+        return self::$map;
     }
 
     /**
@@ -51,7 +51,7 @@ class XoopsLoad
      */
     public static function getMap()
     {
-        return XoopsLoad::$map;
+        return self::$map;
     }
 
     /**
@@ -62,11 +62,11 @@ class XoopsLoad
      *
      * @return bool
      */
-    public static function load($name, $type = "core")
+    public static function load($name, $type = 'core')
     {
         static $loaded;
 
-        $lname = strtolower($name);
+        $lname = mb_strtolower($name);
 
         $type = empty($type) ? 'core' : $type;
         if (isset($loaded[$type][$lname])) {
@@ -108,12 +108,12 @@ class XoopsLoad
      */
     private static function loadCore($name)
     {
-        $map = XoopsLoad::$map; //addMap(XoopsLoad::loadCoreConfig());
+        $map = self::$map; //addMap(XoopsLoad::loadCoreConfig());
         if (isset($map[$name])) {
             //attempt loading from map
             require $map[$name];
             if (class_exists($name) && method_exists($name, '__autoload')) {
-                call_user_func(array($name, '__autoload'));
+                call_user_func([$name, '__autoload']);
             }
 
             return true;
@@ -123,12 +123,11 @@ class XoopsLoad
             $class = 'Xoops' . ucfirst($name);
             if (class_exists($class)) {
                 return $class;
-            } else {
-                trigger_error(
+            }
+            trigger_error(
                     'Class ' . $name . ' not found in file ' . __FILE__ . 'at line ' . __LINE__,
                     E_USER_WARNING
                 );
-            }
         }
 
         return false;
@@ -194,7 +193,8 @@ class XoopsLoad
     public static function loadCoreConfig()
     {
         $xoops_root_path = \XoopsBaseConfig::get('root-path');
-        return array(
+
+        return [
             'bloggerapi' => $xoops_root_path . '/class/xml/rpc/bloggerapi.php',
             'criteria' => $xoops_root_path . '/class/criteria.php',
             'criteriacompo' => $xoops_root_path . '/class/criteria.php',
@@ -394,7 +394,7 @@ class XoopsLoad
             'xoopsutility' => $xoops_root_path . '/class/utility/xoopsutility.php',
             'xoopsxmlrpcapi' => $xoops_root_path . '/class/xml/rpc/xmlrpcapi.php',
             'xoopsxmlrpcarray' => $xoops_root_path . '/class/xml/rpc/xmlrpctag.php',
-            'xoopsxmlrpcbase64'=> $xoops_root_path . '/class/xml/rpc/xmlrpctag.php',
+            'xoopsxmlrpcbase64' => $xoops_root_path . '/class/xml/rpc/xmlrpctag.php',
             'xoopsxmlrpcboolean' => $xoops_root_path . '/class/xml/rpc/xmlrpctag.php',
             'xoopsxmlrpcdatetime' => $xoops_root_path . '/class/xml/rpc/xmlrpctag.php',
             'xoopsxmlrpcdocument' => $xoops_root_path . '/class/xml/rpc/xmlrpctag.php',
@@ -410,7 +410,7 @@ class XoopsLoad
             'xoopsxmlrss2parser' => $xoops_root_path . '/class/xml/rss/xmlrss2parser.php',
             'xoopszipdownloader' => $xoops_root_path . '/class/zipdownloader.php',
             'zipfile' => $xoops_root_path . '/class/class.zipfile.php',
-        );
+        ];
     }
 
     /**
@@ -423,7 +423,7 @@ class XoopsLoad
     public static function loadConfig($data = null)
     {
         $xoops = Xoops::getInstance();
-        $configs = array();
+        $configs = [];
         if (is_array($data)) {
             $configs = $data;
         } else {
@@ -441,7 +441,7 @@ class XoopsLoad
             }
         }
 
-        return array_merge(XoopsLoad::loadCoreConfig(), $configs);
+        return array_merge(self::loadCoreConfig(), $configs);
     }
 
     /**
@@ -491,7 +491,7 @@ class XoopsLoad
         }
 
         if (method_exists($class, '__autoload')) {
-            call_user_func(array($class, '__autoload'));
+            call_user_func([$class, '__autoload']);
         }
 
         return true;
@@ -506,7 +506,7 @@ class XoopsLoad
      */
     public static function fileExists($file)
     {
-        static $included = array();
+        static $included = [];
         if (!isset($included[$file])) {
             $included[$file] = file_exists($file);
         }
@@ -542,14 +542,14 @@ class XoopsLoad
     {
         static $libPath = null;
 
-        if ($libPath === null) {
+        if (null === $libPath) {
             $loaderPath = $path . '/vendor/autoload.php';
             if (self::fileExists($loaderPath)) {
                 $libPath = $path;
                 include $loaderPath;
             }
-            XoopsLoad::addMap(XoopsLoad::loadCoreConfig());
-            spl_autoload_register(array('XoopsLoad', 'load'));
+            self::addMap(self::loadCoreConfig());
+            spl_autoload_register(['XoopsLoad', 'load']);
         }
     }
 }

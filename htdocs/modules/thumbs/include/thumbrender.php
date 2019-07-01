@@ -24,16 +24,16 @@ include dirname(dirname(dirname(__DIR__))) . '/mainfile.php';
 $xoops = Xoops::getInstance();
 $xoops->logger()->quiet();
 
-$imgPath   = Request::getString('img', '');
-$imgWidth  = Request::getInt('w', 0);
+$imgPath = Request::getString('img', '');
+$imgWidth = Request::getInt('w', 0);
 $imgHeight = Request::getInt('h', 0);
 
-if ($imgWidth==0 && $imgHeight==0) {
+if (0 == $imgWidth && 0 == $imgHeight) {
     $configs = $xoops->getModuleConfigs('thumbs');
-    $imgWidth  = $configs['thumbs_width'];
+    $imgWidth = $configs['thumbs_width'];
     $imgHeight = $configs['thumbs_height'];
 }
-$helper  = $xoops->getModuleHelper('thumbs');
+$helper = $xoops->getModuleHelper('thumbs');
 $thumbPath = $helper->buildThumbPath($imgPath, $imgWidth, $imgHeight);
 
 $oldUmask = umask(022);
@@ -50,10 +50,10 @@ $image->enlarge_smaller_images = false;
 $image->preserve_time = true;
 
 if ($image->resize($imgWidth, $imgHeight, ZEBRA_IMAGE_NOT_BOXED, -1)) {
-    header("HTTP/1.1 301 Moved Permanently");
+    header('HTTP/1.1 301 Moved Permanently');
     header('Location: ' . $xoops->url($thumbPath));
 } else {
-    header("HTTP/1.0 404 Not Found");
+    header('HTTP/1.0 404 Not Found');
     // http_response_code(400);
     // exit("Parameter error");
     switch ($image->error) {

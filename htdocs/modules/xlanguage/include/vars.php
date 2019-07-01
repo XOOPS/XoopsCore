@@ -15,7 +15,6 @@
  * @author          Laurent JEN (Aka DuGris)
  * @version         $Id$
  */
-
 $xoops = Xoops::getInstance();
 $xoops->registry()->set('XLANGUAGE_CONFIG_FILE', 'xlanguage.config');
 $xoops->registry()->set('XLANGUAGE_LANG_TAG', 'lang');
@@ -52,74 +51,74 @@ $xoops->registry()->set('XLANGUAGE_THEME_OPTIONS', 'bootstrap|&nbsp;|5'); // dis
  * When there are more than one charset for a language, we put the -utf-8
  * first.
  */
-$xoops->registry()->set('XLANGUAGE_AVAILABLE_LANGUAGES', array(
-    'ar' => array(
+$xoops->registry()->set('XLANGUAGE_AVAILABLE_LANGUAGES', [
+    'ar' => [
         'ar([-_][[:alpha:]]{2})?|arabic',
-        'arabic'
-    ),
-    'bg' => array('bg|bulgarian', 'bulgarian'),
-    'ca' => array('ca|catalan', 'catalan'),
-    'cs' => array('cs|czech', 'czech'),
-    'da' => array('da|danish', 'danish'),
-    'de' => array(
+        'arabic',
+    ],
+    'bg' => ['bg|bulgarian', 'bulgarian'],
+    'ca' => ['ca|catalan', 'catalan'],
+    'cs' => ['cs|czech', 'czech'],
+    'da' => ['da|danish', 'danish'],
+    'de' => [
         'de([-_][[:alpha:]]{2})?|german',
-        'german'
-    ),
-    'el' => array('el|greek', 'greek'),
-    'en' => array(
+        'german',
+    ],
+    'el' => ['el|greek', 'greek'],
+    'en' => [
         'en([-_][[:alpha:]]{2})?|english',
-        'english'
-    ),
-    'es' => array(
+        'english',
+    ],
+    'es' => [
         'es([-_][[:alpha:]]{2})?|spanish',
-        'spanish'
-    ),
-    'et' => array('et|estonian', 'estonian'),
-    'fi' => array('fi|finnish', 'finnish'),
-    'fr' => array(
+        'spanish',
+    ],
+    'et' => ['et|estonian', 'estonian'],
+    'fi' => ['fi|finnish', 'finnish'],
+    'fr' => [
         'fr([-_][[:alpha:]]{2})?|french',
-        'french'
-    ),
-    'gl' => array('gl|galician', 'galician'),
-    'he' => array('he|hebrew', 'hebrew'),
-    'hr' => array('hr|croatian', 'croatian'),
-    'hu' => array('hu|hungarian', 'hungarian'),
-    'id' => array('id|indonesian', 'indonesian'),
-    'it' => array('it|italian', 'italian'),
-    'ja' => array('ja|japanese', 'japanese'),
-    'ko' => array('ko|korean', 'koreano'),
-    'ka' => array('ka|georgian', 'georgian'),
-    'lt' => array('lt|lithuanian', 'lithuanian'),
-    'lv' => array('lv|latvian', 'latvian'),
-    'nl' => array(
+        'french',
+    ],
+    'gl' => ['gl|galician', 'galician'],
+    'he' => ['he|hebrew', 'hebrew'],
+    'hr' => ['hr|croatian', 'croatian'],
+    'hu' => ['hu|hungarian', 'hungarian'],
+    'id' => ['id|indonesian', 'indonesian'],
+    'it' => ['it|italian', 'italian'],
+    'ja' => ['ja|japanese', 'japanese'],
+    'ko' => ['ko|korean', 'koreano'],
+    'ka' => ['ka|georgian', 'georgian'],
+    'lt' => ['lt|lithuanian', 'lithuanian'],
+    'lv' => ['lv|latvian', 'latvian'],
+    'nl' => [
         'nl([-_][[:alpha:]]{2})?|dutch',
-        'dutch'
-    ),
-    'no' => array('no|norwegian', 'norwegian'),
-    'pl' => array('pl|polish', 'polish'),
-    'pt-br' => array(
+        'dutch',
+    ],
+    'no' => ['no|norwegian', 'norwegian'],
+    'pl' => ['pl|polish', 'polish'],
+    'pt-br' => [
         'pt[-_]br|brazilian portuguese',
-        'portuguesebr'
-    ),
-    'pt' => array(
+        'portuguesebr',
+    ],
+    'pt' => [
         'pt([-_][[:alpha:]]{2})?|portuguese',
-        'portuguese'
-    ),
-    'ro' => array('ro|romanian', 'romanian'),
-    'ru' => array('ru|russian', 'russian'),
-    'sk' => array('sk|slovak', 'slovak'),
-    'sq' => array('sq|albanian', 'albanian'),
-    'sr' => array('sr|serbian', 'serbian'),
-    'sv' => array('sv|swedish', 'swedish'),
-    'th' => array('th|thai', 'thai'),
-    'tr' => array('tr|turkish', 'turkish'),
-    'uk' => array('uk|ukrainian', 'ukrainian'),
-    'zh-tw' => array(
+        'portuguese',
+    ],
+    'ro' => ['ro|romanian', 'romanian'],
+    'ru' => ['ru|russian', 'russian'],
+    'sk' => ['sk|slovak', 'slovak'],
+    'sq' => ['sq|albanian', 'albanian'],
+    'sr' => ['sr|serbian', 'serbian'],
+    'sv' => ['sv|swedish', 'swedish'],
+    'th' => ['th|thai', 'thai'],
+    'tr' => ['tr|turkish', 'turkish'],
+    'uk' => ['uk|ukrainian', 'ukrainian'],
+    'zh-tw' => [
         'zh[-_]tw|chinese traditional',
-        'tchinese'
-    ),
-    'zh-cn' => array(
+        'tchinese',
+    ],
+    'zh-cn' => [
         'zh[-_]cn|chinese simplified',
-        'schinese'
-    ),
-));
+        'schinese',
+    ],
+]);

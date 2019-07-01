@@ -1,4 +1,5 @@
 <?php
+
 namespace Xmf\Test\Key;
 
 use Xmf\Key\ArrayStorage;
@@ -16,7 +17,7 @@ class ArrayStorageTest extends \PHPUnit\Framework\TestCase
      */
     protected function setUp()
     {
-        $this->object = new ArrayStorage;
+        $this->object = new ArrayStorage();
     }
 
     /**

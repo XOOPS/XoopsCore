@@ -1,7 +1,8 @@
 <?php
+
 namespace Xmf\Database;
 
-require_once(__DIR__.'/../../../init_new.php');
+require_once(__DIR__ . '/../../../init_new.php');
 
 class TableLoadTest extends \PHPUnit\Framework\TestCase
 {
@@ -16,7 +17,7 @@ class TableLoadTest extends \PHPUnit\Framework\TestCase
      */
     protected function setUp()
     {
-        $this->object = new TableLoad;
+        $this->object = new TableLoad();
     }
 
     /**
@@ -54,7 +55,7 @@ class TableLoadTest extends \PHPUnit\Framework\TestCase
     public function testRowCount()
     {
         $actual = $this->object->countRows('system_user');
-        $this->assertTrue(is_integer($actual));
+        $this->assertInternalType('int', $actual);
         $this->assertTrue($actual >= 1);
     }
 }

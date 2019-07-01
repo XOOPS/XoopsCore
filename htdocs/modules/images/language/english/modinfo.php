@@ -19,14 +19,14 @@
  * @version         $Id$
  */
 // Info module
-define("_MI_IMAGES_NAME", "Images");
-define("_MI_IMAGES_DESC", "Module for managing images");
+define('_MI_IMAGES_NAME', 'Images');
+define('_MI_IMAGES_DESC', 'Module for managing images');
 // Menu
-define("_MI_IMAGES_INDEX", "Home");
-define("_MI_IMAGES_CATEGORIES", "Categories");
-define("_MI_IMAGES_IMAGES", "Images");
-define("_MI_IMAGES_PERMISSIONS", "Permissions");
-define("_MI_IMAGES_ABOUT", "About");
+define('_MI_IMAGES_INDEX', 'Home');
+define('_MI_IMAGES_CATEGORIES', 'Categories');
+define('_MI_IMAGES_IMAGES', 'Images');
+define('_MI_IMAGES_PERMISSIONS', 'Permissions');
+define('_MI_IMAGES_ABOUT', 'About');
 // Preferences
-define("_MI_IMAGES_PAGER", "Number of images to display per page");
-define("_MI_CATEGORIES_PAGER", "Number of categories to display per page");
+define('_MI_IMAGES_PAGER', 'Number of images to display per page');
+define('_MI_CATEGORIES_PAGER', 'Number of categories to display per page');

@@ -1,18 +1,17 @@
 <?php
 if (defined('FOR_XOOPS_LANG_CHECKER') || !defined('_MI_PROTECTOR_LOADED')) {
-
     define('_MI_PROTECTOR_LOADED', 1);
 
     // The name of this module
-    define("_MI_PROTECTOR_NAME", "Protector");
+    define('_MI_PROTECTOR_NAME', 'Protector');
 
     // A brief description of this module
-    define("_MI_PROTECTOR_DESC", "This module protects your xoops site from various attacks like DoS , SQL Injection , and Variables contaminations.");
+    define('_MI_PROTECTOR_DESC', 'This module protects your xoops site from various attacks like DoS , SQL Injection , and Variables contaminations.');
 
     // Menu
-    define("_MI_PROTECTOR_ADMININDEX", "Protect Center");
-    define("_MI_PROTECTOR_ADVISORY", "Security Advisory");
-    define("_MI_PROTECTOR_PREFIXMANAGER", "Prefix Manager");
+    define('_MI_PROTECTOR_ADMININDEX', 'Protect Center');
+    define('_MI_PROTECTOR_ADVISORY', 'Security Advisory');
+    define('_MI_PROTECTOR_PREFIXMANAGER', 'Prefix Manager');
     //define('_MI_PROTECTOR_ADMENU_MYBLOCKSADMIN', 'Permissions');
 
     // Configs
@@ -111,8 +110,8 @@ if (defined('FOR_XOOPS_LANG_CHECKER') || !defined('_MI_PROTECTOR_LOADED')) {
     define('_MI_PROTECTOR_SPAMURI4GDSC', 'If this number of URLs are found in POST data from guests, the POST is considered as SPAM. 0 means disabling this feature.');
 
     //3.40b
-    define("_MI_PROTECTOR_ADMINHOME", "Home");
-    define("_MI_PROTECTOR_ADMINABOUT", "About");
+    define('_MI_PROTECTOR_ADMINHOME', 'Home');
+    define('_MI_PROTECTOR_ADMINABOUT', 'About');
     //3.50
     define('_MI_PROTECTOR_STOPFORUMSPAM_ACTION', 'Stop Forum Spam');
     define('_MI_PROTECTOR_STOPFORUMSPAM_ACTIONDSC', 'Checks POST data against spammers registered on www.stopforumspam.com database. Requires php CURL lib.');

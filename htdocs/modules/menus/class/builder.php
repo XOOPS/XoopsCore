@@ -22,12 +22,12 @@ class MenusBuilder
     /**
      * @var array
      */
-    protected $parents = array();
+    protected $parents = [];
 
     /**
      * @var array
      */
-    protected $output = array();
+    protected $output = [];
 
     /**
      * @param array $array
@@ -111,7 +111,9 @@ class MenusBuilder
         foreach ($this->parents[$pid] as $item) {
             $idx += 1;
             ++$counter;
-            if ($counter == $count) { $down = 0; } // turn off down link for last entry
+            if ($counter == $count) {
+                $down = 0;
+            } // turn off down link for last entry
 
             if ($up) {
                 $this->output[$idx]['up_weight'] = $prevWeight;
@@ -132,18 +134,18 @@ class MenusBuilder
     public function buildSelected()
     {
         //get the currentpage
-        $sel = array();
+        $sel = [];
         $query_string = $_SERVER['QUERY_STRING'] ? '?' . $_SERVER['QUERY_STRING'] : '';
         $self = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . $query_string;
 
         //set a default page in case we don't get matches
-        $default = \XoopsBaseConfig::get('url') . "/index.php";
+        $default = \XoopsBaseConfig::get('url') . '/index.php';
 
         //get all matching links
         foreach ($this->output as $idx => $menu) {
             $selected = 0;
             if (!empty($menu['link'])) {
-                $selected = (false !== stristr($self, $menu['link'])) ? 1 : $selected;
+                $selected = (false !== mb_stristr($self, $menu['link'])) ? 1 : $selected;
             }
             $selected = ($menu['link'] == $self) ? 1 : $selected;
             $selected = ($menu['link'] == $default) ? 1 : $selected;
@@ -153,10 +155,10 @@ class MenusBuilder
         }
 
         //From those links get only the longer one
-        $longlink = "";
+        $longlink = '';
         $longidx = 0;
         foreach ($sel as $idx => $menu) {
-            if (strlen($menu['link']) > strlen($longlink)) {
+            if (mb_strlen($menu['link']) > mb_strlen($longlink)) {
                 $longidx = $idx;
                 $longlink = $menu['link'];
             }
@@ -199,5 +201,4 @@ class MenusBuilder
 
         return $this->output;
     }
-
 }

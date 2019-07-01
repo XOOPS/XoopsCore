@@ -12,11 +12,11 @@ namespace XoopsModules\Publisher;
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+use Doctrine\DBAL\FetchMode;
 use Xoops;
 use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\Kernel\CriteriaCompo;
 use Xoops\Core\Kernel\XoopsObjectHandler;
-use Doctrine\DBAL\FetchMode;
 
 /**
  *  Publisher class

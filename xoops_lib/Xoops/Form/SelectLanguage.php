@@ -30,7 +30,7 @@ class SelectLanguage extends Select
      * @param string       $name    name
      * @param mixed        $value   Pre-selected value (or array of them). Valid values are
      *                               Legal is any name of a XOOPS_ROOT_PATH."/language/" subdirectory.
-     * @param integer      $size    Number of rows. "1" makes a drop-down-list.
+     * @param int      $size    Number of rows. "1" makes a drop-down-list.
      */
     public function __construct($caption, $name = '', $value = null, $size = 1)
     {

@@ -21,7 +21,7 @@
  *
  * This should really be replaced with a more accurate way of determining the actually mimetype
  */
-return array(
+return [
     'hqx' => 'application/mac-binhex40' ,
     'doc' => 'application/msword' ,
     'dot' => 'application/msword' ,
@@ -127,4 +127,4 @@ return array(
     'mp4' => 'video/mp4' ,
     'wmv' => 'video/x-ms-wmv' ,
     'webm' => 'video/webm' ,
-    '3gp' => 'video/quicktime' );
+    '3gp' => 'video/quicktime', ];

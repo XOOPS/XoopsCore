@@ -30,7 +30,6 @@ $admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('related.php');
 
 switch ($op) {
-
     case 'list':
     default:
         $admin_page->addTips(PageLocale::RELATED_TIPS);
@@ -54,7 +53,6 @@ switch ($op) {
             $xoops->tpl()->assign('error_message', PageLocale::E_NO_RELATED);
         }
         break;
-
     case 'new':
         if ($related_Handler->getCount() == $content_Handler->getCount()) {
             $xoops->tpl()->assign('error_message', PageLocale::E_NO_FREE_CONTENT);
@@ -66,7 +64,6 @@ switch ($op) {
             $xoops->tpl()->assign('form', $form->render());
         }
         break;
-
     case 'edit':
         $admin_page->addItemButton(PageLocale::A_LIST_CONTENT, 'related.php', 'application-view-detail');
         $admin_page->addItemButton(PageLocale::A_ADD_CONTENT, 'related.php?op=new', 'add');
@@ -77,7 +74,6 @@ switch ($op) {
         $form = $helper->getForm($obj, 'page_related');
         $xoops->tpl()->assign('form', $form->render());
         break;
-
     case 'save':
         if (!$xoops->security()->check()) {
             $xoops->redirect('related.php', 3, implode(',', $xoops->security()->getErrors()));
@@ -96,23 +92,23 @@ switch ($op) {
         $obj->setVar('related_navigation', Request::getInt('related_navigation', 1));
 
         if ($related_newid = $related_Handler->insert($obj)) {
-            $related_id = $related_id != 0 ? $related_id : $related_newid;
+            $related_id = 0 != $related_id ? $related_id : $related_newid;
             $datas = Request::getArray('datas');
             $datas_exists = $link_Handler->getContentByRelated($related_newid);
             $datas_delete = array_diff(array_values($datas_exists), $datas);
             $datas_add = array_diff($datas, array_values($datas_exists));
 
             // delete
-            if (count($datas_delete) != 0) {
+            if (0 != count($datas_delete)) {
                 $criteria = $criteria = new CriteriaCompo();
                 $criteria->add(new Criteria('link_related_id', $related_id));
                 $criteria->add(new Criteria('link_content_id', '(' . implode(', ', $datas_delete) . ')', 'IN'));
-                $links_ids =  $link_Handler->getIds($criteria);
+                $links_ids = $link_Handler->getIds($criteria);
                 if (!$link_Handler->DeleteByIds($links_ids)) {
                 }
             }
             // Add
-            if (count($datas_add) != 0) {
+            if (0 != count($datas_add)) {
                 foreach ($datas_add as $weight => $content_id) {
                     $obj = $link_Handler->create();
                     $obj->setVar('link_related_id', $related_id);
@@ -123,7 +119,7 @@ switch ($op) {
                 }
             }
             //update
-            if (count($datas) != 0) {
+            if (0 != count($datas)) {
                 foreach ($datas as $weight => $content_id) {
                     $criteria = $criteria = new CriteriaCompo();
                     $criteria->add(new Criteria('link_related_id', $related_id));
@@ -144,7 +140,6 @@ switch ($op) {
         $form = $helper->getForm($obj, 'page_related');
         $xoops->tpl()->assign('form', $form->render());
         break;
-
     case 'delete':
         $admin_page->addItemButton(PageLocale::A_LIST_CONTENT, 'related.php', 'application-view-detail');
         $admin_page->addItemButton(PageLocale::A_ADD_CONTENT, 'related.php?op=new', 'add');
@@ -154,7 +149,7 @@ switch ($op) {
         $ok = Request::getInt('ok', 0);
 
         $obj = $related_Handler->get($related_id);
-        if ($ok == 1) {
+        if (1 == $ok) {
             if (!$xoops->security()->check()) {
                 $xoops->redirect('related.php', 3, implode(',', $xoops->security()->getErrors()));
             }
@@ -169,14 +164,13 @@ switch ($op) {
             }
         } else {
             echo $xoops->confirm(
-                array('ok' => 1, 'related_id' => $related_id, 'op' => 'delete'),
+                ['ok' => 1, 'related_id' => $related_id, 'op' => 'delete'],
                 'related.php',
                 XoopsLocale::Q_ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS_ITEM
                 . '<br /><span class="red">' . $obj->getvar('related_name') . '<span>'
             );
         }
         break;
-
     case 'update_status':
         $related_id = Request::getInt('related_id', 0);
         if ($related_id > 0) {
@@ -189,7 +183,6 @@ switch ($op) {
             echo $obj->getHtmlErrors();
         }
         break;
-
     case 'view':
         $related_id = Request::getInt('related_id', 0);
         if ($related_id > 0) {

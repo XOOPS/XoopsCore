@@ -21,7 +21,6 @@ use Xmf\Request;
  * @author          DuGris (aka Laurent JEN)
  * @version         $Id$
  */
-
 include_once 'header.php';
 $xoops->logger()->quiet();
 
@@ -36,9 +35,9 @@ if ($xoops->security()->check()) {
 
         // Test if the page exist
         $contentObj = $content_Handler->get($content_id);
-        if (($contentObj === null)
+        if ((null === $contentObj)
 //            || $contentObj->getVar('content_author') == $uid
-            || $contentObj->getVar('content_status') == 0 ||  $contentObj->getVar('content_dorating') == 0) {
+            || 0 == $contentObj->getVar('content_status') || 0 == $contentObj->getVar('content_dorating')) {
             echo json_encode($ret);
             exit();
         }
@@ -55,11 +54,11 @@ if ($xoops->security()->check()) {
         }
 
         // Check if uid has voted
-/*        if ($rating_Handler->hasVoted($content_id)) {
-            echo json_encode($ret);
-            exit();
-        }
-*/
+        /*        if ($rating_Handler->hasVoted($content_id)) {
+                    echo json_encode($ret);
+                    exit();
+                }
+        */
         // Set vote
         $ratingObj = $rating_Handler->create();
         $ratingObj->setVar('rating_content_id', $content_id);

@@ -15,11 +15,10 @@
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
-
-defined("XOOPS_ROOT_PATH") or die("Restricted access");
+defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
 class DefaultThemeLocaleEn_US
 {
-    const QUICK_LINKS = "Quick links";
-    const CHOOSE_YOUR_LANGUAGE = "Choose your language";
+    const QUICK_LINKS = 'Quick links';
+    const CHOOSE_YOUR_LANGUAGE = 'Choose your language';
 }

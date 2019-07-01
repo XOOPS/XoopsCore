@@ -1,12 +1,12 @@
 <?php
-require_once(__DIR__.'/../../init_new.php');
+require_once(__DIR__ . '/../../init_new.php');
 
 class ThemeSetNameHandlerTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass = 'ThemeSetNameHandler';
     protected $object = null;
 
-    public function setUp()
+    protected function setUp()
     {
         $input = 'input';
         $this->object = new $this->myclass($input);
@@ -32,27 +32,27 @@ class ThemeSetNameHandlerTest extends \PHPUnit\Framework\TestCase
 
         $input = 'input';
         $parser = new XoopsThemeSetParser($input);
-        $parser->tags = array('themeset','themeset');
+        $parser->tags = ['themeset', 'themeset'];
         $data = 'data';
         $x = $instance->handleCharacterData($parser, $data);
-        $this->assertSame(null, $x);
+        $this->assertNull($x);
         $this->assertSame($data, $parser->getThemeSetData('name'));
 
         $input = 'input';
         $parser = new XoopsThemeSetParser($input);
-        $parser->tags = array('author','author');
+        $parser->tags = ['author', 'author'];
         $data = 'data';
         $x = $instance->handleCharacterData($parser, $data);
-        $this->assertSame(null, $x);
+        $this->assertNull($x);
         $this->assertSame($data, $parser->getTempArr('name'));
 
         $input = 'input';
         $parser = new XoopsThemeSetParser($input);
-        $parser->tags = array('dummy','dummy');
+        $parser->tags = ['dummy', 'dummy'];
         $data = 'data';
         $x = $instance->handleCharacterData($parser, $data);
-        $this->assertSame(null, $x);
-        $this->assertSame(false, $parser->getThemeSetData('name'));
-        $this->assertSame(false, $parser->getTempArr('name'));
+        $this->assertNull($x);
+        $this->assertFalse($parser->getThemeSetData('name'));
+        $this->assertFalse($parser->getTempArr('name'));
     }
 }

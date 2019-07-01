@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/../../init_new.php');
+require_once(__DIR__ . '/../../init_new.php');
 
 require_once(XOOPS_TU_ROOT_PATH . '/class/logger/xoopslogger.php');
 
@@ -24,7 +24,7 @@ class XoopsLoggerTest extends \PHPUnit\Framework\TestCase
         $instance = XoopsLogger::getInstance();
         $this->assertInstanceOf($this->myclass, $instance);
         $value = $instance->toto;
-        $this->assertSame(null, $value);
+        $this->assertNull($value);
     }
 
     public function test___class()
@@ -32,6 +32,6 @@ class XoopsLoggerTest extends \PHPUnit\Framework\TestCase
         $instance = XoopsLogger::getInstance();
         $this->assertInstanceOf($this->myclass, $instance);
         $value = $instance->tutu('tutu');
-        $this->assertSame(null, $value);
+        $this->assertNull($value);
     }
 }

@@ -1,7 +1,8 @@
 <?php
+
 namespace Xoops\Form;
 
-require_once(__DIR__.'/../../../init_new.php');
+require_once(__DIR__ . '/../../../init_new.php');
 
 class TabTrayTest extends \PHPUnit\Framework\TestCase
 {
@@ -17,7 +18,7 @@ class TabTrayTest extends \PHPUnit\Framework\TestCase
     protected function setUp()
     {
         $this->object = new TabTray('Caption', 'name');
-        \Xoops::getInstance()->setTheme(new \Xoops\Core\Theme\NullTheme);
+        \Xoops::getInstance()->setTheme(new \Xoops\Core\Theme\NullTheme());
         //$this->markTestSkipped('side effects');
     }
 
@@ -34,15 +35,15 @@ class TabTrayTest extends \PHPUnit\Framework\TestCase
         $text = new Text('Caption', 'name', 10, 20, 'value', 'placeholder');
         $this->object->addElement($text);
         $value = $this->object->render();
-        $this->assertTrue(is_string($value));
-        $this->assertTrue(false !== strpos($value, 'id="tabs_name"'));
-        $this->assertTrue(false !== strpos($value, 'type="text"'));
-        $this->assertTrue(false !== strpos($value, 'name="name"'));
-        $this->assertTrue(false !== strpos($value, 'size="10"'));
-        $this->assertTrue(false !== strpos($value, 'maxlength="20"'));
-        $this->assertTrue(false !== strpos($value, 'placeholder="placeholder"'));
-        $this->assertTrue(false !== strpos($value, 'title="Caption"'));
-        $this->assertTrue(false !== strpos($value, 'id="name"'));
-        $this->assertTrue(false !== strpos($value, 'value="value"'));
+        $this->assertInternalType('string', $value);
+        $this->assertTrue(false !== mb_strpos($value, 'id="tabs_name"'));
+        $this->assertTrue(false !== mb_strpos($value, 'type="text"'));
+        $this->assertTrue(false !== mb_strpos($value, 'name="name"'));
+        $this->assertTrue(false !== mb_strpos($value, 'size="10"'));
+        $this->assertTrue(false !== mb_strpos($value, 'maxlength="20"'));
+        $this->assertTrue(false !== mb_strpos($value, 'placeholder="placeholder"'));
+        $this->assertTrue(false !== mb_strpos($value, 'title="Caption"'));
+        $this->assertTrue(false !== mb_strpos($value, 'id="name"'));
+        $this->assertTrue(false !== mb_strpos($value, 'value="value"'));
     }
 }

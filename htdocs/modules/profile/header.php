@@ -22,13 +22,12 @@ use Xoops\Html\Menu\Link;
  * @author          Jan Pedersen
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
  */
-
 include dirname(dirname(__DIR__)) . '/mainfile.php';
 $xoops = Xoops::getInstance();
 
 $xoops->registry()->set('profile_breadcrumbs', new ItemList());
 $xoops->registry()->get('profile_breadcrumbs')->addItem(
-    new Link(["caption" => $xoops->module->getVar('name'), "link" => $xoops->url('modules/profile/')])
+    new Link(['caption' => $xoops->module->getVar('name'), 'link' => $xoops->url('modules/profile/')])
 );
 
 //disable cache

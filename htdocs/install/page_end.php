@@ -23,7 +23,6 @@
  * @author      DuGris (aka L. JEN) <dugris@frxoops.org>
  * @version     $Id$
  */
-
 require_once __DIR__ . '/include/common.inc.php';
 
 $xoops = Xoops::getInstance();
@@ -33,7 +32,7 @@ $wizard = $_SESSION['wizard'];
 
 setcookie('xo_install_user', '', null, null, null);
 
-$installer_modified = "install_remove_" . uniqid(mt_rand());
+$installer_modified = 'install_remove_' . uniqid(mt_rand());
 register_shutdown_function('install_finalize', $installer_modified);
 
 $_SESSION['installer_modified'] = $installer_modified;
@@ -45,4 +44,4 @@ $_SESSION['pageHasHelp'] = false;
 $_SESSION['pageHasForm'] = false;
 $_SESSION['content'] = $content;
 include XOOPS_INSTALL_PATH . '/include/install_tpl.php';
-$_SESSION = array();
+$_SESSION = [];

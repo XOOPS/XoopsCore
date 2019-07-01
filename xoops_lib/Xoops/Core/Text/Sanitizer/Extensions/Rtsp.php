@@ -75,7 +75,8 @@ class Rtsp extends ExtensionAbstract
                 domobj.focus();
             }
 EOH;
-        return array($buttonCode, $javascript);
+
+        return [$buttonCode, $javascript];
     }
 
     /**
@@ -85,7 +86,6 @@ EOH;
      */
     public function registerExtensionProcessing()
     {
-
         $this->shortcodes->addShortcode(
             'rtsp',
             function ($attributes, $content, $tagName) {
@@ -132,6 +132,7 @@ EOH;
 EOT;
 
                 $newContent = sprintf($template, $url, $width, $height);
+
                 return $newContent;
             }
         );

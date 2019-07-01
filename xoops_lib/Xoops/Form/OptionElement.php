@@ -36,7 +36,7 @@ abstract class OptionElement extends Element
      */
     public function addOption($value, $name = null)
     {
-        if ($name === null || $name === '') {
+        if (null === $name || '' === $name) {
             $this->setArrayItem('option', $value, $value);
         } else {
             $this->setArrayItem('option', $value, $name);
@@ -62,7 +62,7 @@ abstract class OptionElement extends Element
     /**
      * Get an array with all the options
      *
-     * @param integer $encode encode special characters, potential values:
+     * @param int $encode encode special characters, potential values:
      *                        0 - skip
      *                        1 - only for value
      *                        2 - for both value and name
@@ -76,11 +76,12 @@ abstract class OptionElement extends Element
             return $options;
         }
         $myts = Sanitizer::getInstance();
-        $value = array();
+        $value = [];
         foreach ($options as $val => $name) {
             $value[(bool) $encode ? $myts->htmlSpecialChars($val) : $val] = ($encode > 1)
                 ? $myts->htmlSpecialChars($name) : $name;
         }
+
         return $value;
     }
 }

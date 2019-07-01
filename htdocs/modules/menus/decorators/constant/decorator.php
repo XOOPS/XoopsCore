@@ -17,38 +17,37 @@
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
-
 class MenusConstantDecorator extends MenusDecoratorAbstract implements MenusDecoratorInterface
 {
-    function hasAccess($menu, &$hasAccess)
+    public function hasAccess($menu, &$hasAccess)
     {
     }
 
-    function accessFilter(&$accessFilter)
+    public function accessFilter(&$accessFilter)
     {
     }
 
-    function formLinkDescription($registry)
+    public function formLinkDescription($registry)
     {
     }
 
-    function start()
+    public function start()
     {
     }
 
-    function end(&$menus)
+    public function end(&$menus)
     {
     }
 
-    function decorateMenu(&$menu)
+    public function decorateMenu(&$menu)
     {
-        $decorations = array('link', 'image', 'title', 'alt_title');
+        $decorations = ['link', 'image', 'title', 'alt_title'];
         foreach ($decorations as $decoration) {
             $menu[$decoration] = self::_doDecoration($menu[$decoration]);
         }
     }
 
-    function _doDecoration($string)
+    public function _doDecoration($string)
     {
         if (!preg_match('/{(.*\|.*)}/i', $string, $reg)) {
             return $string;
@@ -57,7 +56,7 @@ class MenusConstantDecorator extends MenusDecoratorAbstract implements MenusDeco
         $expression = $reg[0];
         list($validator, $value) = array_map('strtoupper', explode('|', $reg[1]));
 
-        if ($validator === 'CONSTANT') {
+        if ('CONSTANT' === $validator) {
             if (defined($value)) {
                 $string = str_replace($expression, constant($value), $string);
             }

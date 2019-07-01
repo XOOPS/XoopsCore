@@ -15,54 +15,54 @@
  * @author      Andricq Nicolas (AKA MusS)
  * @version     $Id$
  */
-
 require_once 'dbmanager.php';
 
 class upgrade_250 extends xoopsUpgrade
 {
-    var $tasks = array('config', 'templates');
+    public $tasks = ['config', 'templates'];
 
     /**
      * Check if cpanel config already exists
-
      */
-    function check_config()
+    public function check_config()
     {
         $xoops = Xoops::getInstance();
         $db = $xoops->db();
-        $sql = "SELECT COUNT(*) FROM `" . $db->prefix('config') . "` WHERE `conf_name` IN ('break1', 'usetips')";
+        $sql = 'SELECT COUNT(*) FROM `' . $db->prefix('config') . "` WHERE `conf_name` IN ('break1', 'usetips')";
         if (!$result = $db->queryF($sql)) {
             return false;
         }
         list($count) = $db->fetchRow($result);
-        return ($count == 0) ? false : true;
+
+        return (0 == $count) ? false : true;
     }
 
-    function check_templates()
+    public function check_templates()
     {
         $xoops = Xoops::getInstance();
         $db = $xoops->db();
-        $sql = "SELECT COUNT(*) FROM `" . $db->prefix('tplfile') . "` WHERE `tpl_file` IN ('system_header.html') AND `tpl_type` = 'admin'";
+        $sql = 'SELECT COUNT(*) FROM `' . $db->prefix('tplfile') . "` WHERE `tpl_file` IN ('system_header.html') AND `tpl_type` = 'admin'";
         if (!$result = $db->queryF($sql)) {
             return false;
         }
         list($count) = $db->fetchRow($result);
-        return ($count == 0) ? false : true;
+
+        return (0 == $count) ? false : true;
     }
 
-    function apply_config()
+    public function apply_config()
     {
         $xoops = Xoops::getInstance();
         $db = $xoops->db();
         $dbm = new db_manager();
 
-        $sql = "SELECT conf_id FROM `" . $db->prefix('config') . "` WHERE `conf_name` IN ('cpanel')";
+        $sql = 'SELECT conf_id FROM `' . $db->prefix('config') . "` WHERE `conf_name` IN ('cpanel')";
         if (!$result = $db->queryF($sql)) {
             return false;
         }
         $count = $db->fetchRow($result);
 
-        $sql = "UPDATE `" . $db->prefix('config') . "` SET `conf_value` = 'default' WHERE `conf_id` = " . $count[0];
+        $sql = 'UPDATE `' . $db->prefix('config') . "` SET `conf_value` = 'default' WHERE `conf_id` = " . $count[0];
         if (!$result = $db->queryF($sql)) {
             return false;
         }
@@ -133,30 +133,31 @@ class upgrade_250 extends xoopsUpgrade
         return true;
     }
 
-    function apply_templates()
+    public function apply_templates()
     {
-
         include_once '../modules/system/xoops_version.php';
 
         $dbm = new db_manager();
         $time = time();
         foreach ($modversion['templates'] as $tplfile) {
             // Admin templates
-            if (isset($tplfile['type']) && $tplfile['type'] == 'admin' && $fp = fopen('../modules/system/templates/admin/' . $tplfile['file'], 'r')) {
-                $newtplid = $dbm->insert('tplfile', " VALUES (0, 1, 'system', 'default', '" . addslashes($tplfile['file']) . "', '" . addslashes($tplfile['description']) . "', " . $time . ", " . $time . ", 'admin')");
+            if (isset($tplfile['type']) && 'admin' == $tplfile['type'] && $fp = fopen('../modules/system/templates/admin/' . $tplfile['file'], 'rb')) {
+                $newtplid = $dbm->insert('tplfile', " VALUES (0, 1, 'system', 'default', '" . addslashes($tplfile['file']) . "', '" . addslashes($tplfile['description']) . "', " . $time . ', ' . $time . ", 'admin')");
                 $tplsource = fread($fp, filesize('../modules/system/templates/admin/' . $tplfile['file']));
                 fclose($fp);
-                $dbm->insert('tplsource', " (tpl_id, tpl_source) VALUES (" . $newtplid . ", '" . addslashes($tplsource) . "')");
+                $dbm->insert('tplsource', ' (tpl_id, tpl_source) VALUES (' . $newtplid . ", '" . addslashes($tplsource) . "')");
             }
         }
+
         return true;
     }
 
-    function upgrade_250()
+    public function upgrade_250()
     {
         $this->xoopsUpgrade(basename(dirname(__FILE__)));
     }
 }
 
 $upg = new upgrade_250();
+
 return $upg;

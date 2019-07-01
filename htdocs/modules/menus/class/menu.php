@@ -23,7 +23,6 @@ use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
-
 class MenusMenu extends XoopsObject
 {
     /**
@@ -40,8 +39,8 @@ class MenusMenu extends XoopsObject
         $this->initVar('link', XOBJ_DTYPE_TXTBOX);
         $this->initVar('weight', XOBJ_DTYPE_INT, 255);
         $this->initVar('target', XOBJ_DTYPE_TXTBOX, '_self');
-        $this->initVar('groups', XOBJ_DTYPE_ARRAY, serialize(array(FixedGroups::ANONYMOUS, FixedGroups::USERS)));
-        $this->initVar('hooks', XOBJ_DTYPE_ARRAY, serialize(array()));
+        $this->initVar('groups', XOBJ_DTYPE_ARRAY, serialize([FixedGroups::ANONYMOUS, FixedGroups::USERS]));
+        $this->initVar('hooks', XOBJ_DTYPE_ARRAY, serialize([]));
         $this->initVar('image', XOBJ_DTYPE_TXTBOX);
         $this->initVar('css', XOBJ_DTYPE_TXTBOX);
     }
@@ -57,31 +56,28 @@ class MenusMenuHandler extends XoopsPersistableObjectHandler
         parent::__construct($db, 'menus_menu', 'MenusMenu', 'id', 'title');
     }
 
-    /**
-     * @param MenusMenu $obj
-     */
     public function updateWeights(MenusMenu $obj)
     {
-        $sql = "UPDATE " . $this->table
-        . " SET weight = weight+1"
-        . " WHERE weight >= " . $obj->getVar('weight')
-        . " AND id <> " . $obj->getVar('id')
+        $sql = 'UPDATE ' . $this->table
+        . ' SET weight = weight+1'
+        . ' WHERE weight >= ' . $obj->getVar('weight')
+        . ' AND id <> ' . $obj->getVar('id')
         /*. " AND pid = " . $obj->getVar('pid')*/
-        . " AND mid = " . $obj->getVar('mid')
+        . ' AND mid = ' . $obj->getVar('mid')
         ;
         $originalForce = $this->db2->getForce();
         $this->db2->setForce(true);
         $this->db2->query($sql);
 
-        $sql = "SELECT id FROM " . $this->table
-        . " WHERE mid = " . $obj->getVar('mid')
+        $sql = 'SELECT id FROM ' . $this->table
+        . ' WHERE mid = ' . $obj->getVar('mid')
         /*. " AND pid = " . $obj->getVar('pid')*/
-        . " ORDER BY weight ASC"
+        . ' ORDER BY weight ASC'
         ;
         $result = $this->db2->query($sql);
         $i = 1;  //lets start at 1 please!
         while (false !== (list($id) = $result->fetch(FetchMode::NUMERIC))) {
-            $sql = "UPDATE " . $this->table
+            $sql = 'UPDATE ' . $this->table
             . " SET weight = {$i}"
             . " WHERE id = {$id}"
             ;

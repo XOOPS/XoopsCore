@@ -26,7 +26,7 @@
  * @since     2.6.0
  */
 
-return $config = array(
+return $config = [
     'num_chars' => 6, // Maximum characters
     'casesensitive' => false, // Characters in image mode is case-sensitive
     'fontsize_min' => 10, // Minimum font-size
@@ -35,7 +35,7 @@ return $config = array(
     // Background type in image mode: 0 - bar; 1 - circle; 2 - line; 3 - rectangle; 4 - ellipse; 5 - polygon; 100 - generated from files
     'background_num' => 50, // Number of background images to generate
     'polygon_point' => 3,
-    'skip_characters' => array(
-        'o', '0', 'i', 'l', '1'
-    )
-); // characters that should not be used
+    'skip_characters' => [
+        'o', '0', 'i', 'l', '1',
+    ],
+]; // characters that should not be used

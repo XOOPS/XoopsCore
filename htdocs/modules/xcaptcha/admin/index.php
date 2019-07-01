@@ -15,7 +15,6 @@
  * @author          Laurent JEN (Aka DuGris)
  * @version         $Id$
  */
-
 include __DIR__ . '/header.php';
 
 $xoops = Xoops::getInstance();
@@ -25,7 +24,7 @@ switch ($op) {
         if (!$xoops->security()->check()) {
             $xoops->redirect('index.php', 5, implode(',', $xoops->security()->getErrors()));
         }
-        if ($type === 'config') {
+        if ('config' === $type) {
             $config = $xcaptcha_handler->VerifyData();
             $xcaptcha_handler->writeConfig('captcha.config', $config);
             $xoops->redirect('index.php?type=config', 5, _AM_XCAPTCHA_SAVED);
@@ -37,7 +36,6 @@ switch ($op) {
             }
         }
         break;
-
     case 'default':
     default:
         $type = isset($type) ? $type : 'config';
@@ -46,14 +44,14 @@ switch ($op) {
         $xoops->theme()->addStylesheet('modules/xcaptcha/css/moduladmin.css');
 
         $admin_page = new \Xoops\Module\Admin();
-        if ($type === 'config') {
+        if ('config' === $type) {
             $admin_page->displayNavigation('index.php?type=config');
             $admin_page->addInfoBox(_AM_XCAPTCHA_FORM);
             $form = $xoops->getModuleForm($xcaptcha_handler, 'captcha', 'xcaptcha');
             $admin_page->addInfoBoxLine($form->render());
         } else {
             if ($plugin = $xcaptcha_handler->loadPluginHandler($type)) {
-                $title = constant('_XCAPTCHA_FORM_' . strtoupper($type));
+                $title = constant('_XCAPTCHA_FORM_' . mb_strtoupper($type));
                 $form = $xoops->getModuleForm($plugin, $type, 'xcaptcha');
                 $admin_page->addInfoBox($title);
                 $admin_page->addInfoBoxLine($form->render());

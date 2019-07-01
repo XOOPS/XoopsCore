@@ -19,6 +19,7 @@ use Xmf\Database\TableLoad;
  * @package   smilies
  * @since     2.6.0
  * @author    Richard Griffith <richard@geekwright.com>
+ * @param mixed $module
  */
 
 /**
@@ -26,7 +27,7 @@ use Xmf\Database\TableLoad;
  *
  * @param object $module module object
  *
- * @return boolean true on success
+ * @return bool true on success
  */
 function xoops_module_install_smilies($module)
 {
@@ -34,6 +35,7 @@ function xoops_module_install_smilies($module)
     $uploadDirectory = $xoops->path('uploads/smilies');
     if (!mkdir($uploadDirectory, 0755, true) && !is_dir($uploadDirectory)) {
         $module->setErrors('Failed to create directory uploads/smilies');
+
         return false;
     }
     $mediaPath = $xoops->path('modules/smilies/media');
@@ -44,6 +46,7 @@ function xoops_module_install_smilies($module)
             $target = $uploadDirectory . '/' . $filename;
             if (!copy($mediaFilename, $target)) {
                 $module->setErrors("Failed copying: {$filename}");
+
                 return false;
             }
             $module->setMessage("Copying media: {$filename}");
@@ -54,9 +57,11 @@ function xoops_module_install_smilies($module)
     $module->setMessage('Loading smilies table');
     $countInserted = TableLoad::loadTableFromYamlFile('smilies', dirname(__DIR__) . '/sql/smiliesdata.yml');
 
-    if($countInserted < 1) {
+    if ($countInserted < 1) {
         $module->setErrors('Loading smilies table failed');
+
         return false;
     }
+
     return true;
 }

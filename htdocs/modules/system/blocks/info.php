@@ -19,14 +19,14 @@ use Doctrine\DBAL\ParameterType;
  * @license     GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  * @author      Kazumi Ono (AKA onokazu)
  * @package     system
+ * @param mixed $options
  */
-
 function b_system_info_show($options)
 {
     $xoops = Xoops::getInstance();
     $xoops->db();
     $myts = \Xoops\Core\Text\Sanitizer::getInstance();
-    $block = array();
+    $block = [];
     if (!empty($options[3])) {
         $block['showgroups'] = true;
         $qb = $xoops->db()->createXoopsQueryBuilder();
@@ -46,10 +46,10 @@ function b_system_info_show($options)
             ->setParameter(':gtype', 'Admin', ParameterType::STRING);
         $result = $sql->execute();
         if ($result->errorCode() < 2000) { // return 00000 is ok, 01nnn is warning
-            $prev_caption = "";
+            $prev_caption = '';
             $i = 0;
             while ($userinfo = $result->fetch(FetchMode::ASSOCIATIVE)) {
-                $response = $xoops->service("Avatar")->getAvatarUrl($userinfo);
+                $response = $xoops->service('Avatar')->getAvatarUrl($userinfo);
                 $avatar = $response->getValue();
                 $avatar = empty($avatar) ? \XoopsBaseConfig::get('uploads-url') . '/blank.gif' : $avatar;
                 if ($prev_caption != $userinfo['groupname']) {
@@ -57,25 +57,25 @@ function b_system_info_show($options)
                     $block['groups'][$i]['name'] = $myts->htmlSpecialChars($userinfo['groupname']);
                 }
                 if ($xoops->isUser()) {
-                    $block['groups'][$i]['users'][] = array(
-                        'id'      => $userinfo['uid'],
-                        'name'    => $myts->htmlSpecialChars($userinfo['uname']),
-                        'pm_link' => \XoopsBaseConfig::get('url') . "/pmlite.php?send2=1&amp;to_userid=" . $userinfo['uid'],
-                        'avatar'  => $avatar
-                    );
+                    $block['groups'][$i]['users'][] = [
+                        'id' => $userinfo['uid'],
+                        'name' => $myts->htmlSpecialChars($userinfo['uname']),
+                        'pm_link' => \XoopsBaseConfig::get('url') . '/pmlite.php?send2=1&amp;to_userid=' . $userinfo['uid'],
+                        'avatar' => $avatar,
+                    ];
                 } else {
                     if ($userinfo['user_viewemail']) {
-                        $block['groups'][$i]['users'][] = array(
-                            'id'       => $userinfo['uid'],
-                            'name'     => $myts->htmlSpecialChars($userinfo['uname']),
+                        $block['groups'][$i]['users'][] = [
+                            'id' => $userinfo['uid'],
+                            'name' => $myts->htmlSpecialChars($userinfo['uname']),
                             'msg_link' => $userinfo['email'],
-                            'avatar'   => $avatar
-                        );
+                            'avatar' => $avatar,
+                        ];
                     } else {
-                        $block['groups'][$i]['users'][] = array(
-                            'id'   => $userinfo['uid'],
-                            'name' => $myts->htmlSpecialChars($userinfo['uname'])
-                        );
+                        $block['groups'][$i]['users'][] = [
+                            'id' => $userinfo['uid'],
+                            'name' => $myts->htmlSpecialChars($userinfo['uname']),
+                        ];
                     }
                 }
                 ++$i;
@@ -85,7 +85,8 @@ function b_system_info_show($options)
         $block['showgroups'] = false;
     }
     $block['logourl'] = \XoopsBaseConfig::get('url') . '/images/' . $options[2];
-    $block['recommendlink'] = "<a href=\"javascript:openWithSelfMain('" . \XoopsBaseConfig::get('url') . "/misc.php?action=showpopups&amp;type=friend&amp;op=sendform&amp;t=" . time() . "','friend'," . $options[0] . "," . $options[1] . ")\">" . SystemLocale::RECOMMEND_US . "</a>";
+    $block['recommendlink'] = "<a href=\"javascript:openWithSelfMain('" . \XoopsBaseConfig::get('url') . '/misc.php?action=showpopups&amp;type=friend&amp;op=sendform&amp;t=' . time() . "','friend'," . $options[0] . ',' . $options[1] . ')">' . SystemLocale::RECOMMEND_US . '</a>';
+
     return $block;
 }
 
@@ -94,7 +95,8 @@ function b_system_info_edit($options)
     $block_form = new Xoops\Form\BlockForm();
     $block_form->addElement(new Xoops\Form\Text(SystemLocale::POPUP_WINDOW_WIDTH, 'options[0]', 1, 3, $options[0]), true);
     $block_form->addElement(new Xoops\Form\Text(SystemLocale::POPUP_WINDOW_HEIGHT, 'options[1]', 1, 3, $options[1]), true);
-    $block_form->addElement(new Xoops\Form\Text(sprintf(SystemLocale::F_LOGO_IMAGE_FILE_IS_LOCATED_UNDER, \XoopsBaseConfig::get('url') . "/images/"), 'options[2]', 5, 100, $options[2]), true);
+    $block_form->addElement(new Xoops\Form\Text(sprintf(SystemLocale::F_LOGO_IMAGE_FILE_IS_LOCATED_UNDER, \XoopsBaseConfig::get('url') . '/images/'), 'options[2]', 5, 100, $options[2]), true);
     $block_form->addElement(new Xoops\Form\RadioYesNo(SystemLocale::SHOW_ADMIN_GROUPS, 'options[3]', $options[3]));
+
     return $block_form->render();
 }

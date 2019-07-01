@@ -36,7 +36,7 @@ class ProtectorCorePreload extends PreloadItem
      *
      * @param $args
      */
-    static function eventCoreIncludeCommonStart($args)
+    public static function eventCoreIncludeCommonStart($args)
     {
         $xoops = Xoops::getInstance();
         include $xoops->path('modules/protector/include/precheck.inc.php');
@@ -47,7 +47,7 @@ class ProtectorCorePreload extends PreloadItem
      *
      * @param $args
      */
-    static function eventCoreIncludeCommonEnd($args)
+    public static function eventCoreIncludeCommonEnd($args)
     {
         $xoops = Xoops::getInstance();
         include $xoops->path('modules/protector/include/postcheck.inc.php');
@@ -58,7 +58,7 @@ class ProtectorCorePreload extends PreloadItem
      *
      * @param $args
      */
-    static function eventCoreClassDatabaseDatabasefactoryConnection($args)
+    public static function eventCoreClassDatabaseDatabasefactoryConnection($args)
     {
         // Protector class
         require_once dirname(__DIR__) . '/class/protector.php';
@@ -67,7 +67,7 @@ class ProtectorCorePreload extends PreloadItem
         $protector = Protector::getInstance();
         $conf = $protector->getConf();
         // "DB Layer Trapper"
-        $force_override = strstr(@$_SERVER['REQUEST_URI'], 'protector/admin/index.php?page=advisory') ? true : false;
+        $force_override = mb_strstr(@$_SERVER['REQUEST_URI'], 'protector/admin/index.php?page=advisory') ? true : false;
         //$force_override = true ;
         if ($force_override || !empty($conf['enable_dblayertrap'])) {
             @define('PROTECTOR_ENABLED_ANTI_SQL_INJECTION', 1);

@@ -35,7 +35,7 @@ class ThemeForm extends Form
      */
     public function insertBreak($extra = '', $class = '')
     {
-        $class = ($class != '' ? " class=\"" . $class . "\"" : " class=\"break\"");
+        $class = ('' != $class ? ' class="' . $class . '"' : ' class="break"');
         // Fix for $extra tag not showing
         if ($extra) {
             $value = '<div' . $class . '>' . $extra . '</div>';
@@ -63,15 +63,12 @@ class ThemeForm extends Form
             default:
                 $xoops->tpl()->assign('type', 'horizontal');
                 break;
-
             case 'vertical':
                 $xoops->tpl()->assign('type', 'vertical');
                 break;
-
             case 'inline':
                 $xoops->tpl()->assign('type', 'inline');
                 break;
-
             case 'personalized':
                 $xoops->tpl()->assign('type', 'personalized');
                 break;
@@ -95,15 +92,14 @@ class ThemeForm extends Form
                 $xoops->tpl()->appendByRef('xo_input', $input);
                 unset($input);
             } else {
-                $hidden .= $ele->render(). "\n";
+                $hidden .= $ele->render() . "\n";
             }
-
         }
         $xoops->tpl()->assign('hidden', $hidden);
         $xoops->tpl()->assign('validationJS', $this->renderValidationJS(true));
         $ret = $xoops->tpl()->fetch('module:system/system_form.tpl');
         $xoops->tpl()->clearAssign('xo_input');
-        return $ret;
 
+        return $ret;
     }
 }

@@ -35,7 +35,7 @@ class LoggerPreload extends PreloadItem
     {
         static $configs = null;
 
-        if (is_null($configs)) {
+        if (null === $configs) {
             $xoops = Xoops::getInstance();
             $user_groups = $xoops->getUserGroups();
             $moduleperm_handler = $xoops->getHandlerGroupPermission();
@@ -96,9 +96,9 @@ class LoggerPreload extends PreloadItem
     public static function eventCoreIncludeCommonClassmaps($args)
     {
         $path = dirname(__DIR__);
-        XoopsLoad::addMap(array(
+        XoopsLoad::addMap([
             'legacylogger' => $path . '/class/legacylogger.php',
-        ));
+        ]);
     }
 
     /**
@@ -111,7 +111,7 @@ class LoggerPreload extends PreloadItem
     public static function eventCoreIncludeCommonStart($args)
     {
         if (class_exists('LegacyLogger')) {
-            LegacyLogger::getInstance()->enable();//until we get a db connection debug is enabled
+            LegacyLogger::getInstance()->enable(); //until we get a db connection debug is enabled
             LegacyLogger::getInstance()->startTime();
             LegacyLogger::getInstance()->startTime('XOOPS Boot');
         }
@@ -237,7 +237,7 @@ class LoggerPreload extends PreloadItem
             $tpl->debugging_ctrl = 'URL';
         }
         if ($configs['debug_smarty_enable']) {
-                $tpl->debugging = true;
+            $tpl->debugging = true;
         }
     }
 
@@ -291,7 +291,7 @@ class LoggerPreload extends PreloadItem
     {
         /* @var $block XoopsBlock */
         $block = $args[0];
-        $isCached= $args[1];
+        $isCached = $args[1];
         LegacyLogger::getInstance()->addBlock($block->getVar('name'), $isCached, $block->getVar('bcachetime'));
     }
 
@@ -386,7 +386,7 @@ class LoggerPreload extends PreloadItem
         $xoops = Xoops::getInstance();
         $logger = LegacyLogger::getInstance();
         $debug_mode = $xoops->getModuleConfig('debug_mode', 'logger');
-        if ($debug_mode == 2) {
+        if (2 == $debug_mode) {
             //Should we give extra time ?
             //$xoops->tpl()->assign('time', 300);
             $xoops->tpl()->assign('xoops_logdump', $logger->dump());
@@ -430,6 +430,6 @@ class LoggerPreload extends PreloadItem
      */
     public static function eventSystemPreferencesSave($args)
     {
-        XoopsLoad::addMap(array('legacylogger' => dirname(__DIR__) . '/class/legacylogger.php'));
+        XoopsLoad::addMap(['legacylogger' => dirname(__DIR__) . '/class/legacylogger.php']);
     }
 }

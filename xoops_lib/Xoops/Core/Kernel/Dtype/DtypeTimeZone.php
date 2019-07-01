@@ -11,8 +11,8 @@
 
 namespace Xoops\Core\Kernel\Dtype;
 
-use \DateTime;
-use \DateTimeZone;
+use DateTime;
+use DateTimeZone;
 use Xoops\Core\Kernel\Dtype;
 use Xoops\Core\Kernel\XoopsObject;
 
@@ -42,7 +42,7 @@ class DtypeTimeZone extends DtypeAbstract
     public function getVar(XoopsObject $obj, $key, $format)
     {
         $storedValue = $obj->vars[$key]['value'];
-        switch (strtolower($format)) {
+        switch (mb_strtolower($format)) {
             case Dtype::FORMAT_NONE:
             case 'n':
                 $value = $storedValue;
@@ -55,6 +55,7 @@ class DtypeTimeZone extends DtypeAbstract
                 }
                 break;
         }
+
         return $value;
     }
 

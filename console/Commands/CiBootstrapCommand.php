@@ -5,8 +5,6 @@ namespace XoopsConsole\Commands;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputOption;
 use Xmf\Yaml;
 
 class CiBootstrapCommand extends Command
@@ -17,10 +15,11 @@ class CiBootstrapCommand extends Command
      */
     protected function configure()
     {
-        $this->setName("ci-bootstrap")
-            ->setDescription("Create a mainfile for CI processes")
-            ->setDefinition(array())
-            ->setHelp(<<<EOT
+        $this->setName('ci-bootstrap')
+            ->setDescription('Create a mainfile for CI processes')
+            ->setDefinition([])
+            ->setHelp(
+                <<<EOT
 The <info>ci-bootstrap</info> command writes a basic mainfile for use in automation
 of the travis-ci continuous integration environment.
 EOT
@@ -65,7 +64,7 @@ EOT;
     {
         $url = 'http://localhost';
         $webRoot = $baseDir . '/htdocs';
-        $configs = array(
+        $configs = [
             'root-path' => $webRoot,
             'lib-path' => $baseDir . '/xoops_lib',
             'var-path' => $baseDir . '/xoops_data',
@@ -74,7 +73,7 @@ EOT;
             'prot' => 'http://',
             'asset-path' => $webRoot . '/assets',
             'asset-url' => $url . '/assets',
-            'themes-path' => $webRoot .'/themes',
+            'themes-path' => $webRoot . '/themes',
             'themes-url' => $url . '/themes',
             'adminthemes-path' => $webRoot . '/modules/system/themes',
             'adminthemes-url' => $url . '/modules/system/themes',
@@ -95,16 +94,16 @@ EOT;
             'db-pass' => '',
             'db-name' => 'xoops_test',
             'db-pconnect' => 0,
-            'db-parameters' => array(
-                'driver'   => 'pdo_mysql',
-                'charset'  => 'utf8mb4',
-                'dbname'   => 'xoops_test',
-                'host'     => 'localhost',
-                'user'     => 'travis',
+            'db-parameters' => [
+                'driver' => 'pdo_mysql',
+                'charset' => 'utf8mb4',
+                'dbname' => 'xoops_test',
+                'host' => 'localhost',
+                'user' => 'travis',
                 'password' => '',
-                'collate'  => 'utf8mb4_unicode_ci',
-            ),
-        );
+                'collate' => 'utf8mb4_unicode_ci',
+            ],
+        ];
         Yaml::saveWrapped($configs, $configFile);
     }
 
@@ -126,6 +125,7 @@ EOT;
         if (!file_exists($configFile)) {
             if (false === $this->createConfigFile($configFile, $baseDir)) {
                 $output->writeln(sprintf('<error>Could not write file %s!</error>', $configFile));
+
                 return;
             }
             $output->writeln(sprintf('<info>Created config file %s.</info>', $configFile));
@@ -136,6 +136,7 @@ EOT;
         if (!file_exists($mainfile)) {
             if (false === $this->createMainfile($configFile, $mainfile)) {
                 $output->writeln(sprintf('<error>Could not write %s!</error>', $mainfile));
+
                 return;
             }
             $output->writeln(sprintf('<info>Wrote mainfile %s</info>', $mainfile));

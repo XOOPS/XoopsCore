@@ -27,7 +27,6 @@
  */
 class XoopsCaptchaImage extends XoopsCaptchaMethod
 {
-
     /**
      * XoopsCaptchaImage::isActive()
      *
@@ -37,22 +36,24 @@ class XoopsCaptchaImage extends XoopsCaptchaMethod
     {
         if (!extension_loaded('gd')) {
             trigger_error('GD library is not loaded', E_USER_WARNING);
+
             return false;
-        } else {
-            $required_functions = array(
+        }
+        $required_functions = [
                 'imagecreatetruecolor' ,
                 'imagecolorallocate' ,
                 'imagefilledrectangle' ,
                 'imagejpeg' ,
                 'imagedestroy' ,
-                'imageftbbox');
-            foreach ($required_functions as $func) {
-                if (!function_exists($func)) {
-                    trigger_error('Function ' . $func . ' is not defined', E_USER_WARNING);
-                    return false;
-                }
+                'imageftbbox', ];
+        foreach ($required_functions as $func) {
+            if (!function_exists($func)) {
+                trigger_error('Function ' . $func . ' is not defined', E_USER_WARNING);
+
+                return false;
             }
         }
+
         return true;
     }
 
@@ -63,7 +64,7 @@ class XoopsCaptchaImage extends XoopsCaptchaMethod
      */
     public function render()
     {
-		$xoops_url = \XoopsBaseConfig::get('url');
+        $xoops_url = \XoopsBaseConfig::get('url');
         $js = "<script type='text/javascript'>
                 function xoops_captcha_refresh(imgId)
                 {
@@ -71,13 +72,14 @@ class XoopsCaptchaImage extends XoopsCaptchaMethod
                 }
                 </script>";
         $image = $this->loadImage();
-        $image .= "<br /><a href=\"javascript: xoops_captcha_refresh('" . ($this->config['name']) . "')\">" . XoopsLocale::CLICK_TO_REFRESH_IMAGE_IF_NOT_CLEAR . "</a>";
+        $image .= "<br /><a href=\"javascript: xoops_captcha_refresh('" . ($this->config['name']) . "')\">" . XoopsLocale::CLICK_TO_REFRESH_IMAGE_IF_NOT_CLEAR . '</a>';
         $input = '<input type="text" name="' . $this->config['name'] . '" id="' . $this->config['name'] . '" size="' . $this->config['num_chars'] . '" maxlength="' . $this->config['num_chars'] . '" value="" required>';
         $rule = XoopsLocale::INPUT_LETTERS_IN_THE_IMAGE;
         $rule .= '<br />' . (empty($this->config['casesensitive']) ? XoopsLocale::CODE_IS_CASE_INSENSITIVE : XoopsLocale::CODE_IS_CASE_SENSITIVE);
         if (!empty($this->config['maxattempts'])) {
             $rule .= '<br />' . sprintf(XoopsLocale::F_MAXIMUM_ATTEMPTS, $this->config['maxattempts']);
         }
+
         return $js . $image . '<br /><br />' . $input . '<br />' . $rule;
     }
 
@@ -88,7 +90,8 @@ class XoopsCaptchaImage extends XoopsCaptchaMethod
      */
     public function loadImage()
     {
-		$xoops_url = \XoopsBaseConfig::get('url');
-        return '<img id="' . ($this->config["name"]) . '" src="' . $xoops_url . '/class/captcha/image/scripts/image.php" onclick=\'this.src="' . $xoops_url . '/class/captcha/image/scripts/image.php?refresh="+Math.random()' . '\' style="cursor: pointer; vertical-align: middle;" alt="" />';
+        $xoops_url = \XoopsBaseConfig::get('url');
+
+        return '<img id="' . ($this->config['name']) . '" src="' . $xoops_url . '/class/captcha/image/scripts/image.php" onclick=\'this.src="' . $xoops_url . '/class/captcha/image/scripts/image.php?refresh="+Math.random()' . '\' style="cursor: pointer; vertical-align: middle;" alt="" />';
     }
 }

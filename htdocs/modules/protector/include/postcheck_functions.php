@@ -24,12 +24,11 @@
  */
 function protector_postcheck()
 {
-
     $xoops = Xoops::getInstance();
     $xoops->db();
     global $xoopsDB;
     // patch for 2.2.x from xoops.org (I know this is not so beautiful...)
-    if (substr(@XOOPS_VERSION, 6, 3) > 2.0 && stristr(@$_SERVER['REQUEST_URI'], 'modules/system/admin.php?fct=preferences')) {
+    if (mb_substr(@XOOPS_VERSION, 6, 3) > 2.0 && mb_stristr(@$_SERVER['REQUEST_URI'], 'modules/system/admin.php?fct=preferences')) {
         $module_handler = $xoops->getHandlerModule();
         /* @var $module XoopsModule */
         $module = $module_handler->get((int)(@$_GET['mod']));
@@ -39,7 +38,7 @@ function protector_postcheck()
     }
 
     // configs writable check
-    if (@$_SERVER['REQUEST_URI'] === '/admin.php' && !is_writable(dirname(__DIR__) . '/configs')) {
+    if ('/admin.php' === @$_SERVER['REQUEST_URI'] && !is_writable(dirname(__DIR__) . '/configs')) {
         trigger_error('You should turn the directory ' . dirname(__DIR__) . '/configs writable', E_USER_WARNING);
     }
 
@@ -56,9 +55,9 @@ function protector_postcheck()
 
     // phpmailer vulnerability
     // http://larholm.com/2007/06/11/phpmailer-0day-remote-execution/
-    if (in_array(substr(XOOPS_VERSION, 0, 12), array('XOOPS 2.0.16', 'XOOPS 2.0.13', 'XOOPS 2.2.4'))) {
+    if (in_array(mb_substr(XOOPS_VERSION, 0, 12), ['XOOPS 2.0.16', 'XOOPS 2.0.13', 'XOOPS 2.2.4'])) {
         $xoopsMailerConfig = $xoops->getConfigs();
-        if ($xoopsMailerConfig['mailmethod'] === 'sendmail' && md5_file(\XoopsBaseConfig::get('root-path') . '/class/mail/phpmailer/class.phpmailer.php') === 'ee1c09a8e579631f0511972f929fe36a') {
+        if ('sendmail' === $xoopsMailerConfig['mailmethod'] && 'ee1c09a8e579631f0511972f929fe36a' === md5_file(\XoopsBaseConfig::get('root-path') . '/class/mail/phpmailer/class.phpmailer.php')) {
             echo '<strong>phpmailer security hole! Change the preferences of mail from "sendmail" to another, or upgrade the core right now! (message by protector)</strong>';
         }
     }
@@ -102,7 +101,7 @@ function protector_postcheck()
         $can_ban = true;
     }
     // CHECK for spammers IPS/EMAILS during POST Actions
-    if (@$conf['stopforumspam_action'] !== 'none') {
+    if ('none' !== @$conf['stopforumspam_action']) {
         $protector->stopforumspam($uid);
     }
 
@@ -119,7 +118,7 @@ function protector_postcheck()
     $dos_skipping = false;
     $skip_dirnames = explode('|', @$conf['dos_skipmodules']);
     if (!is_array($skip_dirnames)) {
-        $skip_dirnames = array();
+        $skip_dirnames = [];
     }
     if ($xoops->isModule()) {
         if (in_array($xoops->module->getVar('dirname'), $skip_dirnames)) {
@@ -127,7 +126,7 @@ function protector_postcheck()
         }
     } else {
         foreach ($skip_dirnames as $skip_dirname) {
-            if ($skip_dirname && strstr(getcwd(), $skip_dirname)) {
+            if ($skip_dirname && mb_strstr(getcwd(), $skip_dirname)) {
                 $dos_skipping = true;
                 break;
             }
@@ -195,7 +194,6 @@ function protector_postcheck()
             }
         } else {
             if ($conf['spamcount_uri4guest']) {
-
                 $protector->spam_check((int)($conf['spamcount_uri4guest']), 0);
             }
         }

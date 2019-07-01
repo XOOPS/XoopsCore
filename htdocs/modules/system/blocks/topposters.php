@@ -20,12 +20,12 @@ use Xoops\Core\Kernel\CriteriaCompo;
  * @author      Kazumi Ono (AKA onokazu)
  * @package     system
  * @version     $Id$
+ * @param mixed $options
  */
-
 function b_system_topposters_show($options)
 {
     $xoops = Xoops::getInstance();
-    $block = array();
+    $block = [];
     $criteria = new CriteriaCompo(new Criteria('level', 0, '>'));
     $limit = (!empty($options[0])) ? $options[0] : 10;
     $size = count($options);
@@ -40,8 +40,8 @@ function b_system_topposters_show($options)
     $count = count($topposters);
     for ($i = 0; $i < $count; ++$i) {
         $block['users'][$i]['rank'] = $i + 1;
-        if ($options[1] == 1) {
-            $block['users'][$i]['avatar'] = $topposters[$i]->getVar('user_avatar') !== 'blank.gif' ? \XoopsBaseConfig::get('uploads-url') . '/' . $topposters[$i]->getVar('user_avatar') : '';
+        if (1 == $options[1]) {
+            $block['users'][$i]['avatar'] = 'blank.gif' !== $topposters[$i]->getVar('user_avatar') ? \XoopsBaseConfig::get('uploads-url') . '/' . $topposters[$i]->getVar('user_avatar') : '';
         } else {
             $block['users'][$i]['avatar'] = '';
         }
@@ -49,6 +49,7 @@ function b_system_topposters_show($options)
         $block['users'][$i]['name'] = $topposters[$i]->getVar('uname');
         $block['users'][$i]['posts'] = $topposters[$i]->getVar('posts');
     }
+
     return $block;
 }
 
@@ -60,11 +61,12 @@ function b_system_topposters_edit($options)
 
     $xoops = \Xoops::getInstance();
     $ranks = $xoops->service('userrank')->getAssignableUserRankList()->getValue();
-    if ($ranks === null) {
+    if (null === $ranks) {
         $ranks = [];
     }
     $ranks_select = new Xoops\Form\Select(SystemLocale::C_DO_NOT_DISPLAY_USERS_WHOSE_RANK_IS, 'options[2]', explode(',', $options[2]), 5, true);
     $ranks_select->addOptionArray($ranks);
     $block_form->addElement($ranks_select);
+
     return $block_form->render();
 }

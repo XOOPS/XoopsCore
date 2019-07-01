@@ -21,8 +21,6 @@ use Xoops\Core\XoopsTpl;
  * @author          Laurent JEN (aka DuGris)
  * @version         $Id$
  */
-
-
 require __DIR__ . '/mainfile.php';
 
 $xoops = Xoops::getInstance();
@@ -36,7 +34,7 @@ if (function_exists('mb_http_output')) {
     mb_http_output('pass');
 }
 header('Content-Type:text/xml; charset=utf-8');
-$dirname = $xoops->isModule() ? $xoops->module->getVar('dirname'): 'system';
+$dirname = $xoops->isModule() ? $xoops->module->getVar('dirname') : 'system';
 $tpl = new XoopsTpl();
 $tpl->caching = 2;
 $tpl->cache_lifetime = 3600;
@@ -58,21 +56,21 @@ if (!$tpl->isCached('module:' . $dirname . '/system_rss.tpl')) {
     $tpl->assign('image_width', $dimension[0]);
     $tpl->assign('image_height', $dimension[1]);
 
-    $items = array();
+    $items = [];
 
     if ($xoops->isModule()) {
         /* @var $plugin SystemPluginInterface */
         $plugin = Xoops\Module\Plugin::getPlugin($dirname, 'system');
         $res = $plugin->backend(10);
-        if (is_array($res) && count($res)>0) {
+        if (is_array($res) && count($res) > 0) {
             foreach ($res as $item) {
-                $date[] = array('date' => $item['date']);
-                $items[] = array('date' => XoopsLocale::formatTimestamp($item['date'], 'rss'),
+                $date[] = ['date' => $item['date']];
+                $items[] = ['date' => XoopsLocale::formatTimestamp($item['date'], 'rss'),
                                  'title' => $myts->htmlSpecialChars($item['title']),
                                  'content' => $myts->htmlSpecialChars($item['content']),
                                  'link' => $item['link'],
                                  'guid' => $item['link'],
-                                 );
+                                 ];
             }
         }
     } else {
@@ -80,21 +78,20 @@ if (!$tpl->isCached('module:' . $dirname . '/system_rss.tpl')) {
         /* @var $plugin SystemPluginInterface */
         foreach ($plugins as $plugin) {
             $res = $plugin->backend(10);
-            if (is_array($res) && count($res)>0) {
+            if (is_array($res) && count($res) > 0) {
                 foreach ($res as $item) {
-                    $date[] = array('date' => $item['date']);
-                    $items[] = array('date' => XoopsLocale::formatTimestamp($item['date'], 'rss'),
+                    $date[] = ['date' => $item['date']];
+                    $items[] = ['date' => XoopsLocale::formatTimestamp($item['date'], 'rss'),
                                      'title' => $myts->htmlSpecialChars($item['title']),
                                      'content' => $myts->htmlSpecialChars($item['content']),
                                      'link' => $item['link'],
                                      'guid' => $item['link'],
-                                     );
+                                     ];
                 }
             }
         }
     }
     array_multisort($date, SORT_DESC, $items);
     $tpl->assign('items', $items);
-
 }
 $tpl->display('module:' . $dirname . '/system_rss.tpl');

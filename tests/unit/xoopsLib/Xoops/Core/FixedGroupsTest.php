@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/../../../init_new.php');
+require_once(__DIR__ . '/../../../init_new.php');
 
 use Xoops\Core\FixedGroups;
 
@@ -26,12 +26,12 @@ class FixedGroupsTest extends \PHPUnit\Framework\TestCase
     protected function tearDown()
     {
     }
-    
+
     public function testConstants()
     {
-        $this->assertTrue(is_numeric(FixedGroups::ADMIN));
-        $this->assertTrue(is_numeric(FixedGroups::USERS));
-        $this->assertTrue(is_numeric(FixedGroups::ANONYMOUS));
-        $this->assertTrue(is_numeric(FixedGroups::REMOVED));
+        $this->assertInternalType('numeric', FixedGroups::ADMIN);
+        $this->assertInternalType('numeric', FixedGroups::USERS);
+        $this->assertInternalType('numeric', FixedGroups::ANONYMOUS);
+        $this->assertInternalType('numeric', FixedGroups::REMOVED);
     }
 }

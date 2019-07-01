@@ -12,28 +12,26 @@
 
 namespace Xoops\Core\Kernel;
 
-use Xoops\Core\Kernel\Dtype;
-
 /**
  * Establish Xoops object datatype legacy defines
  * New code should use Dtype::TYPE_* constants
  *
  * These will eventually be removed. See Xoops\Core\Kernel\Dtype for more.
  */
-define('XOBJ_DTYPE_TXTBOX',  Dtype::TYPE_TEXT_BOX);
+define('XOBJ_DTYPE_TXTBOX', Dtype::TYPE_TEXT_BOX);
 define('XOBJ_DTYPE_TXTAREA', Dtype::TYPE_TEXT_AREA);
-define('XOBJ_DTYPE_INT',     Dtype::TYPE_INTEGER);
-define('XOBJ_DTYPE_URL',     Dtype::TYPE_URL);
-define('XOBJ_DTYPE_EMAIL',   Dtype::TYPE_EMAIL);
-define('XOBJ_DTYPE_ARRAY',   Dtype::TYPE_ARRAY);
-define('XOBJ_DTYPE_OTHER',   Dtype::TYPE_OTHER);
-define('XOBJ_DTYPE_SOURCE',  Dtype::TYPE_SOURCE);
-define('XOBJ_DTYPE_STIME',   Dtype::TYPE_SHORT_TIME);
-define('XOBJ_DTYPE_MTIME',   Dtype::TYPE_MEDIUM_TIME);
-define('XOBJ_DTYPE_LTIME',   Dtype::TYPE_LONG_TIME);
-define('XOBJ_DTYPE_FLOAT',   Dtype::TYPE_FLOAT);
+define('XOBJ_DTYPE_INT', Dtype::TYPE_INTEGER);
+define('XOBJ_DTYPE_URL', Dtype::TYPE_URL);
+define('XOBJ_DTYPE_EMAIL', Dtype::TYPE_EMAIL);
+define('XOBJ_DTYPE_ARRAY', Dtype::TYPE_ARRAY);
+define('XOBJ_DTYPE_OTHER', Dtype::TYPE_OTHER);
+define('XOBJ_DTYPE_SOURCE', Dtype::TYPE_SOURCE);
+define('XOBJ_DTYPE_STIME', Dtype::TYPE_SHORT_TIME);
+define('XOBJ_DTYPE_MTIME', Dtype::TYPE_MEDIUM_TIME);
+define('XOBJ_DTYPE_LTIME', Dtype::TYPE_LONG_TIME);
+define('XOBJ_DTYPE_FLOAT', Dtype::TYPE_FLOAT);
 define('XOBJ_DTYPE_DECIMAL', Dtype::TYPE_DECIMAL);
-define('XOBJ_DTYPE_ENUM',    Dtype::TYPE_ENUM);
+define('XOBJ_DTYPE_ENUM', Dtype::TYPE_ENUM);
 
 /**
  * Base class for all objects in the Xoops kernel (and beyond)
@@ -54,14 +52,14 @@ abstract class XoopsObject implements \ArrayAccess
      *
      * @var array
      */
-    public $vars = array();
+    public $vars = [];
 
     /**
      * variables cleaned for store in DB
      *
      * @var array
      */
-    public $cleanVars = array();
+    public $cleanVars = [];
 
     /**
      * is it a newly created object?
@@ -82,7 +80,7 @@ abstract class XoopsObject implements \ArrayAccess
      *
      * @var array
      */
-    private $errors = array();
+    private $errors = [];
 
     /**
      * @var string
@@ -177,14 +175,14 @@ abstract class XoopsObject implements \ArrayAccess
      */
     public function initVar($key, $data_type, $value = null, $required = false, $maxlength = null, $options = '')
     {
-        $this->vars[$key] = array(
+        $this->vars[$key] = [
             'value' => $value,
             'required' => $required,
             'data_type' => $data_type,
             'maxlength' => $maxlength,
             'changed' => false,
-            'options' => $options
-        );
+            'options' => $options,
+        ];
     }
 
     /**
@@ -263,13 +261,14 @@ abstract class XoopsObject implements \ArrayAccess
         if (empty($var)) {
             return true;
         }
-        $var = !is_array($var) ? array($var) : $var;
+        $var = !is_array($var) ? [$var] : $var;
         foreach ($var as $key) {
             if (!isset($this->vars[$key])) {
                 continue;
             }
             $this->vars[$key]['changed'] = null;
         }
+
         return true;
     }
 
@@ -287,11 +286,11 @@ abstract class XoopsObject implements \ArrayAccess
      */
     public function setFormVars($var_arr = null, $pref = 'xo_')
     {
-        $len = strlen($pref);
+        $len = mb_strlen($pref);
         if (is_array($var_arr)) {
             foreach ($var_arr as $key => $value) {
-                if ($pref == substr($key, 0, $len)) {
-                    $this->setVar(substr($key, $len), $value);
+                if ($pref == mb_substr($key, 0, $len)) {
+                    $this->setVar(mb_substr($key, $len), $value);
                 }
             }
         }
@@ -321,7 +320,7 @@ abstract class XoopsObject implements \ArrayAccess
         if (!isset($keys)) {
             $keys = array_keys($this->vars);
         }
-        $vars = array();
+        $vars = [];
         if (is_array($keys)) {
             foreach ($keys as $key) {
                 if (isset($this->vars[$key])) {
@@ -337,6 +336,7 @@ abstract class XoopsObject implements \ArrayAccess
                 }
             }
         }
+
         return $vars;
     }
 
@@ -355,6 +355,7 @@ abstract class XoopsObject implements \ArrayAccess
             return $ret;
         }
         $ret = Dtype::getVar($this, $key, $format);
+
         return $ret;
     }
 
@@ -366,7 +367,7 @@ abstract class XoopsObject implements \ArrayAccess
     public function cleanVars()
     {
         $existing_errors = $this->getErrors();
-        $this->errors = array();
+        $this->errors = [];
         foreach ($this->vars as $k => $v) {
             if (!$v['changed']) {
             } else {
@@ -375,10 +376,12 @@ abstract class XoopsObject implements \ArrayAccess
         }
         if (count($this->errors) > 0) {
             $this->errors = array_merge($existing_errors, $this->errors);
+
             return false;
         }
         // $this->_errors = array_merge($existing_errors, $this->_errors);
         $this->unsetDirty();
+
         return true;
     }
 
@@ -390,6 +393,7 @@ abstract class XoopsObject implements \ArrayAccess
     public function xoopsClone()
     {
         $clone = clone $this;
+
         return $clone;
     }
 
@@ -444,6 +448,7 @@ abstract class XoopsObject implements \ArrayAccess
         } else {
             $ret .= 'None<br />';
         }
+
         return $ret;
     }
 
@@ -459,6 +464,7 @@ abstract class XoopsObject implements \ArrayAccess
 
     /**
      * ArrayAccess methods
+     * @param mixed $offset
      */
 
     /**

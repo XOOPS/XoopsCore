@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/../init_new.php');
+require_once(__DIR__ . '/../init_new.php');
 
 require_once(XOOPS_TU_ROOT_PATH . '/kernel/object.php');
 
@@ -23,7 +23,7 @@ class Legacy_XoopsPersistableObjectHandlerTest extends \PHPUnit\Framework\TestCa
 
     public function test___publicProperties()
     {
-        $items = array('db');
+        $items = ['db'];
         foreach ($items as $item) {
             $prop = new ReflectionProperty($this->myclass, $item);
             $this->assertTrue($prop->isPublic());

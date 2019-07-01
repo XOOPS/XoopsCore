@@ -17,7 +17,6 @@
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
-
 use Xoops\Core\Database\Connection;
 use Xoops\Core\Kernel\XoopsObject;
 use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
@@ -35,7 +34,7 @@ class UserconfigsOption extends XoopsObject
     /**
      * Constructor
      */
-    function __construct()
+    public function __construct()
     {
         $this->initVar('confop_id', XOBJ_DTYPE_INT, null);
         $this->initVar('confop_name', XOBJ_DTYPE_TXTBOX, null, true, 255);
@@ -87,7 +86,6 @@ class UserconfigsOption extends XoopsObject
     {
         return $this->getVar('conf_id', $format);
     }
-
 }
 
 class UserconfigsOptionHandler extends XoopsPersistableObjectHandler

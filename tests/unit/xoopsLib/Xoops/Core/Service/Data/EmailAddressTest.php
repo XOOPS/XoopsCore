@@ -1,4 +1,5 @@
 <?php
+
 namespace Xoops\Test\Core\Service\Data;
 
 use Xoops\Core\Service\Data\EmailAddress;
@@ -74,8 +75,7 @@ class EmailAddressTest extends \PHPUnit\Framework\TestCase
 
     public function testGetDisplayNameInvalid()
     {
-        $address = new class() extends EmailAddress
-        {
+        $address = new class() extends EmailAddress {
             public function __construct()
             {
                 parent::__construct();

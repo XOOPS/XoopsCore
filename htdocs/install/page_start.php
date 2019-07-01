@@ -23,17 +23,16 @@
  * @author      DuGris (aka L. JEN) <dugris@frxoops.org>
  * @version     $Id$
  */
-
 require_once __DIR__ . '/include/common.inc.php';
 
-$_SESSION['error'] = array();
+$_SESSION['error'] = [];
 //$_SESSION['settings'] = array();
-$_SESSION['siteconfig'] = array(
-    'adminname'  => '',
-    'adminmail'  => '',
-    'adminpass'  => '',
+$_SESSION['siteconfig'] = [
+    'adminname' => '',
+    'adminmail' => '',
+    'adminpass' => '',
     'adminpass2' => '',
-);
+];
 
 /* @var $wizard XoopsInstallWizard */
 $wizard = $_SESSION['wizard'];
@@ -49,24 +48,24 @@ foreach ($wizard->configs['writable'] as $key => $value) {
         $writable .= "<li class='files'>$value</li>";
     }
 }
-$writable .= "</ul>";
+$writable .= '</ul>';
 
 $xoops_trust = "<ul class='confirmMsg'>";
 foreach ($wizard->configs['xoopsPathDefault'] as $key => $value) {
     $xoops_trust .= "<li class='directory'>$value</li>";
 }
-$xoops_trust .= "</ul>";
+$xoops_trust .= '</ul>';
 
 $writable_trust = "<ul class='confirmMsg'>";
 foreach ($wizard->configs['dataPath'] as $key => $value) {
-    $writable_trust .= "<li class='directory'>" . $wizard->configs['xoopsPathDefault']['data'] . '/' . $key . "</li>";
+    $writable_trust .= "<li class='directory'>" . $wizard->configs['xoopsPathDefault']['data'] . '/' . $key . '</li>';
     if (is_array($value)) {
         foreach ($value as $key2 => $value2) {
-            $writable_trust .= "<li class='directory'>" . $wizard->configs['xoopsPathDefault']['data'] . '/' . $key . '/' . $value2 . "</li>";
+            $writable_trust .= "<li class='directory'>" . $wizard->configs['xoopsPathDefault']['data'] . '/' . $key . '/' . $value2 . '</li>';
         }
     }
 }
-$writable_trust .= "</ul>";
+$writable_trust .= '</ul>';
 
 $content = sprintf($content, $writable, $xoops_trust, $writable_trust);
 

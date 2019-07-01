@@ -1,7 +1,8 @@
 <?php
+
 namespace Xoops\Form;
 
-require_once(__DIR__.'/../../../init_new.php');
+require_once(__DIR__ . '/../../../init_new.php');
 
 class UrlTest extends \PHPUnit\Framework\TestCase
 {
@@ -30,11 +31,11 @@ class UrlTest extends \PHPUnit\Framework\TestCase
     public function testRender()
     {
         $value = $this->object->render();
-        $this->assertTrue(is_string($value));
-        $this->assertTrue(false !== strpos($value, '<input'));
-        $this->assertTrue(false !== strpos($value, 'type="url"'));
-        $this->assertTrue(false !== strpos($value, 'name="name"'));
-        $this->assertTrue(false !== strpos($value, 'size="80"'));
-        $this->assertTrue(false !== strpos($value, 'maxlength="200"'));
+        $this->assertInternalType('string', $value);
+        $this->assertTrue(false !== mb_strpos($value, '<input'));
+        $this->assertTrue(false !== mb_strpos($value, 'type="url"'));
+        $this->assertTrue(false !== mb_strpos($value, 'name="name"'));
+        $this->assertTrue(false !== mb_strpos($value, 'size="80"'));
+        $this->assertTrue(false !== mb_strpos($value, 'maxlength="200"'));
     }
 }

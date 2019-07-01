@@ -17,8 +17,8 @@
  * @version         $Id$
  */
 
-return array (
-    'charset' => array(
+return [
+    'charset' => [
         //'big5'          => 'big5',
         //'euc-kr'        => 'euc-kr',
         //'iso-8859-1'    => 'iso-8859-1',
@@ -32,7 +32,7 @@ return array (
         //'koi8-r'        => 'koi8-r',
         //'shift-jis'     => 'shift-jis',
         //'x-euc'         => 'x-euc',
-        'utf-8'         => 'utf-8',
+        'utf-8' => 'utf-8',
         //'windows-1250'  => 'windows-1250',
         //'windows-1251'  => 'windows-1251',
         //'windows-1252'  => 'windows-1252',
@@ -43,5 +43,5 @@ return array (
         //'windows-1257'  => 'windows-1257',
         //'windows-1258'  => 'windows-1258',
         //'windows-874'   => 'windows-874'
-    ),
-);
+    ],
+];

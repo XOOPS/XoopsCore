@@ -23,7 +23,6 @@ use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
  * @author          Mage Grégory (AKA Mage)
  * @version         $Id$
  */
-
 class PagePage_rating extends XoopsObject
 {
     /**
@@ -42,9 +41,6 @@ class PagePage_rating extends XoopsObject
 
 class PagePage_ratingHandler extends XoopsPersistableObjectHandler
 {
-    /**
-     * @param null|Connection $db
-     */
     public function __construct(Connection $db = null)
     {
         parent::__construct($db, 'page_rating', 'pagepage_rating', 'rating_id', 'rating_contentid');
@@ -54,8 +50,7 @@ class PagePage_ratingHandler extends XoopsPersistableObjectHandler
     {
         $helper = Page::getInstance();
         $uid = $helper->getUserId();
-        $ip  = $helper->xoops()->getEnv('REMOTE_ADDR');
-
+        $ip = $helper->xoops()->getEnv('REMOTE_ADDR');
 
         $criteria = new CriteriaCompo();
         $criteria->add(new Criteria('rating_content_id', $content_id));
@@ -69,6 +64,7 @@ class PagePage_ratingHandler extends XoopsPersistableObjectHandler
         if (count($res) > 0) {
             return $res[0]->getVar('rating_rating');
         }
+
         return -1;
     }
 
@@ -76,7 +72,7 @@ class PagePage_ratingHandler extends XoopsPersistableObjectHandler
     {
         $helper = Page::getInstance();
         $uid = $helper->getUserId();
-        $ip  = $helper->xoops()->getEnv('REMOTE_ADDR');
+        $ip = $helper->xoops()->getEnv('REMOTE_ADDR');
 
         $criteria = new CriteriaCompo();
         $criteria->add(new Criteria('rating_content_id', $content_id));
@@ -85,6 +81,7 @@ class PagePage_ratingHandler extends XoopsPersistableObjectHandler
         $criteria2->add(new Criteria('rating_uid', $uid), 'OR');
         $criteria2->add(new Criteria('rating_ip', $ip), 'OR');
         $criteria->add($criteria2, 'AND');
+
         return parent::getCount($criteria);
     }
 
@@ -100,6 +97,7 @@ class PagePage_ratingHandler extends XoopsPersistableObjectHandler
             ++$i;
             $total += $v->getVar('rating_rating');
         }
-        return array('voters' => $i, 'average' => $total/$i);
+
+        return ['voters' => $i, 'average' => $total / $i];
     }
 }

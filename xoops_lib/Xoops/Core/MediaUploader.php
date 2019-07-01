@@ -22,7 +22,6 @@ namespace Xoops\Core;
  * @author      Taiwen Jiang <phppp@users.sourceforge.net>
  */
 
-
 /**
  * XOOPS file uploader
  *
@@ -107,14 +106,14 @@ class MediaUploader
     /**
      * @var array
      */
-    public $allowedMimeTypes = array();
+    public $allowedMimeTypes = [];
 
     /**
      * @var array
      */
-    public $deniedMimeTypes = array(
-        'application/x-httpd-php'
-    );
+    public $deniedMimeTypes = [
+        'application/x-httpd-php',
+    ];
 
     /**
      * @var int
@@ -144,7 +143,7 @@ class MediaUploader
     /**
      * @var array
      */
-    public $errors = array();
+    public $errors = [];
 
     /**
      * @var string
@@ -169,19 +168,19 @@ class MediaUploader
     /**
      * @var array
      */
-    public $extensionsToBeSanitized = array(
-        'php', 'phtml', 'phtm', 'php3', 'php4', 'cgi', 'pl', 'asp', 'php5'
-    );
+    public $extensionsToBeSanitized = [
+        'php', 'phtml', 'phtm', 'php3', 'php4', 'cgi', 'pl', 'asp', 'php5',
+    ];
 
     /**
      * extensions needed image check (anti-IE Content-Type XSS)
      *
      * @var array
      */
-    public $imageExtensions = array(
+    public $imageExtensions = [
         1 => 'gif', 2 => 'jpg', 3 => 'png', 4 => 'swf', 5 => 'psd', 6 => 'bmp', 7 => 'tif', 8 => 'tif', 9 => 'jpc',
-        10 => 'jp2', 11 => 'jpx', 12 => 'jb2', 13 => 'swf', 14 => 'iff', 15 => 'wbmp', 16 => 'xbm'
-    );
+        10 => 'jp2', 11 => 'jpx', 12 => 'jb2', 13 => 'swf', 14 => 'iff', 15 => 'wbmp', 16 => 'xbm',
+    ];
 
     /**
      * Constructor
@@ -219,48 +218,53 @@ class MediaUploader
     {
         if (!isset($_FILES[$media_name])) {
             $this->setErrors(\XoopsLocale::E_FILE_NOT_FOUND);
+
             return false;
-        } else {
-            if (is_array($_FILES[$media_name]['name']) && isset($index)) {
-                $index = (int)($index);
-                $this->mediaName = (get_magic_quotes_gpc()) ? stripslashes($_FILES[$media_name]['name'][$index])
+        }
+        if (is_array($_FILES[$media_name]['name']) && isset($index)) {
+            $index = (int)($index);
+            $this->mediaName = (get_magic_quotes_gpc()) ? stripslashes($_FILES[$media_name]['name'][$index])
                     : $_FILES[$media_name]['name'][$index];
-                $this->mediaType = $_FILES[$media_name]['type'][$index];
-                $this->mediaSize = $_FILES[$media_name]['size'][$index];
-                $this->mediaTmpName = $_FILES[$media_name]['tmp_name'][$index];
-                $this->mediaError = !empty($_FILES[$media_name]['error'][$index])
+            $this->mediaType = $_FILES[$media_name]['type'][$index];
+            $this->mediaSize = $_FILES[$media_name]['size'][$index];
+            $this->mediaTmpName = $_FILES[$media_name]['tmp_name'][$index];
+            $this->mediaError = !empty($_FILES[$media_name]['error'][$index])
                     ? $_FILES[$media_name]['error'][$index] : 0;
-            } else {
-                $media_name = $_FILES[$media_name];
-                $this->mediaName = (get_magic_quotes_gpc()) ? stripslashes($media_name['name']) : $media_name['name'];
-                $this->mediaType = $media_name['type'];
-                $this->mediaSize = $media_name['size'];
-                $this->mediaTmpName = $media_name['tmp_name'];
-                $this->mediaError = !empty($media_name['error']) ? $media_name['error'] : 0;
-            }
+        } else {
+            $media_name = $_FILES[$media_name];
+            $this->mediaName = (get_magic_quotes_gpc()) ? stripslashes($media_name['name']) : $media_name['name'];
+            $this->mediaType = $media_name['type'];
+            $this->mediaSize = $media_name['size'];
+            $this->mediaTmpName = $media_name['tmp_name'];
+            $this->mediaError = !empty($media_name['error']) ? $media_name['error'] : 0;
         }
 
         $path_parts = pathinfo($this->mediaName);
         $ext = (isset($path_parts['extension'])) ? $path_parts['extension'] : '';
         $this->mediaRealType = \Xoops\Core\MimeTypes::findType($ext);
 
-        $this->errors = array();
+        $this->errors = [];
         if ((int)($this->mediaSize) < 0) {
             $this->setErrors(\XoopsLocale::E_INVALID_FILE_SIZE);
+
             return false;
         }
-        if ($this->mediaName == '') {
+        if ('' == $this->mediaName) {
             $this->setErrors(\XoopsLocale::E_FILE_NAME_MISSING);
+
             return false;
         }
-        if ($this->mediaTmpName === 'none' || !is_uploaded_file($this->mediaTmpName)) {
+        if ('none' === $this->mediaTmpName || !is_uploaded_file($this->mediaTmpName)) {
             $this->setErrors(\XoopsLocale::NO_FILE_UPLOADED);
+
             return false;
         }
         if ($this->mediaError > 0) {
             $this->setErrors(sprintf(\XoopsLocale::EF_UNEXPECTED_ERROR, $this->mediaError));
+
             return false;
         }
+
         return true;
     }
 
@@ -357,16 +361,19 @@ class MediaUploader
      */
     public function upload($chmod = 0644)
     {
-        if ($this->uploadDir == '') {
+        if ('' == $this->uploadDir) {
             $this->setErrors(\XoopsLocale::E_UPLOAD_DIRECTORY_NOT_SET);
+
             return false;
         }
         if (!is_dir($this->uploadDir)) {
             $this->setErrors(sprintf(\XoopsLocale::EF_DIRECTORY_NOT_OPENED, $this->uploadDir));
+
             return false;
         }
-        if (!is_writeable($this->uploadDir)) {
+        if (!is_writable($this->uploadDir)) {
             $this->setErrors(sprintf(\XoopsLocale::EF_DIRECTORY_WITH_WRITE_PERMISSION_NOT_OPENED, $this->uploadDir));
+
             return false;
         }
         $this->sanitizeMultipleExtensions();
@@ -389,6 +396,7 @@ class MediaUploader
         if (count($this->errors) > 0) {
             return false;
         }
+
         return $this->copyFile($chmod);
     }
 
@@ -401,37 +409,41 @@ class MediaUploader
      */
     protected function copyFile($chmod)
     {
-        $matched = array();
+        $matched = [];
         if (!preg_match("/\.([a-zA-Z0-9]+)$/", $this->mediaName, $matched)) {
             $this->setErrors(\XoopsLocale::E_INVALID_FILE_NAME);
+
             return false;
         }
         if (isset($this->targetFileName)) {
             $this->savedFileName = $this->targetFileName;
         } else {
             if (isset($this->prefix)) {
-                $this->savedFileName = uniqid($this->prefix) . '.' . strtolower($matched[1]);
+                $this->savedFileName = uniqid($this->prefix) . '.' . mb_strtolower($matched[1]);
             } else {
-                $this->savedFileName = strtolower($this->mediaName);
+                $this->savedFileName = mb_strtolower($this->mediaName);
             }
         }
 
         $this->savedDestination = $this->uploadDir . '/' . $this->savedFileName;
         if (!move_uploaded_file($this->mediaTmpName, $this->savedDestination)) {
             $this->setErrors(sprintf(\XoopsLocale::EF_FILE_NOT_SAVED_TO, $this->savedDestination));
+
             return false;
         }
         // Check IE XSS before returning success
-        $ext = strtolower(substr(strrchr($this->savedDestination, '.'), 1));
+        $ext = mb_strtolower(mb_substr(mb_strrchr($this->savedDestination, '.'), 1));
         if (in_array($ext, $this->imageExtensions)) {
             $info = @getimagesize($this->savedDestination);
-            if ($info === false || $this->imageExtensions[(int)$info[2]] != $ext) {
+            if (false === $info || $this->imageExtensions[(int)$info[2]] != $ext) {
                 $this->setErrors(\XoopsLocale::E_SUSPICIOUS_IMAGE_UPLOAD_REFUSED);
                 @unlink($this->savedDestination);
+
                 return false;
             }
         }
         @chmod($this->savedDestination, $chmod);
+
         return true;
     }
 
@@ -447,8 +459,10 @@ class MediaUploader
         }
         if ($this->mediaSize > $this->maxFileSize) {
             $this->setErrors(sprintf(\XoopsLocale::EF_FILE_SIZE_TO_LARGE, $this->maxFileSize, $this->mediaSize));
+
             return false;
         }
+
         return true;
     }
 
@@ -465,11 +479,13 @@ class MediaUploader
         if (false !== $dimension = getimagesize($this->mediaTmpName)) {
             if ($dimension[0] > $this->maxWidth) {
                 $this->setErrors(sprintf(\XoopsLocale::EF_FILE_WIDTH_TO_LARGE, $this->maxWidth, $dimension[0]));
+
                 return false;
             }
         } else {
             trigger_error(sprintf(\XoopsLocale::EF_IMAGE_SIZE_NOT_FETCHED, $this->mediaTmpName), E_USER_WARNING);
         }
+
         return true;
     }
 
@@ -486,11 +502,13 @@ class MediaUploader
         if (false !== $dimension = getimagesize($this->mediaTmpName)) {
             if ($dimension[1] > $this->maxHeight) {
                 $this->setErrors(sprintf(\XoopsLocale::EF_FILE_HEIGHT_TO_LARGE, $this->maxHeight, $dimension[1]));
+
                 return false;
             }
         } else {
             trigger_error(sprintf(\XoopsLocale::EF_IMAGE_SIZE_NOT_FETCHED, $this->mediaTmpName), E_USER_WARNING);
         }
+
         return true;
     }
 
@@ -503,6 +521,7 @@ class MediaUploader
     {
         if (empty($this->mediaRealType) && empty($this->allowUnknownTypes)) {
             $this->setErrors(\XoopsLocale::E_FILE_TYPE_REJECTED);
+
             return false;
         }
 
@@ -512,8 +531,10 @@ class MediaUploader
             && in_array($this->mediaRealType, $this->deniedMimeTypes))
         ) {
             $this->setErrors(sprintf(\XoopsLocale::EF_FILE_MIME_TYPE_NOT_ALLOWED, $this->mediaType));
+
             return false;
         }
+
         return true;
     }
 
@@ -528,15 +549,17 @@ class MediaUploader
             return true;
         }
 
-        if (('image' === substr($this->mediaType, 0, strpos($this->mediaType, '/')))
+        if (('image' === mb_substr($this->mediaType, 0, mb_strpos($this->mediaType, '/')))
             || (!empty($this->mediaRealType)
-            && 'image' === substr($this->mediaRealType, 0, strpos($this->mediaRealType, '/')))
+            && 'image' === mb_substr($this->mediaRealType, 0, mb_strpos($this->mediaRealType, '/')))
         ) {
             if (!@getimagesize($this->mediaTmpName)) {
                 $this->setErrors(\XoopsLocale::E_INVALID_IMAGE_FILE);
+
                 return false;
             }
         }
+
         return true;
     }
 
@@ -551,11 +574,11 @@ class MediaUploader
             return;
         }
 
-        $patterns = array();
-        $replaces = array();
+        $patterns = [];
+        $replaces = [];
         foreach ($this->extensionsToBeSanitized as $ext) {
             $patterns[] = "/\." . preg_quote($ext) . "\./i";
-            $replaces[] = "_" . $ext . ".";
+            $replaces[] = '_' . $ext . '.';
         }
         $this->mediaName = preg_replace($patterns, $replaces, $this->mediaName);
     }
@@ -583,16 +606,16 @@ class MediaUploader
     {
         if (!$ashtml) {
             return $this->errors;
-        } else {
-            $ret = '';
-            if (count($this->errors) > 0) {
-                $ret = '<h4>'
-                . sprintf(\XoopsLocale::EF_ERRORS_RETURNED_WHILE_UPLOADING_FILE, $this->mediaName) . '</h4>';
-                foreach ($this->errors as $error) {
-                    $ret .= $error . '<br />';
-                }
-            }
-            return $ret;
         }
+        $ret = '';
+        if (count($this->errors) > 0) {
+            $ret = '<h4>'
+                . sprintf(\XoopsLocale::EF_ERRORS_RETURNED_WHILE_UPLOADING_FILE, $this->mediaName) . '</h4>';
+            foreach ($this->errors as $error) {
+                $ret .= $error . '<br />';
+            }
+        }
+
+        return $ret;
     }
 }

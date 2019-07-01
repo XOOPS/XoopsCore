@@ -99,11 +99,11 @@ class Provisioning
         $member_handler = $xoops->getHandlerMember();
         $criteria = new Criteria('uname', $uname);
         $getuser = $member_handler->getUsers($criteria);
-        if (count($getuser) == 1) {
+        if (1 == count($getuser)) {
             return $getuser[0];
-        } else {
-            return false;
         }
+
+        return false;
     }
 
     /**
@@ -196,9 +196,8 @@ class Provisioning
             $newuser->unsetNew();
 
             return $newuser;
-        } else {
-            $xoops->redirect(\XoopsBaseConfig::get('url') . '/user.php', 5, $newuser->getHtmlErrors());
         }
+        $xoops->redirect(\XoopsBaseConfig::get('url') . '/user.php', 5, $newuser->getHtmlErrors());
 
         return $ret;
     }
@@ -224,9 +223,8 @@ class Provisioning
 
         if ($member_handler->insertUser($xoopsUser)) {
             return $xoopsUser;
-        } else {
-            $xoops->redirect(\XoopsBaseConfig::get('url') . '/user.php', 5, $xoopsUser->getHtmlErrors());
         }
+        $xoops->redirect(\XoopsBaseConfig::get('url') . '/user.php', 5, $xoopsUser->getHtmlErrors());
 
         return $ret;
     }

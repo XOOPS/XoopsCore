@@ -27,7 +27,7 @@ class Token extends Hidden
      * Constructor
      *
      * @param string|array $name    name attribute or array of all attributes
-     * @param integer      $timeout timeout in seconds for generated token
+     * @param int      $timeout timeout in seconds for generated token
      */
     public function __construct($name = 'XOOPS_TOKEN', $timeout = 0)
     {
@@ -39,8 +39,8 @@ class Token extends Hidden
             $this->set(':timeout', $timeout);
         }
         $name = $this->get('name', 'XOOPS_TOKEN');
-        if (substr($name, -8) !== '_REQUEST') {
-            $this->set('name', $name.'_REQUEST');
+        if ('_REQUEST' !== mb_substr($name, -8)) {
+            $this->set('name', $name . '_REQUEST');
         }
         $this->set('value', \Xoops::getInstance()->security()->createToken($this->get(':timeout', 0), $name));
     }

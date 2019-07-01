@@ -17,21 +17,20 @@
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
-
 $i = -1;
 ++$i;
-$adminmenu[$i]["title"] = _MI_MENUS_ADMMENU0;
-$adminmenu[$i]["link"] = 'admin/index.php';
-$adminmenu[$i]["icon"] = 'home.png';
+$adminmenu[$i]['title'] = _MI_MENUS_ADMMENU0;
+$adminmenu[$i]['link'] = 'admin/index.php';
+$adminmenu[$i]['icon'] = 'home.png';
 ++$i;
 $adminmenu[$i]['title'] = _MI_MENUS_MENUSMANAGER;
-$adminmenu[$i]['link'] = "admin/admin_menus.php";
-$adminmenu[$i]["icon"] = 'manage.png';
+$adminmenu[$i]['link'] = 'admin/admin_menus.php';
+$adminmenu[$i]['icon'] = 'manage.png';
 ++$i;
 $adminmenu[$i]['title'] = _MI_MENUS_MENUMANAGER;
-$adminmenu[$i]['link'] = "admin/admin_menu.php";
-$adminmenu[$i]["icon"] = 'insert_table_row.png';
+$adminmenu[$i]['link'] = 'admin/admin_menu.php';
+$adminmenu[$i]['icon'] = 'insert_table_row.png';
 ++$i;
 $adminmenu[$i]['title'] = _MI_MENUS_ABOUT;
-$adminmenu[$i]['link'] = "admin/about.php";
-$adminmenu[$i]["icon"] = 'about.png';
+$adminmenu[$i]['link'] = 'admin/about.php';
+$adminmenu[$i]['icon'] = 'about.png';

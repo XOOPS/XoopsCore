@@ -8,7 +8,6 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
-
 use Xoops\Core\Database\Factory;
 
 /**
@@ -28,7 +27,6 @@ use Xoops\Core\Database\Factory;
  */
 class XoopsDatabaseFactory extends Factory
 {
-
     /**
      * Get a reference to the only instance of database class and connects to DB
      *
@@ -54,14 +52,15 @@ class XoopsDatabaseFactory extends Factory
             } else {
                 $class = 'XoopsMysqlDatabaseProxy';
             }
-            \Xoops::getInstance()->events()->triggerEvent('core.class.database.databasefactory.connection', array(&$class));
+            \Xoops::getInstance()->events()->triggerEvent('core.class.database.databasefactory.connection', [&$class]);
             $legacy = new $class();
             $legacy->setPrefix(\XoopsBaseConfig::get('db-prefix'));
             $legacy->conn = \Xoops\Core\Database\Factory::getConnection();
         }
-        if (is_null($legacy->conn)) {
+        if (null === $legacy->conn) {
             trigger_error('notrace:Unable to connect to database', E_USER_ERROR);
         }
+
         return $legacy;
     }
 }

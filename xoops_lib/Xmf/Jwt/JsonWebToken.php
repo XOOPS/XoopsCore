@@ -39,7 +39,7 @@ class JsonWebToken
     /**
      * @var array
      */
-    protected $claims = array();
+    protected $claims = [];
 
     /**
      * JsonWebToken constructor.
@@ -56,14 +56,14 @@ class JsonWebToken
     /**
      * @param string $algorithm algorithm to use for signing/validating
      *
-     * @return JsonWebToken
-     *
      * @throws \DomainException
+     * @return JsonWebToken
      */
     public function setAlgorithm($algorithm)
     {
         if (array_key_exists($algorithm, JWT::$supported_algs)) {
             $this->algorithm = $algorithm;
+
             return $this;
         }
         throw new \DomainException('Algorithm not supported');
@@ -78,13 +78,15 @@ class JsonWebToken
      *
      * @return object|false
      */
-    public function decode($jwtString, $assertClaims = array())
+    public function decode($jwtString, $assertClaims = [])
     {
-        $allowedAlgorithms = array($this->algorithm);
+        $allowedAlgorithms = [$this->algorithm];
+
         try {
             $values = JWT::decode($jwtString, $this->key->getVerifying(), $allowedAlgorithms);
         } catch (\Exception $e) {
             trigger_error($e->getMessage(), E_USER_NOTICE);
+
             return false;
         }
         foreach ($assertClaims as $claim => $assert) {
@@ -94,6 +96,7 @@ class JsonWebToken
                 return false;
             }
         }
+
         return $values;
     }
 
@@ -104,11 +107,10 @@ class JsonWebToken
      * @param int                $expirationOffset seconds from now that token will expire. If not specified,
      *                                              an "exp" claim will not be added or updated
      *
-     * @return string encoded and signed jwt string
-     *
      * @throws \DomainException;
      * @throws \InvalidArgumentException;
      * @throws \UnexpectedValueException;
+     * @return string encoded and signed jwt string
      */
     public function create($payload, $expirationOffset = 0)
     {
@@ -116,6 +118,7 @@ class JsonWebToken
             $payload['exp'] = time() + (int) $expirationOffset;
         }
         $value = JWT::encode($payload, $this->key->getSigning(), $this->algorithm);
+
         return $value;
     }
 }

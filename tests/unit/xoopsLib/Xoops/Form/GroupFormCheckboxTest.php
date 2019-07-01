@@ -1,7 +1,8 @@
 <?php
+
 namespace Xoops\Form;
 
-require_once(__DIR__.'/../../../init_new.php');
+require_once(__DIR__ . '/../../../init_new.php');
 
 class GroupFormCheckboxTest extends \PHPUnit\Framework\TestCase
 {
@@ -10,7 +11,7 @@ class GroupFormCheckboxTest extends \PHPUnit\Framework\TestCase
      */
     protected $object;
 
-    protected $optionTree = array();
+    protected $optionTree = [];
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -41,11 +42,12 @@ class GroupFormCheckboxTest extends \PHPUnit\Framework\TestCase
     {
         if (!empty($this->optionTree[$itemId]['children'])) {
             $children = $this->optionTree[$itemId]['children'];
-            if (is_array($children))
+            if (is_array($children)) {
                 foreach ($children as $fcid) {
                     array_push($childIds, $fcid);
                     $this->loadAllChildItemIds($fcid, $childIds);
                 }
+            }
         }
     }
 
@@ -54,16 +56,16 @@ class GroupFormCheckboxTest extends \PHPUnit\Framework\TestCase
         $this->addItem(1, 'item_name1');
         $this->addItem(10, 'item_name10', 1);
         foreach (array_keys($this->optionTree) as $item_id) {
-            $this->optionTree[$item_id]['allchild'] = array();
+            $this->optionTree[$item_id]['allchild'] = [];
             $this->loadAllChildItemIds($item_id, $this->optionTree[$item_id]['allchild']);
         }
 
         $this->object->setOptionTree($this->optionTree);
         $value = $this->object->render();
-        $this->assertTrue(is_string($value));
-        $this->assertTrue(false !== strpos($value, '<input type="checkbox" name="name[groups][2][1]"'));
-        $this->assertTrue(false !== strpos($value, '<input type="checkbox" name="name[groups][2][10]"'));
-        $this->assertTrue(false !== strpos($value, 'value="item_name1"'));
-        $this->assertTrue(false !== strpos($value, 'value="item_name10"'));
+        $this->assertInternalType('string', $value);
+        $this->assertTrue(false !== mb_strpos($value, '<input type="checkbox" name="name[groups][2][1]"'));
+        $this->assertTrue(false !== mb_strpos($value, '<input type="checkbox" name="name[groups][2][10]"'));
+        $this->assertTrue(false !== mb_strpos($value, 'value="item_name1"'));
+        $this->assertTrue(false !== mb_strpos($value, 'value="item_name10"'));
     }
 }

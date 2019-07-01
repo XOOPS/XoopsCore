@@ -17,7 +17,6 @@
  * @author          Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
  * @version         $Id$
  */
-
 include dirname(dirname(__DIR__)) . '/mainfile.php';
 
 $xoops = Xoops::getInstance();
@@ -79,7 +78,7 @@ foreach ($update_list as $update_item) {
 // TODO: finish integration with comments... i.e. need calls to
 // notifyUsers at appropriate places... (need to figure out where
 // comment submit occurs and where comment approval occurs)...
-$redirect_args = array();
+$redirect_args = [];
 foreach ($update_list as $update_item) {
     list($category, $item_id, $event) = preg_split('/,/', $update_item['params']);
     $category_info = $helper->getCategory($category, $module->getVar('dirname'));
@@ -94,10 +93,10 @@ $argstring = '';
 $first_arg = 1;
 foreach (array_keys($redirect_args) as $arg) {
     if ($first_arg) {
-        $argstring .= "?" . $arg . "=" . $redirect_args[$arg];
+        $argstring .= '?' . $arg . '=' . $redirect_args[$arg];
         $first_arg = 0;
     } else {
-        $argstring .= "&" . $arg . "=" . $redirect_args[$arg];
+        $argstring .= '&' . $arg . '=' . $redirect_args[$arg];
     }
 }
 

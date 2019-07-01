@@ -34,7 +34,7 @@ if (!empty($editor)) {
 } else {
     // Or use user pre-selected editor through profile
     if ($xoops->isUser()) {
-        $editor = @ $xoops->user->getVar('editor'); // Need set through user profile
+        $editor = @$xoops->user->getVar('editor'); // Need set through user profile
     }
     // Add the editor selection box
     // If dohtml is disabled, set $noHtml = true
@@ -43,13 +43,12 @@ if (!empty($editor)) {
     // required configs
     $options['editor'] = $editor;
     $options['name'] = 'required_element';
-    $options['value'] = empty($_REQUEST['message']) ? "" : $_REQUEST['message'];
+    $options['value'] = empty($_REQUEST['message']) ? '' : $_REQUEST['message'];
     // optional configs
     $options['rows'] = 25; // default value = 5
     $options['cols'] = 60; // default value = 50
     $options['width'] = '100%'; // default value = 100%
     $options['height'] = '400px'; // default value = 400px
-
 
     // "textarea": if the selected editor with name of $editor can not be created, the editor "textarea" will be used
     // if no $onFailure is set, then the first available editor will be used

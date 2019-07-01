@@ -30,7 +30,7 @@ use Xmf\Random;
  */
 class Security
 {
-    private $errors = array();
+    private $errors = [];
 
     /**
      * Check if there is a valid token in $_REQUEST[$name . '_REQUEST']
@@ -61,12 +61,13 @@ class Security
         $token_id = Random::generateOneTimeToken();
         // save token data on the server
         if (!isset($_SESSION[$name . '_SESSION'])) {
-            $_SESSION[$name . '_SESSION'] = array();
+            $_SESSION[$name . '_SESSION'] = [];
         }
-        $token_data = array(
-            'id' => $token_id, 'expire' => time() + (int)($timeout)
-        );
+        $token_data = [
+            'id' => $token_id, 'expire' => time() + (int)($timeout),
+        ];
         array_push($_SESSION[$name . '_SESSION'], $token_data);
+
         return $token_id;
     }
 
@@ -82,16 +83,16 @@ class Security
     public function validateToken($token = false, $clearIfValid = true, $name = 'XOOPS_TOKEN')
     {
         $ret = false;
-        $log = array();
-        $token = ($token !== false)
+        $log = [];
+        $token = (false !== $token)
             ? $token
             : (isset($_REQUEST[$name . '_REQUEST']) ? $_REQUEST[$name . '_REQUEST'] : '');
         if (empty($token) || empty($_SESSION[$name . '_SESSION'])) {
             $str = 'No valid token found in request/session';
             $this->setErrors($str);
-            $log[] = array('Token Validation', $str);
+            $log[] = ['Token Validation', $str];
         } else {
-            $token_data =& $_SESSION[$name . '_SESSION'];
+            $token_data = &$_SESSION[$name . '_SESSION'];
             if (is_array($token_data)) {
                 foreach (array_keys($token_data) as $i) {
                     if ($token === $token_data[$i]['id']) {
@@ -100,22 +101,23 @@ class Security
                                 // token should be valid once, so clear it once validated
                                 unset($token_data[$i]);
                             }
-                            $log[] = array('Token Validation', 'Valid token found');
+                            $log[] = ['Token Validation', 'Valid token found'];
                             $ret = true;
                         } else {
                             $str = 'Valid token expired';
                             $this->setErrors($str);
-                            $log[] = array('Token Validation', $str);
+                            $log[] = ['Token Validation', $str];
                         }
                     }
                 }
             }
             if (!$ret) {
-                $log[] = array('Token Validation', 'No valid token found');
+                $log[] = ['Token Validation', 'No valid token found'];
             }
             $this->garbageCollection($name);
         }
-        \Xoops::getInstance()->events()->triggerEvent('core.security.validatetoken.end', array($log));
+        \Xoops::getInstance()->events()->triggerEvent('core.security.validatetoken.end', [$log]);
+
         return $ret;
     }
 
@@ -128,7 +130,7 @@ class Security
      */
     public function clearTokens($name = 'XOOPS_TOKEN')
     {
-        $_SESSION[$name . '_SESSION'] = array();
+        $_SESSION[$name . '_SESSION'] = [];
     }
 
     /**
@@ -154,7 +156,7 @@ class Security
     {
         $sessionName = $name . '_SESSION';
         if (!empty($_SESSION[$sessionName]) && is_array($_SESSION[$sessionName])) {
-            $_SESSION[$sessionName] = array_filter($_SESSION[$sessionName], array($this, 'filterToken'));
+            $_SESSION[$sessionName] = array_filter($_SESSION[$sessionName], [$this, 'filterToken']);
         }
     }
 
@@ -168,15 +170,16 @@ class Security
     public function checkReferer($docheck = 1)
     {
         $ref = \Xoops::getInstance()->getEnv('HTTP_REFERER');
-        if ($docheck == 0) {
+        if (0 == $docheck) {
             return true;
         }
-        if ($ref == '') {
+        if ('' == $ref) {
             return false;
         }
-        if (strpos($ref, \XoopsBaseConfig::get('url')) !== 0) {
+        if (0 !== mb_strpos($ref, \XoopsBaseConfig::get('url'))) {
             return false;
         }
+
         return true;
     }
 
@@ -189,9 +192,9 @@ class Security
     public function checkBadips()
     {
         $xoops = \Xoops::getInstance();
-        if ($xoops->getConfig('enable_badips') == 1
+        if (1 == $xoops->getConfig('enable_badips')
             && isset($_SERVER['REMOTE_ADDR'])
-            && $_SERVER['REMOTE_ADDR'] != ''
+            && '' != $_SERVER['REMOTE_ADDR']
         ) {
             foreach ($xoops->getConfig('bad_ips') as $bi) {
                 if (!empty($bi) && preg_match('/' . $bi . '/', $_SERVER['REMOTE_ADDR'])) {
@@ -212,6 +215,7 @@ class Security
     public function getTokenHTML($name = 'XOOPS_TOKEN')
     {
         $token = new \Xoops\Form\Token($name);
+
         return $token->render();
     }
 
@@ -238,12 +242,12 @@ class Security
     {
         if (!$ashtml) {
             return $this->errors;
-        } else {
-            $ret = '';
-            if (is_array($this->errors)) {
-                $ret = implode('<br />', $this->errors) . '<br />';
-            }
-            return $ret;
         }
+        $ret = '';
+        if (is_array($this->errors)) {
+            $ret = implode('<br />', $this->errors) . '<br />';
+        }
+
+        return $ret;
     }
 }

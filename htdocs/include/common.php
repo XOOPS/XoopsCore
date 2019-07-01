@@ -13,12 +13,11 @@
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package   kernel
  */
-
+use Patchwork\Utf8\Bootup;
 use Xoops\Core\FixedGroups;
-use Xoops\Core\Kernel\Handlers\XoopsUser;
 use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\Kernel\CriteriaCompo;
-use Patchwork\Utf8\Bootup;
+use Xoops\Core\Kernel\Handlers\XoopsUser;
 
 /**
  * Include XoopsLoad - this should have been done in mainfile.php, but there is
@@ -28,22 +27,22 @@ use Patchwork\Utf8\Bootup;
  * Temporarily try and fix, but set up a (delayed) warning
  */
 if (!class_exists('XoopsLoad', false)) {
-    require_once dirname(__DIR__). '/class/XoopsBaseConfig.php';
+    require_once dirname(__DIR__) . '/class/XoopsBaseConfig.php';
     XoopsBaseConfig::bootstrapTransition();
     $delayedWarning = 'Patch mainfile.php for XoopsBaseConfig';
 }
 
 global $xoops;
-$GLOBALS['xoops'] =& $xoops;
+$GLOBALS['xoops'] = &$xoops;
 
 //Legacy support
 global $xoopsDB;
-$GLOBALS['xoopsDB'] =& $xoopsDB;
+$GLOBALS['xoopsDB'] = &$xoopsDB;
 /**
  * YOU SHOULD NEVER USE THE FOLLOWING TO CONSTANTS, THEY WILL BE REMOVED
  */
 defined('DS') or define('DS', DIRECTORY_SEPARATOR);
-defined('NWLINE')or define('NWLINE', "\n");
+defined('NWLINE') or define('NWLINE', "\n");
 
 /**
  * Include files with definitions
@@ -64,7 +63,7 @@ Bootup::filterRequestInputs(); // Normalizes HTTP inputs to UTF-8 NFC
  */
 $xoops = Xoops::getInstance();
 
-$xoops->option =& $GLOBALS['xoopsOption'];
+$xoops->option = &$GLOBALS['xoopsOption'];
 
 /**
  * Create Instance Xoops\Core\Logger Object, the logger manager
@@ -102,6 +101,7 @@ $autoloadPrefixDirList = $xoops->cache()->cacheRead(
             $base_dir = $xoops->path('modules/' . $almod->getVar('dirname') . '/src');
             $autoloadPrefixDirList[] = [$prefix, $base_dir];
         }
+
         return $autoloadPrefixDirList;
     }
 );
@@ -119,7 +119,6 @@ $xoopsSecurity = $xoops->security();
  * Check Proxy;
  * Requires functions
  */
-
 if (!defined('XOOPS_XMLRPC')) {
     define('XOOPS_DB_CHKREF', 1);
 } else {
@@ -158,7 +157,7 @@ include_once $xoops->path('include/functions.php');
  * Requires functions and database loaded
  */
 $xoops->getConfigs();
-$xoopsConfig =& $xoops->config;
+$xoopsConfig = &$xoops->config;
 
 /**
  * Merge file and db configs.
@@ -184,7 +183,7 @@ $xoops->gzipCompression();
 $xFrameOptions = $xoopsConfig['xFrameOptions'] ?? 'sameorigin';
 $xoops->events()->triggerEvent('core.include.common.xframeoption');
 if (!headers_sent() && !empty($xFrameOptions)) {
-    header('X-Frame-Options: ' .$xFrameOptions);
+    header('X-Frame-Options: ' . $xFrameOptions);
 }
 
 /**
@@ -236,7 +235,7 @@ $xoops->themeSelect();
 /**
  * Closed Site
  */
-if ($xoops->getConfig('closesite') == 1) {
+if (1 == $xoops->getConfig('closesite')) {
     include_once $xoops->path('include/site-closed.php');
 }
 
@@ -246,7 +245,7 @@ if ($xoops->getConfig('closesite') == 1) {
 $xoops_url = \XoopsBaseConfig::get('url');
 $xoops->moduleDirname = 'system';
 if (XoopsLoad::fileExists('./xoops_version.php')) {
-    $url_arr = explode('/', strstr($_SERVER['PHP_SELF'], '/modules/'));
+    $url_arr = explode('/', mb_strstr($_SERVER['PHP_SELF'], '/modules/'));
     $module_handler = $xoops->getHandlerModule();
     $xoops->module = $xoops->getModuleByDirname($url_arr[2]);
     $xoops->moduleDirname = $url_arr[2];
@@ -272,14 +271,14 @@ if (XoopsLoad::fileExists('./xoops_version.php')) {
         }
     }
 
-    if ($xoops->module->getVar('dirname', 'n') !== 'system') {
+    if ('system' !== $xoops->module->getVar('dirname', 'n')) {
         $xoops->loadLanguage('main', $xoops->module->getVar('dirname', 'n'));
         $xoops->loadLocale($xoops->module->getVar('dirname', 'n'));
     }
 
-    if ($xoops->module->getVar('hasconfig') == 1
-        || $xoops->module->getVar('hascomments') == 1
-        || $xoops->module->getVar('hasnotification') == 1
+    if (1 == $xoops->module->getVar('hasconfig')
+        || 1 == $xoops->module->getVar('hascomments')
+        || 1 == $xoops->module->getVar('hasnotification')
     ) {
         $xoops->getModuleConfigs();
     }
@@ -291,10 +290,10 @@ if (XoopsLoad::fileExists('./xoops_version.php')) {
 
 $xoopsTpl = $xoops->tpl();
 $xoTheme = null;
-$xoopsUser =& $xoops->user;
-$xoopsModule =& $xoops->module;
-$xoopsUserIsAdmin =& $xoops->userIsAdmin;
-$xoopsModuleConfig =& $xoops->moduleConfig;
+$xoopsUser = &$xoops->user;
+$xoopsModule = &$xoops->module;
+$xoopsUserIsAdmin = &$xoops->userIsAdmin;
+$xoopsModuleConfig = &$xoops->moduleConfig;
 
 //Creates 'system_modules_active' cache file if it has been deleted.
 $xoops->getActiveModules();

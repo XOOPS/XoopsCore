@@ -96,7 +96,7 @@ class Psr4ClassLoader
      *
      * @var array
      */
-    protected $prefixes = array();
+    protected $prefixes = [];
 
     /**
      * addLoader sets all basic options and registers the autoloader
@@ -120,6 +120,7 @@ class Psr4ClassLoader
             $loader->addNamespace($namespace, $path);
         }
         $loader->register();
+
         return $loader;
     }
 
@@ -130,7 +131,7 @@ class Psr4ClassLoader
      */
     public function register()
     {
-        spl_autoload_register(array($this, 'loadClass'));
+        spl_autoload_register([$this, 'loadClass']);
     }
 
     /**
@@ -154,8 +155,8 @@ class Psr4ClassLoader
         $base_dir = rtrim($base_dir, DIRECTORY_SEPARATOR) . '/';
 
         // initialize the namespace prefix array
-        if (isset($this->prefixes[$prefix]) === false) {
-            $this->prefixes[$prefix] = array();
+        if (false === isset($this->prefixes[$prefix])) {
+            $this->prefixes[$prefix] = [];
         }
 
         // retain the base directory for the namespace prefix
@@ -181,16 +182,16 @@ class Psr4ClassLoader
 
         // work backwards through the namespace names of the fully-qualified
         // class name to find a mapped file name
-        while (false !== $pos = strrpos($prefix, '\\')) {
+        while (false !== $pos = mb_strrpos($prefix, '\\')) {
             // retain the trailing namespace separator in the prefix
-            $prefix = substr($class, 0, $pos + 1);
+            $prefix = mb_substr($class, 0, $pos + 1);
 
             // the rest is the relative class name
-            $relative_class = substr($class, $pos + 1);
+            $relative_class = mb_substr($class, $pos + 1);
 
             // try to load a mapped file for the prefix and relative class
             $mapped_file = $this->loadMappedFile($prefix, $relative_class);
-            if ($mapped_file !== false) {
+            if (false !== $mapped_file) {
                 return $mapped_file;
             }
 
@@ -215,7 +216,7 @@ class Psr4ClassLoader
     protected function loadMappedFile($prefix, $relative_class)
     {
         // are there any base directories for this namespace prefix?
-        if (isset($this->prefixes[$prefix]) === false) {
+        if (false === isset($this->prefixes[$prefix])) {
             return false;
         }
 

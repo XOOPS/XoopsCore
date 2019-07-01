@@ -21,7 +21,6 @@ use Xoops\Core\Kernel\Handlers\XoopsGroupPermHandler;
  * @author          DuGris (aka Laurent JEN)
  * @version         $Id$
  */
-
 class PageGroupPermHandler extends XoopsGroupPermHandler
 {
     /**
@@ -40,7 +39,7 @@ class PageGroupPermHandler extends XoopsGroupPermHandler
         return parent::checkRight($gperm_name, $gperm_itemid, $gperm_groupid, $gperm_modid, $trueifadmin);
     }
 
-    public function updatePerms($content_id, $groups = array())
+    public function updatePerms($content_id, $groups = [])
     {
         $module_id = Page::getInstance()->getModule()->getVar('mid');
 
@@ -50,7 +49,7 @@ class PageGroupPermHandler extends XoopsGroupPermHandler
         $groups_add = array_diff($groups, array_values($groups_exists));
 
         // delete
-        if (count($groups_delete) != 0) {
+        if (0 != count($groups_delete)) {
             $criteria = $criteria = new CriteriaCompo();
             $criteria->add(new Criteria('gperm_itemid', $content_id));
             $criteria->add(new Criteria('gperm_modid', $module_id));
@@ -61,7 +60,7 @@ class PageGroupPermHandler extends XoopsGroupPermHandler
         }
 
         // Add
-        if (count($groups_add) != 0) {
+        if (0 != count($groups_add)) {
             foreach ($groups_add as $group_id) {
                 parent::addRight('page_view_item', $content_id, $group_id, $module_id);
             }

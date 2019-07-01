@@ -23,7 +23,6 @@
  * @author      DuGris (aka L. JEN) <dugris@frxoops.org>
  * @version     $Id$
  */
-
 require_once __DIR__ . '/include/common.inc.php';
 
 /* @var $wizard XoopsInstallWizard */
@@ -37,14 +36,14 @@ if (array_key_exists('DB_PARAMETERS', $settings)) {
 }
 // get list of parameters the selected drive accepts
 $driver_info = $wizard->configs['db_types'][$settings['DB_DRIVER']];
-$driver_params=explode(',', $driver_info['params']);
+$driver_params = explode(',', $driver_info['params']);
 $settings['DB_TYPE'] = $driver_info['type'];
 
 // get settings name and value (post, session or default) for each parameter
 foreach ($driver_params as $param) {
-    $name=false;
+    $name = false;
     if (!empty($wizard->configs['db_param_names'][$param])) {
-        $name=$wizard->configs['db_param_names'][$param];
+        $name = $wizard->configs['db_param_names'][$param];
         $default = null;
         switch ($param) {
             case 'host':
@@ -79,10 +78,10 @@ foreach ($driver_params as $param) {
                 break;
         }
         $value = $default;
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if ('POST' === $_SERVER['REQUEST_METHOD']) {
             $value = empty($_POST[$name]) ? $default : $_POST[$name];
         }
-        $settings[$name]=$value;
+        $settings[$name] = $value;
     }
 }
 
@@ -90,7 +89,7 @@ $_SESSION['settings'] = $settings;
 
 // if a POST, try to connect to the database using the parameters
 $error = '';
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ('POST' === $_SERVER['REQUEST_METHOD']) {
     $instance = getDbConnection($error);
     if ($instance && empty($error)) {
         $_SESSION['settings'] = $settings;
@@ -111,21 +110,21 @@ ob_start();
 <?php
 foreach ($driver_params as $param) {
     $name = $wizard->configs['db_param_names'][$param];
-    if ($wizard->configs['db_param_types'][$param]==='string') {
+    if ('string' === $wizard->configs['db_param_types'][$param]) {
         echo xoFormField(
             $name,
             $settings[$name],
             constant($name . '_LABEL'),
             constant($name . '_HELP')
         );
-    } elseif ($wizard->configs['db_param_types'][$param]==='boolean') {
+    } elseif ('boolean' === $wizard->configs['db_param_types'][$param]) {
         echo xoBoolField(
             $name,
             $settings[$name],
             constant($name . '_LABEL'),
             constant($name . '_HELP')
         );
-    } elseif ($wizard->configs['db_param_types'][$param]==='password') {
+    } elseif ('password' === $wizard->configs['db_param_types'][$param]) {
         echo xoPassField(
             $name,
             $settings[$name],

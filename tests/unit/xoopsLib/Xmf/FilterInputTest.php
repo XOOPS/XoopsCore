@@ -1,4 +1,5 @@
 <?php
+
 namespace Xmf\Test;
 
 use Xmf\FilterInput;
@@ -34,7 +35,7 @@ class FilterInputTest extends \PHPUnit\Framework\TestCase
         $instance = FilterInput::getInstance();
         $this->assertSame($instance, $this->object);
 
-        $instance = FilterInput::getInstance(array(), array(), 0, 0, 0);
+        $instance = FilterInput::getInstance([], [], 0, 0, 0);
         $this->assertNotSame($instance, $this->object);
     }
 
@@ -72,7 +73,7 @@ class FilterInputTest extends \PHPUnit\Framework\TestCase
 
     public function testCleanVarFilter()
     {
-        $filter = FilterInput::getInstance(array(), array(), 1, 1);
+        $filter = FilterInput::getInstance([], [], 1, 1);
 
         $safeTest = '<p>This is a <em>simple</em> test.</p>';
         $this->assertEquals($safeTest, $filter->cleanVar($safeTest));
@@ -80,7 +81,7 @@ class FilterInputTest extends \PHPUnit\Framework\TestCase
 
     public function testCleanVarFilterXss()
     {
-        $filter = FilterInput::getInstance(array(), array(), 1, 1);
+        $filter = FilterInput::getInstance([], [], 1, 1);
 
         $xssTest = '<p>This is a <em>xss</em> <script>alert();</script> test.</p>';
         $xssTestExpect = '<p>This is a <em>xss</em> alert(); test.</p>';
@@ -89,23 +90,26 @@ class FilterInputTest extends \PHPUnit\Framework\TestCase
 
     public function getTestForCleanVarType()
     {
-        return array(
-            array('100', 'int', 100),
-            array('100', 'INTEGER', 100),
-            array('55.1', 'FLOAT', 55.1),
-            array('55.1', 'DOUBLE', 55.1),
-            array('1', 'BOOL', true),
-            array('0', 'BOOLEAN', false),
-            array('Value', 'WORD', 'Value'),
-            array('Alpha99', 'ALPHANUM', 'Alpha99'),
-            array('Alpha99', 'ALNUM', 'Alpha99'),
-            array('value', 'ARRAY', array('value')),
+        return [
+            ['100', 'int', 100],
+            ['100', 'INTEGER', 100],
+            ['55.1', 'FLOAT', 55.1],
+            ['55.1', 'DOUBLE', 55.1],
+            ['1', 'BOOL', true],
+            ['0', 'BOOLEAN', false],
+            ['Value', 'WORD', 'Value'],
+            ['Alpha99', 'ALPHANUM', 'Alpha99'],
+            ['Alpha99', 'ALNUM', 'Alpha99'],
+            ['value', 'ARRAY', ['value']],
 //          ['value', 'type', 'expected'],
-        );
+        ];
     }
 
     /**
      * @dataProvider getTestForCleanVarType
+     * @param mixed $value
+     * @param mixed $type
+     * @param mixed $expected
      */
     public function testCleanVarTypes($value, $type, $expected)
     {

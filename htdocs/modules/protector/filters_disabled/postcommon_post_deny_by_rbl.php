@@ -18,14 +18,13 @@
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
-
 class protector_postcommon_post_deny_by_rbl extends ProtectorFilterAbstract
 {
-    function execute()
+    public function execute()
     {
         $xoops = Xoops::getInstance();
         // RBL servers (don't enable too many servers)
-        $rbls = array(
+        $rbls = [
             'sbl-xbl.spamhaus.org',
             #           'niku.2ch.net' ,
             #           'list.dsbl.org' ,
@@ -34,7 +33,7 @@ class protector_postcommon_post_deny_by_rbl extends ProtectorFilterAbstract
             #           'opm.blitzed.org' ,
             #           'bsb.empty.us' ,
             #           'bsb.spamlookup.net' ,
-        );
+        ];
 
         $rev_ip = implode('.', array_reverse(explode('.', @$_SERVER['REMOTE_ADDR'])));
 

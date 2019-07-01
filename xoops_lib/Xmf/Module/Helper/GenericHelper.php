@@ -63,7 +63,7 @@ abstract class GenericHelper extends AbstractHelper
      */
     public function getModule()
     {
-        if ($this->module === null) {
+        if (null === $this->module) {
             $this->initObject();
         }
         if (!is_object($this->module)) {
@@ -84,17 +84,18 @@ abstract class GenericHelper extends AbstractHelper
      */
     public function getConfig($name = null, $default = null)
     {
-        if ($this->configs === null) {
+        if (null === $this->configs) {
             $this->initConfig();
         }
         if (empty($name)) {
-            $this->addLog("Getting all config");
+            $this->addLog('Getting all config');
 
             return $this->configs;
         }
 
         if (!isset($this->configs[$name])) {
             $this->addLog("ERROR :: Config '{$name}' does not exist");
+
             return $default;
         }
 
@@ -113,7 +114,7 @@ abstract class GenericHelper extends AbstractHelper
     public function getHandler($name)
     {
         $ret = false;
-        $name = strtolower($name);
+        $name = mb_strtolower($name);
         if (!isset($this->handlers[$name])) {
             $this->initHandler($name);
         }
@@ -185,8 +186,8 @@ abstract class GenericHelper extends AbstractHelper
             if (file_exists($hnd_file)) {
                 include_once $hnd_file;
             }
-            $class = ucfirst(strtolower($this->dirname))
-                . ucfirst(strtolower($name)) . 'Handler';
+            $class = ucfirst(mb_strtolower($this->dirname))
+                . ucfirst(mb_strtolower($name)) . 'Handler';
             if (class_exists($class)) {
                 $db = \XoopsDatabaseFactory::getDatabaseConnection();
                 $this->handlers[$name] = new $class($db);

@@ -16,16 +16,15 @@
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
-
-$adminmenu = array();
+$adminmenu = [];
 
 $i = 1;
 $adminmenu[$i]['title'] = _MI_COMMENTS_INDEX;
-$adminmenu[$i]['link'] = "admin/index.php";
+$adminmenu[$i]['link'] = 'admin/index.php';
 $adminmenu[$i]['icon'] = 'home.png';
 ++$i;
 $adminmenu[$i]['title'] = _MI_COMMENTS_MANAGE;
-$adminmenu[$i]['link'] = "admin/main.php";
+$adminmenu[$i]['link'] = 'admin/main.php';
 $adminmenu[$i]['icon'] = 'manage.png';
 ++$i;
 $adminmenu[$i]['title'] = _MI_COMMENTS_ABOUT;

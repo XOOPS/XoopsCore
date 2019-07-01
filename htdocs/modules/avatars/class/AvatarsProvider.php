@@ -26,13 +26,13 @@ use Xoops\Core\Service\Contract\AvatarInterface;
  */
 class AvatarsProvider extends AbstractContract implements AvatarInterface
 {
-	protected $xoops_url;
-	protected $xoops_upload_url;
+    protected $xoops_url;
+    protected $xoops_upload_url;
 
     public function __construct()
     {
-		$this->xoops_url = \XoopsBaseConfig::get('url');
-		$this->xoops_upload_url = \XoopsBaseConfig::get('uploads-url');
+        $this->xoops_url = \XoopsBaseConfig::get('url');
+        $this->xoops_upload_url = \XoopsBaseConfig::get('uploads-url');
     }
 
     /**
@@ -66,17 +66,16 @@ class AvatarsProvider extends AbstractContract implements AvatarInterface
     private function getUserById($uid)
     {
         $user = \Xoops::getInstance()->getHandlerMember()->getUser((int) $uid);
+
         return (is_object($user)) ? $user : null;
     }
 
-   /**
+    /**
      * getAvatarUrl - given user info return absolute URL to avatar image
      *
      * @param Response $response \Xoops\Core\Service\Response object
      * @param mixed    $userinfo XoopsUser object for user or
      *                           array of user info, 'uid', 'uname' and 'email' required
-     *
-     * @return void - response->value set to absolute URL to avatar image
      */
     public function getAvatarUrl($response, $userinfo)
     {
@@ -86,13 +85,13 @@ class AvatarsProvider extends AbstractContract implements AvatarInterface
                 if ($userinfo->getVar('user_avatar')
                     && 'blank.gif' !== $userinfo->getVar('user_avatar')
                 ) {
-                    $response->setValue($this->xoops_upload_url . "/" . $userinfo->getVar('user_avatar'));
+                    $response->setValue($this->xoops_upload_url . '/' . $userinfo->getVar('user_avatar'));
                     $noInfo = false;
                 }
             }
         } elseif (is_array($userinfo)) {
-            if (!empty($userinfo['user_avatar']) && $userinfo['user_avatar'] !== 'blank.gif') {
-                $response->setValue($this->xoops_upload_url . "/" . $userinfo['user_avatar']);
+            if (!empty($userinfo['user_avatar']) && 'blank.gif' !== $userinfo['user_avatar']) {
+                $response->setValue($this->xoops_upload_url . '/' . $userinfo['user_avatar']);
                 $noInfo = false;
             }
         } elseif (is_scalar($userinfo)) {
@@ -101,7 +100,7 @@ class AvatarsProvider extends AbstractContract implements AvatarInterface
                 if ($user->getVar('user_avatar')
                     && 'blank.gif' !== $user->getVar('user_avatar')
                 ) {
-                    $response->setValue($this->xoops_upload_url . "/" . $user->getVar('user_avatar'));
+                    $response->setValue($this->xoops_upload_url . '/' . $user->getVar('user_avatar'));
                     $noInfo = false;
                 }
             }
@@ -116,8 +115,6 @@ class AvatarsProvider extends AbstractContract implements AvatarInterface
      *
      * @param Response  $response \Xoops\Core\Service\Response object
      * @param XoopsUser $userinfo XoopsUser object for user
-     *
-     * @return void - response->value set to absolute URL to editing function for avatar data
      */
     public function getAvatarEditUrl($response, XoopsUser $userinfo)
     {

@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/../../../init_new.php');
+require_once(__DIR__ . '/../../../init_new.php');
 
 class Psr4ClassLoaderTest extends \PHPUnit\Framework\TestCase
 {
@@ -14,7 +14,7 @@ class Psr4ClassLoaderTest extends \PHPUnit\Framework\TestCase
      */
     protected function setUp()
     {
-        $this->object = new Xoops\Core\Psr4ClassLoader;
+        $this->object = new Xoops\Core\Psr4ClassLoader();
     }
 
     /**

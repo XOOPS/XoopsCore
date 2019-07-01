@@ -1,16 +1,16 @@
 <?php
-require_once(__DIR__.'/../../../init_new.php');
+require_once(__DIR__ . '/../../../init_new.php');
 
 class RpcBooleanHandlerTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass = 'RpcBooleanHandler';
     protected $object = null;
-    
-    public function setUp()
+
+    protected function setUp()
     {
         $this->object = new $this->myclass();
     }
-    
+
     public function test___construct()
     {
         $instance = $this->object;
@@ -20,7 +20,7 @@ class RpcBooleanHandlerTest extends \PHPUnit\Framework\TestCase
     public function test_getName()
     {
         $instance = $this->object;
-        
+
         $name = $instance->getName();
         $this->assertSame('boolean', $name);
     }
@@ -28,7 +28,7 @@ class RpcBooleanHandlerTest extends \PHPUnit\Framework\TestCase
     public function test_handleCharacterData()
     {
         $instance = $this->object;
-        
+
         $input = 'input';
         $parser = new XoopsXmlRpcParser($input);
         $data = true;

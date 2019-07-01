@@ -32,7 +32,7 @@ class Debug extends \Kint
      * @var float[]
      */
 
-    private static $times = array();
+    private static $times = [];
 
     /**
      * indexed array of timer data in form
@@ -41,7 +41,7 @@ class Debug extends \Kint
      * @var array
      */
 
-    private static $timerQueue = array();
+    private static $timerQueue = [];
 
     /**
      * associative array of timer labels
@@ -49,7 +49,7 @@ class Debug extends \Kint
      * @var string[]
      */
 
-    private static $timerLabels = array();
+    private static $timerLabels = [];
 
     /**
      * Force dump via debug.log event, if possible
@@ -97,7 +97,7 @@ class Debug extends \Kint
             RichRenderer::$folder = false;
             // options: 'original' (default), 'solarized', 'solarized-dark' and 'aante-light'
             RichRenderer::$theme = 'aante-light.css';
-            forward_static_call_array(array('parent', 'dump'), $args);
+            forward_static_call_array(['parent', 'dump'], $args);
         }
     }
 
@@ -153,7 +153,7 @@ class Debug extends \Kint
     public static function startTimer($name, $label = null)
     {
         $events = \Xoops::getInstance()->events();
-        $var = array($name);
+        $var = [$name];
         $var[] = empty($label) ? $name : $label;
         $eventName = 'debug.timer.start';
         if ($events->hasListeners($eventName)) {
@@ -209,11 +209,11 @@ class Debug extends \Kint
     public static function stopQueuedTimer($name)
     {
         if (isset(self::$timerLabels[$name]) && isset(self::$times[$name])) {
-            $queueItem = array(
+            $queueItem = [
                 'label' => self::$timerLabels[$name],
                 'start' => self::$times[$name],
                 'elapsed' => microtime(true) - self::$times[$name],
-                );
+                ];
             self::$timerQueue[] = $queueItem;
         }
     }
@@ -224,14 +224,14 @@ class Debug extends \Kint
      * Note: The DebugBar logger will add any unprocessed queue data to its
      * timeline automatically, if you use queued timers and don't call this.
      *
-     * @param boolean $returnOnly if true do not dump queue, only return it
+     * @param bool $returnOnly if true do not dump queue, only return it
      *
      * @return array of time data see \Xmf\Debug::$timerQueue
      */
     public static function dumpQueuedTimers($returnOnly = false)
     {
         $queue = self::$timerQueue;
-        self::$timerQueue = array();
+        self::$timerQueue = [];
         if (!$returnOnly) {
             static::dump($queue);
         }
@@ -257,7 +257,7 @@ class Debug extends \Kint
         if (function_exists('xdebug_start_trace')) {
             ini_set('xdebug.collect_params', $collect_params);
             ini_set('xdebug.collect_return', $collect_return);
-            if ($tracefile == '') {
+            if ('' == $tracefile) {
                 $tracefile = \XoopsBaseConfig::get('var-path') . '/logs/php_trace';
             }
             xdebug_start_trace($tracefile);

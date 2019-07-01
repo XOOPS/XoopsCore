@@ -12,8 +12,6 @@
 namespace Xoops\Core\Service\Contract;
 
 use Xoops\Core\Service\Data\Message;
-use Xoops\Core\Service\Manager;
-use Xoops\Core\Service\Response;
 
 /**
  * User Email Message service interface

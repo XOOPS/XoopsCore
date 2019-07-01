@@ -31,7 +31,7 @@ class GravatarsProvider extends AbstractContract implements AvatarInterface
      *
      * @param string $email The email address
      *
-     * @return String containing either just a URL or a complete image tag
+     * @return string containing either just a URL or a complete image tag
      *
      * @source http://gravatar.com/site/implement/images/php/
      */
@@ -45,18 +45,18 @@ class GravatarsProvider extends AbstractContract implements AvatarInterface
             $s = (empty($v)) ? $s : $v;
             $v = $helper->getConfig('default_imageset');
             $d = (empty($v)) ? $d : $v;
-            $d = ($d==='default') ? '' : $d; // preferences does not like empty string
+            $d = ('default' === $d) ? '' : $d; // preferences does not like empty string
             $v = $helper->getConfig('max_rating');
             $r = (empty($v)) ? $r : $v;
         }
 
         $scheme = \Xoops\Core\HttpRequest::getInstance()->getScheme();
-        if ($scheme === 'https') {
+        if ('https' === $scheme) {
             $url = 'https://secure.gravatar.com/avatar/';
         } else {
             $url = 'http://www.gravatar.com/avatar/';
         }
-        $url .= md5(strtolower(trim($email)));
+        $url .= md5(mb_strtolower(trim($email)));
         $url .= "?s=$s&d=$d&r=$r";
 
         return $url;
@@ -72,6 +72,7 @@ class GravatarsProvider extends AbstractContract implements AvatarInterface
     private function getUserById($uid)
     {
         $user = \Xoops::getInstance()->getHandlerMember()->getUser((int) $uid);
+
         return (is_object($user)) ? $user : null;
     }
 
@@ -103,8 +104,6 @@ class GravatarsProvider extends AbstractContract implements AvatarInterface
      * @param mixed    $userinfo XoopsUser object for user or
      *                           array     user info, 'uid', 'uname' and 'email' required
      *                           int       user uid
-     *
-     * @return void - response->value set to absolute URL to avatar image
      */
     public function getAvatarUrl($response, $userinfo)
     {
@@ -138,8 +137,6 @@ class GravatarsProvider extends AbstractContract implements AvatarInterface
      *
      * @param Response  $response \Xoops\Core\Service\Response object
      * @param XoopsUser $userinfo XoopsUser object for user
-     *
-     * @return void - response->value set to absolute URL to editing function for avatar data
      */
     public function getAvatarEditUrl($response, XoopsUser $userinfo)
     {
@@ -148,7 +145,7 @@ class GravatarsProvider extends AbstractContract implements AvatarInterface
         if (is_object($userinfo)) {
             if ($userinfo instanceof XoopsUser) {
                 $email = $userinfo->getVar('email', 'e');
-                $link = 'http://www.gravatar.com/' . md5(strtolower(trim($email)));
+                $link = 'http://www.gravatar.com/' . md5(mb_strtolower(trim($email)));
                 $response->setValue($link);
                 $noInfo = false;
             }

@@ -16,21 +16,21 @@
  */
 
 // get path to icons
-$pathIcon32='';
+$pathIcon32 = '';
 if (class_exists('Xmf\Module\Admin', true)) {
     $pathIcon32 = \Xmf\Module\Admin::menuIconPath('');
 }
 
-$adminmenu=array();
+$adminmenu = [];
 // Index
-$adminmenu[] = array(
+$adminmenu[] = [
     'title' => _MI_USERCONFIGS_ADMENU1 ,
-    'link'  => 'admin/index.php' ,
-    'icon'  => $pathIcon32.'home.png'
-);
+    'link' => 'admin/index.php' ,
+    'icon' => $pathIcon32 . 'home.png',
+];
 // About
-$adminmenu[] = array(
+$adminmenu[] = [
     'title' => _MI_USERCONFIGS_ADMENU2 ,
-    'link'  => 'admin/about.php' ,
-    'icon'  => $pathIcon32.'about.png'
-);
+    'link' => 'admin/about.php' ,
+    'icon' => $pathIcon32 . 'about.png',
+];

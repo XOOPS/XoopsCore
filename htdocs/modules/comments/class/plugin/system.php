@@ -16,7 +16,6 @@
  * @author          Laurent JEN (Aka DuGris)
  * @version         $Id$
  */
-
 class CommentsSystemPlugin extends Xoops\Module\Plugin\PluginAbstract implements SystemPluginInterface
 {
     /**
@@ -30,6 +29,7 @@ class CommentsSystemPlugin extends Xoops\Module\Plugin\PluginAbstract implements
         $criteria = new CriteriaCompo();
         $criteria->add(new Criteria('status', Comments::STATUS_ACTIVE));
         $criteria->add(new Criteria('uid', $uid));
+
         return $comments->getHandlerComment()->getCount($criteria);
     }
 
@@ -40,18 +40,19 @@ class CommentsSystemPlugin extends Xoops\Module\Plugin\PluginAbstract implements
     {
         $comments = \Xoops::getModuleHelper('comments'); //need this here to init constants
         $criteria = new CriteriaCompo(new Criteria('status', Comments::STATUS_PENDING));
-        $ret = array();
+        $ret = [];
         if ($count = $comments->getHandlerComment()->getCount($criteria)) {
             $ret['count'] = $count;
             $ret['name'] = Xoops::getInstance()->getHandlerModule()->getByDirname('comments')->getVar('name');
             $ret['link'] = Xoops::getInstance()->url('modules/comments/admin/main.php');
         }
+
         return $ret;
     }
 
     public function backend($limit)
     {
-        return array();
+        return [];
     }
 
     /**

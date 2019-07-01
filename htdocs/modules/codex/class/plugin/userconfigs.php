@@ -32,6 +32,7 @@ class CodexUserconfigsPlugin extends Xoops\Module\Plugin\PluginAbstract implemen
         $categories['cat_1']['title'] = t::UCONF_CAT1_DESC;
         $categories['cat_2']['name'] = t::UCONF_CAT2;
         $categories['cat_2']['title'] = t::UCONF_CAT2_DESC;
+
         return $categories;
     }
 
@@ -54,7 +55,7 @@ class CodexUserconfigsPlugin extends Xoops\Module\Plugin\PluginAbstract implemen
         $config[$i]['formtype'] = 'select';
         $config[$i]['valuetype'] = 'int';
         $config[$i]['default'] = 1;
-        $config[$i]['options'] = array_flip(array('Option 1', 'Option 2'));
+        $config[$i]['options'] = array_flip(['Option 1', 'Option 2']);
         $config[$i]['category'] = 'cat_1';
         ++$i;
         $config[$i]['name'] = 'config_2';
@@ -64,6 +65,7 @@ class CodexUserconfigsPlugin extends Xoops\Module\Plugin\PluginAbstract implemen
         $config[$i]['valuetype'] = 'text';
         $config[$i]['default'] = 'Type Something here';
         $config[$i]['category'] = 'cat_2';
+
         return $config;
     }
 }

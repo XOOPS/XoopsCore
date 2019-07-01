@@ -18,16 +18,15 @@
  * @package     system
  * @version     $Id$
  */
-
-$modversion['name']        = XoopsLocale::MODULES;
-$modversion['version']     = '1.0';
+$modversion['name'] = XoopsLocale::MODULES;
+$modversion['version'] = '1.0';
 $modversion['description'] = SystemLocale::MODULES_DESC;
-$modversion['author']      = '';
-$modversion['credits']     = 'The XOOPS Project; Kazumi Ono; Andricq Nicolas (AKA MusS)';
-$modversion['help']        = 'page=modulesadmin';
-$modversion['license'] = "GPL see LICENSE";
-$modversion['official']    = 1;
-$modversion['image']       = 'modules.png';
-$modversion['hasAdmin']    = 1;
-$modversion['adminpath']   = 'admin.php?fct=modulesadmin';
-$modversion['category']    = XOOPS_SYSTEM_MODULE;
+$modversion['author'] = '';
+$modversion['credits'] = 'The XOOPS Project; Kazumi Ono; Andricq Nicolas (AKA MusS)';
+$modversion['help'] = 'page=modulesadmin';
+$modversion['license'] = 'GPL see LICENSE';
+$modversion['official'] = 1;
+$modversion['image'] = 'modules.png';
+$modversion['hasAdmin'] = 1;
+$modversion['adminpath'] = 'admin.php?fct=modulesadmin';
+$modversion['category'] = XOOPS_SYSTEM_MODULE;

@@ -30,7 +30,7 @@ class SelectLocale extends Select
      * @param string  $name    name
      * @param mixed   $value   Pre-selected value (or array of them). Valid value is
      *                         any name of a XOOPS_ROOT_PATH."/locale/" subdirectory.
-     * @param integer $size    Number of rows. "1" makes a drop-down-list.
+     * @param int $size    Number of rows. "1" makes a drop-down-list.
      */
     public function __construct($caption, $name = null, $value = null, $size = 1)
     {

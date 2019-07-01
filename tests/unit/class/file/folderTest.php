@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/../../init_new.php');
+require_once(__DIR__ . '/../../init_new.php');
 
 class XoopsFolderHandlerTest extends \PHPUnit\Framework\TestCase
 {
@@ -41,7 +41,7 @@ class XoopsFolderHandlerTest extends \PHPUnit\Framework\TestCase
 
     public function test___publicProperties()
     {
-        $items = array('path', 'sort', 'mode');
+        $items = ['path', 'sort', 'mode'];
         foreach ($items as $item) {
             $prop = new ReflectionProperty($this->myClass, $item);
             $this->assertTrue($prop->isPublic());
@@ -52,7 +52,7 @@ class XoopsFolderHandlerTest extends \PHPUnit\Framework\TestCase
     {
         $dir = __DIR__;
         $instance = new $this->myClass($dir, false, false);
-        $this->assertTrue(file_exists($dir));
+        $this->assertFileExists($dir);
         $pwd = $instance->pwd();
         $this->assertSame($dir, $pwd);
 
@@ -67,13 +67,14 @@ class XoopsFolderHandlerTest extends \PHPUnit\Framework\TestCase
     {
         $dir = __DIR__;
         $instance = new $this->myClass($dir, false, false);
-        $this->assertTrue(file_exists($dir));
+        $this->assertFileExists($dir);
         $cd = $instance->cd($dir);
         $this->assertSame($dir, $cd);
 
         $dir = __DIR__;
         $instance = new $this->myClass($dir, false, false);
-        $this->assertTrue(file_exists($dir));
+        $this->assertFileExists($dir);
+
         try {
             $cd = $instance->cd($dir);
             $this->assertFalse($cd);
@@ -86,24 +87,24 @@ class XoopsFolderHandlerTest extends \PHPUnit\Framework\TestCase
     {
         $dir = __DIR__;
         $instance = new $this->myClass($dir, false, false);
-        $this->assertTrue(file_exists($dir));
+        $this->assertFileExists($dir);
         $value = $instance->read();
-        $this->assertTrue(is_array($value[0]));
-        $this->assertTrue(is_array($value[1]));
+        $this->assertInternalType('array', $value[0]);
+        $this->assertInternalType('array', $value[1]);
         $this->assertTrue(in_array(basename(__FILE__), $value[1], true));
 
         $value = $instance->read(false);
-        $this->assertTrue(is_array($value[0]));
-        $this->assertTrue(is_array($value[1]));
+        $this->assertInternalType('array', $value[0]);
+        $this->assertInternalType('array', $value[1]);
         $this->assertTrue(in_array(basename(__FILE__), $value[1], true));
 
         $file = __DIR__ . '/.dummy';
         @unlink($file);
-        $str = "a string for test";
+        $str = 'a string for test';
         $result = file_put_contents($file, $str);
         $value = $instance->read(false, true);
-        $this->assertTrue(is_array($value[0]));
-        $this->assertTrue(is_array($value[1]));
+        $this->assertInternalType('array', $value[0]);
+        $this->assertInternalType('array', $value[1]);
         $this->assertTrue(in_array(basename(__FILE__), $value[1], true));
         $this->assertFalse(in_array('.dummy', $value[1], true));
 
@@ -116,30 +117,30 @@ class XoopsFolderHandlerTest extends \PHPUnit\Framework\TestCase
     {
         $dir = __DIR__;
         $instance = new $this->myClass($dir, false, false);
-        $this->assertTrue(file_exists($dir));
+        $this->assertFileExists($dir);
         $value = $instance->find('.*Test.php');
-        $this->assertTrue(is_array($value));
+        $this->assertInternalType('array', $value);
 
         $value = $instance->find('.*Test.php', true);
-        $this->assertTrue(is_array($value));
+        $this->assertInternalType('array', $value);
 
         $value = $instance->find('.*TestDoesntExists.php');
-        $this->assertSame(array(), $value);
+        $this->assertSame([], $value);
     }
 
     public function testFindRecursive()
     {
-        $dir = __DIR__.'/../';
+        $dir = __DIR__ . '/../';
         $instance = new $this->myClass($dir, false, false);
-        $this->assertTrue(file_exists($dir));
+        $this->assertFileExists($dir);
         $value = $instance->findRecursive('.*Test.php', true);
-        $this->assertTrue(is_array($value));
+        $this->assertInternalType('array', $value);
     }
 
     public function testIsWindowsPath()
     {
         $class = $this->myClass;
-        $result = $class::isWindowsPath("C:\\Windows\\Temp");
+        $result = $class::isWindowsPath('C:\\Windows\\Temp');
         $this->assertTrue($result);
         $result = $class::isWindowsPath('unixRelativePath/test/test');
         $this->assertFalse($result);
@@ -164,7 +165,7 @@ class XoopsFolderHandlerTest extends \PHPUnit\Framework\TestCase
     public function testNormalizePath()
     {
         $class = $this->myClass;
-        $dir = "C:\\Windows\\Temp";
+        $dir = 'C:\\Windows\\Temp';
         $result = $class::isWindowsPath($dir);
         $this->assertTrue($result);
         $result = $class::normalizePath($dir);
@@ -180,7 +181,7 @@ class XoopsFolderHandlerTest extends \PHPUnit\Framework\TestCase
     public function testCorrectSlashFor()
     {
         $class = $this->myClass;
-        $dir = "C:\\Windows\\Temp";
+        $dir = 'C:\\Windows\\Temp';
         $result = $class::isWindowsPath($dir);
         $this->assertTrue($result);
         $result = $class::correctSlashFor($dir);
@@ -198,15 +199,15 @@ class XoopsFolderHandlerTest extends \PHPUnit\Framework\TestCase
         $class = $this->myClass;
         $dir = __DIR__;
         $result = $class::slashTerm($dir);
-        $this->assertSame($dir.DIRECTORY_SEPARATOR, $result);
+        $this->assertSame($dir . DIRECTORY_SEPARATOR, $result);
 
-        $dir = __DIR__.'\\';
+        $dir = __DIR__ . '\\';
         $result = $class::slashTerm($dir);
         $this->assertSame($dir, $result);
 
         $dir = 'unixRelativePath/test/test';
         $result = $class::slashTerm($dir);
-        $this->assertSame($dir.'/', $result);
+        $this->assertSame($dir . '/', $result);
 
         $dir = 'unixRelativePath/test/test/';
         $result = $class::slashTerm($dir);
@@ -219,19 +220,19 @@ class XoopsFolderHandlerTest extends \PHPUnit\Framework\TestCase
         $element = 'element';
         $dir = __DIR__;
         $result = $class::addPathElement($dir, $element);
-        $this->assertSame($dir.DIRECTORY_SEPARATOR.$element, $result);
+        $this->assertSame($dir . DIRECTORY_SEPARATOR . $element, $result);
 
-        $dir = __DIR__.'\\';
+        $dir = __DIR__ . '\\';
         $result = $class::addPathElement($dir, $element);
-        $this->assertSame($dir.$element, $result);
+        $this->assertSame($dir . $element, $result);
 
         $dir = 'unixRelativePath/test/test';
         $result = $class::addPathElement($dir, $element);
-        $this->assertSame($dir.'/'.$element, $result);
+        $this->assertSame($dir . '/' . $element, $result);
 
         $dir = 'unixRelativePath/test/test/';
         $result = $class::addPathElement($dir, $element);
-        $this->assertSame($dir.$element, $result);
+        $this->assertSame($dir . $element, $result);
     }
 
     public function testInXoopsPath()
@@ -239,7 +240,7 @@ class XoopsFolderHandlerTest extends \PHPUnit\Framework\TestCase
         $xoops_root_path = \XoopsBaseConfig::get('root-path');
         $dir = rtrim($xoops_root_path, '/\\') . '/class';
         $instance = new $this->myClass($dir, false, false);
-        $this->assertTrue(file_exists($dir));
+        $this->assertFileExists($dir);
 
         $value = $instance->inXoopsPath('class');
         $this->assertTrue($value);
@@ -249,7 +250,7 @@ class XoopsFolderHandlerTest extends \PHPUnit\Framework\TestCase
     {
         $dir = __DIR__;
         $instance = new $this->myClass($dir, false, false);
-        $this->assertTrue(file_exists($dir));
+        $this->assertFileExists($dir);
 
         $name = basename($dir);
         $value = $instance->inPath($name);
@@ -271,13 +272,13 @@ class XoopsFolderHandlerTest extends \PHPUnit\Framework\TestCase
     {
         $dir = __DIR__;
         $instance = new $this->myClass($dir, false, false);
-        $this->assertTrue(file_exists($dir));
+        $this->assertFileExists($dir);
 
         $value = $instance->tree($instance->path);
-        $this->assertTrue(is_array($value));
-        $this->assertTrue(is_array($value[0]));
+        $this->assertInternalType('array', $value);
+        $this->assertInternalType('array', $value[0]);
         $this->assertTrue(count($value[0]) > 0);
-        $this->assertTrue(is_array($value[1]));
+        $this->assertInternalType('array', $value[1]);
         $this->assertTrue(count($value[1]) > 0);
     }
 
@@ -285,20 +286,20 @@ class XoopsFolderHandlerTest extends \PHPUnit\Framework\TestCase
     {
         $dir = __DIR__;
         $instance = new $this->myClass($dir, false, false);
-        $this->assertTrue(file_exists($dir));
+        $this->assertFileExists($dir);
 
         $path = 'dummy_dir';
         $value = $instance->create($path);
         $this->assertTrue($value);
-        $this->assertTrue(is_array($instance->messages()));
+        $this->assertInternalType('array', $instance->messages());
         $this->assertFalse($instance->errors());
 
-        touch($dir.'/'.$path. '/dummy1.tmp');
-        touch($dir.'/'.$path. '/dummy2.tmp');
+        touch($dir . '/' . $path . '/dummy1.tmp');
+        touch($dir . '/' . $path . '/dummy2.tmp');
 
         $value = $instance->delete($path);
         $this->assertTrue($value);
-        $this->assertTrue(is_array($instance->messages()));
+        $this->assertInternalType('array', $instance->messages());
         $this->assertFalse($instance->errors());
     }
 
@@ -306,10 +307,10 @@ class XoopsFolderHandlerTest extends \PHPUnit\Framework\TestCase
     {
         $dir = __DIR__;
         $instance = new $this->myClass($dir, false, false);
-        $this->assertTrue(file_exists($dir));
+        $this->assertFileExists($dir);
 
         $value = $instance->dirsize();
-        $this->assertTrue(is_numeric($value));
+        $this->assertInternalType('numeric', $value);
         $this->assertTrue($value > 0);
     }
 
@@ -333,17 +334,17 @@ class XoopsFolderHandlerTest extends \PHPUnit\Framework\TestCase
     {
         $dir = __DIR__;
         $instance = new $this->myClass($dir, false, false);
-        $this->assertTrue(file_exists($dir));
+        $this->assertFileExists($dir);
 
         $result = $instance->messages();
-        $this->assertTrue(is_array($result));
+        $this->assertInternalType('array', $result);
     }
 
     public function testErrors()
     {
         $dir = __DIR__;
         $instance = new $this->myClass($dir, false, false);
-        $this->assertTrue(file_exists($dir));
+        $this->assertFileExists($dir);
 
         $result = $instance->errors();
         $this->assertFalse($result);
@@ -354,9 +355,9 @@ class XoopsFolderHandlerTest extends \PHPUnit\Framework\TestCase
         $dir = __DIR__;
         $base = basename(dirname($dir));
         $instance = new $this->myClass($dir, false, false);
-        $this->assertTrue(file_exists($dir));
+        $this->assertFileExists($dir);
 
-        $result = $instance->realpath($dir.'/../cache');
+        $result = $instance->realpath($dir . '/../cache');
         $this->assertSame($base, basename(dirname($result)));
     }
 

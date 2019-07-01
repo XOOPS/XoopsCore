@@ -27,7 +27,7 @@ use Xoops\Core\PreloadItem;
  */
 class DebugbarPreload extends PreloadItem
 {
-    private static $registry = array();
+    private static $registry = [];
 
     /**
      * getConfigs
@@ -38,7 +38,7 @@ class DebugbarPreload extends PreloadItem
     {
         static $configs = null;
 
-        if (is_null($configs)) {
+        if (null === $configs) {
             $xoops = Xoops::getInstance();
             $user_groups = $xoops->getUserGroups();
             $moduleperm_handler = $xoops->getHandlerGroupPermission();
@@ -93,9 +93,9 @@ class DebugbarPreload extends PreloadItem
     public static function eventCoreIncludeCommonClassmaps($args)
     {
         $path = dirname(__DIR__);
-        XoopsLoad::addMap(array(
+        XoopsLoad::addMap([
             'debugbarlogger' => $path . '/class/debugbarlogger.php',
-        ));
+        ]);
     }
 
     /**
@@ -109,7 +109,7 @@ class DebugbarPreload extends PreloadItem
     {
         $logger = DebugbarLogger::getInstance();
 
-        $logger->enable();//until we get a db connection debug is enabled
+        $logger->enable(); //until we get a db connection debug is enabled
         //if (isset($_SERVER['REQUEST_TIME_FLOAT'])) {
         //    $logger->getDebugbar()['time']->addMeasure('Loading', $_SERVER['REQUEST_TIME_FLOAT'], microtime(true));
         //}
@@ -129,7 +129,7 @@ class DebugbarPreload extends PreloadItem
         if (class_exists('DebugbarLogger')) {
             /* @var $db Xoops\Core\Database\Connection */
             $db = $args[0];
-            DebugbarLogger::getInstance()->log(LogLevel::ALERT, $db->error(), array('errno' => $db->errno()));
+            DebugbarLogger::getInstance()->log(LogLevel::ALERT, $db->error(), ['errno' => $db->errno()]);
         }
     }
 
@@ -145,7 +145,7 @@ class DebugbarPreload extends PreloadItem
         if (class_exists('DebugbarLogger')) {
             /* @var $db Xoops\Core\Database\Connection */
             $db = $args[0];
-            DebugbarLogger::getInstance()->log(LogLevel::ALERT, $db->error(), array('errno' => $db->errno()));
+            DebugbarLogger::getInstance()->log(LogLevel::ALERT, $db->error(), ['errno' => $db->errno()]);
         }
     }
 
@@ -197,7 +197,7 @@ class DebugbarPreload extends PreloadItem
             $tpl->debugging_ctrl = 'URL';
         }
         if ($configs['debug_smarty_enable']) {
-                $tpl->debugging = Smarty::DEBUG_ON;
+            $tpl->debugging = Smarty::DEBUG_ON;
         }
     }
 
@@ -254,11 +254,10 @@ class DebugbarPreload extends PreloadItem
     {
         /* @var $block XoopsBlock */
         $block = $args[0];
-        $isCached= $args[1];
+        $isCached = $args[1];
         //Logger::getInstance()->addBlock($block->getVar('name'), $isCached, $block->getVar('bcachetime'));
-        $context = array('channel'=>'Blocks', 'cached'=>$isCached, 'cachetime'=>$block->getVar('bcachetime'));
+        $context = ['channel' => 'Blocks', 'cached' => $isCached, 'cachetime' => $block->getVar('bcachetime')];
         DebugbarLogger::getInstance()->log(LogLevel::INFO, $block->getVar('name'), $context);
-
     }
 
     /**
@@ -271,7 +270,7 @@ class DebugbarPreload extends PreloadItem
     public static function eventCoreDeprecated($args)
     {
         $message = $args[0];
-        DebugbarLogger::getInstance()->log(LogLevel::WARNING, $message, array('channel'=>'Deprecated'));
+        DebugbarLogger::getInstance()->log(LogLevel::WARNING, $message, ['channel' => 'Deprecated']);
     }
 
     /**
@@ -364,7 +363,7 @@ class DebugbarPreload extends PreloadItem
         $logger = DebugbarLogger::getInstance();
         $logs = $args[0];
         foreach ($logs as $log) {
-            $context = array('channel'=>'Extra', 'name'=>$log[0]);
+            $context = ['channel' => 'Extra', 'name' => $log[0]];
             $logger->log(LogLevel::INFO, $log[1], $context);
         }
     }
@@ -378,9 +377,8 @@ class DebugbarPreload extends PreloadItem
      */
     public static function eventCoreModuleAddlog($args)
     {
-        $context = array('channel'=>'Extra', 'name'=>$args[0]);
+        $context = ['channel' => 'Extra', 'name' => $args[0]];
         DebugbarLogger::getInstance()->log(LogLevel::DEBUG, $args[1], $context);
-
     }
 
     /**

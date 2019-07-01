@@ -11,8 +11,6 @@
 
 namespace Xoops\Core\Database;
 
-use Xoops\Core\Database\Connection;
-
 /**
  * Connection wrapper for Doctrine DBAL Connection
  *
@@ -30,7 +28,6 @@ use Xoops\Core\Database\Connection;
  */
 class QueryBuilder extends \Doctrine\DBAL\Query\QueryBuilder
 {
-
     /**
      * @var Connection DBAL Connection
      */
@@ -65,6 +62,7 @@ class QueryBuilder extends \Doctrine\DBAL\Query\QueryBuilder
     public function deletePrefix($delete = null, $alias = null)
     {
         $delete = $this->connection->prefix($delete);
+
         return $this->delete($delete, $alias);
     }
 
@@ -88,6 +86,7 @@ class QueryBuilder extends \Doctrine\DBAL\Query\QueryBuilder
     public function updatePrefix($update = null, $alias = null)
     {
         $update = $this->connection->prefix($update);
+
         return $this->update($update, $alias);
     }
 
@@ -114,6 +113,7 @@ class QueryBuilder extends \Doctrine\DBAL\Query\QueryBuilder
     public function insertPrefix($insert = null)
     {
         $insert = $this->connection->prefix($insert);
+
         return $this->insert($insert);
     }
 
@@ -135,6 +135,7 @@ class QueryBuilder extends \Doctrine\DBAL\Query\QueryBuilder
     public function fromPrefix($from, $alias = null)
     {
         $from = $this->connection->prefix($from);
+
         return $this->from($from, $alias);
     }
 
@@ -158,9 +159,9 @@ class QueryBuilder extends \Doctrine\DBAL\Query\QueryBuilder
     public function joinPrefix($fromAlias, $join, $alias, $condition = null)
     {
         $join = $this->connection->prefix($join);
+
         return $this->join($fromAlias, $join, $alias, $condition);
     }
-
 
     /**
      * Creates and adds a join to the query.
@@ -182,6 +183,7 @@ class QueryBuilder extends \Doctrine\DBAL\Query\QueryBuilder
     public function innerJoinPrefix($fromAlias, $join, $alias, $condition = null)
     {
         $join = $this->connection->prefix($join);
+
         return $this->innerJoin($fromAlias, $join, $alias, $condition);
     }
 
@@ -205,6 +207,7 @@ class QueryBuilder extends \Doctrine\DBAL\Query\QueryBuilder
     public function leftJoinPrefix($fromAlias, $join, $alias, $condition = null)
     {
         $join = $this->connection->prefix($join);
+
         return $this->leftJoin($fromAlias, $join, $alias, $condition);
     }
 
@@ -228,6 +231,7 @@ class QueryBuilder extends \Doctrine\DBAL\Query\QueryBuilder
     public function rightJoinPrefix($fromAlias, $join, $alias, $condition = null)
     {
         $join = $this->connection->prefix($join);
+
         return $this->rightJoin($fromAlias, $join, $alias, $condition);
     }
 }

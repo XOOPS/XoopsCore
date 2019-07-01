@@ -1,9 +1,10 @@
 <?php
+
 namespace Xoops\Core\Text\Sanitizer\Extensions;
 
 use Xoops\Core\Text\Sanitizer;
 
-require_once __DIR__.'/../../../../../../init_new.php';
+require_once __DIR__ . '/../../../../../../init_new.php';
 
 class ImageTest extends \PHPUnit\Framework\TestCase
 {
@@ -51,7 +52,7 @@ class ImageTest extends \PHPUnit\Framework\TestCase
 
         $in = '[img]url[/img]';
         $expected = trim($this->sanitizer->filterForDisplay($in));
-        $this->assertTrue(is_string($expected));
+        $this->assertInternalType('string', $expected);
         $in = '[img url="url" /]';
         $actual = trim($this->sanitizer->filterForDisplay($in));
         $this->assertEquals($expected, $actual);

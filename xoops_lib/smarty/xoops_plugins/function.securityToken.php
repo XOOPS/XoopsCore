@@ -5,6 +5,7 @@
  * @copyright   XOOPS Project (http://xoops.org)
  * @license     GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author      Richard Griffith <richard@geekwright.com>
+ * @param mixed $params
  */
 
 /**
@@ -14,7 +15,6 @@
  * but there are several token generations done in {php} tags which don't work with
  * Smarty 3.1
  */
-
 function smarty_function_securityToken($params, Smarty_Internal_Template $smarty)
 {
     return \Xoops::getInstance()->security()->getTokenHTML();

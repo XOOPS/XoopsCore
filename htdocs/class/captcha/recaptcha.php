@@ -51,6 +51,7 @@ class XoopsCaptchaRecaptcha extends XoopsCaptchaMethod
             </script>";
         $public_key = empty($this->config['public_key']) ? '' : $this->config['public_key'];
         $form .= recaptcha_get_html($public_key);
+
         return $form;
     }
 
@@ -65,14 +66,19 @@ class XoopsCaptchaRecaptcha extends XoopsCaptchaMethod
         $is_valid = false;
         include_once __DIR__ . '/recaptcha/recaptchalib.php';
         if (!empty($_POST['recaptcha_response_field'])) {
-            $resp = recaptcha_check_answer($this->config['private_key'], $_SERVER['REMOTE_ADDR'],
-				$_POST['recaptcha_challenge_field'], $_POST['recaptcha_response_field']);
+            $resp = recaptcha_check_answer(
+                $this->config['private_key'],
+                $_SERVER['REMOTE_ADDR'],
+                $_POST['recaptcha_challenge_field'],
+                $_POST['recaptcha_response_field']
+            );
             if (!$resp->is_valid) {
                 $this->handler->message[] = $resp->error;
             } else {
                 $is_valid = true;
             }
         }
+
         return $is_valid;
     }
 }

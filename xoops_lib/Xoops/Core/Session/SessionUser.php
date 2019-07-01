@@ -11,8 +11,6 @@
 
 namespace Xoops\Core\Session;
 
-use Xoops\Core\HttpRequest;
-use Xmf\Request;
 use Xoops\Core\Kernel\Handlers\XoopsUser;
 
 /**
@@ -27,7 +25,6 @@ use Xoops\Core\Kernel\Handlers\XoopsUser;
  */
 class SessionUser
 {
-
     /**
      * @var Manager
      */
@@ -48,7 +45,6 @@ class SessionUser
         $this->xoops = \Xoops::getInstance();
     }
 
-
     /**
      * Check any user data in the current session and clear if invalid.
      *
@@ -63,11 +59,12 @@ class SessionUser
         // is user already set in session?
         if ($session->has('xoopsUserId')) {
             $this->addUserToSession($session->get('xoopsUserId'));
+
             return;
         }
 
         // is the usercookie available?
-        $remember = new RememberMe;
+        $remember = new RememberMe();
         $userId = $remember->recall();
         if (false !== $userId) {
             $this->setNeedsConfirmed();
@@ -75,14 +72,13 @@ class SessionUser
         }
     }
 
-
     /**
      * Record a login event in the session. This is to be called by the login
      * process, i.e. the user has entered the name and password, and that
      * combination was found valid.
      *
-     * @param integer $userId     id of user to establish in the session
-     * @param boolean $rememberMe add a persistent login cookie
+     * @param int $userId     id of user to establish in the session
+     * @param bool $rememberMe add a persistent login cookie
      *
      * @return void
      */
@@ -91,7 +87,7 @@ class SessionUser
         $this->setConfirmed();
         $this->addUserToSession($userId);
         if ($rememberMe) {
-            $remember = new RememberMe;
+            $remember = new RememberMe();
             $remember->createUserCookie($userId);
         }
     }
@@ -105,7 +101,7 @@ class SessionUser
      */
     public function recordUserLogout()
     {
-        $remember = new RememberMe;
+        $remember = new RememberMe();
         $remember->forget();
         $this->session->clearSession();
     }
@@ -113,7 +109,7 @@ class SessionUser
     /**
      * Check the we have a remember me cookie, and apply if valid
      *
-     * @param integer $userId id of user to establish in the session
+     * @param int $userId id of user to establish in the session
      *
      * @return void
      */
@@ -136,7 +132,6 @@ class SessionUser
         }
         // invalid user - clear everything
         $session->clearSession();
-        return;
     }
 
     /**
@@ -162,7 +157,7 @@ class SessionUser
     /**
      * verify the authorization status is confirmed
      *
-     * @return boolean true if confirmed, otherwise false
+     * @return bool true if confirmed, otherwise false
      */
     public function checkConfirmed()
     {

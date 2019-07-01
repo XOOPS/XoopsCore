@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/../../init_new.php');
+require_once(__DIR__ . '/../../init_new.php');
 
 class XoopsEditorHandlerTest extends \PHPUnit\Framework\TestCase
 {
@@ -14,7 +14,7 @@ class XoopsEditorHandlerTest extends \PHPUnit\Framework\TestCase
         $x = $class::getInstance();
         $this->assertSame($x, $instance);
 
-        $items = array('root_path', 'nohtml', 'allowed_editors');
+        $items = ['root_path', 'nohtml', 'allowed_editors'];
         foreach ($items as $item) {
             $reflection = new ReflectionProperty($this->myclass, $item);
             $this->assertTrue($reflection->isPublic());

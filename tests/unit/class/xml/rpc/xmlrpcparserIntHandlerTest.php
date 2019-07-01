@@ -1,16 +1,16 @@
 <?php
-require_once(__DIR__.'/../../../init_new.php');
+require_once(__DIR__ . '/../../../init_new.php');
 
 class RpcIntHandlerTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass = 'RpcIntHandler';
     protected $object = null;
-    
-    public function setUp()
+
+    protected function setUp()
     {
         $this->object = new $this->myclass();
     }
-    
+
     public function test___construct()
     {
         $instance = $this->object;
@@ -20,15 +20,15 @@ class RpcIntHandlerTest extends \PHPUnit\Framework\TestCase
     public function test_getName()
     {
         $instance = $this->object;
-        
+
         $name = $instance->getName();
-        $this->assertSame(array('int', 'i4'), $name);
+        $this->assertSame(['int', 'i4'], $name);
     }
 
     public function test_handleCharacterData()
     {
         $instance = $this->object;
-        
+
         $input = 'input';
         $parser = new XoopsXmlRpcParser($input);
         $data = 71;

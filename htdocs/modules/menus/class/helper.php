@@ -15,7 +15,6 @@
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
-
 class Menus extends Xoops\Module\Helper\HelperAbstract
 {
     /**
@@ -63,7 +62,7 @@ class Menus extends Xoops\Module\Helper\HelperAbstract
         $error = false;
         $path = '';
         if ($skin_from_theme) {
-            $path = "themes/" . $this->xoops()->getConfig('theme_set') . "/menu";
+            $path = 'themes/' . $this->xoops()->getConfig('theme_set') . '/menu';
             if (!XoopsLoad::fileExists($this->xoops()->path("{$path}/skin_version.php"))) {
                 $error = true;
             }
@@ -74,18 +73,18 @@ class Menus extends Xoops\Module\Helper\HelperAbstract
         }
 
         $file = $this->xoops()->path("{$path}/skin_version.php");
-        $info = array();
+        $info = [];
 
         if (XoopsLoad::fileExists($file)) {
             include $file;
-            $info =& $skinversion;
+            $info = &$skinversion;
         }
 
         $info['path'] = $this->xoops()->path($path);
         $info['url'] = $this->xoops()->url($path);
 
         if (!isset($info['template'])) {
-            $info['template'] = $this->xoops()->path("modules/menus/templates/block.tpl");
+            $info['template'] = $this->xoops()->path('modules/menus/templates/block.tpl');
         } else {
             $info['template'] = $this->xoops()->path("{$path}/" . $info['template']);
         }
@@ -109,7 +108,7 @@ class Menus extends Xoops\Module\Helper\HelperAbstract
         }
 
         if (!isset($info['config'])) {
-            $info['config'] = array();
+            $info['config'] = [];
         }
 
         return $info;

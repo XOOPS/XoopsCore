@@ -19,7 +19,6 @@
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
  * @version         $Id$
  */
-
 class XoopsUserUtility
 {
     /**
@@ -46,10 +45,10 @@ class XoopsUserUtility
         }
 
         $xoopsMailer = $xoops->getMailer();
-        if ($xoops->getConfig('welcome_type') == 1 || $xoops->getConfig('welcome_type') == 3) {
+        if (1 == $xoops->getConfig('welcome_type') || 3 == $xoops->getConfig('welcome_type')) {
             $xoopsMailer->useMail();
         }
-        if ($xoops->getConfig('welcome_type') == 2 || $xoops->getConfig('welcome_type') == 3) {
+        if (2 == $xoops->getConfig('welcome_type') || 3 == $xoops->getConfig('welcome_type')) {
             $xoopsMailer->usePM();
         }
         $xoopsMailer->setTemplate('welcome.tpl');
@@ -60,6 +59,7 @@ class XoopsUserUtility
         } else {
             $xoopsMailer->assign('TERMSOFUSE', '');
         }
+
         return $xoopsMailer->send();
     }
 
@@ -86,13 +86,13 @@ class XoopsUserUtility
                 $user = $args[0];
                 break;
             case 2:
-                list ($uname, $email) = $args;
+                list($uname, $email) = $args;
                 break;
             case 3:
-                list ($user, $pass, $vpass) = $args;
+                list($user, $pass, $vpass) = $args;
                 break;
             case 4:
-                list ($uname, $email, $pass, $vpass) = $args;
+                list($uname, $email, $pass, $vpass) = $args;
                 break;
             default:
                 return false;
@@ -115,7 +115,7 @@ class XoopsUserUtility
         if (!$xoops->checkEmail($email)) {
             $stop .= XoopsLocale::E_INVALID_EMAIL . '<br />';
         }
-        if (strrpos($email, ' ') > 0) {
+        if (mb_strrpos($email, ' ') > 0) {
             $stop .= XoopsLocale::E_EMAIL_SHOULD_NOT_CONTAIN_SPACES . '<br />';
         }
         // Check forbidden email address if current operator is not an administrator
@@ -179,7 +179,7 @@ class XoopsUserUtility
         }
 
         // If password is not set, skip password validation
-        if ($pass === null && $vpass === null) {
+        if (null === $pass && null === $vpass) {
             return $stop;
         }
 
@@ -190,10 +190,11 @@ class XoopsUserUtility
             $stop .= XoopsLocale::E_PASSWORDS_MUST_MATCH . '<br />';
         } else {
             $minpass = $xoops->getConfig('minpass');
-            if (($pass != '') && (!empty($minpass)) && (mb_strlen($pass) < $minpass)) {
+            if (('' != $pass) && (!empty($minpass)) && (mb_strlen($pass) < $minpass)) {
                 $stop .= sprintf(XoopsLocale::EF_PASSWORD_MUST_BE_GREATER_THAN, $minpass) . '<br />';
             }
         }
+
         return $stop;
     }
 
@@ -261,18 +262,18 @@ class XoopsUserUtility
     {
         $xoops = Xoops::getInstance();
         if (!is_array($uids)) {
-            $uids = array($uids);
+            $uids = [$uids];
         }
         $userids = array_map('intval', array_filter($uids));
 
         $myts = \Xoops\Core\Text\Sanitizer::getInstance();
-        $users = array();
+        $users = [];
         if (count($userids) > 0) {
             $criteria = new CriteriaCompo(new Criteria('level', 0, '>'));
             $criteria->add(new Criteria('uid', "('" . implode(',', array_unique($userids)) . "')", 'IN'));
 
             $user_handler = $xoops->getHandlerUser();
-            if (!$rows = $user_handler->getAll($criteria, array('uid', 'uname', 'name'), false, true)) {
+            if (!$rows = $user_handler->getAll($criteria, ['uid', 'uname', 'name'], false, true)) {
                 return $users;
             }
             foreach ($rows as $uid => $row) {
@@ -290,6 +291,7 @@ class XoopsUserUtility
         if (in_array(0, $users, true)) {
             $users[0] = $myts->htmlSpecialChars($xoops->getConfig('anonymous'));
         }
+
         return $users;
     }
 
@@ -326,6 +328,7 @@ class XoopsUserUtility
         if (empty($username)) {
             $username = $myts->htmlSpecialChars($xoops->getConfig('anonymous'));
         }
+
         return $username;
     }
 }

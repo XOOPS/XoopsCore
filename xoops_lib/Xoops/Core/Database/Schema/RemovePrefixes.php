@@ -11,12 +11,12 @@
 
 namespace Xoops\Core\Database\Schema;
 
-use Doctrine\DBAL\Schema\Table;
-use Doctrine\DBAL\Schema\Schema;
 use Doctrine\DBAL\Schema\Column;
 use Doctrine\DBAL\Schema\ForeignKeyConstraint;
-use Doctrine\DBAL\Schema\Sequence;
 use Doctrine\DBAL\Schema\Index;
+use Doctrine\DBAL\Schema\Schema;
+use Doctrine\DBAL\Schema\Sequence;
+use Doctrine\DBAL\Schema\Table;
 use Doctrine\DBAL\Schema\Visitor\Visitor;
 
 /**
@@ -34,7 +34,6 @@ use Doctrine\DBAL\Schema\Visitor\Visitor;
  */
 class RemovePrefixes implements Visitor
 {
-
     protected $newSchema;
 
     /**
@@ -75,9 +74,8 @@ class RemovePrefixes implements Visitor
      *
      * @param Table $table a table object
      *
-     * @return void
-     *
      * @throws \Doctrine\DBAL\DBALException
+     * @return void
      */
     public function acceptTable(Table $table)
     {
@@ -125,9 +123,8 @@ class RemovePrefixes implements Visitor
      *
      * @param Sequence $sequence sequence to accept
      *
-     * @return void
-     *
      * @throws \Doctrine\DBAL\Schema\SchemaException
+     * @return void
      */
     public function acceptSequence(Sequence $sequence)
     {

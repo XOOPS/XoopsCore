@@ -1,4 +1,5 @@
 <?php
+
 namespace Xoops\Core\Kernel\Dtype;
 
 require_once __DIR__ . '/../../../../../init_new.php';
@@ -35,7 +36,7 @@ class DtypeArrayTest extends \PHPUnit\Framework\TestCase
      */
     protected function setUp()
     {
-        $this->object = new DtypeArray;
+        $this->object = new DtypeArray();
         $this->xObject = new DtypeArrayObject();
     }
 
@@ -68,17 +69,17 @@ class DtypeArrayTest extends \PHPUnit\Framework\TestCase
         $this->xObject[$key] = $this->object->cleanVar($this->xObject, $key);
         //var_dump($this->xObject->vars[$key]['value']);
         $value = $this->xObject[$key];
-        $this->assertTrue(is_array($value));
+        $this->assertInternalType('array', $value);
         $this->assertEquals('Spot', $value['dog']);
         $this->assertEquals('run', $value['see']);
 
         $value = $this->xObject->getVar($key, Dtype::FORMAT_SHOW);
-        $this->assertTrue(is_array($value));
+        $this->assertInternalType('array', $value);
         //var_dump($value);
 
         $value = $this->xObject->getVar($key, Dtype::FORMAT_NONE);
-        $this->assertTrue(is_string($value));
+        $this->assertInternalType('string', $value);
         //var_dump($value);
-        $this->assertEquals("a:5:{s:", substr($value, 0, 7));
+        $this->assertEquals('a:5:{s:', mb_substr($value, 0, 7));
     }
 }

@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__.'/../../../../init_new.php';
+require_once __DIR__ . '/../../../../init_new.php';
 
 use Xoops\Core\Session\Handler;
 
@@ -16,7 +16,7 @@ class HandlerTest extends \PHPUnit\Framework\TestCase
      */
     protected function setUp()
     {
-        $this->object = new Handler;
+        $this->object = new Handler();
     }
 
     /**

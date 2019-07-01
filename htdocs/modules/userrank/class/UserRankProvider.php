@@ -9,12 +9,11 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
-use Xoops\Core\Kernel\Handlers\XoopsUser;
+use Doctrine\DBAL\FetchMode;
+use Doctrine\DBAL\ParameterType;
 use Xoops\Core\Service\AbstractContract;
 use Xoops\Core\Service\Contract\UserRankInterface;
 use Xoops\Core\Service\Response;
-use Doctrine\DBAL\FetchMode;
-use Doctrine\DBAL\ParameterType;
 
 /**
  * UserRank provider for service manager
@@ -56,18 +55,15 @@ class UserRankProvider extends AbstractContract implements UserRankInterface
      *                               'uid'   => (int) id of system user
      *                               'posts' => (int) contribution count associated with the user
      *                               'rank'  => (int) id of manually assigned rank, 0 if none assigned
-     *
-     * @return void - $response->value set to array of rank information
-     *                    'title' => string that describes the rank
-     *                    'image' => url of image associated with the rank
      */
     public function getUserRank(Response $response, $userinfo)
     {
         $uid = isset($userinfo['uid']) ? (int) $userinfo['uid'] : null;
         $posts = isset($userinfo['posts']) ? (int) $userinfo['posts'] : null;
         $rank = isset($userinfo['rank']) ? (int) $userinfo['rank'] : null;
-        if ($uid === null || $posts === null || $rank === null) {
+        if (null === $uid || null === $posts || null === $rank) {
             $response->setSuccess(false)->addErrorMessage('User info is invalid');
+
             return;
         }
 
@@ -75,10 +71,10 @@ class UserRankProvider extends AbstractContract implements UserRankInterface
         $db = \Xoops::getInstance()->db();
         $qb = $db->createXoopsQueryBuilder();
         $eb = $qb->expr();
-        $qb ->select('r.rank_title AS title')
+        $qb->select('r.rank_title AS title')
             ->addSelect('r.rank_image AS image')
             ->fromPrefix('userrank_rank', 'r');
-        if ($rank != 0) {
+        if (0 != $rank) {
             $qb->where($eb->eq('r.rank_id', ':rank'))
                 ->setParameter(':rank', $rank, ParameterType::INTEGER);
         } else {
@@ -101,16 +97,13 @@ class UserRankProvider extends AbstractContract implements UserRankInterface
      * getAssignableUserRankList - return a list of ranks that can be assigned
      *
      * @param Response $response \Xoops\Core\Service\Response object
-     *
-     * @return void - response->value set to array of (int) id => (string) rank title
-     *                 entries of assignable ranks
      */
     public function getAssignableUserRankList(Response $response)
     {
         $db = \Xoops::getInstance()->db();
         $myts = \Xoops\Core\Text\Sanitizer::getInstance();
 
-        $ret = array();
+        $ret = [];
 
         $sql = $db->createXoopsQueryBuilder();
         $eb = $sql->expr();

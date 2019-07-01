@@ -11,9 +11,9 @@
 
 namespace Xoops\Core\Cache;
 
-use Stash\Pool;
-use Stash\Invalidation;
 use Stash\Interfaces\PoolInterface;
+use Stash\Invalidation;
+use Stash\Pool;
 
 /**
  * Provides a standardized cache access
@@ -53,11 +53,12 @@ class Access
      *                                  DateTime object to expire at a specific time,
      *                                  or null for
      *
-     * @return boolean True if the data was successfully cached, false on failure
+     * @return bool True if the data was successfully cached, false on failure
      */
     public function write($key, $value, $ttl = null)
     {
         $item = $this->pool->getItem($key);
+
         return $this->pool->save($item->set($value)->setTTL($ttl));
     }
 
@@ -73,6 +74,7 @@ class Access
         $item = $this->pool->getItem($key);
         $item->setInvalidationMethod(Invalidation::NONE);
         $value = $item->get();
+
         return ($item->isMiss()) ? false : $value;
     }
 
@@ -81,11 +83,12 @@ class Access
      *
      * @param string|string[] $key Identifier for the cache item
      *
-     * @return boolean True if the value was successfully deleted, false if it didn't exist or couldn't be removed
+     * @return bool True if the value was successfully deleted, false if it didn't exist or couldn't be removed
      */
     public function delete($key)
     {
         $item = $this->pool->getItem($key);
+
         return $item->clear();
     }
 
@@ -107,8 +110,8 @@ class Access
      */
     public function cacheRead($cacheKey, $regenFunction, $ttl = null, $args = null)
     {
-        if (is_null($args)) {
-            $varArgs = array();
+        if (null === $args) {
+            $varArgs = [];
         } else {
             $varArgs = func_get_args();
             array_shift($varArgs); // pull off $key
@@ -151,7 +154,7 @@ class Access
     /**
      * clear all keys and data from the cache.
      *
-     * @return boolean True if the cache was successfully cleared, false otherwise
+     * @return bool True if the cache was successfully cleared, false otherwise
      */
     public function clear()
     {

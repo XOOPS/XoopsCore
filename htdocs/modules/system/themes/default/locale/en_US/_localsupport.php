@@ -1,7 +1,7 @@
 <?php
 // $Id$
 
-$menu = array();
+$menu = [];
 
 // sample for English  support
 /*

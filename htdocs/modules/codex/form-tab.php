@@ -14,7 +14,6 @@
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author    trabis <lusopoemas@gmail.com>
  */
-
 include dirname(dirname(__DIR__)) . '/mainfile.php';
 
 $xoops = Xoops::getInstance();
@@ -40,7 +39,7 @@ $tab3 = new Xoops\Form\Tab('Caption-3', 'tabid-3');
 $code = new Xoops\Form\Text('Code', 'code', 2, 25, '', 'Code...');
 $code->setDescription('Description code');
 $code->setPattern('^.{3,}$', 'You need at least 3 characters');
-$code->setDatalist(array('list 1','list 2','list 3'));
+$code->setDatalist(['list 1', 'list 2', 'list 3']);
 $tab1->addElement($code, true);
 
 $password = new Xoops\Form\Password('Password', 'password', null, null, '', 'off', 'Enter Password');
@@ -86,10 +85,9 @@ $checkbox->addOption(3, 'Checkbox 3');
 $checkbox->setDescription('Description Checkbox');
 $tab3->addElement($checkbox, true);
 
-$label= new Xoops\Form\Label('Label', 'label', 'label');
+$label = new Xoops\Form\Label('Label', 'label', 'label');
 $label->setDescription('Description Label');
 $tab3->addElement($label, true);
-
 
 $color = new Xoops\Form\ColorPicker('Color', 'color');
 $color->setDescription('Description Color');
@@ -108,8 +106,8 @@ $select->setClass('span2');
 $tab3->addElement($select, true);
 
 $select_optgroup = new Xoops\Form\Select('Select Optgroup', 'select_optgroup', '', 1, false);
-$select_optgroup->addOptionGroup('Swiss', array(1 => 'Geneva', 2 => 'Bern', 3 => 'Zurich'));
-$select_optgroup->addOptionGroup('France', array(4 => 'Paris', 5 => 'Lyon', 6 => 'Grenoble', 7 => 'Marseille'));
+$select_optgroup->addOptionGroup('Swiss', [1 => 'Geneva', 2 => 'Bern', 3 => 'Zurich']);
+$select_optgroup->addOptionGroup('France', [4 => 'Paris', 5 => 'Lyon', 6 => 'Grenoble', 7 => 'Marseille']);
 $select_optgroup->setDescription('Description Select Optgroup');
 $select_optgroup->setClass('span3');
 $tab3->addElement($select_optgroup, true);
@@ -134,10 +132,9 @@ $select_tray->addOption(5, 'Select_tray 5');
 $select_tray->addOption(6, 'Select_tray 6');
 $select_tray->setDescription('Description Select_tray');
 $select_tray->setClass('span2');
-$testtray ->addElement($select_tray, true);
-$testtray ->addElement($select_tray);
+$testtray->addElement($select_tray, true);
+$testtray->addElement($select_tray);
 $tab3->addElement($testtray);
-
 
 //Now we can assign the tabs to our tab tray
 $tabTray->addElement($tab1);

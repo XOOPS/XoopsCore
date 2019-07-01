@@ -19,7 +19,6 @@
  * @author      Kazumi Ono (http://www.myweb.ne.jp/, http://jp.xoops.org/)
  * @version     $Id$
  */
-
 class XoopsTarDownloader extends XoopsDownloader
 {
     /**
@@ -46,7 +45,7 @@ class XoopsTarDownloader extends XoopsDownloader
     public function addFile($filepath, $newfilename = null)
     {
         $result = $this->archiver->addFile($filepath);
-        if ($result === false) {
+        if (false === $result) {
             return false;
         }
         if (isset($newfilename)) {
@@ -71,7 +70,7 @@ class XoopsTarDownloader extends XoopsDownloader
     public function addBinaryFile($filepath, $newfilename = null)
     {
         $result = $this->archiver->addFile($filepath, true);
-        if ($result === false) {
+        if (false === $result) {
             return false;
         }
         if (isset($newfilename)) {
@@ -90,29 +89,29 @@ class XoopsTarDownloader extends XoopsDownloader
      *
      * @param string  &$data    Data to write
      * @param string  $filename Name for the file in the archive
-     * @param integer $time     time
+     * @param int $time     time
      *
      * @return false|null
      */
     public function addFileData(&$data, $filename, $time = 0)
     {
         $dummyfile = \XoopsBaseConfig::get('caches-path') . '/dummy_' . time() . '.html';
-        $fp = @fopen($dummyfile, 'w');
-        if ($fp === false) {
+        $fp = @fopen($dummyfile, 'wb');
+        if (false === $fp) {
             return false;
         }
         fwrite($fp, $data);
         fclose($fp);
         $result = $this->archiver->addFile($dummyfile);
         unlink($dummyfile);
-        if ($result === false) {
+        if (false === $result) {
             return false;
         }
         // dirty, but no other way
         for ($i = 0; $i < $this->archiver->numFiles; ++$i) {
             if ($this->archiver->files[$i]['name'] == $dummyfile) {
                 $this->archiver->files[$i]['name'] = $filename;
-                if ($time != 0) {
+                if (0 != $time) {
                     $this->archiver->files[$i]['time'] = $time;
                 }
                 break;
@@ -125,7 +124,7 @@ class XoopsTarDownloader extends XoopsDownloader
      *
      * @param string  &$data    Data to write
      * @param string  $filename Name for the file in the archive
-     * @param integer $time     time
+     * @param int $time     time
      *
      * @return false|null
      */
@@ -133,21 +132,21 @@ class XoopsTarDownloader extends XoopsDownloader
     {
         $dummyfile = \XoopsBaseConfig::get('caches-path') . '/dummy_' . time() . '.html';
         $fp = @fopen($dummyfile, 'wb');
-        if ($fp === false) {
+        if (false === $fp) {
             return false;
         }
         fwrite($fp, $data);
         fclose($fp);
         $result = $this->archiver->addFile($dummyfile, true);
         unlink($dummyfile);
-        if ($result === false) {
+        if (false === $result) {
             return false;
         }
         // dirty, but no other way
         for ($i = 0; $i < $this->archiver->numFiles; ++$i) {
             if ($this->archiver->files[$i]['name'] == $dummyfile) {
                 $this->archiver->files[$i]['name'] = $filename;
-                if ($time != 0) {
+                if (0 != $time) {
                     $this->archiver->files[$i]['time'] = $time;
                 }
                 break;
@@ -159,7 +158,7 @@ class XoopsTarDownloader extends XoopsDownloader
      * Send the file to the client
      *
      * @param string  $name Filename
-     * @param boolean $gzip Use GZ compression
+     * @param bool $gzip Use GZ compression
      *
      * @return void
      */
@@ -167,7 +166,7 @@ class XoopsTarDownloader extends XoopsDownloader
     {
         $this->_header($name . $this->ext);
         $str = $this->archiver->toTarOutput($name . $this->ext, $gzip);
-        if ($str !== false) {
+        if (false !== $str) {
             echo $str;
         }
     }

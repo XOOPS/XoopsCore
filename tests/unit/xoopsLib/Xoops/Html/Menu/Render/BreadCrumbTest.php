@@ -1,7 +1,8 @@
 <?php
+
 namespace Xoops\Html\Menu\Render;
 
-require_once(__DIR__.'/../../../../../init_new.php');
+require_once(__DIR__ . '/../../../../../init_new.php');
 
 class BreadCrumbTest extends \PHPUnit\Framework\TestCase
 {
@@ -16,7 +17,7 @@ class BreadCrumbTest extends \PHPUnit\Framework\TestCase
      */
     protected function setUp()
     {
-        $this->object = new BreadCrumb;
+        $this->object = new BreadCrumb();
     }
 
     /**

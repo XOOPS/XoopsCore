@@ -1,7 +1,8 @@
 <?php
+
 namespace Xoops\Core\Text;
 
-require_once __DIR__.'/../../../../init_new.php';
+require_once __DIR__ . '/../../../../init_new.php';
 
 class SanitizerTest extends \PHPUnit\Framework\TestCase
 {
@@ -53,7 +54,7 @@ class SanitizerTest extends \PHPUnit\Framework\TestCase
         $this->object->addPatternCallback(
             '~(\d{4})-(\d{2})-(\d{2})~',
             function ($matches) {
-                return $matches[2].'/'.$matches[3].'/'.$matches[1];
+                return $matches[2] . '/' . $matches[3] . '/' . $matches[1];
             }
         );
         $text = '2015-12-14';
@@ -87,28 +88,28 @@ class SanitizerTest extends \PHPUnit\Framework\TestCase
     {
         $text = "\n";
         $message = $this->object->nl2br($text);
-        $this->assertEquals("\n<br />\n",$message);
+        $this->assertEquals("\n<br />\n", $message);
         $text = "\r\n";
         $message = $this->object->nl2br($text);
-        $this->assertEquals("\n<br />\n",$message);
+        $this->assertEquals("\n<br />\n", $message);
         $text = "\r";
         $message = $this->object->nl2br($text);
-        $this->assertEquals("\n<br />\n",$message);
+        $this->assertEquals("\n<br />\n", $message);
     }
 
     public function testHtmlSpecialChars()
     {
         $text = "\"'<>&";
         $message = $this->object->htmlSpecialChars($text);
-        $this->assertSame('&quot;&#039;&lt;&gt;&amp;',$message);
+        $this->assertSame('&quot;&#039;&lt;&gt;&amp;', $message);
 
         $text = 'toto&titi';
         $message = $this->object->htmlSpecialChars($text);
-        $this->assertSame('toto&amp;titi',$message);
+        $this->assertSame('toto&amp;titi', $message);
 
         $text = 'toto&nbsp;titi';
         $message = $this->object->htmlSpecialChars($text);
-        $this->assertSame('toto&nbsp;titi',$message);
+        $this->assertSame('toto&nbsp;titi', $message);
     }
 
     public function testEscapeForJavascript()
@@ -131,7 +132,7 @@ class SanitizerTest extends \PHPUnit\Framework\TestCase
     {
         $text = '&gt;&lt;&quot;&#039;&amp;nbsp;';
         $message = $this->object->undohtmlSpecialChars($text);
-        $this->assertSame('><"\'&nbsp;',$message);
+        $this->assertSame('><"\'&nbsp;', $message);
     }
 
     /**
@@ -147,7 +148,7 @@ class SanitizerTest extends \PHPUnit\Framework\TestCase
 
         $text = '[code]testing[/code]';
         $actual = $this->object->filterForDisplay($text);
-        $this->assertFalse(empty($actual));
+        $this->assertNotEmpty($actual);
     }
 
     public function testDisplayTarea()
@@ -184,8 +185,8 @@ class SanitizerTest extends \PHPUnit\Framework\TestCase
 
     public function testListExtensions()
     {
-        $actual =  $this->object->listExtensions();
-        $this->assertTrue(is_array($actual));
+        $actual = $this->object->listExtensions();
+        $this->assertInternalType('array', $actual);
     }
 
     public function testGetDhtmlEditorSupport()
@@ -193,8 +194,8 @@ class SanitizerTest extends \PHPUnit\Framework\TestCase
         $this->object->enableComponentForTesting('soundcloud');
         $support = $this->object->getDhtmlEditorSupport('soundcloud', 'testeditorarea');
         $this->assertTrue(2 == count($support));
-        $this->assertTrue(is_string($support[0]));
-        $this->assertTrue(is_string($support[1]));
+        $this->assertInternalType('string', $support[0]);
+        $this->assertInternalType('string', $support[1]);
 
         $support = $this->object->getDhtmlEditorSupport('thisisnotarealextension', 'testeditorarea');
         $this->assertTrue(2 == count($support));
@@ -204,11 +205,11 @@ class SanitizerTest extends \PHPUnit\Framework\TestCase
 
     public function testGetConfig()
     {
-        $actual =  $this->object->getConfig();
-        $this->assertTrue(is_array($actual));
+        $actual = $this->object->getConfig();
+        $this->assertInternalType('array', $actual);
 
-        $actual =  $this->object->getConfig('xoopscode');
-        $this->assertTrue(is_array($actual));
+        $actual = $this->object->getConfig('xoopscode');
+        $this->assertInternalType('array', $actual);
     }
 
     public function testExecuteFilter()
@@ -232,7 +233,7 @@ class SanitizerTest extends \PHPUnit\Framework\TestCase
     {
         $text = "\x00";
         $message = $this->object->filterxss($text);
-        $this->assertEquals('',$message);
+        $this->assertEquals('', $message);
     }
 
     public function testCleanEnum()

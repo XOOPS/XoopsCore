@@ -1,7 +1,8 @@
 <?php
+
 namespace Xoops\Form;
 
-require_once(__DIR__.'/../../../init_new.php');
+require_once(__DIR__ . '/../../../init_new.php');
 
 class ContainerInterfaceTest extends \PHPUnit\Framework\TestCase
 {
@@ -19,7 +20,7 @@ class ContainerInterfaceTest extends \PHPUnit\Framework\TestCase
         if (method_exists($this, 'createMock')) {
             $this->object = $this->createMock('\Xoops\Form\ContainerInterface');
         } else { // need phpunit 4.8 for PHP 5.5
-            $this->object = $this->getMock('\Xoops\Form\ContainerInterface');
+            $this->object = $this->createMock('\Xoops\Form\ContainerInterface');
         }
     }
 

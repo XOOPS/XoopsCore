@@ -18,9 +18,9 @@
 
 namespace Xoops\Core\Kernel\Handlers;
 
-use Xoops\Core\XoopsArray;
 use Xoops\Core\Kernel\Dtype;
 use Xoops\Core\Kernel\XoopsObject;
+use Xoops\Core\XoopsArray;
 
 /**
  * A Module
@@ -44,10 +44,9 @@ class XoopsModule extends XoopsObject
      */
     public $adminmenu;
     /**
-    *
-    * @var array
-    */
-    private $internalMessages = array();
+     * @var array
+     */
+    private $internalMessages = [];
 
     protected $xoops_url;
     protected $xoops_root_path;
@@ -81,7 +80,7 @@ class XoopsModule extends XoopsObject
      * Load module info
      *
      * @param string  $dirname module directory
-     * @param boolean $verbose true for more information
+     * @param bool $verbose true for more information
      *
      * @return void
      * @todo module 'version' should be semver based -- 1.0.0 should be OK, not an error
@@ -100,7 +99,7 @@ class XoopsModule extends XoopsObject
         // see @todo
         $versionPieces = explode('.', $this->modinfo['version']);
         if (count($versionPieces) > 2) {
-            $this->modinfo['version'] = $versionPieces[0].'.'.$versionPieces[1];
+            $this->modinfo['version'] = $versionPieces[0] . '.' . $versionPieces[1];
         }
         $this->setVar('version', (int)(100 * ($this->modinfo['version'] + 0.001)));
         $this->setVar('dirname', $this->modinfo['dirname']);
@@ -152,6 +151,7 @@ class XoopsModule extends XoopsObject
         } else {
             $this->modinfo[$name] = $value;
         }
+
         return true;
     }
 
@@ -172,8 +172,10 @@ class XoopsModule extends XoopsObject
                 return $this->modinfo[$name];
             }
             $return = false;
+
             return $return;
         }
+
         return $this->modinfo;
     }
 
@@ -184,11 +186,13 @@ class XoopsModule extends XoopsObject
      */
     public function mainLink()
     {
-        if ($this->getVar('hasmain') == 1) {
+        if (1 == $this->getVar('hasmain')) {
             $ret = '<a href="' . $this->xoops_url . '/modules/' . $this->getVar('dirname') . '/">'
                 . $this->getVar('name') . '</a>';
+
             return $ret;
         }
+
         return false;
     }
 
@@ -199,14 +203,15 @@ class XoopsModule extends XoopsObject
      */
     public function subLink()
     {
-        $ret = array();
+        $ret = [];
         if ($this->getInfo('sub') && is_array($this->getInfo('sub'))) {
             foreach ($this->getInfo('sub') as $submenu) {
-                $ret[] = array(
+                $ret[] = [
                     'name' => $submenu['name'] ,
-                    'url' => $submenu['url']);
+                    'url' => $submenu['url'], ];
             }
         }
+
         return $ret;
     }
 
@@ -218,8 +223,8 @@ class XoopsModule extends XoopsObject
     public function loadAdminMenu()
     {
         $file = $this->xoops_root_path . '/modules/' . $this->getInfo('dirname') . '/' . $this->getInfo('adminmenu');
-        if ($this->getInfo('adminmenu') && $this->getInfo('adminmenu') != '' && \XoopsLoad::fileExists($file)) {
-            $adminmenu = array();
+        if ($this->getInfo('adminmenu') && '' != $this->getInfo('adminmenu') && \XoopsLoad::fileExists($file)) {
+            $adminmenu = [];
             include $file;
             $this->adminmenu = $adminmenu;
         }
@@ -235,6 +240,7 @@ class XoopsModule extends XoopsObject
         if (!isset($this->adminmenu)) {
             $this->loadAdminMenu();
         }
+
         return $this->adminmenu;
     }
 
@@ -257,6 +263,7 @@ class XoopsModule extends XoopsObject
         $dirname = basename($dirname);
         if (isset($modVersions[$dirname])) {
             $this->modinfo = $modVersions[$dirname];
+
             return true;
         }
         $xoops = \Xoops::getInstance();
@@ -268,12 +275,14 @@ class XoopsModule extends XoopsObject
             if (false != $verbose) {
                 echo "Module File for $dirname Not Found!";
             }
+
             return false;
         }
-        $modversion = array();
+        $modversion = [];
         include $file;
         $modVersions[$dirname] = $modversion;
         $this->modinfo = $modVersions[$dirname];
+
         return true;
     }
 

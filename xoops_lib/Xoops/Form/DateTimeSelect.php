@@ -32,7 +32,7 @@ class DateTimeSelect extends ElementTray
      *
      * @param string|array      $caption  Caption or array of all attributes
      * @param string            $name     name
-     * @param integer|\DateTime $value    unix timestamp or DateTime object
+     * @param int|\DateTime $value    unix timestamp or DateTime object
      * @param mixed             $showtime control display of date and time elements
      *                                     SHOW_BOTH, true  - show both date and time selectors
      *                                     SHOW_DATE, false - only show date selector
@@ -80,8 +80,8 @@ class DateTimeSelect extends ElementTray
         }
 
         $minuteInterval = $this->get(':minuteinterval', 15);
-        $hours    = (int) ltrim($workingTime->format('H'), '0');
-        $minutes  = (int) ltrim($workingTime->format('i'), '0');
+        $hours = (int) ltrim($workingTime->format('H'), '0');
+        $minutes = (int) ltrim($workingTime->format('i'), '0');
 
         $timeDefinition = [
             'caption' => '',
@@ -89,11 +89,11 @@ class DateTimeSelect extends ElementTray
             'id' => $this->get('name') . '-time',
             'size' => 1,
             'value' => \Xoops\Core\Locale\Time::formatTime(
-                $hours * 3600 + 60*$minuteInterval * ceil($minutes / $minuteInterval),
+                $hours * 3600 + 60 * $minuteInterval * ceil($minutes / $minuteInterval),
                 'short',
                 new \DateTimeZone('UTC')
             ),
-            ElementFactory::FORM_KEY => $this
+            ElementFactory::FORM_KEY => $this,
         ];
 
         if ($displayTime) {

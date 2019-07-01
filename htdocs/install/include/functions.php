@@ -20,8 +20,8 @@
  * @author      Taiwen Jiang <phppp@users.sourceforge.net>
  * @author      DuGris (aka L. JEN) <dugris@frxoops.org>
  * @version     $Id$
+ * @param mixed $value
  */
-
 function installHtmlSpecialCharacters($value)
 {
     return htmlspecialchars($value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
@@ -35,8 +35,8 @@ function install_acceptUser($hash = '')
 {
     $xoops = Xoops::getInstance();
     $xoops->user = null;
-    $hash_data = @explode("-", $_COOKIE['xo_install_user'], 2);
-    list($uname, $hash_login) = array($hash_data[0], (string)(@$hash_data[1]));
+    $hash_data = @explode('-', $_COOKIE['xo_install_user'], 2);
+    list($uname, $hash_login) = [$hash_data[0], (string)(@$hash_data[1])];
     if (empty($uname) || empty($hash_login)) {
         return false;
     }
@@ -51,6 +51,7 @@ function install_acceptUser($hash = '')
     $xoops->userIsAdmin = true;
     $_SESSION['xoopsUserId'] = $xoops->user->getVar('uid');
     $_SESSION['xoopsUserGroups'] = $xoops->user->getGroups();
+
     return true;
 }
 
@@ -61,11 +62,11 @@ function install_acceptUser($hash = '')
 function install_finalize($installer_modified)
 {
     // Set mainfile.php readonly
-    @chmod(XOOPS_ROOT_PATH . "/mainfile.php", 0444);
+    @chmod(XOOPS_ROOT_PATH . '/mainfile.php', 0444);
     // Set Secure file readonly
-    @chmod(XOOPS_VAR_PATH . "/data/secure.php", 0444);
+    @chmod(XOOPS_VAR_PATH . '/data/secure.php', 0444);
     // Rename installer folder
-    @rename(XOOPS_ROOT_PATH . "/install", XOOPS_ROOT_PATH . "/" . $installer_modified);
+    @rename(XOOPS_ROOT_PATH . '/install', XOOPS_ROOT_PATH . '/' . $installer_modified);
 }
 
 /**
@@ -87,7 +88,7 @@ function xoFormField($name, $value, $label, $help = '')
     if ($help) {
         echo '<div class="xoform-help">' . $help . "</div>\n";
     }
-    if ($name === "adminname") {
+    if ('adminname' === $name) {
         echo "<input type='text' name='$name' id='$name' value='$value' maxlength='25' />";
     } else {
         echo "<input type='text' name='$name' id='$name' value='$value' />";
@@ -114,7 +115,7 @@ function xoPassField($name, $value, $label, $help = '')
         echo '<div class="xoform-help">' . $help . "</div>\n";
     }
 
-    if ($name === "adminpass") {
+    if ('adminpass' === $name) {
         echo "<input type='password' name='{$name}' id='{$name}' value='{$value}' onkeyup='passwordStrength(this.value)' />";
     } else {
         echo "<input type='password' name='{$name}' id='{$name}' value='{$value}' />";
@@ -142,7 +143,7 @@ function xoBoolField($name, $value, $label, $help = '')
     }
     $checked = $value ? 'checked' : '';
     echo "<input type=\"checkbox\" name=\"{$name}\" value=\"1\" {$checked} />"
-        . ENABLE . "<br />";
+        . ENABLE . '<br />';
 }
 
 /*
@@ -153,10 +154,10 @@ function xoBoolField($name, $value, $label, $help = '')
  */
 function getDirList($dirname)
 {
-    $dirlist = array();
+    $dirlist = [];
     if ($handle = opendir($dirname)) {
         while ($file = readdir($handle)) {
-            if ($file{0} !== '.' && is_dir($dirname . $file)) {
+            if ('.' !== $file[0] && is_dir($dirname . $file)) {
                 $dirlist[] = $file;
             }
         }
@@ -164,6 +165,7 @@ function getDirList($dirname)
         asort($dirlist);
         reset($dirlist);
     }
+
     return $dirlist;
 }
 
@@ -174,14 +176,15 @@ function getDirList($dirname)
  */
 function xoDiag($status = -1, $str = '')
 {
-    if ($status == -1) {
+    if (-1 == $status) {
         $_SESSION['error'] = true;
     }
-    $classes = array(-1 => 'error', 0 => 'warning', 1 => 'success');
-    $strings = array(-1 => FAILED, 0 => WARNING, 1 => SUCCESS);
+    $classes = [-1 => 'error', 0 => 'warning', 1 => 'success'];
+    $strings = [-1 => FAILED, 0 => WARNING, 1 => SUCCESS];
     if (empty($str)) {
         $str = $strings[$status];
     }
+
     return '<span class="' . $classes[$status] . '">' . $str . '</span>';
 }
 
@@ -193,13 +196,13 @@ function xoDiag($status = -1, $str = '')
  */
 function xoDiagBoolSetting($name, $wanted = false, $severe = false)
 {
-    $setting = strtolower(ini_get($name));
-    $setting = (empty($setting) || $setting === 'off' || $setting === 'false') ? false : true;
+    $setting = mb_strtolower(ini_get($name));
+    $setting = (empty($setting) || 'off' === $setting || 'false' === $setting) ? false : true;
     if ($setting == $wanted) {
         return xoDiag(1, $setting ? 'ON' : 'OFF');
-    } else {
-        return xoDiag($severe ? -1 : 0, $setting ? 'ON' : 'OFF');
     }
+
+    return xoDiag($severe ? -1 : 0, $setting ? 'ON' : 'OFF');
 }
 
 /**
@@ -208,17 +211,18 @@ function xoDiagBoolSetting($name, $wanted = false, $severe = false)
  */
 function xoDiagIfWritable($path)
 {
-    $path = "../" . $path;
+    $path = '../' . $path;
     $error = true;
     if (!is_dir($path)) {
         if (file_exists($path)) {
             @chmod($path, 0666);
-            $error = !is_writeable($path);
+            $error = !is_writable($path);
         }
     } else {
         @chmod($path, 0777);
-        $error = !is_writeable($path);
+        $error = !is_writable($path);
     }
+
     return xoDiag($error ? -1 : 1, $error ? 'Not writable' : 'Writable');
 }
 
@@ -229,9 +233,9 @@ function xoPhpVersion()
 {
     if (version_compare(phpversion(), '7.1.0', '>=')) {
         return xoDiag(1, phpversion());
-    } else {
-        return xoDiag(-1, phpversion());
     }
+
+    return xoDiag(-1, phpversion());
 }
 
 /**
@@ -246,28 +250,27 @@ function genPathCheckHtml($path, $valid)
             case 'root':
                 $msg = sprintf(XOOPS_FOUND, XOOPS_VERSION);
                 break;
-
             case 'lib':
             case 'data':
             default:
                 $msg = XOOPS_PATH_FOUND;
                 break;
         }
+
         return '<span class="pathmessage"><img src="img/yes.png" alt="Success" />' . $msg . '</span>';
-    } else {
-        switch ($path) {
+    }
+    switch ($path) {
             case 'root':
                 $msg = ERR_NO_XOOPS_FOUND;
                 break;
-
             case 'lib':
             case 'data':
             default:
                 $msg = ERR_COULD_NOT_ACCESS;
                 break;
         }
-        return '<span class="pathmessage"><img src="img/no.png" alt="Error" /> ' . $msg . '</span>';
-    }
+
+    return '<span class="pathmessage"><img src="img/no.png" alt="Error" /> ' . $msg . '</span>';
 }
 
 /**
@@ -283,15 +286,15 @@ function getDbConnectionParams()
 
     // get list of parameters the selected driver accepts
     $driver_info = $wizard->configs['db_types'][$settings['DB_DRIVER']];
-    $driver_params=explode(',', $driver_info['params']);
+    $driver_params = explode(',', $driver_info['params']);
 
-    $connectionParams = array(
+    $connectionParams = [
         'driver' => $settings['DB_DRIVER'],
         'charset' => 'utf8',
-    );
+    ];
 
     // force mysql to use utf8mb4
-    if (false !== strstr($settings['DB_DRIVER'],'mysql')) {
+    if (false !== mb_strstr($settings['DB_DRIVER'], 'mysql')) {
         $connectionParams['charset'] = 'utf8mb4';
         $connectionParams['collate'] = 'utf8mb4_unicode_ci';
     }
@@ -321,19 +324,23 @@ function getDbConnection(&$error)
     try {
         $instance = \Doctrine\DBAL\DriverManager::getConnection($connectionParams, $config);
     } catch (Exception $e) {
-            $error = $e->getMessage();
-            return false;
+        $error = $e->getMessage();
+
+        return false;
     }
     if (!$instance) {
         $error = ERR_NO_DBCONNECTION;
+
         return false;
-    } else {
-        try {
-            $instance->connect();
-        } catch (Exception $e) {
-            $error = $e->getMessage();
-            return false;
-        }
     }
+
+    try {
+        $instance->connect();
+    } catch (Exception $e) {
+        $error = $e->getMessage();
+
+        return false;
+    }
+
     return $instance;
 }

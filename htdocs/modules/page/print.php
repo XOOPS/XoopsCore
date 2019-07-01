@@ -10,8 +10,8 @@
 */
 
 use Xmf\Request;
-use Xoops\Core\XoopsTpl;
 use Xoops\Core\Text\Sanitizer;
+use Xoops\Core\XoopsTpl;
 
 /**
  * page module
@@ -21,7 +21,6 @@ use Xoops\Core\Text\Sanitizer;
  * @package         page
  * @author          Mage Grégory (AKA Mage)
  */
-
 include_once 'header.php';
 
 // Call header
@@ -41,7 +40,7 @@ if (!$perm_view) {
 $view_content = $content_Handler->get($content_id);
 
 // Test if the page exist
-if (count($view_content) == 0 || $view_content->getVar('content_status') == 0) {
+if (0 == count($view_content) || 0 == $view_content->getVar('content_status')) {
     $xoops->redirect('index.php', 3, PageLocale::E_NOT_EXIST);
     exit();
 }
@@ -52,7 +51,7 @@ $tpl = new XoopsTpl();
 $content = $view_content->getValues();
 $sanitizer = Sanitizer::getInstance();
 foreach ($content as $k => $v) {
-    if ($k === 'content_shorttext' ||$k === 'content_text') {
+    if ('content_shorttext' === $k || 'content_text' === $k) {
         $v = $sanitizer->displayTarea($v);
     }
     $tpl->assign($k, $v);

@@ -1,7 +1,8 @@
 <?php
+
 namespace Xoops\Form;
 
-require_once(__DIR__.'/../../../init_new.php');
+require_once(__DIR__ . '/../../../init_new.php');
 
 class TokenTest extends \PHPUnit\Framework\TestCase
 {
@@ -16,7 +17,7 @@ class TokenTest extends \PHPUnit\Framework\TestCase
      */
     protected function setUp()
     {
-        $this->object = new Token;
+        $this->object = new Token();
     }
 
     /**
@@ -30,10 +31,10 @@ class TokenTest extends \PHPUnit\Framework\TestCase
     public function testRender()
     {
         $value = $this->object->render();
-        $this->assertTrue(is_string($value));
-        $this->assertTrue(false !== strpos($value, '<input'));
-        $this->assertTrue(false !== strpos($value, 'type="hidden"'));
-        $this->assertTrue(false !== strpos($value, 'name="XOOPS_TOKEN_REQUEST"'));
+        $this->assertInternalType('string', $value);
+        $this->assertTrue(false !== mb_strpos($value, '<input'));
+        $this->assertTrue(false !== mb_strpos($value, 'type="hidden"'));
+        $this->assertTrue(false !== mb_strpos($value, 'name="XOOPS_TOKEN_REQUEST"'));
     }
 
     public function test__construct()
@@ -42,8 +43,8 @@ class TokenTest extends \PHPUnit\Framework\TestCase
         $oldWay = new Token();
         $newWay = new Token([]);
         $this->assertEquals(
-            substr($oldWay->render(), 0, 62),
-            substr($newWay->render(), 0, 62)
+            mb_substr($oldWay->render(), 0, 62),
+            mb_substr($newWay->render(), 0, 62)
         );
     }
 }

@@ -12,6 +12,8 @@ namespace XoopsModules\Publisher;
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+use Doctrine\DBAL\FetchMode;
+use Doctrine\DBAL\ParameterType;
 use Xoops;
 use Xoops\Core\Database\Connection;
 use Xoops\Core\Database\QueryBuilder;
@@ -21,8 +23,6 @@ use Xoops\Core\Kernel\CriteriaElement;
 use Xoops\Core\Kernel\XoopsObject;
 use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 use XoopsModules\Publisher;
-use Doctrine\DBAL\FetchMode;
-use Doctrine\DBAL\ParameterType;
 
 /**
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
@@ -655,8 +655,8 @@ class ItemHandler extends XoopsPersistableObjectHandler
             'c.parentid',
             'ASC'
         )->addOrderBy(
-                                                                                                                                                                                                                                                                              'i.categoryid',
-                                                                                                                                                                                                                                                                              'ASC'
+            'i.categoryid',
+            'ASC'
                                                                                                                                                                                                                                                                           );
         if ((int)$cat_id > 0) {
             $qb->andWhere($qb->expr()->eq('i.categoryid', ':catid'))->setParameter(':catid', $cat_id, ParameterType::INTEGER);

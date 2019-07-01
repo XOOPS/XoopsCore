@@ -21,11 +21,10 @@ use Xoops\Core\Kernel\CriteriaCompo;
  * @package     system
  * @version     $Id$
  */
-
 function b_system_main_show()
 {
     $xoops = Xoops::getInstance();
-    $block = array();
+    $block = [];
     $block['lang_home'] = XoopsLocale::HOME;
     $block['lang_close'] = XoopsLocale::A_CLOSE;
     $module_handler = $xoops->getHandlerModule();
@@ -52,19 +51,19 @@ function b_system_main_show()
                 $block['modules'][$i]['highlight'] = true;
                 $block['nothome'] = true;
             }
-             /* @var $plugin MenusPluginInterface */
+            /* @var $plugin MenusPluginInterface */
             if ($xoops->isModule() && $module->getVar('dirname') == $xoops->module->getVar('dirname') && $plugin = \Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'menus')) {
                 $sublinks = $plugin->subMenus();
                 foreach ($sublinks as $sublink) {
-                    $block['modules'][$i]['sublinks'][] = array(
+                    $block['modules'][$i]['sublinks'][] = [
                         'name' => $sublink['name'],
-                        'url'  => \XoopsBaseConfig::get('url') . '/modules/' . $module->getVar('dirname') . '/' . $sublink['url']
-                    );
+                        'url' => \XoopsBaseConfig::get('url') . '/modules/' . $module->getVar('dirname') . '/' . $sublink['url'],
+                    ];
                 }
             }
-
         }
     }
+
     return $block;
 }
 
@@ -85,5 +84,6 @@ function b_system_main_edit($options)
     $admin_page->renderTips();
     $list = $system_module->getModuleList();
     $xoops->tpl()->assign('modules_list', $list);
+
     return $xoops->tpl()->fetch('admin:system/system_modules_menu.tpl');
 }

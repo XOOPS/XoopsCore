@@ -28,7 +28,7 @@ class ElementTray extends Element implements ContainerInterface
      *
      * @var Element[]
      */
-    protected $elements = array();
+    protected $elements = [];
 
     /**
      * __construct
@@ -64,6 +64,7 @@ class ElementTray extends Element implements ContainerInterface
                 return true;
             }
         }
+
         return false;
     }
 
@@ -71,7 +72,7 @@ class ElementTray extends Element implements ContainerInterface
      * Add an element to the tray
      *
      * @param Element $formElement Element to add
-     * @param boolean $required    true = entry required
+     * @param bool $required    true = entry required
      *
      * @return void
      */
@@ -84,6 +85,7 @@ class ElementTray extends Element implements ContainerInterface
     }
 
     // ContainerInterface
+
     /**
      * get an array of "required" form elements
      *
@@ -97,6 +99,7 @@ class ElementTray extends Element implements ContainerInterface
                 $required[] = $el;
             }
         }
+
         return $required;
     }
 
@@ -111,36 +114,37 @@ class ElementTray extends Element implements ContainerInterface
     {
         if (!$recurse) {
             return $this->elements;
-        } else {
-            $ret = array();
-            foreach ($this->elements as $ele) {
-                if ($ele instanceof ContainerInterface) {
-                    /* @var ContainerInterface $ele */
-                    $elements = $ele->getElements(true);
-                    foreach ($elements as $ele2) {
-                        $ret[] = $ele2;
-                    }
-                    unset($elements);
-                    unset($ele2);
-                } else {
-                    $ret[] = $ele;
-                }
-                unset($ele);
-            }
-            return $ret;
         }
+        $ret = [];
+        foreach ($this->elements as $ele) {
+            if ($ele instanceof ContainerInterface) {
+                /* @var ContainerInterface $ele */
+                $elements = $ele->getElements(true);
+                foreach ($elements as $ele2) {
+                    $ret[] = $ele2;
+                }
+                unset($elements);
+                unset($ele2);
+            } else {
+                $ret[] = $ele;
+            }
+            unset($ele);
+        }
+
+        return $ret;
     }
 
     /**
      * Get the delimiter of this group
      *
-     * @param boolean $encode True to encode special characters
+     * @param bool $encode True to encode special characters
      *
      * @return string The delimiter
      */
     protected function getJoiner($encode = false)
     {
         $joiner = $this->get(':joiner');
+
         return $encode ? htmlspecialchars(str_replace('&nbsp;', ' ', $joiner)) : $joiner;
     }
 
@@ -152,15 +156,15 @@ class ElementTray extends Element implements ContainerInterface
     public function defaultRender()
     {
         $count = 0;
-        $ret = "<div class=\"form-inline\">";
+        $ret = '<div class="form-inline">';
         foreach ($this->getElements() as $ele) {
             /* @var Element $ele */
             if ($count > 0) {
                 $ret .= $this->getJoiner();
             }
-            if ($ele->getCaption() != '') {
+            if ('' != $ele->getCaption()) {
                 $ret .= '<div class="form-group">';
-                $ret .= '<label class="control-label">' . $ele->getCaption() . "</label>&nbsp;";
+                $ret .= '<label class="control-label">' . $ele->getCaption() . '</label>&nbsp;';
                 $ret .= '</div>';
             }
             $ret .= $ele->render() . "\n";
@@ -169,6 +173,7 @@ class ElementTray extends Element implements ContainerInterface
             }
         }
         $ret .= '</div>';
+
         return $ret;
     }
 }

@@ -21,7 +21,6 @@
  */
 class SystemExtension extends SystemModule
 {
-
     /**
      * getExtension
      *
@@ -31,7 +30,7 @@ class SystemExtension extends SystemModule
      */
     public function getExtension($mod = '')
     {
-        $ret = array();
+        $ret = [];
         $extension = self::getExtensionList();
         foreach ($extension as $list) {
             /* @var $list XoopsModule */
@@ -39,7 +38,7 @@ class SystemExtension extends SystemModule
                 if (!is_array($list->getInfo('extension_module'))) {
                     $ret[] = $list;
                 } else {
-                    if (array_search($mod, $list->getInfo('extension_module')) !== false) {
+                    if (false !== array_search($mod, $list->getInfo('extension_module'))) {
                         $ret[] = $list;
                         //echo $list->getInfo('name') . is_array( $list->getInfo('extension_module') );
                     }
@@ -63,7 +62,7 @@ class SystemExtension extends SystemModule
         $module_handler = $xoops->getHandlerModule();
         $moduleperm_handler = $xoops->getHandlerGroupPermission();
 
-        $ret = array();
+        $ret = [];
         $i = 0;
         foreach ($this->modulesList as $file) {
             $file = trim($file);
@@ -85,7 +84,7 @@ class SystemExtension extends SystemModule
                         if (round($module->getInfo('version'), 2) != $extension->getVar('version')) {
                             $module->setInfo('warning_update', true);
                         }
-                        $groups = array();
+                        $groups = [];
                         if (is_object($xoops->user)) {
                             $groups = $xoops->user->getGroups();
                         }
@@ -136,6 +135,7 @@ class SystemExtension extends SystemModule
                 }
             }
         }
+
         return $ret;
     }
 
@@ -150,7 +150,7 @@ class SystemExtension extends SystemModule
         $xoops = Xoops::getInstance();
         $module_handler = $xoops->getHandlerModule();
 
-        $ret = array();
+        $ret = [];
         $i = 0;
         foreach ($this->modulesList as $file) {
             if (XoopsLoad::fileExists(\XoopsBaseConfig::get('root-path') . '/modules/' . $file . '/xoops_version.php')) {
@@ -170,6 +170,7 @@ class SystemExtension extends SystemModule
                 }
             }
         }
+
         return $ret;
     }
 }

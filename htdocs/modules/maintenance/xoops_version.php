@@ -23,36 +23,36 @@
 /*
  General settings
  */
-$modversion                = array();
-$modversion['name']        = _MI_MAINTENANCE_NAME;
+$modversion = [];
+$modversion['name'] = _MI_MAINTENANCE_NAME;
 $modversion['description'] = _MI_MAINTENANCE_DESC;
-$modversion['version']     = 0.1;
-$modversion['author']      = 'Mage Gregory,Cointin Maxime';
-$modversion['nickname']    = 'Mage, Kraven30';
-$modversion['credits']     = 'The XOOPS Project';
-$modversion['license']     = 'GNU GPL 2.0';
+$modversion['version'] = 0.1;
+$modversion['author'] = 'Mage Gregory,Cointin Maxime';
+$modversion['nickname'] = 'Mage, Kraven30';
+$modversion['credits'] = 'The XOOPS Project';
+$modversion['license'] = 'GNU GPL 2.0';
 $modversion['license_url'] = 'http://www.gnu.org/licenses/gpl-2.0.html';
-$modversion['official']    = 1;
-$modversion['help']        = 'page=help';
-$modversion['image']       = 'images/logo.png';
-$modversion['dirname']     = 'maintenance';
+$modversion['official'] = 1;
+$modversion['help'] = 'page=help';
+$modversion['image'] = 'images/logo.png';
+$modversion['dirname'] = 'maintenance';
 
 /*
  Settings for configs
 */
-$modversion['release_date']        = '2012/05/11';
-$modversion['module_website_url']  = 'http://www.xoops.org/';
+$modversion['release_date'] = '2012/05/11';
+$modversion['module_website_url'] = 'http://www.xoops.org/';
 $modversion['module_website_name'] = 'XOOPS';
-$modversion['module_status']       = 'ALPHA';
-$modversion['min_php']             = '5.3.7';
-$modversion['min_xoops']           = '2.6.0';
-$modversion['min_db']              = array('mysql' => '5.0.7'); // table maintenance and dump functions are MySQL only!
+$modversion['module_status'] = 'ALPHA';
+$modversion['min_php'] = '5.3.7';
+$modversion['min_xoops'] = '2.6.0';
+$modversion['min_db'] = ['mysql' => '5.0.7']; // table maintenance and dump functions are MySQL only!
 
 // paypal
-$modversion['paypal']                  = array();
-$modversion['paypal']['business']      = 'xoopsfoundation@gmail.com';
-$modversion['paypal']['item_name']     = 'Donation : ' . _MI_MAINTENANCE_DESC;
-$modversion['paypal']['amount']        = 0;
+$modversion['paypal'] = [];
+$modversion['paypal']['business'] = 'xoopsfoundation@gmail.com';
+$modversion['paypal']['item_name'] = 'Donation : ' . _MI_MAINTENANCE_DESC;
+$modversion['paypal']['amount'] = 0;
 $modversion['paypal']['currency_code'] = 'USD';
 
 /*
@@ -64,15 +64,15 @@ $modversion['system_menu'] = 1;
 /*
  Manage extension
  */
-$modversion['extension']          = 1;
+$modversion['extension'] = 1;
 $modversion['extension_module'][] = 'system';
 
 /*
  Admin things
 */
-$modversion['hasAdmin']   = 1;
+$modversion['hasAdmin'] = 1;
 $modversion['adminindex'] = 'admin/index.php';
-$modversion['adminmenu']  = 'admin/menu.php';
+$modversion['adminmenu'] = 'admin/menu.php';
 
 /*
  JQuery
@@ -83,5 +83,5 @@ $modversion['jquery'] = 1;
 /*
  Admin Templates
 */
-$modversion['templates'][] = array('file' => 'maintenance_center.tpl', 'description' => '', 'type' => 'admin');
-$modversion['templates'][] = array('file' => 'maintenance_dump.tpl', 'description' => '', 'type' => 'admin');
+$modversion['templates'][] = ['file' => 'maintenance_center.tpl', 'description' => '', 'type' => 'admin'];
+$modversion['templates'][] = ['file' => 'maintenance_dump.tpl', 'description' => '', 'type' => 'admin'];

@@ -71,6 +71,7 @@ class XoopsGroupPermHandler extends XoopsPersistableObjectHandler
         if (isset($gperm_modid)) {
             $criteria->add(new Criteria('gperm_modid', (int)($gperm_modid)));
         }
+
         return $this->deleteAll($criteria);
     }
 
@@ -92,6 +93,7 @@ class XoopsGroupPermHandler extends XoopsPersistableObjectHandler
                 $criteria->add(new Criteria('gperm_itemid', (int)($gperm_itemid)));
             }
         }
+
         return $this->deleteAll($criteria);
     }
 
@@ -110,22 +112,22 @@ class XoopsGroupPermHandler extends XoopsPersistableObjectHandler
     {
         if (empty($gperm_groupid)) {
             return false;
-        } else {
-            if (is_array($gperm_groupid)) {
-                if (in_array(FixedGroups::ADMIN, $gperm_groupid) && $trueifadmin) {
-                    return true;
-                }
-                $criteria_group = new CriteriaCompo();
-                foreach ($gperm_groupid as $gid) {
-                    $criteria_group->add(new Criteria('gperm_groupid', (int)($gid)), 'OR');
-                }
-            } else {
-                if (FixedGroups::ADMIN == $gperm_groupid && $trueifadmin) {
-                    return true;
-                }
-                $criteria_group = new CriteriaCompo(new Criteria('gperm_groupid', (int)($gperm_groupid)));
-            }
         }
+        if (is_array($gperm_groupid)) {
+            if (in_array(FixedGroups::ADMIN, $gperm_groupid) && $trueifadmin) {
+                return true;
+            }
+            $criteria_group = new CriteriaCompo();
+            foreach ($gperm_groupid as $gid) {
+                $criteria_group->add(new Criteria('gperm_groupid', (int)($gid)), 'OR');
+            }
+        } else {
+            if (FixedGroups::ADMIN == $gperm_groupid && $trueifadmin) {
+                return true;
+            }
+            $criteria_group = new CriteriaCompo(new Criteria('gperm_groupid', (int)($gperm_groupid)));
+        }
+
         $criteria = new CriteriaCompo(new Criteria('gperm_modid', (int)($gperm_modid)));
         $criteria->add($criteria_group);
         $criteria->add(new Criteria('gperm_name', (string)($gperm_name)));
@@ -136,6 +138,7 @@ class XoopsGroupPermHandler extends XoopsPersistableObjectHandler
         if ($this->getCount($criteria) > 0) {
             return true;
         }
+
         return false;
     }
 
@@ -156,6 +159,7 @@ class XoopsGroupPermHandler extends XoopsPersistableObjectHandler
         $perm->setVar('gperm_groupid', (int)($gperm_groupid));
         $perm->setVar('gperm_itemid', (int)($gperm_itemid));
         $perm->setVar('gperm_modid', (int)($gperm_modid));
+
         return $this->insert($perm);
     }
 
@@ -170,7 +174,7 @@ class XoopsGroupPermHandler extends XoopsPersistableObjectHandler
      */
     public function getItemIds($gperm_name, $gperm_groupid, $gperm_modid = 1)
     {
-        $ret = array();
+        $ret = [];
         $criteria = new CriteriaCompo(new Criteria('gperm_name', (string)($gperm_name)));
         $criteria->add(new Criteria('gperm_modid', (int)($gperm_modid)));
         if (is_array($gperm_groupid)) {
@@ -186,6 +190,7 @@ class XoopsGroupPermHandler extends XoopsPersistableObjectHandler
         foreach (array_keys($perms) as $i) {
             $ret[] = $perms[$i]->getVar('gperm_itemid');
         }
+
         return array_unique($ret);
     }
 
@@ -200,7 +205,7 @@ class XoopsGroupPermHandler extends XoopsPersistableObjectHandler
      */
     public function getGroupIds($gperm_name, $gperm_itemid, $gperm_modid = 1)
     {
-        $ret = array();
+        $ret = [];
         $criteria = new CriteriaCompo(new Criteria('gperm_name', (string)($gperm_name)));
         $criteria->add(new Criteria('gperm_itemid', (int)($gperm_itemid)));
         $criteria->add(new Criteria('gperm_modid', (int)($gperm_modid)));
@@ -208,6 +213,7 @@ class XoopsGroupPermHandler extends XoopsPersistableObjectHandler
         foreach (array_keys($perms) as $i) {
             $ret[] = $perms[$i]->getVar('gperm_groupid');
         }
+
         return $ret;
     }
 }

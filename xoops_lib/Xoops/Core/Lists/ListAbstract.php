@@ -32,13 +32,12 @@ abstract class ListAbstract
      */
     public static function getList()
     {
-        return array();
+        return [];
     }
 
     /**
      * add list to a Xoops\Form\OptionElement
      *
-     * @param OptionElement $element
      *
      * @return void
      */

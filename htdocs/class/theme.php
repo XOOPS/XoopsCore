@@ -9,8 +9,6 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
-use Xoops\Core\FixedGroups;
-
 /**
  * XoopsTheme component class file
  *

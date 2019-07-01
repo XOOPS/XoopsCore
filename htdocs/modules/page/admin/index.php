@@ -44,14 +44,14 @@ $admin_page->addInfoBoxLine(sprintf(PageLocale::TOTALDISPLAY, $content_display),
 $admin_page->addInfoBoxLine(sprintf(PageLocale::TOTALNOTDISPLAY, $content_notdisplay), 'content');
 
 // extension
-$extensions = array('comments' => 'extension',
+$extensions = ['comments' => 'extension',
                     'notifications' => 'extension',
                     'pdf' => 'extension',
                     'xoosocialnetwork' => 'extension',
-                    );
+                    ];
 
 foreach ($extensions as $module => $type) {
-    $admin_page->addConfigBoxLine(array($module, 'warning'), $type);
+    $admin_page->addConfigBoxLine([$module, 'warning'], $type);
 }
 
 $admin_page->displayIndex();

@@ -64,39 +64,40 @@ class XoopsOnlineHandler extends XoopsPersistableObjectHandler
      */
     public function write($uid, $uname, $time, $module, $ip)
     {
-        $criteria = array();
+        $criteria = [];
         $criteria['online_uid'] = $uid;
-        if ($uid == 0) {
+        if (0 == $uid) {
             $criteria['online_ip'] = $ip;
         }
         $rows = $this->db2->updatePrefix(
             'system_online',
-            array(
-               'online_uname'   => $uname,
+            [
+               'online_uname' => $uname,
                'online_updated' => $time,
-               'online_module'  => $module,
-            ),
+               'online_module' => $module,
+            ],
             $criteria
         );
-        if ($rows === false) {
+        if (false === $rows) {
             return false;
         }
-        if ($rows == 0) {
+        if (0 == $rows) {
             $rows = $this->db2->insertPrefix(
                 'system_online',
-                array(
-                    'online_uid'     => $uid,
-                    'online_uname'   => $uname,
+                [
+                    'online_uid' => $uid,
+                    'online_uname' => $uname,
                     'online_updated' => $time,
-                    'online_ip'      => $ip,
-                    'online_module'  => $module,
-                )
+                    'online_ip' => $ip,
+                    'online_module' => $module,
+                ]
             );
         }
-        if ($rows === false) {
+        if (false === $rows) {
             return false;
         }
-        return ($rows>0);
+
+        return ($rows > 0);
     }
 
     /**
@@ -112,6 +113,7 @@ class XoopsOnlineHandler extends XoopsPersistableObjectHandler
         if (false === $this->deleteAll($criteria)) {
             return false;
         }
+
         return true;
     }
 
@@ -130,6 +132,7 @@ class XoopsOnlineHandler extends XoopsPersistableObjectHandler
         if (false === $this->deleteAll($criteria)) {
             return false;
         }
+
         return true;
     }
 }

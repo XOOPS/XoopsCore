@@ -24,7 +24,6 @@
  * @link      http://xoops.org
  * @since     2.6.0
  */
-
 class SqlUtility
 {
     /**
@@ -43,7 +42,7 @@ class SqlUtility
     public static function splitMySqlFile(&$ret, $sql)
     {
         $sql = trim($sql);
-        $sql_len = strlen($sql);
+        $sql_len = mb_strlen($sql);
         $string_start = '';
         $in_string = false;
 
@@ -51,67 +50,65 @@ class SqlUtility
             $char = $sql[$i];
             if ($in_string) {
                 while (true) {
-                    $i = strpos($sql, $string_start, $i);
+                    $i = mb_strpos($sql, $string_start, $i);
                     if (!$i) {
                         $ret[] = $sql;
+
                         return true;
-                    } else {
-                        if ($string_start === '`' || $sql[$i - 1] !== '\\') {
-                            $string_start = '';
-                            $in_string = false;
-                            break;
-                        } else {
-                            $j = 2;
-                            $escaped_backslash = false;
-                            while ($i - $j > 0 && $sql[$i - $j] === '\\') {
-                                $escaped_backslash = !$escaped_backslash;
-                                ++$j;
-                            }
-                            if ($escaped_backslash) {
-                                $string_start = '';
-                                $in_string = false;
-                                break;
-                            } else {
-                                ++$i;
-                            }
-                        }
                     }
+                    if ('`' === $string_start || '\\' !== $sql[$i - 1]) {
+                        $string_start = '';
+                        $in_string = false;
+                        break;
+                    }
+                    $j = 2;
+                    $escaped_backslash = false;
+                    while ($i - $j > 0 && '\\' === $sql[$i - $j]) {
+                        $escaped_backslash = !$escaped_backslash;
+                        ++$j;
+                    }
+                    if ($escaped_backslash) {
+                        $string_start = '';
+                        $in_string = false;
+                        break;
+                    }
+                    ++$i;
                 }
             } else {
-                if ($char === ';') {
-                    $ret[] = substr($sql, 0, $i);
-                    $sql = ltrim(substr($sql, min($i + 1, $sql_len)));
-                    $sql_len = strlen($sql);
+                if (';' === $char) {
+                    $ret[] = mb_substr($sql, 0, $i);
+                    $sql = ltrim(mb_substr($sql, min($i + 1, $sql_len)));
+                    $sql_len = mb_strlen($sql);
                     if ($sql_len) {
                         $i = -1;
                     } else {
                         return true;
                     }
                 } else {
-                    if (($char === '"') || ($char === '\'') || ($char === '`')) {
+                    if (('"' === $char) || ('\'' === $char) || ('`' === $char)) {
                         $in_string = true;
                         $string_start = $char;
                     } else {
-                        if ($char === '#' || ($char === ' ' && $i > 1 && $sql[$i - 2] . $sql[$i - 1] == '--')) {
-                            $start_of_comment = (($sql[$i] === '#') ? $i : $i - 2);
-                            $end_of_comment = (strpos(' ' . $sql, "\012", $i + 2)) ? strpos(' ' . $sql, "\012", $i + 2)
-                                : strpos(' ' . $sql, "\015", $i + 2);
+                        if ('#' === $char || (' ' === $char && $i > 1 && $sql[$i - 2] . $sql[$i - 1] == '--')) {
+                            $start_of_comment = (('#' === $sql[$i]) ? $i : $i - 2);
+                            $end_of_comment = (mb_strpos(' ' . $sql, "\012", $i + 2)) ? mb_strpos(' ' . $sql, "\012", $i + 2)
+                                : mb_strpos(' ' . $sql, "\015", $i + 2);
                             if (!$end_of_comment) {
                                 return true;
-                            } else {
-                                $sql = substr($sql, 0, $start_of_comment) . ltrim(substr($sql, $end_of_comment));
-                                $sql_len = strlen($sql);
-                                $i--;
                             }
+                            $sql = mb_substr($sql, 0, $start_of_comment) . ltrim(mb_substr($sql, $end_of_comment));
+                            $sql_len = mb_strlen($sql);
+                            $i--;
                         }
                     }
                 }
             }
         }
 
-        if (!empty($sql) && trim($sql) != '') {
+        if (!empty($sql) && '' != trim($sql)) {
             $ret[] = $sql;
         }
+
         return true;
     }
 
@@ -130,10 +127,12 @@ class SqlUtility
         if (preg_match($pattern, $query, $matches)
             || preg_match($pattern2, $query, $matches)
         ) {
-            $replace = "\\1 " . $prefix . "_\\4\\5";
+            $replace = '\\1 ' . $prefix . '_\\4\\5';
             $matches[0] = preg_replace($pattern, $replace, $query);
+
             return $matches;
         }
+
         return false;
     }
 }

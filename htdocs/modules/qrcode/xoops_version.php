@@ -15,36 +15,35 @@
  * @package   qrcode
  * @author    Laurent JEN - aka DuGris
  */
-
-$modversion                = array();
-$modversion['name']        = _MI_QRCODE_NAME;
+$modversion = [];
+$modversion['name'] = _MI_QRCODE_NAME;
 $modversion['description'] = _MI_QRCODE_DSC;
-$modversion['version']     = 0.1;
-$modversion['author']      = 'Xoops Core Development Team';
-$modversion['nickname']    = 'Laurent JEN (aka DuGris)';
-$modversion['credits']     = 'The XOOPS Project';
-$modversion['license']     = 'GNU GPL 2.0';
+$modversion['version'] = 0.1;
+$modversion['author'] = 'Xoops Core Development Team';
+$modversion['nickname'] = 'Laurent JEN (aka DuGris)';
+$modversion['credits'] = 'The XOOPS Project';
+$modversion['license'] = 'GNU GPL 2.0';
 $modversion['license_url'] = 'http://www.gnu.org/licenses/gpl-2.0.html';
-$modversion['official']    = 1;
-$modversion['help']        = 'page=help';
-$modversion['image']       = 'images/logo.png';
-$modversion['dirname']     = 'qrcode';
+$modversion['official'] = 1;
+$modversion['help'] = 'page=help';
+$modversion['image'] = 'images/logo.png';
+$modversion['dirname'] = 'qrcode';
 
 //about
-$modversion['release_date']        = '2018/02/16';
-$modversion['module_website_url']  = 'https://xoops.org/';
+$modversion['release_date'] = '2018/02/16';
+$modversion['module_website_url'] = 'https://xoops.org/';
 $modversion['module_website_name'] = 'XOOPS';
-$modversion['module_status']       = 'ALPHA 1';
-$modversion['min_php']             = '7.1.0';
-$modversion['min_xoops']           = '2.6.0';
+$modversion['module_status'] = 'ALPHA 1';
+$modversion['min_php'] = '7.1.0';
+$modversion['min_xoops'] = '2.6.0';
 
 // paypal
-$modversion['paypal'] = array(
-    'business'      => 'xoopsfoundation@gmail.com',
-    'item_name'     => _MI_QRCODE_DSC,
-    'amount'        => 0,
+$modversion['paypal'] = [
+    'business' => 'xoopsfoundation@gmail.com',
+    'item_name' => _MI_QRCODE_DSC,
+    'amount' => 0,
     'currency_code' => 'USD',
-);
+];
 
 // Manage extension
 $modversion['extension'] = 1;
@@ -54,9 +53,9 @@ $modversion['extension'] = 1;
 $modversion['system_menu'] = 1;
 
 // Admin things
-$modversion['hasAdmin']   = true;
+$modversion['hasAdmin'] = true;
 $modversion['adminindex'] = 'admin/index.php';
-$modversion['adminmenu']  = 'admin/menu.php';
+$modversion['adminmenu'] = 'admin/menu.php';
 
 // Menu
 $modversion['hasMain'] = 0;
@@ -65,55 +64,55 @@ $modversion['hasMain'] = 0;
 //$modversion['blocks'] = array();
 
 // Preferences
-$modversion['config'] = array();
+$modversion['config'] = [];
 
-$modversion['config'][] = array(
-    'name'        => 'qrcode_ecl',
-    'title'       => '_MI_QRCODE_ECL',
+$modversion['config'][] = [
+    'name' => 'qrcode_ecl',
+    'title' => '_MI_QRCODE_ECL',
     'description' => '_MI_QRCODE_ECLDSC',
-    'formtype'    => 'select',
-    'valuetype'   => 'text',
-    'options'     => array(
+    'formtype' => 'select',
+    'valuetype' => 'text',
+    'options' => [
         '_MI_QRCODE_ECL_L' => 'L',
         '_MI_QRCODE_ECL_M' => 'M',
         '_MI_QRCODE_ECL_Q' => 'Q',
-        '_MI_QRCODE_ECL_H' => 'H'
-    ),
-    'default'     => 'L',
-);
+        '_MI_QRCODE_ECL_H' => 'H',
+    ],
+    'default' => 'L',
+];
 
-$modversion['config'][] = array(
-    'name'        => 'qrcode_mps',
-    'title'       => '_MI_QRCODE_MPS',
+$modversion['config'][] = [
+    'name' => 'qrcode_mps',
+    'title' => '_MI_QRCODE_MPS',
     'description' => '_MI_QRCODE_MPSDSC',
-    'formtype'    => 'textbox',
-    'valuetype'   => 'int',
-    'default'     => 128,
-);
+    'formtype' => 'textbox',
+    'valuetype' => 'int',
+    'default' => 128,
+];
 
-$modversion['config'][] = array(
-    'name'        => 'qrcode_margin',
-    'title'       => '_MI_QRCODE_MARGIN',
+$modversion['config'][] = [
+    'name' => 'qrcode_margin',
+    'title' => '_MI_QRCODE_MARGIN',
     'description' => '_MI_QRCODE_MARGINDSC',
-    'formtype'    => 'textbox',
-    'valuetype'   => 'int',
-    'default'     => 4,
-);
+    'formtype' => 'textbox',
+    'valuetype' => 'int',
+    'default' => 4,
+];
 
-$modversion['config'][] = array(
-    'name'        => 'qrcode_bgcolor',
-    'title'       => '_MI_QRCODE_BGCOLOR',
+$modversion['config'][] = [
+    'name' => 'qrcode_bgcolor',
+    'title' => '_MI_QRCODE_BGCOLOR',
     'description' => '_MI_QRCODE_BGCOLORDSC',
-    'formtype'    => 'color',
-    'valuetype'   => 'text',
-    'default'     => '#FFFFFF',
-);
+    'formtype' => 'color',
+    'valuetype' => 'text',
+    'default' => '#FFFFFF',
+];
 
-$modversion['config'][] = array(
-    'name'        => 'qrcode_fgcolor',
-    'title'       => '_MI_QRCODE_FGCOLOR',
+$modversion['config'][] = [
+    'name' => 'qrcode_fgcolor',
+    'title' => '_MI_QRCODE_FGCOLOR',
     'description' => '_MI_QRCODE_FGCOLORDSC',
-    'formtype'    => 'color',
-    'valuetype'   => 'text',
-    'default'     => '#000000',
-);
+    'formtype' => 'color',
+    'valuetype' => 'text',
+    'default' => '#000000',
+];

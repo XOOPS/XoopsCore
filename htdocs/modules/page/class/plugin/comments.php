@@ -18,7 +18,6 @@
  * @author          Mage Grégory (AKA Mage)
  * @version         $Id$
  */
-
 class PageCommentsPlugin extends Xoops\Module\Plugin\PluginAbstract implements CommentsPluginInterface
 {
     /**
@@ -42,7 +41,7 @@ class PageCommentsPlugin extends Xoops\Module\Plugin\PluginAbstract implements C
      */
     public function extraParams()
     {
-        return array();
+        return [];
     }
 
     /**
@@ -51,7 +50,6 @@ class PageCommentsPlugin extends Xoops\Module\Plugin\PluginAbstract implements C
      * An CommentsComment object that has been approved will be passed as the first and only parameter.
      * This should be useful for example notifying the item submitter of a comment post.
      *
-     * @param CommentsComment $comment
      *
      * @return void
      */
@@ -90,18 +88,18 @@ class PageCommentsPlugin extends Xoops\Module\Plugin\PluginAbstract implements C
      */
     public function itemInfo($item_id)
     {
-        $ret = array();
+        $ret = [];
         // Get handler
         $content_Handler = \Xoops::getModuleHelper('page')->getContentHandler();
         $view_content = $content_Handler->get($item_id);
-        if (count($view_content) == 0 || $view_content->getVar('content_status') == 0) {
+        if (0 == count($view_content) || 0 == $view_content->getVar('content_status')) {
             return $ret;
-        } else {
-            $ret['title'] = $view_content->getVar('content_title');
-            $ret['text'] = $view_content->getVar('content_shorttext') . $view_content->getVar('content_text');
-            $ret['uid'] = $view_content->getVar('content_author');
-            $ret['timestamp'] = $view_content->getVar('content_create');
         }
+        $ret['title'] = $view_content->getVar('content_title');
+        $ret['text'] = $view_content->getVar('content_shorttext') . $view_content->getVar('content_text');
+        $ret['uid'] = $view_content->getVar('content_author');
+        $ret['timestamp'] = $view_content->getVar('content_create');
+
         return $ret;
     }
 }

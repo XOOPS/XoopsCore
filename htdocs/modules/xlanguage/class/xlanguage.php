@@ -8,7 +8,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
-
+use Xmf\Request;
 use Xoops\Core\Database\Connection;
 use Xoops\Core\Kernel\XoopsObject;
 use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
@@ -23,7 +23,6 @@ use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
  * @author          Laurent JEN (Aka DuGris)
  * @version         $Id$
  */
-
 include_once \XoopsBaseConfig::get('root-path') . '/modules/xlanguage/include/vars.php';
 
 /**
@@ -31,9 +30,6 @@ include_once \XoopsBaseConfig::get('root-path') . '/modules/xlanguage/include/va
  */
 class XlanguageLanguage extends XoopsObject
 {
-    /**
-     *
-     */
     public function __construct()
     {
         $this->initVar('xlanguage_id', XOBJ_DTYPE_INT, 0, false, 10);
@@ -56,6 +52,7 @@ class XlanguageLanguage extends XoopsObject
     {
         $ret = parent::getValues();
         $ret['xlanguage_image'] = \XoopsBaseConfig::get('url') . '/media/xoops/images/flags/' . \Xoops\Module\Helper::getHelper('xlanguage')->getConfig('theme') . '/' . $this->getVar('xlanguage_image');
+
         return $ret;
     }
 
@@ -63,18 +60,18 @@ class XlanguageLanguage extends XoopsObject
     {
         $system = System::getInstance();
         foreach (parent::getValues() as $k => $v) {
-            if ($k !== 'dohtml') {
-                if ($this->vars[$k]['data_type'] == XOBJ_DTYPE_STIME || $this->vars[$k]['data_type'] == XOBJ_DTYPE_MTIME || $this->vars[$k]['data_type'] == XOBJ_DTYPE_LTIME) {
+            if ('dohtml' !== $k) {
+                if (XOBJ_DTYPE_STIME == $this->vars[$k]['data_type'] || XOBJ_DTYPE_MTIME == $this->vars[$k]['data_type'] || XOBJ_DTYPE_LTIME == $this->vars[$k]['data_type']) {
                     $value = $system->cleanVars($_POST[$k], 'date', date('Y-m-d'), 'date') + $system->cleanVars($_POST[$k], 'time', date('u'), 'int');
                     $this->setVar($k, isset($_POST[$k]) ? $value : $v);
-                } elseif ($this->vars[$k]['data_type'] == XOBJ_DTYPE_INT) {
-                    $value = $system->cleanVars($_POST, $k, $v, 'int');
+                } elseif (XOBJ_DTYPE_INT == $this->vars[$k]['data_type']) {
+                    $value = Request::getInt($k, $v, 'POST');
                     $this->setVar($k, $value);
-                } elseif ($this->vars[$k]['data_type'] == XOBJ_DTYPE_ARRAY) {
-                    $value = $system->cleanVars($_POST, $k, $v, 'array');
+                } elseif (XOBJ_DTYPE_ARRAY == $this->vars[$k]['data_type']) {
+                    $value = Request::getArray($k, $v, 'POST');
                     $this->setVar($k, $value);
                 } else {
-                    $value = $system->cleanVars($_POST, $k, $v, 'string');
+                    $value = Request::getString($k, $v, 'POST');
                     $this->setVar($k, $value);
                 }
             }
@@ -87,9 +84,6 @@ class XlanguageLanguage extends XoopsObject
  */
 class XlanguageXlanguageHandler extends XoopsPersistableObjectHandler
 {
-    /**
-     * @param null|Connection $db
-     */
     public function __construct(Connection $db = null)
     {
         parent::__construct($db, 'xlanguage', 'XlanguageLanguage', 'xlanguage_id', 'xlanguage_name');
@@ -105,6 +99,7 @@ class XlanguageXlanguageHandler extends XoopsPersistableObjectHandler
         $this->configPath = \XoopsBaseConfig::get('var-path') . '/configs/';
         $this->configFile = $xoops->registry()->get('XLANGUAGE_CONFIG_FILE');
         $this->configFileExt = '.php';
+
         return $this->cached_config = $this->loadFileConfig();
     }
 
@@ -117,6 +112,7 @@ class XlanguageXlanguageHandler extends XoopsPersistableObjectHandler
         if (empty($cached_config)) {
             $cached_config = $this->createConfig();
         }
+
         return $cached_config;
     }
 
@@ -128,6 +124,7 @@ class XlanguageXlanguageHandler extends XoopsPersistableObjectHandler
         $path_file = $this->configPath . $this->configFile . $this->configFileExt;
         XoopsLoad::load('XoopsFile');
         $file = XoopsFile::getHandler('file', $path_file);
+
         return eval(@$file->read());
     }
 
@@ -136,11 +133,12 @@ class XlanguageXlanguageHandler extends XoopsPersistableObjectHandler
      */
     public function createConfig()
     {
-        $cached_config = array();
+        $cached_config = [];
         foreach ($this->getAllLanguage(false) as $key => $language) {
             $cached_config[$language['xlanguage_name']] = $language;
         }
         $this->writeConfig($cached_config);
+
         return $cached_config;
     }
 
@@ -155,6 +153,7 @@ class XlanguageXlanguageHandler extends XoopsPersistableObjectHandler
             $path_file = $this->configPath . $this->configFile . $this->configFileExt;
             XoopsLoad::load('XoopsFile');
             $file = XoopsFile::getHandler('file', $path_file);
+
             return $file->write('return ' . var_export($data, true) . ';');
         }
     }
@@ -168,10 +167,10 @@ class XlanguageXlanguageHandler extends XoopsPersistableObjectHandler
     private function createPath($pathname, $pathout = null)
     {
         $xoops = Xoops::getInstance();
-        $pathname = substr($pathname, strlen(\XoopsBaseConfig::get('root-path')));
+        $pathname = mb_substr($pathname, mb_strlen(\XoopsBaseConfig::get('root-path')));
         $pathname = str_replace(DIRECTORY_SEPARATOR, '/', $pathname);
 
-        $dest = ($pathout === null) ? \XoopsBaseConfig::get('root-path') : $pathout;
+        $dest = (null === $pathout) ? \XoopsBaseConfig::get('root-path') : $pathout;
         $paths = explode('/', $pathname);
 
         foreach ($paths as $path) {
@@ -180,12 +179,12 @@ class XlanguageXlanguageHandler extends XoopsPersistableObjectHandler
                 if (!is_dir($dest)) {
                     if (!mkdir($dest, 0755)) {
                         return false;
-                    } else {
-                        $this->writeIndex($xoops->path('uploads'), 'index.html', $dest);
                     }
+                    $this->writeIndex($xoops->path('uploads'), 'index.html', $dest);
                 }
             }
         }
+
         return true;
     }
 
@@ -208,6 +207,7 @@ class XlanguageXlanguageHandler extends XoopsPersistableObjectHandler
         if (is_file($folder_in . '/' . $source_file)) {
             return copy($folder_in . '/' . $source_file, $folder_out . '/' . basename($source_file));
         }
+
         return false;
     }
 
@@ -219,7 +219,7 @@ class XlanguageXlanguageHandler extends XoopsPersistableObjectHandler
     public function getByName($name = null)
     {
         $xoops = Xoops::getInstance();
-        $name = empty($name) ? $xoops->getConfig('locale') : strtolower($name);
+        $name = empty($name) ? $xoops->getConfig('locale') : mb_strtolower($name);
 
         $file_config = $xoops->registry()->get('XLANGUAGE_CONFIG_FILE');
         if (!XoopsLoad::fileExists($file_config) || !isset($this->cached_config)) {
@@ -229,6 +229,7 @@ class XlanguageXlanguageHandler extends XoopsPersistableObjectHandler
         if (isset($this->cached_config[$name])) {
             return $this->cached_config[$name];
         }
+
         return null;
     }
 
@@ -254,6 +255,7 @@ class XlanguageXlanguageHandler extends XoopsPersistableObjectHandler
         $xoops = Xoops::getInstance();
         $xoops->tpl()->assign('theme', \Xoops\Module\Helper::getHelper('xlanguage')->getConfig('theme'));
         $xoops->tpl()->assign('languages', $this->getAllLanguage(false));
+
         return $xoops->tpl()->fetch('admin:xlanguage/xlanguage_admin_list.tpl');
     }
 }

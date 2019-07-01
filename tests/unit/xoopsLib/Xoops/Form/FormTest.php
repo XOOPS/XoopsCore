@@ -1,10 +1,8 @@
 <?php
+
 namespace Xoops\Form;
 
-require_once(__DIR__.'/../../../init_new.php');
-
-use Xoops\Form\Form;
-use Xoops\Form\Button;
+require_once(__DIR__ . '/../../../init_new.php');
 
 class FormTest extends \PHPUnit\Framework\TestCase
 {
@@ -19,8 +17,7 @@ class FormTest extends \PHPUnit\Framework\TestCase
      */
     protected function setUp()
     {
-        $this->object = $this->getMockForAbstractClass('\Xoops\Form\Form', array('title', 'name', 'action'));
-
+        $this->object = $this->getMockForAbstractClass('\Xoops\Form\Form', ['title', 'name', 'action']);
     }
 
     /**
@@ -78,18 +75,18 @@ class FormTest extends \PHPUnit\Framework\TestCase
         $button = new Button('button_caption', 'button_name');
         $instance->addElement($button, true);
         $value = $instance->getElements();
-        $this->assertTrue(is_array($value));
+        $this->assertInternalType('array', $value);
         $this->assertInstanceOf('\Xoops\Form\Button', $value[0]);
 
         $value = $instance->getElementNames();
-        $this->assertTrue(is_array($value));
+        $this->assertInternalType('array', $value);
         $this->assertSame('button_name', $value[0]);
 
         $value = $instance->getElementByName('button_name');
         $this->assertInstanceOf('\Xoops\Form\Button', $value);
 
         $value = $instance->getElementByName('button_doesnt_exist');
-        $this->assertSame(null, $value);
+        $this->assertNull($value);
     }
 
     public function testGetElementValue()
@@ -100,7 +97,7 @@ class FormTest extends \PHPUnit\Framework\TestCase
         $button = new Button('button_caption', $name);
         $instance->addElement($button, true);
         $value = $instance->getElements();
-        $this->assertTrue(is_array($value));
+        $this->assertInternalType('array', $value);
         $this->assertInstanceOf('\Xoops\Form\Button', $value[0]);
 
         $value = 'value';
@@ -108,7 +105,6 @@ class FormTest extends \PHPUnit\Framework\TestCase
 
         $result = $instance->getElementValue($name);
         $this->assertSame($value, $result);
-
     }
 
     public function testGetElementValues()
@@ -119,10 +115,10 @@ class FormTest extends \PHPUnit\Framework\TestCase
         $button = new Button('button_caption', $name);
         $instance->addElement($button, true);
         $value = $instance->getElements();
-        $this->assertTrue(is_array($value));
+        $this->assertInternalType('array', $value);
         $this->assertInstanceOf('\Xoops\Form\Button', $value[0]);
 
-        $arrAttr = array($name=>'value1', 'key2'=>'value2');
+        $arrAttr = [$name => 'value1', 'key2' => 'value2'];
         $instance->setElementValues($arrAttr);
 
         $result = $instance->getElementValues();
@@ -134,7 +130,7 @@ class FormTest extends \PHPUnit\Framework\TestCase
         $name = 'form_name';
         $this->object->setExtra($name);
         $value = $this->object->getExtra();
-        $this->assertSame(' '.$name, $value);
+        $this->assertSame(' ' . $name, $value);
     }
 
     public function testGetRequired()
@@ -142,7 +138,7 @@ class FormTest extends \PHPUnit\Framework\TestCase
         $button = new Button(['caption' => 'button_caption', 'name' => 'button_name', 'required' => true]);
         $this->object->addElement($button);
         $value = $this->object->getRequired();
-        $this->assertTrue(is_array($value));
+        $this->assertInternalType('array', $value);
         $this->assertInstanceOf('\Xoops\Form\Button', $value[0]);
         $this->assertSame($button, $value[0]);
     }
@@ -152,7 +148,7 @@ class FormTest extends \PHPUnit\Framework\TestCase
         $button = new Button(['caption' => 'button_caption', 'name' => 'button_name']);
         $this->object->addElement($button, true);
         $value = $this->object->getRequired();
-        $this->assertTrue(is_array($value));
+        $this->assertInternalType('array', $value);
         $this->assertInstanceOf('\Xoops\Form\Button', $value[0]);
         $this->assertSame($button, $value[0]);
         $this->assertTrue($button->has('required'));
@@ -170,8 +166,8 @@ class FormTest extends \PHPUnit\Framework\TestCase
     public function testRenderValidationJS()
     {
         $value = $this->object->renderValidationJS();
-        $this->assertTrue(is_string($value));
-        $this->assertTrue(false !== strpos($value,'Start Form Validation JavaScript'));
+        $this->assertInternalType('string', $value);
+        $this->assertTrue(false !== mb_strpos($value, 'Start Form Validation JavaScript'));
     }
 
     public function testAssign()

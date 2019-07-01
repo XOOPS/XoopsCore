@@ -32,6 +32,8 @@ use Xoops\Core\XoopsTpl;
  * @license     GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author      trabis <lusopoemas@gmail.com>
  * @version     $Id$
+ * @param mixed $params
+ * @param mixed $smarty
  */
 
 /**
@@ -47,8 +49,8 @@ function smarty_function_xoblock($params, &$smarty)
 
     $xoops = Xoops::getInstance();
 
-    $display_title = (isset($params['display']) && $params['display'] === 'title') ? true : false;
-    $display_none = (isset($params['display']) && $params['display'] === 'none') ? true : false;
+    $display_title = (isset($params['display']) && 'title' === $params['display']) ? true : false;
+    $display_none = (isset($params['display']) && 'none' === $params['display']) ? true : false;
     $options = (isset($params['options'])) ? $params['options'] : false;
     $groups = (isset($params['groups'])) ? explode('|', $params['groups']) : false;
     $cache = (isset($params['cache'])) ? (int)($params['cache']) : false;
@@ -69,7 +71,7 @@ function smarty_function_xoblock($params, &$smarty)
     $user_groups = $xoops->getUserGroups();
 
     static $allowed_blocks;
-    if (count($allowed_blocks) == 0) {
+    if (0 == count($allowed_blocks)) {
         $allowed_blocks = $block_handler->getAllBlocksByGroup($user_groups, false);
     }
 
@@ -102,5 +104,6 @@ function smarty_function_xoblock($params, &$smarty)
     if (!$display_none) {
         return $block['content'];
     }
+
     return '';
 }

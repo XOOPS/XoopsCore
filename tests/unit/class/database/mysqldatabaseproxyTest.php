@@ -1,11 +1,11 @@
 <?php
-require_once(__DIR__.'/../../init_new.php');
+require_once(__DIR__ . '/../../init_new.php');
 
 class XoopsMySQLDatabaseProxyTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass = 'XoopsMySQLDatabaseProxy';
 
-    public function setUp()
+    protected function setUp()
     {
     }
 

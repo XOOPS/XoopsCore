@@ -29,13 +29,13 @@ class Events
     /**
      * @var array $preloadList array containing information about the event observers
      */
-    protected $preloadList = array();
+    protected $preloadList = [];
 
     /**
      * @var array $eventListeners - $eventListeners['eventName'][]=Closure
      * key is event name, value is array of callables
      */
-    protected $eventListeners = array();
+    protected $eventListeners = [];
 
     /**
      * @type bool $eventsEnabled
@@ -59,7 +59,7 @@ class Events
         static $instance = false;
 
         if (!$instance) {
-            $instance = new Events();
+            $instance = new self();
             $instance->initializeListeners();
         }
 
@@ -80,8 +80,8 @@ class Events
     {
         $this->eventsEnabled = false;
         // clear state in case this is invoked more than once
-        $this->preloadList = array();
-        $this->eventListeners = array();
+        $this->preloadList = [];
+        $this->eventListeners = [];
         $this->setPreloads();
         $this->setEvents();
         $this->eventsEnabled = true;
@@ -101,16 +101,16 @@ class Events
             $modules_list = \Xoops::getInstance()->getActiveModules();
             if (empty($modules_list)) {
                 // this should only happen if an exception was thrown in setActiveModules()
-                $modules_list = array ('system');
+                $modules_list = ['system'];
             }
-            $this->preloadList =array();
+            $this->preloadList = [];
             $i = 0;
             foreach ($modules_list as $module) {
                 if (is_dir($dir = \XoopsBaseConfig::get('root-path') . "/modules/{$module}/preloads/")) {
                     $file_list = Lists\File::getList($dir);
                     foreach ($file_list as $file) {
                         if (preg_match('/(\.php)$/i', $file)) {
-                            $file = substr($file, 0, -4);
+                            $file = mb_substr($file, 0, -4);
                             $this->preloadList[$i]['module'] = $module;
                             $this->preloadList[$i]['file'] = $file;
                             ++$i;
@@ -150,19 +150,19 @@ class Events
     {
         $xoops = \Xoops::getInstance();
         foreach ($this->preloadList as $preload) {
-            $path = $xoops->path('modules/' . $preload['module'] . '/preloads/' . $preload['file']. '.php');
+            $path = $xoops->path('modules/' . $preload['module'] . '/preloads/' . $preload['file'] . '.php');
             include_once $path;
             $class_name = ucfirst($preload['module'])
-                . ($preload['file'] === 'preload' ? '' : ucfirst($preload['file']) )
+                . ('preload' === $preload['file'] ? '' : ucfirst($preload['file']))
                 . 'Preload';
             if (!class_exists($class_name)) {
                 continue;
             }
             $class_methods = get_class_methods($class_name);
             foreach ($class_methods as $method) {
-                if (strpos($method, 'event') === 0) {
-                    $eventName = strtolower(str_replace('event', '', $method));
-                    $event = array($class_name, $method);
+                if (0 === mb_strpos($method, 'event')) {
+                    $eventName = mb_strtolower(str_replace('event', '', $method));
+                    $event = [$class_name, $method];
                     $this->eventListeners[$eventName][] = $event;
                 }
             }
@@ -177,7 +177,7 @@ class Events
      *
      * @return void
      */
-    public function triggerEvent($eventName, $args = array())
+    public function triggerEvent($eventName, $args = [])
     {
         if ($this->eventsEnabled) {
             $eventName = $this->toInternalEventName($eventName);
@@ -201,7 +201,7 @@ class Events
      */
     protected function toInternalEventName($eventName)
     {
-        return strtolower(str_replace('.', '', $eventName));
+        return mb_strtolower(str_replace('.', '', $eventName));
     }
 
     /**
@@ -215,7 +215,7 @@ class Events
     public function addListener($eventName, $callback)
     {
         $eventName = $this->toInternalEventName($eventName);
-        $this->eventListeners[$eventName][]=$callback;
+        $this->eventListeners[$eventName][] = $callback;
     }
 
     /**
@@ -233,11 +233,12 @@ class Events
      *
      * @param string $eventName event name
      *
-     * @return boolean true if one or more listeners are registered for the event
+     * @return bool true if one or more listeners are registered for the event
      */
     public function hasListeners($eventName)
     {
         $eventName = $this->toInternalEventName($eventName);
+
         return array_key_exists($eventName, $this->eventListeners);
     }
 }

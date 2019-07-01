@@ -98,19 +98,22 @@ class ImagesImageForm extends Xoops\Form\ThemeForm
 
     /**
      * @param string[] $msg
+     * @param mixed $title
+     * @param mixed $class
      */
     public function message($msg, $title = '', $class = 'errorMsg')
     {
         $ret = "<div class='" . $class . "'>";
-        if ($title != '') {
-            $ret .= "<strong>" . $title . "</strong>";
+        if ('' != $title) {
+            $ret .= '<strong>' . $title . '</strong>';
         }
         if (is_array($msg) || is_object($msg)) {
             $ret .= implode('<br />', $msg);
         } else {
             $ret .= $msg;
         }
-        $ret .= "</div>";
+        $ret .= '</div>';
+
         return $ret;
     }
 }

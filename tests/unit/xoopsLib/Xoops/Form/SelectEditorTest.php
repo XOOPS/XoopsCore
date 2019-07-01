@@ -1,7 +1,8 @@
 <?php
+
 namespace Xoops\Form;
 
-require_once(__DIR__.'/../../../init_new.php');
+require_once(__DIR__ . '/../../../init_new.php');
 
 class SelectEditorTest extends \PHPUnit\Framework\TestCase
 {
@@ -16,7 +17,7 @@ class SelectEditorTest extends \PHPUnit\Framework\TestCase
      */
     protected function setUp()
     {
-        $this->object = new SelectEditor(new BlockForm);
+        $this->object = new SelectEditor(new BlockForm());
     }
 
     /**
@@ -30,19 +31,19 @@ class SelectEditorTest extends \PHPUnit\Framework\TestCase
     public function testRender()
     {
         $value = $this->object->render();
-        $this->assertTrue(is_string($value));
-        $this->assertTrue(false !== strpos($value, '<select'));
-        $this->assertTrue(false !== strpos($value, 'name="editor"'));
-        $this->assertTrue(false !== strpos($value, 'size="1"'));
-        $this->assertTrue(false !== strpos($value, 'id="editor"'));
+        $this->assertInternalType('string', $value);
+        $this->assertTrue(false !== mb_strpos($value, '<select'));
+        $this->assertTrue(false !== mb_strpos($value, 'name="editor"'));
+        $this->assertTrue(false !== mb_strpos($value, 'size="1"'));
+        $this->assertTrue(false !== mb_strpos($value, 'id="editor"'));
 
-        $this->assertTrue(false !== strpos($value, '<option'));
-        $this->assertTrue(false !== strpos($value, 'value="textarea"'));
-        $this->assertTrue(false !== strpos($value, 'value="dhtmltextarea"'));
+        $this->assertTrue(false !== mb_strpos($value, '<option'));
+        $this->assertTrue(false !== mb_strpos($value, 'value="textarea"'));
+        $this->assertTrue(false !== mb_strpos($value, 'value="dhtmltextarea"'));
 //      $this->assertTrue(false !== strpos($value, 'value="tinymce"'));
-        $this->assertTrue(false !== strpos($value, 'value="tinymce4"'));
-        $this->assertTrue(false !== strpos($value, '</option>'));
+        $this->assertTrue(false !== mb_strpos($value, 'value="tinymce4"'));
+        $this->assertTrue(false !== mb_strpos($value, '</option>'));
 
-        $this->assertTrue(false !== strpos($value, '</select>'));
+        $this->assertTrue(false !== mb_strpos($value, '</select>'));
     }
 }

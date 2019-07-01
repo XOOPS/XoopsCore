@@ -21,12 +21,12 @@
  */
 //index.php
 //define("_MD_BANNERS_INDEX_CLIENTNAME", "Displaying active banners for client: %s");
-define("_MD_BANNERS_INDEX_DBERROR", "Database was not updated due to some error!");
-define("_MD_BANNERS_INDEX_EMAIL", "Send E-mail stats");
-define("_MD_BANNERS_INDEX_NO_ID","No valid ID detected");
-define("_MD_BANNERS_INDEX_NO_REFERER", "No referer detected");
-define("_MD_BANNERS_INDEX_ID", "ID");
-define("_MD_BANNERS_INDEX_MAIL_MESSAGE", "Available Banner Statistics for the selected Banner at %s :\n\n\n
+define('_MD_BANNERS_INDEX_DBERROR', 'Database was not updated due to some error!');
+define('_MD_BANNERS_INDEX_EMAIL', 'Send E-mail stats');
+define('_MD_BANNERS_INDEX_NO_ID', 'No valid ID detected');
+define('_MD_BANNERS_INDEX_NO_REFERER', 'No referer detected');
+define('_MD_BANNERS_INDEX_ID', 'ID');
+define('_MD_BANNERS_INDEX_MAIL_MESSAGE', "Available Banner Statistics for the selected Banner at %s :\n\n\n
 Client Name: %s\nBanner ID: %s\n
 Banner Image: %s\n
 Banner URL: %s\n\n
@@ -36,8 +36,8 @@ Impressions Left: %s\n
 Clicks Received: %s\n
 Clicks Percent: %f \n\n\n
 Report Generated on: %s");
-define("_MD_BANNERS_INDEX_MAIL_OK", "Available Banner statistics for the selected banner have been sent to your account email address.");
-define("_MD_BANNERS_INDEX_MAIL_SUBJECT", "Your Banner Statistics at %s");
-define("_MD_BANNERS_INDEX_NOMAIL", "Failed to send: E-Mail address does not exist.");
-define("_MD_BANNERS_INDEX_NOBANNER", "You have no banners");
+define('_MD_BANNERS_INDEX_MAIL_OK', 'Available Banner statistics for the selected banner have been sent to your account email address.');
+define('_MD_BANNERS_INDEX_MAIL_SUBJECT', 'Your Banner Statistics at %s');
+define('_MD_BANNERS_INDEX_NOMAIL', 'Failed to send: E-Mail address does not exist.');
+define('_MD_BANNERS_INDEX_NOBANNER', 'You have no banners');
 include_once('admin.php');

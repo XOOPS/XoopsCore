@@ -39,6 +39,7 @@ class Utils
         if ($echo) {
             echo $msg;
         }
+
         return $msg;
     }
 
@@ -57,6 +58,7 @@ class Utils
         if ($echo) {
             echo $msg;
         }
+
         return $msg;
     }
 
@@ -73,7 +75,7 @@ class Utils
      */
     public static function arrayRecursiveDiff(array $aArray1, array $aArray2)
     {
-        $aReturn = array();
+        $aReturn = [];
 
         foreach ($aArray1 as $mKey => $mValue) {
             if (array_key_exists($mKey, $aArray2)) {
@@ -91,6 +93,7 @@ class Utils
                 $aReturn[$mKey] = $mValue;
             }
         }
+
         return $aReturn;
     }
 
@@ -114,7 +117,7 @@ class Utils
         $args = func_get_args();
         $return = current($args);
 
-        while (($arg = next($args)) !== false) {
+        while (false !== ($arg = next($args))) {
             foreach ((array)$arg as $key => $val) {
                 if (!empty($return[$key]) && is_array($return[$key]) && is_array($val)) {
                     $return[$key] = self::arrayRecursiveMerge($return[$key], $val);
@@ -127,6 +130,7 @@ class Utils
                 }
             }
         }
+
         return $return;
     }
 }

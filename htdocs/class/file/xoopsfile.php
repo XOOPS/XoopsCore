@@ -32,25 +32,27 @@ class XoopsFile
      *
      * @param string $name   name of file
      * @param string  $path   path file is in
-     * @param boolean  $create create file if needed
-     * @param integer  $mode   mode on file created
+     * @param bool  $create create file if needed
+     * @param int  $mode   mode on file created
      *
      * @return XoopsFileHandler|XoopsFolderHandler|bool
      */
     public static function getHandler($name = 'file', $path = false, $create = false, $mode = null)
     {
         $handler = null;
-        $name = strtolower(trim($name));
+        $name = mb_strtolower(trim($name));
         $class = 'Xoops' . ucfirst($name) . 'Handler';
-        if (in_array($name, array('file', 'folder'))) {
+        if (in_array($name, ['file', 'folder'])) {
             $handler = new $class($path, $create, $mode);
         } else {
             trigger_error(
                 'Class ' . $class . ' not exist in File ' . __FILE__ . ' at Line ' . __LINE__,
                 E_USER_WARNING
             );
+
             return false;
         }
+
         return $handler;
     }
 }

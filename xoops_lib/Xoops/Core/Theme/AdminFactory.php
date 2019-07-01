@@ -31,19 +31,19 @@ class AdminFactory extends Factory
      *
      * @return XoopsTheme
      */
-    public function createInstance($options = array())
+    public function createInstance($options = [])
     {
-        $options["plugins"] = array();
+        $options['plugins'] = [];
         $options['renderBanner'] = false;
         $inst = parent::createInstance($options);
         $inst->path = \XoopsBaseConfig::get('adminthemes-path') . '/' . $inst->folderName;
         $inst->url = \XoopsBaseConfig::get('adminthemes-url') . '/' . $inst->folderName;
-        $inst->template->assign(array(
+        $inst->template->assign([
             'theme_path' => $inst->path, 'theme_tpl' => $inst->path . '/xotpl', 'theme_url' => $inst->url,
-            'theme_img'  => $inst->url . '/img', 'theme_icons' => $inst->url . '/icons',
-            'theme_css'  => $inst->url . '/css', 'theme_js' => $inst->url . '/js',
+            'theme_img' => $inst->url . '/img', 'theme_icons' => $inst->url . '/icons',
+            'theme_css' => $inst->url . '/css', 'theme_js' => $inst->url . '/js',
             'theme_lang' => $inst->url . '/language',
-        ));
+        ]);
 
         return $inst;
     }

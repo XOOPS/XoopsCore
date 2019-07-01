@@ -40,7 +40,7 @@ if (!$xoops->isUser() || !$xoops->isModule() || !$xoops->user->isAdmin($xoops->m
 $op = Request::getString('op', 'list');
 $module = Request::getString('module', '');
 
-if (in_array($op, array('install', 'update', 'uninstall'))) {
+if (in_array($op, ['install', 'update', 'uninstall'])) {
     if (!$xoops->security()->check()) {
         $op = 'list';
     }
@@ -48,7 +48,6 @@ if (in_array($op, array('install', 'update', 'uninstall'))) {
 $myts = \Xoops\Core\Text\Sanitizer::getInstance();
 
 switch ($op) {
-
     case 'list':
         // Call Header
         $xoops->header('admin:system/system_modules.tpl');
@@ -76,7 +75,7 @@ switch ($op) {
         $install = $system_module->getInstalledModules();
 
         $view = Request::getString('xoopsModsView', 'large', 'cookie');
-        if ($view === 'large') {
+        if ('large' === $view) {
             $xoops->tpl()->assign('view_large', '');
             $xoops->tpl()->assign('view_line', 'hide');
         } else {
@@ -89,24 +88,21 @@ switch ($op) {
         // Call Footer
         $xoops->footer();
         break;
-
     case 'rename':
         $xoops->logger()->quiet();
         //$xoops->disableErrorReporting();
 
         $mid = Request::getInt('id', 0, 'post');
         $value = Request::getString('value', '', 'post');
-        if ($mid != 0) {
+        if (0 != $mid) {
             $module_handler = $xoops->getHandlerModule();
             $module = $module_handler->getById($mid);
             $module->setVar('name', $value);
             if ($module_handler->insertModule($module)) {
                 echo $value;
-
             }
         }
         break;
-
     case 'order':
         // Get Module Handler
         $module_handler = $xoops->getHandlerModule();
@@ -116,7 +112,7 @@ switch ($op) {
                 if ($order > 0) {
                     $module = $module_handler->getById($order);
                     //Change order only for visible modules
-                    if ($module->getVar('weight') != 0) {
+                    if (0 != $module->getVar('weight')) {
                         $module->setVar('weight', $i);
                         if (!$module_handler->insertModule($module)) {
                             $error = true;
@@ -128,7 +124,6 @@ switch ($op) {
         }
         exit;
         break;
-
     case 'active':
         $xoops->logger()->quiet();
         //$xoops->disableErrorReporting();
@@ -156,7 +151,6 @@ switch ($op) {
             echo $module->getVar('isactive');
         }
         break;
-
     case 'display_in_menu':
         $xoops->logger()->quiet();
         //$xoops->disableErrorReporting();
@@ -175,7 +169,6 @@ switch ($op) {
             }
         }
         break;
-
     case 'install':
         $module = Request::getString('dirname', '', 'post');
         // Call Header
@@ -192,7 +185,7 @@ switch ($op) {
         $admin_page->addBreadcrumbLink(XoopsLocale::A_INSTALL);
         $admin_page->renderBreadcrumb();
 
-        $ret = array();
+        $ret = [];
         $system_module = new SystemModule();
         $ret = $system_module->install($module);
         if ($ret) {
@@ -206,14 +199,13 @@ switch ($op) {
             print_r($system_module->error);
             //print_r($system_module->trace);
         }
-        $folder = array(1, 2, 3);
+        $folder = [1, 2, 3];
         $system->cleanCache($folder);
         //Set active modules in cache folder
         $xoops->setActiveModules();
         // Call Footer
         $xoops->footer();
         break;
-
     case 'uninstall':
         $mid = Request::getInt('mid', 0, 'post');
         $module_handler = $xoops->getHandlerModule();
@@ -232,7 +224,7 @@ switch ($op) {
         $admin_page->addBreadcrumbLink(XoopsLocale::A_UNINSTALL);
         $admin_page->renderBreadcrumb();
 
-        $ret = array();
+        $ret = [];
         $system_module = new SystemModule();
         $ret = $system_module->uninstall($module->getVar('dirname'));
         $xoops->tpl()->assign('module', $ret);
@@ -242,14 +234,13 @@ switch ($op) {
             $xoops->tpl()->assign('title', XoopsLocale::A_UNINSTALL);
             $xoops->tpl()->assign('log', $system_module->trace);
         }
-        $folder = array(1, 2, 3);
+        $folder = [1, 2, 3];
         $system->cleanCache($folder);
         //Set active modules in cache folder
         $xoops->setActiveModules();
         // Call Footer
         $xoops->footer();
         break;
-
     case 'update':
         $mid = Request::getInt('mid', 0, 'post');
         $module_handler = $xoops->getHandlerModule();
@@ -269,7 +260,7 @@ switch ($op) {
         $admin_page->addBreadcrumbLink(XoopsLocale::A_UPDATE);
         $admin_page->renderBreadcrumb();
 
-        $ret = array();
+        $ret = [];
         $system_module = new SystemModule();
         $ret = $system_module->update($module->getVar('dirname'));
         $xoops->tpl()->assign('module', $ret);
@@ -280,7 +271,7 @@ switch ($op) {
             $xoops->tpl()->assign('title', XoopsLocale::A_UPDATE);
             $xoops->tpl()->assign('log', $system_module->trace);
         }
-        $folder = array(1, 2, 3);
+        $folder = [1, 2, 3];
         $system->cleanCache($folder);
         //Set active modules in cache folder
         $xoops->setActiveModules();

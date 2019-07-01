@@ -21,7 +21,7 @@ class Smarty_Resource_Block extends Smarty_Resource_Custom
      *
      * @param  string  $name   template name
      * @param  string  $source template source
-     * @param  integer $mtime  template modification timestamp (epoch)
+     * @param  int $mtime  template modification timestamp (epoch)
      *
      * @return void
      */
@@ -33,10 +33,9 @@ class Smarty_Resource_Block extends Smarty_Resource_Custom
         if ($stat) {
             $mtime = $stat['mtime'];
             $filesize = $stat['size'];
-            $fp = fopen($tpl, 'r');
+            $fp = fopen($tpl, 'rb');
             $source = ($filesize > 0) ? fread($fp, $filesize) : '';
             fclose($fp);
-
         } else {
             $source = null;
             $mtime = null;
@@ -52,9 +51,9 @@ class Smarty_Resource_Block extends Smarty_Resource_Custom
      */
     private function blockTplInfo($tpl_name)
     {
-        static $cache = array();
+        static $cache = [];
         $xoops = \Xoops::getInstance();
-        $tpl_info = $xoops->getTplInfo('block:'.$tpl_name);
+        $tpl_info = $xoops->getTplInfo('block:' . $tpl_name);
         $tpl_name = $tpl_info['tpl_name'];
         $dirname = $tpl_info['module'];
         $file = $tpl_info['file'];
@@ -65,6 +64,7 @@ class Smarty_Resource_Block extends Smarty_Resource_Custom
         if (!file_exists($file_path = $xoops->path("themes/{$theme_set}/modules/{$dirname}/blocks/{$file}"))) {
             $file_path = $xoops->path("modules/{$dirname}/templates/blocks/{$file}");
         }
+
         return $cache[$tpl_name] = $file_path;
     }
 }

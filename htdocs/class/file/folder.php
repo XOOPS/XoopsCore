@@ -32,7 +32,6 @@
  * @version   $Id$
  * @link      http://www.cakefoundation.org/projects/info/cakephp CakePHP(tm) Project
  * @since     CakePHP(tm) v 0.2.9
- *
  */
 class XoopsFolderHandler
 {
@@ -66,7 +65,7 @@ class XoopsFolderHandler
      * @var array
      * @access private
      */
-    private $messages = array();
+    private $messages = [];
 
     /**
      * holds errors from last method.
@@ -107,13 +106,14 @@ class XoopsFolderHandler
         if ($mode) {
             $this->mode = intval($mode, 8);
         }
-        if (! XoopsLoad::fileExists($path) && $create == true) {
+        if (!XoopsLoad::fileExists($path) && true == $create) {
             $this->create($path, $this->mode);
         }
-        if (! $this->isAbsolute($path)) {
+        if (!$this->isAbsolute($path)) {
             $path1 = $this->realpath($path);
-            if (false===$path1)
+            if (false === $path1) {
                 throw new InvalidArgumentException($path . ' not found');
+            }
             $path = $path1;
         }
         $this->cd($path);
@@ -144,6 +144,7 @@ class XoopsFolderHandler
         if (is_dir($path) && XoopsLoad::fileExists($path)) {
             return $this->path = $path;
         }
+
         return false;
     }
 
@@ -151,7 +152,7 @@ class XoopsFolderHandler
      * Returns an array of the contents of the current directory, or false on failure.
      * The returned array holds two arrays: one of dirs and one of files.
      *
-     * @param boolean $sort       sort list or not
+     * @param bool $sort       sort list or not
      * @param mixed   $exceptions either an array or boolean true will no grab dot files
      *
      * @return mixed Contents of current directory as an array, false on failure
@@ -159,11 +160,11 @@ class XoopsFolderHandler
      */
     public function read($sort = true, $exceptions = false)
     {
-        $dirs = $files = array();
+        $dirs = $files = [];
         $dir = opendir($this->path);
-        if ($dir !== false) {
+        if (false !== $dir) {
             while (false !== ($n = readdir($dir))) {
-                if ($n === '.' || $n === '..') {
+                if ('.' === $n || '..' === $n) {
                     continue;
                 }
                 $item = false;
@@ -171,10 +172,10 @@ class XoopsFolderHandler
                     if (!in_array($n, $exceptions)) {
                         $item = $n;
                     }
-                } elseif ($exceptions === false || ($exceptions === true && $n{0} !== '.')) {
+                } elseif (false === $exceptions || (true === $exceptions && '.' !== $n[0])) {
                     $item = $n;
                 }
-                if ($item !== false) {
+                if (false !== $item) {
                     if (is_dir($this->addPathElement($this->path, $item))) {
                         $dirs[] = $item;
                     } else {
@@ -188,9 +189,10 @@ class XoopsFolderHandler
             }
             closedir($dir);
         }
-        return array(
-            $dirs, $files
-        );
+
+        return [
+            $dirs, $files,
+        ];
     }
 
     /**
@@ -207,15 +209,16 @@ class XoopsFolderHandler
     {
         $data = $this->read($sort, $exceptions);
         if (!is_array($data)) {
-            return array();
+            return [];
         }
         list($dirs, $files) = $data;
-        $found = array();
+        $found = [];
         foreach ($files as $file) {
             if (preg_match("/^{$regexp_pattern}$/i", $file)) {
                 $found[] = $file;
             }
         }
+
         return $found;
     }
 
@@ -234,6 +237,7 @@ class XoopsFolderHandler
         $startsOn = $this->path;
         $out = $this->findRecursiveHelper($pattern, $sort, $exceptions);
         $this->cd($startsOn);
+
         return $out;
     }
 
@@ -250,7 +254,7 @@ class XoopsFolderHandler
     private function findRecursiveHelper($pattern, $sort = false, $exceptions = false)
     {
         list($dirs, $files) = $this->read($sort, $exceptions);
-        $found = array();
+        $found = [];
         foreach ($files as $file) {
             if (preg_match("/^{$pattern}$/i", $file)) {
                 $found[] = $this->addPathElement($this->path, $file);
@@ -261,6 +265,7 @@ class XoopsFolderHandler
             $this->cd($this->addPathElement($start, $dir));
             $found = array_merge($found, $this->findRecursive($pattern, $sort, $exceptions));
         }
+
         return $found;
     }
 
@@ -269,15 +274,16 @@ class XoopsFolderHandler
      *
      * @param string $path Path to check
      *
-     * @return boolean true if windows path, false otherwise
+     * @return bool true if windows path, false otherwise
      * @access public
      * @static
      */
     public static function isWindowsPath($path)
     {
-        if (preg_match('/^[A-Z]:/i', $path) || false !== strpos($path,'\\')) {
+        if (preg_match('/^[A-Z]:/i', $path) || false !== mb_strpos($path, '\\')) {
             return true;
         }
+
         return false;
     }
 
@@ -292,9 +298,10 @@ class XoopsFolderHandler
      */
     public static function isAbsolute($path)
     {
-        $path = str_replace('\\','/',$path);
+        $path = str_replace('\\', '/', $path);
         $match = preg_match('/^(\/|[A-Z]:\/|\/\/)/', $path);
-        return ($match == 1);
+
+        return (1 == $match);
     }
 
     /**
@@ -311,6 +318,7 @@ class XoopsFolderHandler
         if (self::isWindowsPath($path)) {
             return '\\';
         }
+
         return '/';
     }
 
@@ -328,6 +336,7 @@ class XoopsFolderHandler
         if (self::isWindowsPath($path)) {
             return '\\';
         }
+
         return '/';
     }
 
@@ -345,6 +354,7 @@ class XoopsFolderHandler
         if (self::isSlashTerm($path)) {
             return $path;
         }
+
         return $path . self::correctSlashFor($path);
     }
 
@@ -374,8 +384,9 @@ class XoopsFolderHandler
     public function inXoopsPath($path = '')
     {
         $xoops_root_path = \XoopsBaseConfig::get('root-path');
-        $dir = substr($this->slashTerm($xoops_root_path), 0, -1);
-        $newdir = $dir . ($path{0}==='/'?'':'/') . $path;
+        $dir = mb_substr($this->slashTerm($xoops_root_path), 0, -1);
+        $newdir = $dir . ('/' === $path[0] ? '' : '/') . $path;
+
         return $this->inPath($newdir);
     }
 
@@ -394,11 +405,12 @@ class XoopsFolderHandler
         $dir = str_replace('\\', '/', $dir);
         $current = str_replace('\\', '/', $current);
         if (!$reverse) {
-            $return = strpos($current, $dir);
+            $return = mb_strpos($current, $dir);
         } else {
-            $return = strpos($dir, $current);
+            $return = mb_strpos($dir, $current);
         }
-        return ($return !== false);
+
+        return (false !== $return);
     }
 
     /**
@@ -412,19 +424,20 @@ class XoopsFolderHandler
      * @return bool Returns TRUE on success, FALSE on failure
      * @access public
      */
-    public function chmod($path, $mode = false, $recursive = true, $exceptions = array())
+    public function chmod($path, $mode = false, $recursive = true, $exceptions = [])
     {
         if (!$mode) {
             $mode = $this->mode;
         }
-        if ($recursive === false && is_dir($path)) {
+        if (false === $recursive && is_dir($path)) {
             if (chmod($path, intval($mode, 8))) {
                 $this->messages[] = sprintf('%s changed to %s', $path, $mode);
+
                 return true;
-            } else {
-                $this->errors[] = sprintf('%s NOT changed to %s', $path, $mode);
-                return false;
             }
+            $this->errors[] = sprintf('%s NOT changed to %s', $path, $mode);
+
+            return false;
         }
         if (is_dir($path)) {
             list($paths) = $this->tree($path);
@@ -446,6 +459,7 @@ class XoopsFolderHandler
                 return true;
             }
         }
+
         return false;
     }
 
@@ -453,7 +467,7 @@ class XoopsFolderHandler
      * Returns an array of nested directories and files in each directory
      *
      * @param string  $path   the directory path to build the tree from
-     * @param boolean $hidden return hidden files and directories
+     * @param bool $hidden return hidden files and directories
      * @param string  $type   either file or dir. null returns both files and directories
      *
      * @return mixed array of nested directories and files in each directory
@@ -462,24 +476,25 @@ class XoopsFolderHandler
     public function tree($path, $hidden = true, $type = null)
     {
         $path = rtrim($path, '/');
-        $this->files = array();
-        $this->directories = array(
-            $path
-        );
-        $directories = array();
+        $this->files = [];
+        $this->directories = [
+            $path,
+        ];
+        $directories = [];
         while (count($this->directories)) {
             $dir = array_pop($this->directories);
             $this->treeHelper($dir, $hidden);
             array_push($directories, $dir);
         }
-        if ($type === null) {
-            return array(
-                $directories, $this->files
-            );
+        if (null === $type) {
+            return [
+                $directories, $this->files,
+            ];
         }
-        if ($type === 'dir') {
+        if ('dir' === $type) {
             return $directories;
         }
+
         return $this->files;
     }
 
@@ -487,7 +502,7 @@ class XoopsFolderHandler
      * Private method to list directories and files in each directory
      *
      * @param string  $path   path name of directory
-     * @param boolean $hidden show hidden files
+     * @param bool $hidden show hidden files
      *
      * @access private
      *
@@ -498,14 +513,14 @@ class XoopsFolderHandler
         if (is_dir($path)) {
             $dirHandle = opendir($path);
             while (false !== ($item = readdir($dirHandle))) {
-                if ($item === '.' || $item === '..') {
+                if ('.' === $item || '..' === $item) {
                     continue;
                 }
                 $found = false;
-                if (($hidden === true) || ($hidden === false && $item{0} !== '.')) {
+                if ((true === $hidden) || (false === $hidden && '.' !== $item[0])) {
                     $found = $path . '/' . $item;
                 }
-                if ($found !== false) {
+                if (false !== $found) {
                     if (is_dir($found)) {
                         array_push($this->directories, $found);
                     } else {
@@ -536,20 +551,23 @@ class XoopsFolderHandler
         }
         if (is_file($pathname)) {
             $this->errors[] = sprintf('%s is a file', $pathname);
+
             return true;
         }
-        $nextPathname = substr($pathname, 0, strrpos($pathname, '/'));
+        $nextPathname = mb_substr($pathname, 0, mb_strrpos($pathname, '/'));
         if ($this->create($nextPathname, $mode)) {
             if (!XoopsLoad::fileExists($pathname)) {
                 if (mkdir($pathname, intval($mode, 8))) {
                     $this->messages[] = sprintf('%s created', $pathname);
+
                     return true;
-                } else {
-                    $this->errors[] = sprintf('%s NOT created', $pathname);
-                    return false;
                 }
+                $this->errors[] = sprintf('%s NOT created', $pathname);
+
+                return false;
             }
         }
+
         return true;
     }
 
@@ -574,7 +592,7 @@ class XoopsFolderHandler
     private function dirsize2($path, $size = 0)
     {
         $count = $size;
-        $files = array_diff(scandir($path), array('.', '..'));
+        $files = array_diff(scandir($path), ['.', '..']);
         foreach ($files as $file) {
             $name = "$path/$file";
             if (is_dir($name)) {
@@ -583,6 +601,7 @@ class XoopsFolderHandler
                 $count += filesize($name);
             }
         }
+
         return $count;
     }
 
@@ -591,12 +610,12 @@ class XoopsFolderHandler
      *
      * @param string $path Path of directory to delete
      *
-     * @return boolean Success
+     * @return bool Success
      * @access public
      */
     public function delete($path)
     {
-        $files = array_diff(scandir($path), array('.', '..'));
+        $files = array_diff(scandir($path), ['.', '..']);
         foreach ($files as $file) {
             $name = "$path/$file";
             if (is_dir($name)) {
@@ -609,12 +628,13 @@ class XoopsFolderHandler
                 }
             }
         }
-        if (@rmdir($path) === false) {
+        if (false === @rmdir($path)) {
             $this->errors[] = sprintf('%s NOT removed', $path);
+
             return false;
-        } else {
-            $this->messages[] = sprintf('%s removed', $path);
         }
+        $this->messages[] = sprintf('%s removed', $path);
+
         return true;
     }
 
@@ -626,20 +646,20 @@ class XoopsFolderHandler
      * @return bool
      * @access public
      */
-    public function copy($options = array())
+    public function copy($options = [])
     {
         $to = null;
         if (is_string($options)) {
             $to = $options;
-            $options = array();
+            $options = [];
         }
         $options = array_merge(
-            array(
+            [
                 'to' => $to,
                 'from' => $this->path,
                 'mode' => $this->mode,
-                'skip' => array()
-            ),
+                'skip' => [],
+            ],
             $options
         );
 
@@ -648,6 +668,7 @@ class XoopsFolderHandler
         $mode = $options['mode'];
         if (!$this->cd($fromDir)) {
             $this->errors[] = sprintf('%s not found', $fromDir);
+
             return false;
         }
         if (!is_dir($toDir)) {
@@ -655,9 +676,10 @@ class XoopsFolderHandler
         }
         if (!is_writable($toDir)) {
             $this->errors[] = sprintf('%s not writable', $toDir);
+
             return false;
         }
-        $exceptions = array_merge(array('.', '..', '.svn'), $options['skip']);
+        $exceptions = array_merge(['.', '..', '.svn'], $options['skip']);
         $handle = opendir($fromDir);
         if ($handle) {
             while (false !== ($item = readdir($handle))) {
@@ -677,7 +699,7 @@ class XoopsFolderHandler
                         if (mkdir($to, intval($mode, 8))) {
                             chmod($to, intval($mode, 8));
                             $this->messages[] = sprintf('%s created', $to);
-                            $options = array_merge($options, array('to' => $to, 'from' => $from));
+                            $options = array_merge($options, ['to' => $to, 'from' => $from]);
                             $this->copy($options);
                         } else {
                             $this->errors[] = sprintf('%s not created', $to);
@@ -692,6 +714,7 @@ class XoopsFolderHandler
         if (!empty($this->errors)) {
             return false;
         }
+
         return true;
     }
 
@@ -711,12 +734,12 @@ class XoopsFolderHandler
             $options = (array)$options;
         }
         $options = array_merge(
-            array(
+            [
                 'to' => $to,
                 'from' => $this->path,
                 'mode' => $this->mode,
-                'skip' => array()
-            ),
+                'skip' => [],
+            ],
             $options
         );
         if ($this->copy($options)) {
@@ -724,6 +747,7 @@ class XoopsFolderHandler
                 return $this->cd($options['to']);
             }
         }
+
         return false;
     }
 
@@ -766,7 +790,7 @@ class XoopsFolderHandler
      *
      * @param string $path Path to check
      *
-     * @return boolean true if path ends with slash, false otherwise
+     * @return bool true if path ends with slash, false otherwise
      * @access public
      * @static
      */
@@ -775,6 +799,7 @@ class XoopsFolderHandler
         if (preg_match('/[\/\\\]$/', $path)) {
             return true;
         }
+
         return false;
     }
 }

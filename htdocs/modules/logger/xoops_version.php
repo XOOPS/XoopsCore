@@ -20,28 +20,27 @@
  * @link      http://xoops.org
  * @since     1.0
  */
-
-$modversion                = array();
-$modversion['name']        = _MI_LOGGER_NAME;
+$modversion = [];
+$modversion['name'] = _MI_LOGGER_NAME;
 $modversion['description'] = _MI_LOGGER_DSC;
-$modversion['version']     = 0.1;
-$modversion['author']      = 'Richard Griffith';
-$modversion['nickname']    = 'geekwright';
-$modversion['credits']     = 'The XOOPS Project';
-$modversion['license']     = 'GNU GPL 2.0';
+$modversion['version'] = 0.1;
+$modversion['author'] = 'Richard Griffith';
+$modversion['nickname'] = 'geekwright';
+$modversion['credits'] = 'The XOOPS Project';
+$modversion['license'] = 'GNU GPL 2.0';
 $modversion['license_url'] = 'www.gnu.org/licenses/gpl-2.0.html/';
-$modversion['official']    = 1;
-$modversion['help']        = 'page=help';
-$modversion['image']       = 'images/logo.png';
-$modversion['dirname']     = 'logger';
+$modversion['official'] = 1;
+$modversion['help'] = 'page=help';
+$modversion['image'] = 'images/logo.png';
+$modversion['dirname'] = 'logger';
 
 //about
-$modversion['release_date']        = '2013/09/05';
-$modversion['module_website_url']  = 'http://www.xoops.org/';
+$modversion['release_date'] = '2013/09/05';
+$modversion['module_website_url'] = 'http://www.xoops.org/';
 $modversion['module_website_name'] = 'XOOPS';
-$modversion['module_status']       = 'ALPHA 1';
-$modversion['min_php']             = '5.3.7';
-$modversion['min_xoops']           = '2.6.0';
+$modversion['module_status'] = 'ALPHA 1';
+$modversion['min_php'] = '5.3.7';
+$modversion['min_xoops'] = '2.6.0';
 
 // paypal
 /*
@@ -59,41 +58,41 @@ $modversion['system_menu'] = 1;
 /*
  Manage extension
  */
-$modversion['extension']          = 1;
+$modversion['extension'] = 1;
 $modversion['extension_module'][] = 'system';
 
 // Admin things
-$modversion['hasAdmin']   = 1;
+$modversion['hasAdmin'] = 1;
 $modversion['adminindex'] = 'admin/index.php';
-$modversion['adminmenu']  = 'admin/menu.php';
+$modversion['adminmenu'] = 'admin/menu.php';
 
 // Menu
 $modversion['hasMain'] = 0;
 
 // Preferences
-$modversion['config'][] = array(
-    'name'        => 'logger_enable',
-    'title'       => '_MI_LOGGER_ENABLE',
+$modversion['config'][] = [
+    'name' => 'logger_enable',
+    'title' => '_MI_LOGGER_ENABLE',
     'description' => '',
-    'formtype'    => 'yesno',
-    'valuetype'   => 'int',
-    'default'     => 0, // default to off to give chance to review module access rights
-);
+    'formtype' => 'yesno',
+    'valuetype' => 'int',
+    'default' => 0, // default to off to give chance to review module access rights
+];
 
-$modversion['config'][] = array(
-    'name'        => 'logger_popup',
-    'title'       => '_MI_LOGGER_POPUP',
+$modversion['config'][] = [
+    'name' => 'logger_popup',
+    'title' => '_MI_LOGGER_POPUP',
     'description' => '',
-    'formtype'    => 'yesno',
-    'valuetype'   => 'int',
-    'default'     => 0,
-);
+    'formtype' => 'yesno',
+    'valuetype' => 'int',
+    'default' => 0,
+];
 
-$modversion['config'][] = array(
-    'name'        => 'debug_smarty_enable',
-    'title'       => '_MI_LOGGER_SMARTYDEBUG',
+$modversion['config'][] = [
+    'name' => 'debug_smarty_enable',
+    'title' => '_MI_LOGGER_SMARTYDEBUG',
     'description' => '',
-    'formtype'    => 'yesno',
-    'valuetype'   => 'int',
-    'default'     => 0, // default to off to give chance to review module access rights
-);
+    'formtype' => 'yesno',
+    'valuetype' => 'int',
+    'default' => 0, // default to off to give chance to review module access rights
+];

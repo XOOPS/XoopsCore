@@ -21,7 +21,6 @@
  */
 class CommentsWaitingPlugin implements WaitingPluginInterface
 {
-
     /**
      * @return array
      */
@@ -30,15 +29,15 @@ class CommentsWaitingPlugin implements WaitingPluginInterface
         /* @var $comments Comments */
         $comments = \Xoops::getModuleHelper('comments'); //need this here to init constants
         $criteria = new CriteriaCompo(new Criteria('status', Comments::STATUS_PENDING));
-        $ret = array();
+        $ret = [];
         if ($count = $comments->getHandlerComment()->getCount($criteria)) {
             $ret[] = [
                 'count' => $count,
                 'name' => $comments->getModule()->getVar('name'),
-                'link' => $comments->url('admin/main.php')
+                'link' => $comments->url('admin/main.php'),
             ];
         }
+
         return $ret;
     }
-
 }

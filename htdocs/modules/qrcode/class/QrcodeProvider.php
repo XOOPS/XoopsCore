@@ -51,7 +51,6 @@ class QrcodeProvider extends AbstractContract implements QrcodeInterface
         return 'QR Code generation using endroid/qrcode';
     }
 
-
     /**
      * getQRUrl
      *
@@ -62,10 +61,11 @@ class QrcodeProvider extends AbstractContract implements QrcodeInterface
     private function getQRUrl($qrText)
     {
         $xoops = \Xoops::getInstance();
-        $params = array(
+        $params = [
             'text' => (string) $qrText,
-        );
+        ];
         $url = $xoops->buildUrl($xoops->url($this->renderScript), $params);
+
         return $url;
     }
 
@@ -74,8 +74,6 @@ class QrcodeProvider extends AbstractContract implements QrcodeInterface
      *
      * @param Response $response \Xoops\Core\Service\Response object
      * @param string   $qrText   text to encode in QR Code
-     *
-     * @return void  - response->value set to URL string
      */
     public function getImgUrl(Response $response, $qrText)
     {
@@ -88,17 +86,15 @@ class QrcodeProvider extends AbstractContract implements QrcodeInterface
      * @param Response $response   \Xoops\Core\Service\Response object
      * @param string   $qrText     text to encode in QR Code
      * @param array    $attributes array of attribute name => value pairs for img tag
-     *
-     * @return void  - response->value set to image tag
      */
-    public function getImgTag(Response $response, $qrText, $attributes = array())
+    public function getImgTag(Response $response, $qrText, $attributes = [])
     {
         $url = $this->getQRUrl($qrText);
         if (!is_array($attributes)) {
-            $attributes = array();
+            $attributes = [];
         }
 
-        $imgTag = new Img(array('src' => $url,));
+        $imgTag = new Img(['src' => $url]);
         $imgTag->setMerge($attributes);
         $response->setValue($imgTag->render());
     }

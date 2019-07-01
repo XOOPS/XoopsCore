@@ -1,4 +1,5 @@
 <?php
+
 namespace Xoops\Test\Core\Service\Data;
 
 use Xoops\Core\Service\Data\Email;
@@ -90,8 +91,7 @@ class EmailTest extends \PHPUnit\Framework\TestCase
 
     public function testForcedBadFromAddress()
     {
-        $message = new class() extends Email
-        {
+        $message = new class() extends Email {
             public function __construct()
             {
                 parent::__construct();
@@ -122,8 +122,7 @@ class EmailTest extends \PHPUnit\Framework\TestCase
 
     public function testForcedBadToAddresses()
     {
-        $message = new class() extends Email
-        {
+        $message = new class() extends Email {
             public function __construct()
             {
                 parent::__construct();
@@ -232,8 +231,7 @@ class EmailTest extends \PHPUnit\Framework\TestCase
 
     public function testForcedBadReadReceiptAddress()
     {
-        $message = new class() extends Email
-        {
+        $message = new class() extends Email {
             public function __construct()
             {
                 parent::__construct();
@@ -270,8 +268,7 @@ class EmailTest extends \PHPUnit\Framework\TestCase
 
     public function testWithForcedBadAttachments()
     {
-        $message = new class() extends Email
-        {
+        $message = new class() extends Email {
             public function __construct()
             {
                 parent::__construct();
@@ -296,8 +293,7 @@ class EmailTest extends \PHPUnit\Framework\TestCase
 
     public function testForcedBadHtmlBody()
     {
-        $message = new class() extends Email
-        {
+        $message = new class() extends Email {
             public function __construct()
             {
                 parent::__construct();

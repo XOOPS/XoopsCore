@@ -53,10 +53,10 @@ class ImagesCategoryForm extends Xoops\Form\ThemeForm
         $tab1->addElement(new Xoops\Form\RadioYesNo(_AM_IMAGES_CAT_DISPLAY, 'imgcat_display', $obj->getVar('imgcat_display')));
         if ($obj->isNew()) {
             $store = new Xoops\Form\Radio(_AM_IMAGES_CAT_STR_TYPE . '<div class="red">' . _AM_IMAGES_CAT_STR_TYOPENG . '</div>', 'imgcat_storetype', 'file');
-            $store->addOptionArray(array('file' => _AM_IMAGES_CAT_ASFILE, 'db' => _AM_IMAGES_CAT_INDB));
+            $store->addOptionArray(['file' => _AM_IMAGES_CAT_ASFILE, 'db' => _AM_IMAGES_CAT_INDB]);
             $tab1->addElement($store);
         } else {
-            $store = array('db' => _AM_IMAGES_CAT_INDB, 'file' => _AM_IMAGES_CAT_ASFILE);
+            $store = ['db' => _AM_IMAGES_CAT_INDB, 'file' => _AM_IMAGES_CAT_ASFILE];
             $tab1->addElement(new Xoops\Form\Label(_AM_IMAGES_CAT_STR_TYPE, $store[$obj->getVar('imgcat_storetype')]));
             $this->addElement(new Xoops\Form\Hidden('imgcat_storetype', $obj->getVar('imgcat_storetype')));
         }

@@ -1,11 +1,11 @@
 <?php
-require_once(__DIR__.'/../../init_new.php');
+require_once(__DIR__ . '/../../init_new.php');
 
 class SqlUtilityTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass = 'SqlUtility';
 
-    public function setUp()
+    protected function setUp()
     {
     }
 
@@ -14,6 +14,7 @@ class SqlUtilityTest extends \PHPUnit\Framework\TestCase
         $instance = new $this->myclass();
         $this->assertInstanceOf('\SqlUtility', $instance);
     }
+
     /*
     public function test_splitMySqlFile()
     {

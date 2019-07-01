@@ -29,8 +29,8 @@ class Password extends Element
      *
      * @param string|array $caption      Caption or array of all attributes
      * @param string       $name         name attribute
-     * @param integer      $size         Size of the field
-     * @param integer      $maxlength    Maximum length of the text
+     * @param int      $size         Size of the field
+     * @param int      $maxlength    Maximum length of the text
      * @param string       $value        Initial value of the field - *Warning:* readable in cleartext in the page!
      * @param string       $autoComplete Turn autoComplete in browser 'on' or 'off'
      * @param string       $placeholder  placeholder for this element.
@@ -92,6 +92,7 @@ class Password extends Element
     public function defaultRender()
     {
         $attributes = $this->renderAttributeString();
-        return '<input ' . $attributes . $this->getExtra() .' >';
+
+        return '<input ' . $attributes . $this->getExtra() . ' >';
     }
 }

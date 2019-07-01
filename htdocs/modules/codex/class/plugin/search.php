@@ -14,7 +14,6 @@
  * @copyright 2012-2016 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  */
-
 class CodexSearchPlugin extends Xoops\Module\Plugin\PluginAbstract implements SearchPluginInterface
 {
     public function search($queries, $andor, $limit, $start, $uid)
@@ -23,18 +22,19 @@ class CodexSearchPlugin extends Xoops\Module\Plugin\PluginAbstract implements Se
         $queries = implode(' ', (array) $queries);
 
         $files = \Xoops\Core\Lists\File::getList($xoops->path('modules/codex/'));
-        $res = array();
+        $res = [];
         $i = 0;
         foreach ($files as $file) {
-            if (!in_array($file, array('xoops_version.php', 'index.php'))) {
+            if (!in_array($file, ['xoops_version.php', 'index.php'])) {
                 $fileName = ucfirst(str_replace('.php', '', $file));
-                if (stripos($fileName, $queries) !== false) {
+                if (false !== mb_stripos($fileName, $queries)) {
                     $res[$i]['link'] = $file;
                     $res[$i]['title'] = $fileName;
                     ++$i;
                 }
             }
         }
+
         return $res;
     }
 }

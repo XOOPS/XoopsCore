@@ -1,8 +1,8 @@
 <?php
+
 namespace Xoops\Core\Handler\Scheme;
 
 use Xoops\Core\Handler\Factory;
-use Xoops\Core\Handler\Scheme\SchemeInterface;
 
 require_once __DIR__ . '/../../../../../init_new.php';
 
@@ -19,7 +19,7 @@ class LegacyModuleTest extends \PHPUnit\Framework\TestCase
      */
     protected function setUp()
     {
-        $this->object = new LegacyModule;
+        $this->object = new LegacyModule();
     }
 
     /**

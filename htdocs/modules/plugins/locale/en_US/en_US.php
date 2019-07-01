@@ -22,22 +22,21 @@
 class PluginsLocaleEn_US
 {
     // Module
-    const MODULE_NAME = "Plugins";
-    const MODULE_DESC = "Module for managing plugins";
-    const DONATION_DESC = "Donation for module Plugins";
+    const MODULE_NAME = 'Plugins';
+    const MODULE_DESC = 'Module for managing plugins';
+    const DONATION_DESC = 'Donation for module Plugins';
 
     // Admin menu
-    const PLUGINS_MANAGER = "Plugins Manager";
+    const PLUGINS_MANAGER = 'Plugins Manager';
 
     //Admin
-    const TIPS_PLUGINS = "Activate or deactivate plugins and choose the desired execution order.";
-    const NO_PLUGINS_FOUND = "No plugins were found!";
+    const TIPS_PLUGINS = 'Activate or deactivate plugins and choose the desired execution order.';
+    const NO_PLUGINS_FOUND = 'No plugins were found!';
 
     //Objects
-    const OBJECT_PLUGIN_ID = "ID";
-    const OBJECT_PLUGIN_CALLER = "Caller";
-    const OBJECT_PLUGIN_LISTENER = "Listener";
-    const OBJECT_PLUGIN_STATUS = "Enabled";
-    const OBJECT_PLUGIN_ORDER = "Order";
-
+    const OBJECT_PLUGIN_ID = 'ID';
+    const OBJECT_PLUGIN_CALLER = 'Caller';
+    const OBJECT_PLUGIN_LISTENER = 'Listener';
+    const OBJECT_PLUGIN_STATUS = 'Enabled';
+    const OBJECT_PLUGIN_ORDER = 'Order';
 }

@@ -15,17 +15,17 @@
  * @author          Laurent JEN (Aka DuGris)
  * @version         $Id$
  */
+use Xmf\Request;
 
 include __DIR__ . '/header.php';
 
 switch ($op) {
-
     case 'save':
         if (!$xoops->security()->check()) {
             $xoops->redirect('index.php', 2, implode(',', $xoops->security()->getErrors()));
         }
 
-        $xlanguage_id = $system->cleanVars($_POST, 'xlanguage_id', 0, 'int');
+        $xlanguage_id = Request::getInt('xlanguage_id', 0, 'POST');
         if (isset($xlanguage_id) && $xlanguage_id > 0) {
             $lang = $helper->getHandlerLanguage()->get($xlanguage_id);
         } else {
@@ -38,7 +38,6 @@ switch ($op) {
             $xoops->redirect('index.php', 2, _AM_XLANGUAGE_SAVED);
         }
         break;
-
     case 'add':
         $lang = $helper->getHandlerLanguage()->create();
         $form = $helper->getForm($lang, 'language');
@@ -46,14 +45,13 @@ switch ($op) {
         //$admin_page->addInfoBox(_MI_XLANGUAGE_MODIFY);
         //$admin_page->addInfoBoxLine($form->render());
         break;
-
     case 'edit':
-        $xlanguage_id = $system->cleanVars($_REQUEST, 'xlanguage_id', 0, 'int');
+        $xlanguage_id = Request::getInt('xlanguage_id', 0, 'REQUEST');
         if (isset($xlanguage_id) && $xlanguage_id > 0) {
             if ($lang = $helper->getHandlerLanguage()->get($xlanguage_id)) {
                 $form = $helper->getForm($lang, 'language');
                 $form->display();
-                //$admin_page->addInfoBox(_MI_XLANGUAGE_MODIFY);
+            //$admin_page->addInfoBox(_MI_XLANGUAGE_MODIFY);
                 //$admin_page->addInfoBoxLine($form->render());
             } else {
                 $xoops->redirect('index.php', 2);
@@ -62,13 +60,12 @@ switch ($op) {
             $xoops->redirect('index.php', 2);
         }
         break;
-
     case 'del':
-        $xlanguage_id = $system->cleanVars($_REQUEST, 'xlanguage_id', 0, 'int');
+        $xlanguage_id = Request::getInt('xlanguage_id', 0);
         if (isset($xlanguage_id) && $xlanguage_id > 0) {
             if ($lang = $helper->getHandlerLanguage()->get($xlanguage_id)) {
-                $delete = $system->cleanVars($_POST, 'ok', 0, 'int');
-                if ($delete == 1) {
+                $delete = Request::getInt('ok', 0, 'POST');
+                if (1 == $delete) {
                     if (!$xoops->security()->check()) {
                         $xoops->redirect('index.php', 2, implode(',', $xoops->security()->getErrors()));
                     }
@@ -76,9 +73,9 @@ switch ($op) {
                     $helper->getHandlerLanguage()->createConfig();
                     $xoops->redirect('index.php', 2, _AM_XLANGUAGE_DELETED);
                 } else {
-                    $confirm = $xoops->confirm(array(
-                        'ok' => 1, 'xlanguage_id' => $xlanguage_id, 'op' => 'del'
-                    ), $_SERVER['REQUEST_URI'], sprintf(_AM_XLANGUAGE_DELETE_CFM . "<br /><b><span style='color : Red'> %s </span></b><br /><br />", $lang->getVar('xlanguage_name')));
+                    $confirm = $xoops->confirm([
+                        'ok' => 1, 'xlanguage_id' => $xlanguage_id, 'op' => 'del',
+                    ], $_SERVER['REQUEST_URI'], sprintf(_AM_XLANGUAGE_DELETE_CFM . "<br /><b><span style='color : Red'> %s </span></b><br /><br />", $lang->getVar('xlanguage_name')));
                     $confirm = '<div class="confirm">' . $confirm . '</div>';
                     $admin_page->addInfoBox(_MI_XLANGUAGE_DELETE);
                     $admin_page->addInfoBoxLine($confirm);
@@ -91,12 +88,10 @@ switch ($op) {
             $xoops->redirect('index.php', 2);
         }
         break;
-
     case 'createconfig':
         $helper->getHandlerLanguage()->createConfig();
         $xoops->redirect('index.php', 2, _AM_XLANGUAGE_CREATED);
         break;
-
     case 'default':
     default:
         $admin_page->addInfoBox(_AM_XLANGUAGE_LANGLIST);

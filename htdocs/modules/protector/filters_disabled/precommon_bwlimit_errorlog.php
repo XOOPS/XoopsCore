@@ -18,10 +18,9 @@
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
-
 class protector_precommon_bwlimit_errorlog extends ProtectorFilterAbstract
 {
-    function execute()
+    public function execute()
     {
         header('HTTP/1.0 503 Service unavailable');
         header('Retry-After: 600');

@@ -17,7 +17,6 @@
  * @author          Andricq Nicolas (AKA MusS)
  * @version         $Id$
  */
-
 class ImagesCategory_imagemanagerForm extends Xoops\Form\ThemeForm
 {
     /**
@@ -38,7 +37,7 @@ class ImagesCategory_imagemanagerForm extends Xoops\Form\ThemeForm
         $select->addOption(0, _AM_IMAGES_CAT_SELECT);
         $select->addOptionArray($categories);
         if (isset($target)) {
-            $select->setExtra("onchange='javascript:window.location.href=\"" . $xoops->getEnv('PHP_SELF') . "?target=" . $target . "&imgcat_id=\" + this.value'");
+            $select->setExtra("onchange='javascript:window.location.href=\"" . $xoops->getEnv('PHP_SELF') . '?target=' . $target . "&imgcat_id=\" + this.value'");
         } else {
             $select->setExtra("onchange='javascript:window.location.href=\"" . $xoops->getEnv('PHP_SELF') . "?imgcat_id=\" + this.value'");
         }

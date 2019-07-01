@@ -28,7 +28,7 @@ class Select extends OptionElement
      *
      * @var array
      */
-    protected $value = array();
+    protected $value = [];
 
     /**
      * Constructor
@@ -36,8 +36,8 @@ class Select extends OptionElement
      * @param string|array $caption  Caption or array of all attributes
      * @param string       $name     name" attribute
      * @param mixed        $value    Pre-selected value (or array of them).
-     * @param integer      $size     Number or rows. "1" makes a drop-down-list
-     * @param boolean      $multiple Allow multiple selections?
+     * @param int      $size     Number or rows. "1" makes a drop-down-list
+     * @param bool      $multiple Allow multiple selections?
      */
     public function __construct($caption, $name = null, $value = null, $size = 1, $multiple = false)
     {
@@ -75,7 +75,7 @@ class Select extends OptionElement
         return (int) $this->get('size');
     }
 
-     /**
+    /**
      * Add multiple optgroup
      *
      * @param string $name     name attribute
@@ -119,9 +119,9 @@ class Select extends OptionElement
 
         $ele_options = $this->getOptions();
 
-        $extra = ($this->getExtra() != '' ? " " . $this->getExtra() : '');
+        $extra = ('' != $this->getExtra() ? ' ' . $this->getExtra() : '');
         $attributes = $this->renderAttributeString();
-        $rendered = '<select ' . $attributes . $extra .' >' . "\n";
+        $rendered = '<select ' . $attributes . $extra . ' >' . "\n";
 
         if (empty($ele_optgroup)) {
             foreach ($ele_options as $value => $display) {
@@ -150,7 +150,7 @@ class Select extends OptionElement
         // render custom validation code if any
         if (!empty($this->customValidationCode)) {
             return implode("\n", $this->customValidationCode);
-            // generate validation code if required
+        // generate validation code if required
         } elseif ($this->isRequired()) {
             $eltname = $this->getName();
             $eltcaption = $this->getCaption();
@@ -158,12 +158,14 @@ class Select extends OptionElement
                 ? sprintf(\XoopsLocale::F_ENTER, $eltname)
                 : sprintf(\XoopsLocale::F_ENTER, $eltcaption);
             $eltmsg = str_replace('"', '\"', stripslashes($eltmsg));
+
             return "\nvar hasSelected = false; var selectBox = myform.{$eltname};"
-                . "for (i = 0; i < selectBox.options.length; i++ ) { "
+                . 'for (i = 0; i < selectBox.options.length; i++ ) { '
                 . "if (selectBox.options[i].selected == true && selectBox.options[i].value != '') "
-                . "{ hasSelected = true; break; } }" . "if (!hasSelected) "
+                . '{ hasSelected = true; break; } }' . 'if (!hasSelected) '
                 . "{ window.alert(\"{$eltmsg}\"); selectBox.focus(); return false; }";
         }
+
         return '';
     }
 }

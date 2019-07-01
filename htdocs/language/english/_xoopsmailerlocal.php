@@ -27,7 +27,7 @@
  * The English localization is solely for demonstration
  */
 // Do not change the class name
-class XoopsMailerLocal extends XoopsMailer
+class xoopsmailerlocal extends XoopsMailer
 {
     /**
      * Constructor
@@ -38,9 +38,9 @@ class XoopsMailerLocal extends XoopsMailer
     {
         parent::__construct();
         // It is supposed no need to change the charset
-        $this->charSet = strtolower(XoopsLocale::getCharset());
+        $this->charSet = mb_strtolower(XoopsLocale::getCharset());
         // You MUST specify the language code value so that the file exists: XOOPS_ROOT_PAT/class/mail/phpmailer/language/lang-["your-language-code"].php
-        $this->multimailer->SetLanguage("en");
+        $this->multimailer->SetLanguage('en');
     }
 
     /**

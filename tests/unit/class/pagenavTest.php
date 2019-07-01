@@ -2,18 +2,18 @@
 
 use Xoops\Core\XoopsTpl;
 
-require_once(__DIR__.'/../init_new.php');
+require_once(__DIR__ . '/../init_new.php');
 
 class PagenavTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass = 'XoopsPageNav';
 
-    public function setUp()
+    protected function setUp()
     {
-        $xoops=Xoops::getinstance();
-        $tpl=$xoops->tpl();
+        $xoops = Xoops::getinstance();
+        $tpl = $xoops->tpl();
         if (empty($tpl)) {
-            $xoops->setTpl(new XoopsTpl);
+            $xoops->setTpl(new XoopsTpl());
         }
     }
 
@@ -36,7 +36,7 @@ class PagenavTest extends \PHPUnit\Framework\TestCase
         $instance = new $this->myclass($total_items, $items_perpage, $current_start);
         $this->assertInstanceOf($this->myclass, $instance);
         $ret = $instance->renderNav();
-        $this->assertTrue(is_string($ret));
+        $this->assertInternalType('string', $ret);
     }
 
     public function test_renderNav100()
@@ -47,6 +47,6 @@ class PagenavTest extends \PHPUnit\Framework\TestCase
         $start_name = 'start_name';
         $instance = new $this->myclass($total_items, $items_perpage, $current_start, $start_name);
         $ret = $instance->renderNav();
-        $this->assertTrue(is_string($ret));
+        $this->assertInternalType('string', $ret);
     }
 }

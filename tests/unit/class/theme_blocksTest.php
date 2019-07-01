@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/../init_new.php');
+require_once(__DIR__ . '/../init_new.php');
 
 class ThemeBlocksTest extends \PHPUnit\Framework\TestCase
 {
@@ -14,7 +14,7 @@ class ThemeBlocksTest extends \PHPUnit\Framework\TestCase
      */
     protected function setUp()
     {
-        $this->object = new XoopsThemeBlocksPlugin;
+        $this->object = new XoopsThemeBlocksPlugin();
     }
 
     public function testContracts()

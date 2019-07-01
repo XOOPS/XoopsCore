@@ -18,7 +18,6 @@
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
-
 include_once __DIR__ . '/header.php';
 
 $xoops = Xoops::getInstance();
@@ -28,7 +27,7 @@ global $xoopsDB;
 /*$db = $xoopsDB;
 $db->prefix('protector_log');
 $rs = $db->query("SELECT count(lid) FROM " . $db->prefix('protector_log'));*/
-$rs = $xoops->db()->query("SELECT count(lid) FROM " . $xoops->db()->prefix('protector_log'));
+$rs = $xoops->db()->query('SELECT count(lid) FROM ' . $xoops->db()->prefix('protector_log'));
 //$table = $xoops->db()->prefix('protector_log');
 //$rs = $xoops->db()->query($alterSql);
 

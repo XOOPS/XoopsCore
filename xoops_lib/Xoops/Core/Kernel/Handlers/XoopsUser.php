@@ -37,7 +37,7 @@ class XoopsUser extends XoopsObject
     /**
      * @var array groups that user belongs to
      */
-    private $groups = array();
+    private $groups = [];
 
     /**
      * @var string user's rank
@@ -137,16 +137,17 @@ class XoopsUser extends XoopsObject
                 $ts = \Xoops\Core\Text\Sanitizer::getInstance();
                 if ($usereal) {
                     $name = $user->getVar('name');
-                    if ($name != '') {
+                    if ('' != $name) {
                         return $ts->htmlSpecialChars($name);
-                    } else {
-                        return $ts->htmlSpecialChars($user->getVar('uname'));
                     }
-                } else {
+
                     return $ts->htmlSpecialChars($user->getVar('uname'));
                 }
+
+                return $ts->htmlSpecialChars($user->getVar('uname'));
             }
         }
+
         return $xoops->getConfig('anonymous');
     }
 
@@ -185,6 +186,7 @@ class XoopsUser extends XoopsObject
         if (empty($this->groups)) {
             $this->groups = \Xoops::getInstance()->getHandlerMember()->getGroupsByUser($this->getVar('uid'));
         }
+
         return $this->groups;
     }
 
@@ -198,6 +200,7 @@ class XoopsUser extends XoopsObject
     public function groups()
     {
         $groups = $this->getGroups();
+
         return $groups;
     }
 
@@ -215,12 +218,13 @@ class XoopsUser extends XoopsObject
     public function isAdmin($module_id = null)
     {
         $xoops = \Xoops::getInstance();
-        if (is_null($module_id)) {
+        if (null === $module_id) {
             $module_id = $xoops->isModule() ? $xoops->module->getVar('mid', 'n') : 1;
         } elseif ((int)($module_id) < 1) {
             $module_id = 0;
         }
         $moduleperm_handler = $xoops->getHandlerGroupPermission();
+
         return $moduleperm_handler->checkRight('module_admin', $module_id, $this->getGroups());
     }
 
@@ -235,6 +239,7 @@ class XoopsUser extends XoopsObject
         if (!isset($this->rank)) {
             $this->rank = $xoops->service('userrank')->getUserRank($this)->getValue();
         }
+
         return $this->rank;
     }
 
@@ -245,9 +250,10 @@ class XoopsUser extends XoopsObject
      */
     public function isActive()
     {
-        if ($this->getVar('level') == 0) {
+        if (0 == $this->getVar('level')) {
             return false;
         }
+
         return true;
     }
 
@@ -263,6 +269,7 @@ class XoopsUser extends XoopsObject
             $this->isOnline =
                 ($online_handler->getCount(new Criteria('online_uid', $this->getVar('uid'))) > 0) ? true : false;
         }
+
         return $this->isOnline;
     }
 

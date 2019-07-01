@@ -75,7 +75,6 @@ class MessageFormatter
     private $_errorCode = 0;
     private $_errorMessage = '';
 
-
     /**
      * Get the error code from the last operation.
      * @link http://php.net/manual/en/messageformatter.geterrorcode.php
@@ -129,29 +128,33 @@ class MessageFormatter
         try {
             $formatter = new \MessageFormatter($language, $pattern);
 
-            if ($formatter === null) {
+            if (null === $formatter) {
                 // formatter may be null in PHP 5.x
                 $this->_errorCode = intl_get_error_code();
                 $this->_errorMessage = 'Message pattern is invalid: ' . intl_get_error_message();
+
                 return false;
             }
         } catch (\IntlException $e) {
             // IntlException is thrown since PHP 7
             $this->_errorCode = $e->getCode();
             $this->_errorMessage = 'Message pattern is invalid: ' . $e->getMessage();
+
             return false;
         } catch (\Exception $e) {
             // Exception is thrown by HHVM
             $this->_errorCode = $e->getCode();
             $this->_errorMessage = 'Message pattern is invalid: ' . $e->getMessage();
+
             return false;
         }
 
         $result = $formatter->format($params);
 
-        if ($result === false) {
+        if (false === $result) {
             $this->_errorCode = $formatter->getErrorCode();
             $this->_errorMessage = $formatter->getErrorMessage();
+
             return false;
         }
 
@@ -168,8 +171,8 @@ class MessageFormatter
      * @param string $pattern The pattern to use for parsing the message.
      * @param string $message The message to parse, conforming to the pattern.
      * @param string $language The locale to use for formatting locale-dependent parts
-     * @return array|bool An array containing items extracted, or `FALSE` on error.
      * @throws \Xoops\Core\Exception\NotSupportedException when PHP intl extension is not installed.
+     * @return array|bool An array containing items extracted, or `FALSE` on error.
      */
     public function parse($pattern, $message, $language)
     {
@@ -181,7 +184,7 @@ class MessageFormatter
         }
 
         // replace named arguments
-        if (($tokens = self::tokenizePattern($pattern)) === false) {
+        if (false === ($tokens = self::tokenizePattern($pattern))) {
             $this->_errorCode = -1;
             $this->_errorMessage = 'Message pattern is invalid.';
 
@@ -202,14 +205,14 @@ class MessageFormatter
         $map = array_flip($map);
 
         $formatter = new \MessageFormatter($language, $pattern);
-        if ($formatter === null) {
+        if (null === $formatter) {
             $this->_errorCode = -1;
             $this->_errorMessage = 'Message pattern is invalid.';
 
             return false;
         }
         $result = $formatter->parse($message);
-        if ($result === false) {
+        if (false === $result) {
             $this->_errorCode = $formatter->getErrorCode();
             $this->_errorMessage = $formatter->getErrorMessage();
 
@@ -235,7 +238,7 @@ class MessageFormatter
      */
     private function replaceNamedArguments($pattern, $givenParams, &$resultingParams = [], &$map = [])
     {
-        if (($tokens = self::tokenizePattern($pattern)) === false) {
+        if (false === ($tokens = self::tokenizePattern($pattern))) {
             return false;
         }
         foreach ($tokens as $i => $token) {
@@ -258,11 +261,11 @@ class MessageFormatter
             }
             $type = isset($token[1]) ? trim($token[1]) : 'none';
             // replace plural and select format recursively
-            if ($type === 'plural' || $type === 'select') {
+            if ('plural' === $type || 'select' === $type) {
                 if (!isset($token[2])) {
                     return false;
                 }
-                if (($subtokens = self::tokenizePattern($token[2])) === false) {
+                if (false === ($subtokens = self::tokenizePattern($token[2]))) {
                     return false;
                 }
                 $c = count($subtokens);
@@ -290,7 +293,7 @@ class MessageFormatter
      */
     protected function fallbackFormat($pattern, $args, $locale)
     {
-        if (($tokens = self::tokenizePattern($pattern)) === false) {
+        if (false === ($tokens = self::tokenizePattern($pattern))) {
             $this->_errorCode = -1;
             $this->_errorMessage = 'Message pattern is invalid.';
 
@@ -319,17 +322,17 @@ class MessageFormatter
     {
         $charset = \XoopsLocale::getCharset();
         $depth = 1;
-        if (($start = $pos = mb_strpos($pattern, '{', 0, $charset)) === false) {
+        if (false === ($start = $pos = mb_strpos($pattern, '{', 0, $charset))) {
             return [$pattern];
         }
         $tokens = [mb_substr($pattern, 0, $pos, $charset)];
         while (true) {
             $open = mb_strpos($pattern, '{', $pos + 1, $charset);
             $close = mb_strpos($pattern, '}', $pos + 1, $charset);
-            if ($open === false && $close === false) {
+            if (false === $open && false === $close) {
                 break;
             }
-            if ($open === false) {
+            if (false === $open) {
                 $open = mb_strlen($pattern, $charset);
             }
             if ($close > $open) {
@@ -339,18 +342,18 @@ class MessageFormatter
                 $depth--;
                 $pos = $close;
             }
-            if ($depth === 0) {
+            if (0 === $depth) {
                 $tokens[] = explode(',', mb_substr($pattern, $start + 1, $pos - $start - 1, $charset), 3);
                 $start = $pos + 1;
                 $tokens[] = mb_substr($pattern, $start, $open - $start, $charset);
                 $start = $open;
             }
 
-            if ($depth !== 0 && ($open === false || $close === false)) {
+            if (0 !== $depth && (false === $open || false === $close)) {
                 break;
             }
         }
-        if ($depth !== 0) {
+        if (0 !== $depth) {
             return false;
         }
 
@@ -362,8 +365,8 @@ class MessageFormatter
      * @param array $token the token to parse
      * @param array $args arguments to replace
      * @param string $locale the locale
-     * @return bool|string parsed token or false on failure
      * @throws \Xoops\Core\Exception\NotSupportedException when unsupported formatting is used.
+     * @return bool|string parsed token or false on failure
      */
     private function parseToken($token, $args, $locale)
     {
@@ -388,11 +391,11 @@ class MessageFormatter
                 throw new NotSupportedException("Message format '$type' is not supported. You have to install PHP intl extension to use this feature.");
             case 'number':
                 $format = isset($token[2]) ? trim($token[2]) : null;
-                if (is_numeric($arg) && ($format === null || $format === 'integer')) {
+                if (is_numeric($arg) && (null === $format || 'integer' === $format)) {
                     $number = number_format($arg);
-                    if ($format === null && ($pos = strpos($arg, '.')) !== false) {
+                    if (null === $format && false !== ($pos = mb_strpos($arg, '.'))) {
                         // add decimals with unknown length
-                        $number .= '.' . substr($arg, $pos + 1);
+                        $number .= '.' . mb_substr($arg, $pos + 1);
                     }
 
                     return $number;
@@ -415,11 +418,11 @@ class MessageFormatter
                         return false;
                     }
                     $selector = trim($select[$i++]);
-                    if ($message === false && $selector === 'other' || $selector == $arg) {
+                    if (false === $message && 'other' === $selector || $selector == $arg) {
                         $message = implode(',', $select[$i]);
                     }
                 }
-                if ($message !== false) {
+                if (false !== $message) {
                     return $this->fallbackFormat($message, $args, $locale);
                 }
                 break;
@@ -445,18 +448,18 @@ class MessageFormatter
                     }
                     $selector = trim($plural[$i++]);
 
-                    if ($i == 1 && strncmp($selector, 'offset:', 7) === 0) {
+                    if (1 == $i && 0 === strncmp($selector, 'offset:', 7)) {
                         $offset = (int) trim(mb_substr($selector, 7, ($pos = mb_strpos(str_replace(["\n", "\r", "\t"], ' ', $selector), ' ', 7, $charset)) - 7, $charset));
                         $selector = trim(mb_substr($selector, $pos + 1, mb_strlen($selector, $charset), $charset));
                     }
-                    if ($message === false && $selector === 'other' ||
-                        $selector[0] === '=' && (int) mb_substr($selector, 1, mb_strlen($selector, $charset), $charset) === $arg ||
-                        $selector === 'one' && $arg - $offset == 1
+                    if (false === $message && 'other' === $selector ||
+                        '=' === $selector[0] && (int) mb_substr($selector, 1, mb_strlen($selector, $charset), $charset) === $arg ||
+                        'one' === $selector && 1 == $arg - $offset
                     ) {
                         $message = implode(',', str_replace('#', $arg - $offset, $plural[$i]));
                     }
                 }
-                if ($message !== false) {
+                if (false !== $message) {
                     return $this->fallbackFormat($message, $args, $locale);
                 }
                 break;

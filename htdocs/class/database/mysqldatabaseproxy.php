@@ -29,7 +29,6 @@
  * @since      2.6.0
  * @deprecated since version 2.6.0 - alpha 3. Switch to doctrine connector.
  */
-
 class XoopsMySQLDatabaseProxy extends XoopsMySQLDatabase
 {
     /**
@@ -48,10 +47,11 @@ class XoopsMySQLDatabaseProxy extends XoopsMySQLDatabase
     {
         $this->deprecated();
         $sql = ltrim($sql);
-        if (!$this->allowWebChanges && strtolower(substr($sql, 0, 6)) !== 'select') {
+        if (!$this->allowWebChanges && 'select' !== mb_strtolower(mb_substr($sql, 0, 6))) {
             //trigger_error('Database updates are not allowed during processing of a GET request', E_USER_WARNING);
             return false;
         }
+
         return $this->queryF($sql, $limit, $start);
     }
 }

@@ -22,6 +22,6 @@
  * @since     2.6.0
  */
 
-return $config = array(
+return $config = [
     'num_chars' => 6, // Maximum characters
-);
+];

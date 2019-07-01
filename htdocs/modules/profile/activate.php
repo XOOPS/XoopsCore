@@ -21,7 +21,6 @@ use Xoops\Html\Menu\Link;
  * @author          Jan Pedersen
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
  */
-
 include __DIR__ . '/header.php';
 $xoops = Xoops::getInstance();
 
@@ -43,7 +42,7 @@ if (!empty($_GET['id']) && !empty($_GET['actkey'])) {
     } else {
         if ($thisuser->getVar('level') > 0) {
             $xoops->redirect(
-                $xoops->url('modules/' . $xoops->module->getVar('dirname', 'n'). '/index.php'),
+                $xoops->url('modules/' . $xoops->module->getVar('dirname', 'n') . '/index.php'),
                 5,
                 XoopsLocale::E_SELECTED_ACCOUNT_IS_ALREADY_ACTIVATED,
                 false
@@ -51,14 +50,14 @@ if (!empty($_GET['id']) && !empty($_GET['actkey'])) {
         } else {
             if (false != $member_handler->activateUser($thisuser)) {
                 $xoops->getConfigs();
-                if ($xoops->getConfig('activation_type') == 2) {
+                if (2 == $xoops->getConfig('activation_type')) {
                     $myts = \Xoops\Core\Text\Sanitizer::getInstance();
                     $xoopsMailer = $xoops->getMailer();
                     $xoopsMailer->useMail();
                     $xoopsMailer->setTemplate('activated.tpl');
                     $xoopsMailer->assign('SITENAME', $xoops->getConfig('sitename'));
                     $xoopsMailer->assign('ADMINMAIL', $xoops->getConfig('adminmail'));
-                    $xoopsMailer->assign('SITEURL', \XoopsBaseConfig::get('url') . "/");
+                    $xoopsMailer->assign('SITEURL', \XoopsBaseConfig::get('url') . '/');
                     $xoopsMailer->setToUsers($thisuser);
                     $xoopsMailer->setFromEmail($xoops->getConfig('adminmail'));
                     $xoopsMailer->setFromName($xoops->getConfig('sitename'));
@@ -83,12 +82,12 @@ if (!empty($_GET['id']) && !empty($_GET['actkey'])) {
             }
         }
     }
-// Not implemented yet: re-send activiation code
-} elseif (!empty($_REQUEST['email']) && $xoops->getConfig('activation_type') != 0) {
+    // Not implemented yet: re-send activiation code
+} elseif (!empty($_REQUEST['email']) && 0 != $xoops->getConfig('activation_type')) {
     $myts = \Xoops\Core\Text\Sanitizer::getInstance();
     $member_handler = $xoops->getHandlerMember();
     $getuser = $member_handler->getUsers(new Criteria('email', trim($_REQUEST['email'])));
-    if (count($getuser) == 0) {
+    if (0 == count($getuser)) {
         $xoops->redirect(\XoopsBaseConfig::get('url'), 2, XoopsLocale::E_NO_USER_FOUND);
     }
     /* @var XoopsUser $getuser */
@@ -101,7 +100,7 @@ if (!empty($_GET['id']) && !empty($_GET['actkey'])) {
     $xoopsMailer->setTemplate('register.tpl');
     $xoopsMailer->assign('SITENAME', $xoops->getConfig('sitename'));
     $xoopsMailer->assign('ADMINMAIL', $xoops->getConfig('adminmail'));
-    $xoopsMailer->assign('SITEURL', \XoopsBaseConfig::get('url') . "/");
+    $xoopsMailer->assign('SITEURL', \XoopsBaseConfig::get('url') . '/');
     $xoopsMailer->setToUsers($getuser[0]);
     $xoopsMailer->setFromEmail($xoops->getConfig('adminmail'));
     $xoopsMailer->setFromName($xoops->getConfig('sitename'));

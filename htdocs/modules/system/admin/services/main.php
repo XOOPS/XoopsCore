@@ -33,7 +33,7 @@ if (!$xoops->isUser() || !$xoops->isModule() || !$xoops->user->isAdmin($xoops->m
 }
 
 // any ajax requests land here
-if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest') {
+if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && 'XMLHttpRequest' === $_SERVER['HTTP_X_REQUESTED_WITH']) {
     $xoops->logger()->quiet();
     // ajax post requests should have a valid token, but we don't clear it since the
     // token is set on page load and we may need to make multiple requests from it.
@@ -41,22 +41,22 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'
     // we need to decide how to handle that. Right now, some js will redirect us from
     // provider sort to service select just before the token should expire.
     if (isset($_POST['token']) && $security->validateToken($_POST['token'], false)) {
-        if (isset($_POST['op']) && $_POST['op']==='order') {
+        if (isset($_POST['op']) && 'order' === $_POST['op']) {
             if (isset($_POST['service'])) {
-                $service=$_POST['service'];
+                $service = $_POST['service'];
                 if (isset($_POST[$service]) && is_array($_POST[$service])) {
                     $service_order = array_flip($_POST[$service]);
                     $sm = Manager::getInstance();
                     $sm->saveChoice($service, $service_order);
-                    exit("OK");
+                    exit('OK');
                 }
             }
         }
         http_response_code(400);
-        exit("Parameter error");
+        exit('Parameter error');
     }
     http_response_code(403);
-    exit("Token error");
+    exit('Token error');
 }
 
 $xoops->theme()->addBaseStylesheetAssets('@jqueryuicss');
@@ -76,32 +76,31 @@ $admin_page->addTips(SystemLocale::SERVICES_TIPS);
 $admin_page->renderBreadcrumb();
 $admin_page->renderTips();
 
-$selected_service='';
+$selected_service = '';
 if (isset($_GET['service'])) {
-    $selected_service = strtolower(XoopsFilterInput::clean($_GET['service'], 'WORD'));
+    $selected_service = mb_strtolower(XoopsFilterInput::clean($_GET['service'], 'WORD'));
 }
 $xoops->tpl()->assign('selected_service', $selected_service);
 
 $sm = Manager::getInstance();
 $filter = 'coreservicelocate';
 $eventList = $xoops->events()->getEvents();
-$l = strlen($filter);
-$filteredList = array();
+$l = mb_strlen($filter);
+$filteredList = [];
 foreach ($eventList as $k => $v) {
-    if (strncasecmp($filter, $k, $l) == 0) {
-        $filteredList[] = strtolower(substr($k, $l));
+    if (0 == strncasecmp($filter, $k, $l)) {
+        $filteredList[] = mb_strtolower(mb_substr($k, $l));
     }
 }
 
-
-$service_list = array();
+$service_list = [];
 sort($filteredList);
 foreach ($filteredList as $v) {
-    $service_list[] = array(
+    $service_list[] = [
         'name' => $v,
         'display' => ucfirst($v),
-        'active' => ($v==$selected_service),
-        );
+        'active' => ($v == $selected_service),
+        ];
 }
 $xoops->tpl()->assign('service_list', $service_list);
 if (empty($filteredList)) {
@@ -129,17 +128,16 @@ if (!empty($selected_service) && in_array($selected_service, $filteredList)) {
     }
     $xoops->tpl()->assign('message', $xoops->alert('info', $modeDesc, 'Service Mode'));
 
-    $provider_list = array();
+    $provider_list = [];
     foreach ($providers as $p) {
-        $provider_list[] = array(
+        $provider_list[] = [
             'name' => $p->getName(),
             'description' => $p->getDescription(),
             'priority' => $p->getPriority(),
-        );
+        ];
     }
     $xoops->tpl()->assign('provider_list', $provider_list);
     $xoops->tpl()->assign('token', $security->createToken(901));
-
 }
 
 $xoops->footer();

@@ -48,7 +48,7 @@ class Editor extends TextArea
         if (!isset($configs['editor'])) {
             $configs['editor'] = $name;
             $name = $configs['name'];
-            // New: $name -> textarea field name;
+        // New: $name -> textarea field name;
             //      $configs['editor'] -> editor name;
             //      $configs['name'] -> textarea field name
         } else {
@@ -74,11 +74,12 @@ class Editor extends TextArea
                 $this->editor->setCaption($this->getCaption());
                 $this->editor->setRequired($this->isRequired());
                 $ret = $this->editor->renderValidationJS();
+
                 return $ret;
-            } else {
-                parent::renderValidationJS();
             }
+            parent::renderValidationJS();
         }
+
         return false;
     }
 
@@ -92,6 +93,7 @@ class Editor extends TextArea
         if ($this->editor instanceof \XoopsEditor) {
             return $this->editor->render();
         }
+
         return '';
     }
 }

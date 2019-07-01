@@ -20,7 +20,6 @@ use Xoops\Core\XoopsTpl;
  * @package         userconfigs
  * @version         $Id$
  */
-
 include dirname(dirname(__DIR__)) . '/mainfile.php';
 
 $xoops = Xoops::getInstance();
@@ -87,10 +86,10 @@ switch ($op) {
         break;
     case 'save':
         if (!$xoops->security()->check()) {
-            $helper->redirect("index.php", 3, implode('<br />', $xoops->security()->getErrors()));
+            $helper->redirect('index.php', 3, implode('<br />', $xoops->security()->getErrors()));
         }
 
-        $conf_ids = array();
+        $conf_ids = [];
         if (isset($_REQUEST)) {
             foreach ($_REQUEST as $k => $v) {
                 ${$k} = $v;
@@ -104,7 +103,7 @@ switch ($op) {
             for ($i = 0; $i < $count; ++$i) {
                 $config = $config_handler->getConfig($conf_ids[$i]);
                 $new_value = isset(${$config->getVar('conf_name')}) ? ${$config->getVar('conf_name')} : null;
-                if (!is_null($new_value) && (is_array($new_value) || $new_value != $config->getVar('conf_value'))) {
+                if (null !== $new_value && (is_array($new_value) || $new_value != $config->getVar('conf_value'))) {
                     $config->setConfValueForInput($new_value);
                     $config_handler->insertConfig($config);
                 }

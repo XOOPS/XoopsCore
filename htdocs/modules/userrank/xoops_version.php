@@ -23,35 +23,35 @@
 /*
  General settings
  */
-$modversion['name']        = _MI_USERRANK_NAME;
+$modversion['name'] = _MI_USERRANK_NAME;
 $modversion['description'] = _MI_USERRANK_DESC;
-$modversion['version']     = 0.1;
-$modversion['author']      = 'Cointin Maxime,Andricq Nicolas';
-$modversion['nickname']    = 'Kraven30,MusS';
-$modversion['credits']     = 'The XOOPS Project';
-$modversion['license']     = 'GNU GPL 2.0';
+$modversion['version'] = 0.1;
+$modversion['author'] = 'Cointin Maxime,Andricq Nicolas';
+$modversion['nickname'] = 'Kraven30,MusS';
+$modversion['credits'] = 'The XOOPS Project';
+$modversion['license'] = 'GNU GPL 2.0';
 $modversion['license_url'] = 'http://www.gnu.org/licenses/gpl-2.0.html';
-$modversion['official']    = 1;
-$modversion['help']        = 'page=help';
-$modversion['image']       = 'images/logo.png';
-$modversion['dirname']     = 'userrank';
+$modversion['official'] = 1;
+$modversion['help'] = 'page=help';
+$modversion['image'] = 'images/logo.png';
+$modversion['dirname'] = 'userrank';
 
 /*
  Settings for configs
 */
-$modversion['release_date']        = '2011/12/20';
-$modversion['module_website_url']  = 'http://www.xoops.org/';
+$modversion['release_date'] = '2011/12/20';
+$modversion['module_website_url'] = 'http://www.xoops.org/';
 $modversion['module_website_name'] = 'XOOPS';
-$modversion['module_status']       = 'ALPHA';
-$modversion['min_php']             = '5.4';
-$modversion['min_xoops']           = '2.6.0';
-$modversion['onInstall']           = 'include/install.php';
+$modversion['module_status'] = 'ALPHA';
+$modversion['min_php'] = '5.4';
+$modversion['min_xoops'] = '2.6.0';
+$modversion['onInstall'] = 'include/install.php';
 
 // paypal
-$modversion['paypal']                  = array();
-$modversion['paypal']['business']      = 'xoopsfoundation@gmail.com';
-$modversion['paypal']['item_name']     = 'Donation : ' . _MI_USERRANK_DESC;
-$modversion['paypal']['amount']        = 0;
+$modversion['paypal'] = [];
+$modversion['paypal']['business'] = 'xoopsfoundation@gmail.com';
+$modversion['paypal']['item_name'] = 'Donation : ' . _MI_USERRANK_DESC;
+$modversion['paypal']['amount'] = 0;
 $modversion['paypal']['currency_code'] = 'USD';
 
 /*
@@ -63,42 +63,42 @@ $modversion['system_menu'] = 1;
 /*
  Manage plugin
  */
-$modversion['extension']          = 1;
+$modversion['extension'] = 1;
 $modversion['extension_module'][] = 'system';
 
 /*
  Admin things
 */
-$modversion['hasAdmin']   = 1;
+$modversion['hasAdmin'] = 1;
 $modversion['adminindex'] = 'admin/index.php';
-$modversion['adminmenu']  = 'admin/menu.php';
+$modversion['adminmenu'] = 'admin/menu.php';
 
 // Mysql file
-$modversion['schema']           = 'sql/schema.yml';
+$modversion['schema'] = 'sql/schema.yml';
 //$modversion['sqlfile']['mysql'] = 'sql/mysql.sql';
 
 // Tables created by sql file (without prefix!)
-$modversion['tables'] = array(
+$modversion['tables'] = [
     'userrank_rank',
-);
+];
 
 /*
  Admin Templates
 */
-$modversion['templates'][] = array(
-    'file'        => 'userrank.tpl',
+$modversion['templates'][] = [
+    'file' => 'userrank.tpl',
     'description' => '',
-    'type'        => 'admin'
-);
+    'type' => 'admin',
+];
 
 /*
  Preferences
 */
-$modversion['config'][] = array(
-    'name'        => 'userrank_pager',
-    'title'       => '_MI_USERRANK_PREFERENCE_PAGER',
+$modversion['config'][] = [
+    'name' => 'userrank_pager',
+    'title' => '_MI_USERRANK_PREFERENCE_PAGER',
     'description' => '',
-    'formtype'    => 'textbox',
-    'valuetype'   => 'int',
-    'default'     => 20,
-);
+    'formtype' => 'textbox',
+    'valuetype' => 'int',
+    'default' => 20,
+];

@@ -15,7 +15,6 @@
  * @since           2.0.0
  * @version         $Id$
  */
-
 $email_tray = new Xoops\Form\ElementTray(XoopsLocale::EMAIL, '<br />');
 $email_text = new Xoops\Form\Text('', 'email', 25, 60, $myts->htmlSpecialChars($email));
 $email_option = new Xoops\Form\Checkbox('', 'user_viewemail', $user_viewemail);
@@ -30,11 +29,11 @@ $reg_form->addElement($email_tray);
 $reg_form->addElement(new Xoops\Form\Password(XoopsLocale::PASSWORD, 'pass', 32, 64, $myts->htmlSpecialChars($pass)), true);
 $reg_form->addElement(new Xoops\Form\Password(XoopsLocale::VERIFY_PASSWORD, 'vpass', 32, 64, $myts->htmlSpecialChars($vpass)), true);
 $reg_form->addElement(new Xoops\Form\Text(XoopsLocale::WEBSITE, 'url', 25, 255, $myts->htmlSpecialChars($url)));
-$tzselected = ($timezone != '') ? $timezone : $xoopsConfig['default_TZ'];
+$tzselected = ('' != $timezone) ? $timezone : $xoopsConfig['default_TZ'];
 $reg_form->addElement(new Xoops\Form\SelectTimeZone(XoopsLocale::TIME_ZONE, 'timezone', $tzselected));
 //$reg_form->addElement($avatar_tray);
 $reg_form->addElement(new Xoops\Form\RadioYesNo(XoopsLocale::Q_RECEIVE_OCCASIONAL_EMAIL_NOTICES_FROM_ADMINISTRATORS, 'user_mailok', $user_mailok));
-if ($xoopsConfigUser['reg_dispdsclmr'] != 0 && $xoopsConfigUser['reg_disclaimer'] != '') {
+if (0 != $xoopsConfigUser['reg_dispdsclmr'] && '' != $xoopsConfigUser['reg_disclaimer']) {
     $disc_tray = new Xoops\Form\ElementTray(XoopsLocale::DISCLAIMER, '<br />');
     $disc_text = new Xoops\Form\TextArea('', 'disclaimer', $xoopsConfigUser['reg_disclaimer'], 15, 80);
     $disc_text->set('readonly', 'readonly');

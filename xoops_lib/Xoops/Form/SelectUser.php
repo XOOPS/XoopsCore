@@ -51,7 +51,7 @@ class SelectUser extends ElementTray
         }
         $member_handler = $xoops->getHandlerMember();
         $user_count = $member_handler->getUserCount();
-        $value = is_array($value) ? $value : (empty($value) ? array() : array($value));
+        $value = is_array($value) ? $value : (empty($value) ? [] : [$value]);
         if ($user_count > $limit && count($value) > 0) {
             $criteria = new CriteriaCompo(new Criteria('uid', '(' . implode(',', $value) . ')', 'IN'));
         } else {
@@ -63,8 +63,9 @@ class SelectUser extends ElementTray
         $users = $member_handler->getUserList($criteria);
         $select_element->addOptionArray($users);
         if ($user_count <= $limit) {
-            parent::__construct($caption, "", $name);
+            parent::__construct($caption, '', $name);
             $this->addElement($select_element);
+
             return;
         }
 
@@ -101,12 +102,12 @@ class SelectUser extends ElementTray
             '',
             '<a href="#" onclick="var sel = xoopsGetElementById(\'' . $name
                 . '\');for (var i = sel.options.length-1; i >= 0; i--) {if (!sel.options[i].selected) '
-                .'{sel.options[i] = null;}}; return false;">' . \XoopsLocale::REMOVE_UNSELECTED_USERS . "</a>"
+                . '{sel.options[i] = null;}}; return false;">' . \XoopsLocale::REMOVE_UNSELECTED_USERS . '</a>'
                 . ' | '
                 . '<a href="#" onclick="openWithSelfMain(\'' . \XoopsBaseConfig::get('url') . '/include/findusers.php?target='
                 . $name . '&amp;multiple=' . $multiple . '&amp;token=' . $token
                 . '\', \'userselect\', 800, 600, null); return false;" >'
-                . \XoopsLocale::SEARCH_USERS . "</a>" . $js_addusers
+                . \XoopsLocale::SEARCH_USERS . '</a>' . $js_addusers
         );
         parent::__construct($caption, '', $name);
         $this->addElement($select_element);

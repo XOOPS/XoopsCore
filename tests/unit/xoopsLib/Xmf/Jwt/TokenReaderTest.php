@@ -1,8 +1,9 @@
 <?php
+
 namespace Xmf\Test\Jwt;
 
-use Xmf\Jwt\KeyFactory;
 use Xmf\Jwt\JsonWebToken;
+use Xmf\Jwt\KeyFactory;
 use Xmf\Jwt\TokenReader;
 use Xmf\Key\ArrayStorage;
 use Xmf\Key\KeyAbstract;
@@ -45,7 +46,7 @@ class TokenReaderTest extends \PHPUnit\Framework\TestCase
 
     public function testFromString()
     {
-        $claims = array('rat' => 'cute');
+        $claims = ['rat' => 'cute'];
         $jwt = new JsonWebToken($this->testKey);
         $token = $jwt->create($claims);
 
@@ -54,7 +55,7 @@ class TokenReaderTest extends \PHPUnit\Framework\TestCase
             $this->assertEquals($value, $actual->$name);
         }
 
-        $actual = TokenReader::fromString($this->testKey, $token, array('rat' => 'odd'));
+        $actual = TokenReader::fromString($this->testKey, $token, ['rat' => 'odd']);
         $this->assertFalse($actual);
     }
 

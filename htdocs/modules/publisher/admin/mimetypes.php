@@ -130,15 +130,15 @@ function add()
         echo "<tr valign='top'>
         <td class='head'>" . _AM_PUBLISHER_MIME_ADMINF . "</td>
         <td class='even'>";
-        echo "<input type='radio' name='mime_admin' value='1' " . (1 == $mime_admin ? "checked" : '') . '>' . XoopsLocale::YES;
-        echo "<input type='radio' name='mime_admin' value='0' " . (0 == $mime_admin ? "checked" : '') . '>' . XoopsLocale::NO . '
+        echo "<input type='radio' name='mime_admin' value='1' " . (1 == $mime_admin ? 'checked' : '') . '>' . XoopsLocale::YES;
+        echo "<input type='radio' name='mime_admin' value='0' " . (0 == $mime_admin ? 'checked' : '') . '>' . XoopsLocale::NO . '
         </td>
         </tr>';
         echo "<tr valign='top'>
         <td class='head'>" . _AM_PUBLISHER_MIME_USERF . "</td>
         <td class='even'>";
-        echo "<input type='radio' name='mime_user' value='1'" . (1 == $mime_user ? "checked" : '') . '>' . XoopsLocale::YES;
-        echo "<input type='radio' name='mime_user' value='0'" . (0 == $mime_user ? "checked" : '') . '>' . XoopsLocale::NO . '
+        echo "<input type='radio' name='mime_user' value='1'" . (1 == $mime_user ? 'checked' : '') . '>' . XoopsLocale::YES;
+        echo "<input type='radio' name='mime_user' value='0'" . (0 == $mime_user ? 'checked' : '') . '>' . XoopsLocale::NO . '
         </td>
         </tr>';
         echo "<tr valign='top'>
@@ -301,15 +301,15 @@ function edit()
         echo "<tr valign='top'>
         <td class='head'>" . _AM_PUBLISHER_MIME_ADMINF . "</td>
         <td class='even'>
-        <input type='radio' name='mime_admin' value='1' " . (1 == $mime_admin ? "checked" : '') . '>' . XoopsLocale::YES . "
-        <input type='radio' name='mime_admin' value='0' " . (0 == $mime_admin ? "checked" : '') . '>' . XoopsLocale::NO . '
+        <input type='radio' name='mime_admin' value='1' " . (1 == $mime_admin ? 'checked' : '') . '>' . XoopsLocale::YES . "
+        <input type='radio' name='mime_admin' value='0' " . (0 == $mime_admin ? 'checked' : '') . '>' . XoopsLocale::NO . '
         </td>
         </tr>';
         echo "<tr valign='top'>
         <td class='head'>" . _AM_PUBLISHER_MIME_USERF . "</td>
         <td class='even'>
-        <input type='radio' name='mime_user' value='1' " . (1 == $mime_user ? "checked" : '') . '>' . XoopsLocale::YES . "
-        <input type='radio' name='mime_user' value='0' " . (0 == $mime_user ? "checked" : '') . '>' . XoopsLocale::NO . '
+        <input type='radio' name='mime_user' value='1' " . (1 == $mime_user ? 'checked' : '') . '>' . XoopsLocale::YES . "
+        <input type='radio' name='mime_user' value='0' " . (0 == $mime_user ? 'checked' : '') . '>' . XoopsLocale::NO . '
         </td>
         </tr>';
         echo "<tr valign='top'>

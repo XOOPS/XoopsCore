@@ -16,7 +16,6 @@
  * @copyright 2012-2016 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  */
-
 class CodexSystemPlugin extends Xoops\Module\Plugin\PluginAbstract implements SystemPluginInterface
 {
     /**
@@ -47,10 +46,11 @@ class CodexSystemPlugin extends Xoops\Module\Plugin\PluginAbstract implements Sy
     public function waiting()
     {
         $xoops = Xoops::getInstance();
-        $ret['count'] = count(\Xoops\Core\Lists\File::getList($xoops->path('modules/codex/')))-2;
+        $ret['count'] = count(\Xoops\Core\Lists\File::getList($xoops->path('modules/codex/'))) - 2;
         $ret['name'] = $xoops->getHandlerModule()->getByDirname('codex')->getVar('name');
         $ret['link'] = $xoops->url('modules/codex/');
-        return array();
+
+        return [];
     }
 
     /**
@@ -69,19 +69,20 @@ class CodexSystemPlugin extends Xoops\Module\Plugin\PluginAbstract implements Sy
     public function backend($limit)
     {
         $xoops = Xoops::getInstance();
-        $i=0;
-        $ret=array();
+        $i = 0;
+        $ret = [];
 
         $files = \Xoops\Core\Lists\File::getList($xoops->path('modules/codex/'));
         foreach ($files as $file) {
-            if (!in_array($file, array('xoops_version.php', 'index.php'))) {
-                $ret[$i]['title']   = ucfirst(str_replace('.php', '', $file));
-                $ret[$i]['link']    = $xoops->url('modules/codex/' . $file);
+            if (!in_array($file, ['xoops_version.php', 'index.php'])) {
+                $ret[$i]['title'] = ucfirst(str_replace('.php', '', $file));
+                $ret[$i]['link'] = $xoops->url('modules/codex/' . $file);
                 $ret[$i]['content'] = 'Codex module : ' . ucfirst(str_replace('.php', '', $file));
-                $ret[$i]['date']    = filemtime($xoops->path('modules/codex/' . $file));
+                $ret[$i]['date'] = filemtime($xoops->path('modules/codex/' . $file));
                 ++$i;
             }
         }
+
         return $ret;
     }
 

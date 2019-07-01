@@ -16,7 +16,6 @@
  * @author          Laurent JEN (Aka DuGris)
  * @version         $Id$
  */
-
 $modversion['name'] = _MI_XLANGUAGE_NAME;
 $modversion['description'] = _MI_XLANGUAGE_DESC;
 $modversion['version'] = '4.00';
@@ -39,12 +38,12 @@ $modversion['min_php'] = '5.3.7';
 $modversion['min_xoops'] = '2.6.0';
 
 // paypal
-$modversion['paypal'] = array(
+$modversion['paypal'] = [
     'business' => 'xoopsfoundation@gmail.com',
     'item_name' => _MI_XLANGUAGE_DESC,
     'amount' => 0,
     'currency_code' => 'USD',
-);
+];
 
 // Admin menu
 $modversion['system_menu'] = 1;
@@ -66,12 +65,12 @@ $modversion['onUpdate'] = 'include/install.php';
 $modversion['schema'] = 'sql/schema.yml';
 $modversion['sqlfile']['mysql'] = 'sql/mysql.sql';
 
-$modversion['tables'] = array(
+$modversion['tables'] = [
     'xlanguage',
-);
+];
 
 //language selection block
-$modversion['blocks'][] = array(
+$modversion['blocks'][] = [
     'file' => 'xlanguage_blocks.php',
     'name' => _MI_XLANGUAGE_BNAME,
     'description' => '',
@@ -79,12 +78,12 @@ $modversion['blocks'][] = array(
     'edit_func' => 'b_xlanguage_select_edit',
     'options' => 'images| |5',
     'template' => 'xlanguage_block.tpl',
-);
+];
 
 // Config
 XoopsLoad::load('xoopslists');
 
-$modversion['config'][] = array(
+$modversion['config'][] = [
     'name' => 'theme',
     'title' => '_MI_XLANGUAGE_THEME',
     'description' => '_MI_XLANGUAGE_THEME_DESC',
@@ -92,4 +91,4 @@ $modversion['config'][] = array(
     'valuetype' => 'text',
     'default' => '64',
     'options' => XoopsLists::getDirListAsArray(Xoops::getInstance()->path('media/xoops/images/flags')),
-);
+];

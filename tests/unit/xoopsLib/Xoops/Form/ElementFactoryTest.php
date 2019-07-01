@@ -1,7 +1,8 @@
 <?php
+
 namespace Xoops\Form;
 
-require_once(__DIR__.'/../../../init_new.php');
+require_once(__DIR__ . '/../../../init_new.php');
 
 class ElementFactoryTest extends \PHPUnit\Framework\TestCase
 {
@@ -16,7 +17,7 @@ class ElementFactoryTest extends \PHPUnit\Framework\TestCase
      */
     protected function setUp()
     {
-        $this->object = new ElementFactory;
+        $this->object = new ElementFactory();
     }
 
     /**
@@ -26,7 +27,6 @@ class ElementFactoryTest extends \PHPUnit\Framework\TestCase
     protected function tearDown()
     {
     }
-
 
     public function testConst()
     {

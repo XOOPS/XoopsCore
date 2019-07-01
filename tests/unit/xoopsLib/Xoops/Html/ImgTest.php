@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/../../../init_new.php');
+require_once(__DIR__ . '/../../../init_new.php');
 
 use Xoops\Html\Img;
 
@@ -16,7 +16,7 @@ class ImgTest extends \PHPUnit\Framework\TestCase
      */
     protected function setUp()
     {
-        $this->object = new Img(array('src' => 'image.png', 'class' => 'image'));
+        $this->object = new Img(['src' => 'image.png', 'class' => 'image']);
     }
 
     /**
@@ -29,7 +29,7 @@ class ImgTest extends \PHPUnit\Framework\TestCase
 
     public function test__construct()
     {
-        $object = new Img(array('src' => 'image.png'));
+        $object = new Img(['src' => 'image.png']);
         $this->assertInstanceOf('\Xoops\Html\Attributes', $object);
         $this->assertEquals('image.png', $object->get('src'));
     }
@@ -39,7 +39,7 @@ class ImgTest extends \PHPUnit\Framework\TestCase
         $output = $this->object->render();
         $this->assertStringStartsWith('<img ', $output);
         $this->assertStringEndsWith(' />', $output);
-        $this->assertGreaterThanOrEqual(4, strpos($output, 'src="image.png" '));
-        $this->assertGreaterThanOrEqual(4, strpos($output, 'class="image" '));
+        $this->assertGreaterThanOrEqual(4, mb_strpos($output, 'src="image.png" '));
+        $this->assertGreaterThanOrEqual(4, mb_strpos($output, 'class="image" '));
     }
 }

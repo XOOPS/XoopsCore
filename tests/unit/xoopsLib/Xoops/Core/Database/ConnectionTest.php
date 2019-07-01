@@ -1,21 +1,19 @@
 <?php
-require_once(__DIR__.'/../../../../init_new.php');
+require_once(__DIR__ . '/../../../../init_new.php');
 
-
-use Doctrine\DBAL\Driver;
-use Doctrine\DBAL\Configuration;
 use Doctrine\Common\EventManager;
+use Doctrine\DBAL\Configuration;
 
 class ConnectionTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass = '\Xoops\Core\Database\Connection';
 
-    /** @var  Xoops\Core\Database\Connection */
+    /** @var Xoops\Core\Database\Connection */
     protected $object;
 
-    public function setUp()
+    protected function setUp()
     {
-        $params = array();
+        $params = [];
         $config = new Configuration();
         $eventManager = new EventManager();
         $driver = new Doctrine\DBAL\Driver\PDOMySql\Driver();
@@ -25,7 +23,7 @@ class ConnectionTest extends \PHPUnit\Framework\TestCase
 
     public function test___construct()
     {
-        $params = array();
+        $params = [];
         $config = new Configuration();
         $eventManager = new EventManager();
         $driver = new Doctrine\DBAL\Driver\PDOMySql\Driver();
@@ -65,7 +63,7 @@ class ConnectionTest extends \PHPUnit\Framework\TestCase
 
         $table = 'toto';
         $x = $this->object->prefix($table);
-        $this->assertSame($db_prefix.'_'.$table, $x);
+        $this->assertSame($db_prefix . '_' . $table, $x);
     }
 
     public function test_insertPrefix()

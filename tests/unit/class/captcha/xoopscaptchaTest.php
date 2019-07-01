@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/../../init_new.php');
+require_once(__DIR__ . '/../../init_new.php');
 
 class XoopsCaptchaTest extends \PHPUnit\Framework\TestCase
 {
@@ -30,7 +30,7 @@ class XoopsCaptchaTest extends \PHPUnit\Framework\TestCase
 
     public function test___publicProperties()
     {
-        $items = array('handler','active','path_basic','path_plugin','configPath','name','config','message');
+        $items = ['handler', 'active', 'path_basic', 'path_plugin', 'configPath', 'name', 'config', 'message'];
         foreach ($items as $item) {
             $prop = new ReflectionProperty($this->myclass, $item);
             $this->assertTrue($prop->isPublic());
@@ -42,11 +42,11 @@ class XoopsCaptchaTest extends \PHPUnit\Framework\TestCase
         $this->assertInstanceOf('XoopsCaptcha', $this->object);
 
         $instance = $this->object;
-        $this->assertTrue(is_string($instance->path_basic));
-        $this->assertTrue(is_string($instance->path_plugin));
-        $this->assertTrue(is_string($instance->configPath));
-        $this->assertTrue(is_array($instance->config));
-        $this->assertTrue(is_string($instance->name));
+        $this->assertInternalType('string', $instance->path_basic);
+        $this->assertInternalType('string', $instance->path_plugin);
+        $this->assertInternalType('string', $instance->configPath);
+        $this->assertInternalType('array', $instance->config);
+        $this->assertInternalType('string', $instance->name);
 
         $class = $this->myclass;
         $instance2 = $class::getInstance();
@@ -56,7 +56,7 @@ class XoopsCaptchaTest extends \PHPUnit\Framework\TestCase
     public function testLoadConfig()
     {
         $x = $this->object->loadConfig();
-        $this->assertTrue(is_array($x));
+        $this->assertInternalType('array', $x);
         $this->assertTrue(isset($x['disabled']));
         $this->assertTrue(isset($x['mode']));
         $this->assertTrue(isset($x['name']));
@@ -64,14 +64,14 @@ class XoopsCaptchaTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue(isset($x['maxattempts']));
 
         $x = $this->object->loadConfig('text');
-        $this->assertTrue(is_array($x));
+        $this->assertInternalType('array', $x);
         $this->assertTrue(isset($x['num_chars']));
     }
 
     public function testLoadBasicConfig()
     {
         $x = $this->object->loadBasicConfig();
-        $this->assertTrue(is_array($x));
+        $this->assertInternalType('array', $x);
         $this->assertTrue(isset($x['disabled']));
         $this->assertTrue(isset($x['mode']));
         $this->assertTrue(isset($x['name']));
@@ -82,7 +82,7 @@ class XoopsCaptchaTest extends \PHPUnit\Framework\TestCase
     public function testReadConfig()
     {
         $x = $this->object->readConfig('captcha.config');
-        $this->assertTrue(is_array($x));
+        $this->assertInternalType('array', $x);
         $this->assertTrue(isset($x['disabled']));
         $this->assertTrue(isset($x['mode']));
         $this->assertTrue(isset($x['name']));
@@ -97,7 +97,7 @@ class XoopsCaptchaTest extends \PHPUnit\Framework\TestCase
         $x = $instance->writeConfig($filename, $instance->config);
         $this->assertTrue($x);
         $file = $instance->configPath . $filename . '.php';
-        $this->assertTrue(file_exists($file));
+        $this->assertFileExists($file);
         @unlink($file);
     }
 
@@ -127,7 +127,7 @@ class XoopsCaptchaTest extends \PHPUnit\Framework\TestCase
     public function testSetConfigs()
     {
         $instance = $this->object;
-        $config = array('dummy1' => 1, 'dummy2' => 2, 'message' => 'message');
+        $config = ['dummy1' => 1, 'dummy2' => 2, 'message' => 'message'];
         $x = $instance->setConfigs($config);
         $this->assertTrue($x);
         $this->assertSame(1, $instance->config['dummy1']);
@@ -140,7 +140,7 @@ class XoopsCaptchaTest extends \PHPUnit\Framework\TestCase
         $instance = $this->object;
         $instance->active = false;
         $sessionName = $instance->name;
-        $_SESSION = array();
+        $_SESSION = [];
         $_SESSION["{$sessionName}_skipmember"] = 'user1';
         $_SESSION["{$sessionName}_maxattempts"] = 11;
         $_SESSION["{$sessionName}_attempt"] = 1;
@@ -158,7 +158,7 @@ class XoopsCaptchaTest extends \PHPUnit\Framework\TestCase
     public function testGetMessage()
     {
         $instance = $this->object;
-        $instance->message = array('message1', 'message2');
+        $instance->message = ['message1', 'message2'];
         $x = $instance->getMessage();
         $this->assertSame(implode('<br />', $instance->message), $x);
     }
@@ -167,14 +167,14 @@ class XoopsCaptchaTest extends \PHPUnit\Framework\TestCase
     {
         $instance = $this->object;
         $x = $instance->destroyGarbage();
-        $this->assertSame(true, $x);
+        $this->assertTrue($x);
     }
 
     public function testRender()
     {
         $instance = $this->object;
         $x = $instance->render();
-        $this->assertTrue(is_string($x));
+        $this->assertInternalType('string', $x);
     }
 
     public function testRenderValidationJS()
@@ -188,15 +188,15 @@ class XoopsCaptchaTest extends \PHPUnit\Framework\TestCase
     {
         $instance = $this->object;
         $x = $instance->setCode();
-        $this->assertSame(false, $x);
+        $this->assertFalse($x);
         $x = $instance->setCode('code');
-        $this->assertSame(true, $x);
+        $this->assertTrue($x);
     }
 
     public function testLoadForm()
     {
         $instance = $this->object;
         $x = $instance->loadForm();
-        $this->assertTrue(is_string($x));
+        $this->assertInternalType('string', $x);
     }
 }

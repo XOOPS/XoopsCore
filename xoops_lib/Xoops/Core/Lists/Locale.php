@@ -29,14 +29,14 @@ class Locale extends ListAbstract
     /**
      * gets list of locales
      *
-     * @param boolean $showInCodeLanguage true to show a code's name in the language the code represents
+     * @param bool $showInCodeLanguage true to show a code's name in the language the code represents
      *
      * @return array
      */
     public static function getList($showInCodeLanguage = true)
     {
         $locales = Data::getAvailableLocales();
-        $languages = array();
+        $languages = [];
         foreach ($locales as $locale) {
             $key = \Xoops\Locale::normalizeLocale($locale);
             $languages[$key] = Language::getName($locale, ($showInCodeLanguage ? $locale : null));

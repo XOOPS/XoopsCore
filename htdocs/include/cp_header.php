@@ -21,7 +21,6 @@
  * the file that will include this file must be located under
  * xoops_url/modules/module_directory_name/admin_directory_name/
  */
-
 require_once dirname(__DIR__) . '/mainfile.php';
 
 $xoops = Xoops::getInstance();
@@ -30,7 +29,7 @@ include_once $xoops->path('include/cp_functions.php');
 
 $moduleperm_handler = $xoops->getHandlerGroupPermission();
 if ($xoops->isUser()) {
-    $url_arr = explode('/', strstr($_SERVER['REQUEST_URI'], '/modules/'));
+    $url_arr = explode('/', mb_strstr($_SERVER['REQUEST_URI'], '/modules/'));
     if (!$xoops->isActiveModule($url_arr[2])) {
         $xoops->redirect($xoops_url, 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
     }
@@ -44,7 +43,7 @@ if ($xoops->isUser()) {
 }
 
 // set config values for this module
-if ($xoops->module->getVar('hasconfig') == 1 || $xoops->module->getVar('hascomments') == 1) {
+if (1 == $xoops->module->getVar('hasconfig') || 1 == $xoops->module->getVar('hascomments')) {
     $xoops->moduleConfig = $xoops->getModuleConfigs();
 }
 

@@ -67,25 +67,25 @@ switch ($op) {
         $xoops->tpl()->assign('xoops_pagetitle', XoopsLocale::USER_REGISTRATION);
         $stop = '';
         if (!$xoops->security()->check()) {
-            $stop .= implode('<br />', $xoops->security()->getErrors()) . "<br />";
+            $stop .= implode('<br />', $xoops->security()->getErrors()) . '<br />';
         }
-        if ($xoopsConfigUser['reg_dispdsclmr'] != 0 && $xoopsConfigUser['reg_disclaimer'] != '') {
+        if (0 != $xoopsConfigUser['reg_dispdsclmr'] && '' != $xoopsConfigUser['reg_disclaimer']) {
             if (empty($agree_disc)) {
                 $stop .= XoopsLocale::E_YOU_HAVE_TO_AGREE_TO_DISCLAIMER . '<br />';
             }
         }
         $stop .= XoopsUserUtility::validate($uname, $email, $pass, $vpass);
         if (empty($stop)) {
-            echo XoopsLocale::USERNAME . ": " . $myts->htmlSpecialChars($uname) . "<br />";
-            echo XoopsLocale::EMAIL . ": " . $myts->htmlSpecialChars($email) . "<br />";
-            if ($url != '') {
+            echo XoopsLocale::USERNAME . ': ' . $myts->htmlSpecialChars($uname) . '<br />';
+            echo XoopsLocale::EMAIL . ': ' . $myts->htmlSpecialChars($email) . '<br />';
+            if ('' != $url) {
                 $url = $xoops->formatURL($url);
                 echo XoopsLocale::WEBSITE . ': ' . $myts->htmlSpecialChars($url) . '<br />';
             }
             echo XoopsLocale::TIME_ZONE . ": $timezone<br />";
             echo "<form action='register.php' method='post'>";
             $captcha = new Xoops\Form\Captcha();
-            echo "<br />" . $captcha->getCaption() . ": " . $captcha->render();
+            echo '<br />' . $captcha->getCaption() . ': ' . $captcha->render();
             echo "<input type='hidden' name='uname' value='" . $myts->htmlSpecialChars($uname) . "' />
                   <input type='hidden' name='email' value='" . $myts->htmlSpecialChars($email) . "' />
                   <input type='hidden' name='user_viewemail' value='" . $user_viewemail . "' />
@@ -104,16 +104,15 @@ switch ($op) {
         }
         $xoops->footer();
         break;
-
     case 'finish':
         $xoops->header();
         $stop = XoopsUserUtility::validate($uname, $email, $pass, $vpass);
         if (!$xoops->security()->check()) {
-            $stop .= implode('<br />', $xoops->security()->getErrors()) . "<br />";
+            $stop .= implode('<br />', $xoops->security()->getErrors()) . '<br />';
         }
         $xoopsCaptcha = XoopsCaptcha::getInstance();
         if (!$xoopsCaptcha->verify()) {
-            $stop .= $xoopsCaptcha->getMessage() . "<br />";
+            $stop .= $xoopsCaptcha->getMessage() . '<br />';
         }
         if (empty($stop)) {
             $member_handler = $xoops->getHandlerMember();
@@ -121,11 +120,11 @@ switch ($op) {
             $newuser->setVar('user_viewemail', $user_viewemail);
             $newuser->setVar('uname', $uname);
             $newuser->setVar('email', $email);
-            if ($url != '') {
+            if ('' != $url) {
                 $newuser->setVar('url', $xoops->formatURL($url));
             }
             $newuser->setVar('user_avatar', 'blank.gif');
-            $actkey = substr(\Xmf\Random::generateKey(), 16, 8);
+            $actkey = mb_substr(\Xmf\Random::generateKey(), 16, 8);
             $newuser->setVar('actkey', $actkey);
             $newuser->setVar('pass', password_hash($pass, PASSWORD_DEFAULT));
             $newuser->setVar('last_pass_change', time());
@@ -135,7 +134,7 @@ switch ($op) {
             $newuser->setVar('umode', $xoops->getConfig('com_mode'));
             $newuser->setVar('theme', $xoops->getConfig('theme_set'));
             $newuser->setVar('user_mailok', $user_mailok);
-            if ($xoopsConfigUser['activation_type'] == 1) {
+            if (1 == $xoopsConfigUser['activation_type']) {
                 $newuser->setVar('level', 1);
             } else {
                 $newuser->setVar('level', 0);
@@ -149,7 +148,7 @@ switch ($op) {
                 echo XoopsLocale::E_USER_NOT_REGISTERED;
                 $xoops->footer();
             }
-            if ($xoopsConfigUser['activation_type'] == 1) {
+            if (1 == $xoopsConfigUser['activation_type']) {
                 XoopsUserUtility::sendWelcome($newuser);
                 $xoops->redirect(
                     'index.php',
@@ -158,13 +157,13 @@ switch ($op) {
                 );
             }
             // Sending notification email to user for self activation
-            if ($xoopsConfigUser['activation_type'] == 0) {
+            if (0 == $xoopsConfigUser['activation_type']) {
                 $xoopsMailer = $xoops->getMailer();
                 $xoopsMailer->useMail();
                 $xoopsMailer->setTemplate('register.tpl');
                 $xoopsMailer->assign('SITENAME', $xoops->getConfig('sitename'));
                 $xoopsMailer->assign('ADMINMAIL', $xoops->getConfig('adminmail'));
-                $xoopsMailer->assign('SITEURL', $xoops_url . "/");
+                $xoopsMailer->assign('SITEURL', $xoops_url . '/');
                 $xoopsMailer->setToUsers(new XoopsUser($newid));
                 $xoopsMailer->setFromEmail($xoops->getConfig('adminmail'));
                 $xoopsMailer->setFromName($xoops->getConfig('sitename'));
@@ -177,7 +176,7 @@ switch ($op) {
                     . XoopsLocale::EMAIL_HAS_BEEN_SENT_WITH_ACTIVATION_KEY;
                 }
                 // Sending notification email to administrator for activation
-            } elseif ($xoopsConfigUser['activation_type'] == 2) {
+            } elseif (2 == $xoopsConfigUser['activation_type']) {
                 $xoopsMailer = $xoops->getMailer();
                 $xoopsMailer->useMail();
                 $xoopsMailer->setTemplate('adminactivate.tpl');
@@ -189,7 +188,7 @@ switch ($op) {
                 );
                 $xoopsMailer->assign('SITENAME', $xoops->getConfig('sitename'));
                 $xoopsMailer->assign('ADMINMAIL', $xoops->getConfig('adminmail'));
-                $xoopsMailer->assign('SITEURL', $xoops_url . "/");
+                $xoopsMailer->assign('SITEURL', $xoops_url . '/');
                 $member_handler = $xoops->getHandlerMember();
                 $xoopsMailer->setToGroups($member_handler->getGroup($xoopsConfigUser['activation_group']));
                 $xoopsMailer->setFromEmail($xoops->getConfig('adminmail'));
@@ -202,7 +201,7 @@ switch ($op) {
                         . XoopsLocale::PLEASE_WAIT_FOR_ACCOUNT_ACTIVATION;
                 }
             }
-            if ($xoopsConfigUser['new_user_notify'] == 1 && !empty($xoopsConfigUser['new_user_notify_group'])) {
+            if (1 == $xoopsConfigUser['new_user_notify'] && !empty($xoopsConfigUser['new_user_notify_group'])) {
                 $xoopsMailer = $xoops->getMailer();
                 $xoopsMailer->reset();
                 $xoopsMailer->useMail();
@@ -223,7 +222,6 @@ switch ($op) {
         }
         $xoops->footer();
         break;
-
     case 'actv':
     case 'activate':
         if (empty($id)) {
@@ -243,14 +241,14 @@ switch ($op) {
             } else {
                 if (false != $member_handler->activateUser($thisuser)) {
                     $xoopsConfigUser = $xoops->getConfigs();
-                    if ($xoopsConfigUser['activation_type'] == 2) {
+                    if (2 == $xoopsConfigUser['activation_type']) {
                         $myts = \Xoops\Core\Text\Sanitizer::getInstance();
                         $xoopsMailer = $xoops->getMailer();
                         $xoopsMailer->useMail();
                         $xoopsMailer->setTemplate('activated.tpl');
                         $xoopsMailer->assign('SITENAME', $xoops->getConfig('sitename'));
                         $xoopsMailer->assign('ADMINMAIL', $xoops->getConfig('adminmail'));
-                        $xoopsMailer->assign('SITEURL', $xoops_url . "/");
+                        $xoopsMailer->assign('SITEURL', $xoops_url . '/');
                         $xoopsMailer->setToUsers($thisuser);
                         $xoopsMailer->setFromEmail($xoops->getConfig('adminmail'));
                         $xoopsMailer->setFromName($xoops->getConfig('sitename'));
@@ -278,7 +276,6 @@ switch ($op) {
             }
         }
         break;
-
     case 'register':
     default:
         $xoops->header();
@@ -286,7 +283,7 @@ switch ($op) {
         $xoops->theme()->addMeta(
             'meta',
             'keywords',
-            XoopsLocale::USER_REGISTRATION . ", " . XoopsLocale::USERNAME
+            XoopsLocale::USER_REGISTRATION . ', ' . XoopsLocale::USERNAME
         ); // FIXME!
         $xoops->theme()->addMeta('meta', 'description', strip_tags($xoopsConfigUser['reg_disclaimer']));
         include $xoops->path('include/registerform.php');

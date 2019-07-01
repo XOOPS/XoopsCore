@@ -19,15 +19,14 @@
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
-
-$adminmenu = array();
+$adminmenu = [];
 $i = 1;
 $adminmenu[$i]['title'] = XoopsLocale::HOME;
-$adminmenu[$i]['link'] = "admin/index.php";
+$adminmenu[$i]['link'] = 'admin/index.php';
 $adminmenu[$i]['icon'] = 'home.png';
 ++$i;
 $adminmenu[$i]['title'] = WaitingLocale::PLUGINS;
-$adminmenu[$i]['link'] = "admin/plugins.php";
+$adminmenu[$i]['link'] = 'admin/plugins.php';
 $adminmenu[$i]['icon'] = 'block.png';
 ++$i;
 $adminmenu[$i]['title'] = XoopsLocale::ABOUT;

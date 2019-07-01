@@ -16,20 +16,19 @@
  * @author          Laurent JEN (Aka DuGris)
  * @version         $Id$
  */
+define('_MI_XLANGUAGE_NAME', 'Xlanguage');
+define('_MI_XLANGUAGE_DESC', 'Xoops multi-Language Management');
 
-define("_MI_XLANGUAGE_NAME", "Xlanguage");
-define("_MI_XLANGUAGE_DESC", "Xoops multi-Language Management");
+define('_MI_XLANGUAGE_BNAME', 'Language selection');
 
-define("_MI_XLANGUAGE_BNAME", "Language selection");
+define('_MI_XLANGUAGE_INDEX', 'Index');
+define('_MI_XLANGUAGE_ABOUT', 'About');
 
-define("_MI_XLANGUAGE_INDEX", "Index");
-define("_MI_XLANGUAGE_ABOUT", "About");
+define('_MI_XLANGUAGE_ADD_LANG', 'Add language');
+define('_MI_XLANGUAGE_CREATE_CONFIG', 'Create config file');
 
-define("_MI_XLANGUAGE_ADD_LANG", "Add language");
-define("_MI_XLANGUAGE_CREATE_CONFIG", "Create config file");
+define('_MI_XLANGUAGE_MODIFY', 'Modify');
+define('_MI_XLANGUAGE_DELETE', 'Delete');
 
-define("_MI_XLANGUAGE_MODIFY", "Modify");
-define("_MI_XLANGUAGE_DELETE", "Delete");
-
-define("_MI_XLANGUAGE_THEME", "Theme");
-define("_MI_XLANGUAGE_THEME_DESC", "");
+define('_MI_XLANGUAGE_THEME', 'Theme');
+define('_MI_XLANGUAGE_THEME_DESC', '');

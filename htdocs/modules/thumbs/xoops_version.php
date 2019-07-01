@@ -16,36 +16,35 @@
  * @license   GNU GPL v2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  */
-
-$modversion                = array();
-$modversion['name']        = _MI_THUMBS_NAME;
+$modversion = [];
+$modversion['name'] = _MI_THUMBS_NAME;
 $modversion['description'] = _MI_THUMBS_DESC;
-$modversion['version']     = 1.0;
-$modversion['author']      = 'Xoops Core Development Team';
-$modversion['nickname']    = 'geekwright <richard@geekwright.com>';
-$modversion['credits']     = 'The XOOPS Project';
-$modversion['license']     = 'GNU GPL 2.0';
+$modversion['version'] = 1.0;
+$modversion['author'] = 'Xoops Core Development Team';
+$modversion['nickname'] = 'geekwright <richard@geekwright.com>';
+$modversion['credits'] = 'The XOOPS Project';
+$modversion['license'] = 'GNU GPL 2.0';
 $modversion['license_url'] = 'http://www.gnu.org/licenses/gpl-2.0.html';
-$modversion['official']    = 1;
-$modversion['help']        = 'page=help';
-$modversion['image']       = 'images/logo.png';
-$modversion['dirname']     = 'thumbs';
+$modversion['official'] = 1;
+$modversion['help'] = 'page=help';
+$modversion['image'] = 'images/logo.png';
+$modversion['dirname'] = 'thumbs';
 
 //about
-$modversion['release_date']        = '2014/07/28';
-$modversion['module_website_url']  = 'http://www.xoops.org/';
+$modversion['release_date'] = '2014/07/28';
+$modversion['module_website_url'] = 'http://www.xoops.org/';
 $modversion['module_website_name'] = 'XOOPS';
-$modversion['module_status']       = 'ALPHA 1';
-$modversion['min_php']             = '5.3.7';
-$modversion['min_xoops']           = '2.6.0';
+$modversion['module_status'] = 'ALPHA 1';
+$modversion['min_php'] = '5.3.7';
+$modversion['min_xoops'] = '2.6.0';
 
 // paypal
-$modversion['paypal'] = array(
-    'business'      => 'xoopsfoundation@gmail.com',
-    'item_name'     => _MI_THUMBS_DESC,
-    'amount'        => 0,
+$modversion['paypal'] = [
+    'business' => 'xoopsfoundation@gmail.com',
+    'item_name' => _MI_THUMBS_DESC,
+    'amount' => 0,
     'currency_code' => 'USD',
-);
+];
 
 // Manage extension
 $modversion['extension'] = 1;
@@ -55,9 +54,9 @@ $modversion['extension'] = 1;
 $modversion['system_menu'] = 1;
 
 // Admin things
-$modversion['hasAdmin']   = true;
+$modversion['hasAdmin'] = true;
 $modversion['adminindex'] = 'admin/index.php';
-$modversion['adminmenu']  = 'admin/menu.php';
+$modversion['adminmenu'] = 'admin/menu.php';
 
 // Menu
 $modversion['hasMain'] = 0;
@@ -66,22 +65,22 @@ $modversion['hasMain'] = 0;
 //$modversion['blocks'] = array();
 
 // Preferences
-$modversion['config'] = array();
+$modversion['config'] = [];
 
-$modversion['config'][] = array(
-    'name'        => 'thumbs_width',
-    'title'       => '_MI_THUMBS_MAX_WIDTH',
+$modversion['config'][] = [
+    'name' => 'thumbs_width',
+    'title' => '_MI_THUMBS_MAX_WIDTH',
     'description' => '_MI_THUMBS_MAX_WIDTH_DESC',
-    'formtype'    => 'textbox',
-    'valuetype'   => 'int',
-    'default'     => 128,
-);
+    'formtype' => 'textbox',
+    'valuetype' => 'int',
+    'default' => 128,
+];
 
-$modversion['config'][] = array(
-    'name'        => 'thumbs_height',
-    'title'       => '_MI_THUMBS_MAX_HEIGHT',
+$modversion['config'][] = [
+    'name' => 'thumbs_height',
+    'title' => '_MI_THUMBS_MAX_HEIGHT',
     'description' => '_MI_THUMBS_MAX_HEIGHT_DESC',
-    'formtype'    => 'textbox',
-    'valuetype'   => 'int',
-    'default'     => 128,
-);
+    'formtype' => 'textbox',
+    'valuetype' => 'int',
+    'default' => 128,
+];

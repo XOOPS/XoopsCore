@@ -1,9 +1,5 @@
 <?php
-require_once(__DIR__.'/../../init_new.php');
-
-use Doctrine\DBAL\Driver;
-use Doctrine\DBAL\Configuration;
-use Doctrine\Common\EventManager;
+require_once(__DIR__ . '/../../init_new.php');
 
 class XoopsMySQLDatabaseTest extends \PHPUnit\Framework\TestCase
 {
@@ -18,7 +14,7 @@ class XoopsMySQLDatabaseTest extends \PHPUnit\Framework\TestCase
 
     public function test___publicProperties()
     {
-        $items = array('conn');
+        $items = ['conn'];
         foreach ($items as $item) {
             $prop = new ReflectionProperty($this->myclass, $item);
             $this->assertTrue($prop->isPublic());

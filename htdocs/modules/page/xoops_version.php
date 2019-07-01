@@ -19,33 +19,33 @@
  * @author          Mage Grégory (AKA Mage)
  * @version         $Id$
  */
-$modversion                = array();
-$modversion['name']        = PageLocale::MODULE_NAME;
+$modversion = [];
+$modversion['name'] = PageLocale::MODULE_NAME;
 $modversion['description'] = PageLocale::MODULE_DESC;
-$modversion['version']     = 1;
-$modversion['author']      = 'Xoops Core Development Team';
-$modversion['nickname']    = 'Mage Laurent JEN (aka DuGris)';
-$modversion['credits']     = 'The XOOPS Project';
-$modversion['license']     = 'GNU GPL 2.0';
+$modversion['version'] = 1;
+$modversion['author'] = 'Xoops Core Development Team';
+$modversion['nickname'] = 'Mage Laurent JEN (aka DuGris)';
+$modversion['credits'] = 'The XOOPS Project';
+$modversion['license'] = 'GNU GPL 2.0';
 $modversion['license_url'] = 'http://www.gnu.org/licenses/gpl-2.0.html';
-$modversion['official']    = 1;
-$modversion['help']        = 'page=help';
-$modversion['image']       = 'images/logo.png';
-$modversion['dirname']     = 'page';
+$modversion['official'] = 1;
+$modversion['help'] = 'page=help';
+$modversion['image'] = 'images/logo.png';
+$modversion['dirname'] = 'page';
 
 //about
-$modversion['release_date']        = '2013/01/01';
-$modversion['module_website_url']  = 'http://www.xoops.org/';
+$modversion['release_date'] = '2013/01/01';
+$modversion['module_website_url'] = 'http://www.xoops.org/';
 $modversion['module_website_name'] = 'XOOPS';
-$modversion['module_status']       = 'Alpha';
-$modversion['min_php']             = '5.3.7';
-$modversion['min_xoops']           = '2.6.0';
+$modversion['module_status'] = 'Alpha';
+$modversion['min_php'] = '5.3.7';
+$modversion['min_xoops'] = '2.6.0';
 
 // paypal
-$modversion['paypal']                  = array();
-$modversion['paypal']['business']      = 'xoopsfoundation@gmail.com';
-$modversion['paypal']['item_name']     = 'Donation : ' . PageLocale::MODULE_DESC;
-$modversion['paypal']['amount']        = 0;
+$modversion['paypal'] = [];
+$modversion['paypal']['business'] = 'xoopsfoundation@gmail.com';
+$modversion['paypal']['item_name'] = 'Donation : ' . PageLocale::MODULE_DESC;
+$modversion['paypal']['amount'] = 0;
 $modversion['paypal']['currency_code'] = 'USD';
 
 // Admin menu
@@ -53,9 +53,9 @@ $modversion['paypal']['currency_code'] = 'USD';
 $modversion['system_menu'] = 1;
 
 // Admin things
-$modversion['hasAdmin']   = 1;
+$modversion['hasAdmin'] = 1;
 $modversion['adminindex'] = 'admin/index.php';
-$modversion['adminmenu']  = 'admin/menu.php';
+$modversion['adminmenu'] = 'admin/menu.php';
 
 // Scripts to run upon installation or update
 $modversion['onInstall'] = 'include/install.php';
@@ -67,7 +67,7 @@ $modversion['jquery'] = 1;
 $modversion['hasMain'] = 1;
 
 // Mysql file
-$modversion['schema']           = 'sql/schema.yml';
+$modversion['schema'] = 'sql/schema.yml';
 //$modversion['sqlfile']['mysql'] = 'sql/mysql.sql';
 
 // Tables created by sql file (without prefix!)
@@ -77,57 +77,57 @@ $modversion['tables'][3] = 'page_related_link';
 $modversion['tables'][4] = 'page_rating';
 
 // blocks
-$modversion['blocks'][] = array(
-    'file'        => 'page_blocks.php',
-    'name'        => PageLocale::BLOCKS_CONTENTS,
+$modversion['blocks'][] = [
+    'file' => 'page_blocks.php',
+    'name' => PageLocale::BLOCKS_CONTENTS,
     'description' => PageLocale::BLOCKS_CONTENTS_DSC,
-    'show_func'   => 'page_blocks_show',
-    'edit_func'   => 'page_blocks_edit',
-    'options'     => 'content|create|DESC|5|0',
-    'template'    => 'page_blocks.tpl',
-);
-$modversion['blocks'][] = array(
-    'file'        => 'page_blocks.php',
-    'name'        => PageLocale::BLOCKS_ID,
+    'show_func' => 'page_blocks_show',
+    'edit_func' => 'page_blocks_edit',
+    'options' => 'content|create|DESC|5|0',
+    'template' => 'page_blocks.tpl',
+];
+$modversion['blocks'][] = [
+    'file' => 'page_blocks.php',
+    'name' => PageLocale::BLOCKS_ID,
     'description' => PageLocale::BLOCKS_ID_DSC,
-    'show_func'   => 'page_blocks_show',
-    'edit_func'   => 'page_blocks_edit',
-    'options'     => 'id|0',
-    'template'    => 'page_blocks_id.tpl',
-);
+    'show_func' => 'page_blocks_show',
+    'edit_func' => 'page_blocks_edit',
+    'options' => 'id|0',
+    'template' => 'page_blocks_id.tpl',
+];
 
 // Preferences
-$modversion['config'][] = array(
-    'name'        => 'page_editor',
-    'title'       => PageLocale::CONF_EDITOR,
+$modversion['config'][] = [
+    'name' => 'page_editor',
+    'title' => PageLocale::CONF_EDITOR,
     'description' => '',
-    'formtype'    => 'select_editor',
-    'valuetype'   => 'text',
-    'default'     => 'dhtmltextarea',
-);
-$modversion['config'][] = array(
-    'name'        => 'page_adminpager',
-    'title'       => PageLocale::CONF_ADMINPAGER,
+    'formtype' => 'select_editor',
+    'valuetype' => 'text',
+    'default' => 'dhtmltextarea',
+];
+$modversion['config'][] = [
+    'name' => 'page_adminpager',
+    'title' => PageLocale::CONF_ADMINPAGER,
     'description' => '',
-    'formtype'    => 'textbox',
-    'valuetype'   => 'int',
-    'default'     => 20,
-);
-$modversion['config'][] = array(
-    'name'        => 'page_userpager',
-    'title'       => PageLocale::CONF_USERPAGER,
+    'formtype' => 'textbox',
+    'valuetype' => 'int',
+    'default' => 20,
+];
+$modversion['config'][] = [
+    'name' => 'page_userpager',
+    'title' => PageLocale::CONF_USERPAGER,
     'description' => '',
-    'formtype'    => 'textbox',
-    'valuetype'   => 'int',
-    'default'     => 20,
-);
-$modversion['config'][] = array(
-    'name'        => 'page_dateformat',
-    'title'       => PageLocale::CONF_DATEFORMAT,
+    'formtype' => 'textbox',
+    'valuetype' => 'int',
+    'default' => 20,
+];
+$modversion['config'][] = [
+    'name' => 'page_dateformat',
+    'title' => PageLocale::CONF_DATEFORMAT,
     'description' => '',
-    'formtype'    => 'select',
-    'valuetype'   => 'text',
-    'options'     => array(
+    'formtype' => 'select',
+    'valuetype' => 'text',
+    'options' => [
         date('d/m/y') => 'd/m/y',
         date('d-m-y') => 'd-m-y',
         date('d.m.y') => 'd.m.y',
@@ -139,16 +139,16 @@ $modversion['config'][] = array(
         date('m.d.y') => 'm.d.y',
         date('m/d/Y') => 'm/d/Y',
         date('m-d-Y') => 'm-d-Y',
-        date('m.d.Y') => 'm.d.Y'
-    ),
-    'default'     => 'm/d/y',
-);
-$modversion['config'][] = array(
-    'name'        => 'page_timeformat',
-    'title'       => PageLocale::CONF_TIMEFORMAT,
+        date('m.d.Y') => 'm.d.Y',
+    ],
+    'default' => 'm/d/y',
+];
+$modversion['config'][] = [
+    'name' => 'page_timeformat',
+    'title' => PageLocale::CONF_TIMEFORMAT,
     'description' => '',
-    'formtype'    => 'select',
-    'valuetype'   => 'text',
-    'options'     => array(date('H:i') => 'H:i', date('H:i:s') => 'H:i:s', date('H:i A') => 'H:i A', date('H:i:s A ') => 'H:i:s A'),
-    'default'     => 'H:i:s',
-);
+    'formtype' => 'select',
+    'valuetype' => 'text',
+    'options' => [date('H:i') => 'H:i', date('H:i:s') => 'H:i:s', date('H:i A') => 'H:i A', date('H:i:s A ') => 'H:i:s A'],
+    'default' => 'H:i:s',
+];

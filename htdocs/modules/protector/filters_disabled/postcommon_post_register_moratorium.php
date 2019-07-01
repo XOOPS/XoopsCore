@@ -18,12 +18,11 @@
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
-
 define('PROTECTOR_POSTCOMMON_POST_REGISTER_MORATORIUM', 60); // minutes
 
 class protector_postcommon_post_register_moratorium extends ProtectorFilterAbstract
 {
-    function execute()
+    public function execute()
     {
         $xoops = Xoops::getInstance();
 
@@ -38,6 +37,7 @@ class protector_postcommon_post_register_moratorium extends ProtectorFilterAbstr
                 exit;
             }
         }
+
         return true;
     }
 }

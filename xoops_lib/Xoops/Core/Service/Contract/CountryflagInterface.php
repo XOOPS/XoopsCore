@@ -33,8 +33,6 @@ interface CountryflagInterface
      * @param Response $response    \Xoops\Core\Service\Response object
      * @param string   $countryCode ISO 3166-1 alpha-2 code to select flag
      * @param array    $attributes  array of attribute name => value pairs for img tag
-     *
-     * @return void  - response->value set to URL string
      */
-    public function getImgTag(Response $response, $countryCode, $attributes = array());
+    public function getImgTag(Response $response, $countryCode, $attributes = []);
 }

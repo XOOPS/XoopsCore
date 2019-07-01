@@ -35,10 +35,11 @@ class LoggerUserconfigsPlugin extends Xoops\Module\Plugin\PluginAbstract impleme
      */
     public function categories()
     {
-        $categories['cat_options'] = array(
-            'name'  => _MI_LOGGER_UCONF_CAT_OPT,
-            'title' => _MI_LOGGER_UCONF_CAT_OPT_DESC
-        );
+        $categories['cat_options'] = [
+            'name' => _MI_LOGGER_UCONF_CAT_OPT,
+            'title' => _MI_LOGGER_UCONF_CAT_OPT_DESC,
+        ];
+
         return $categories;
     }
 
@@ -58,38 +59,38 @@ class LoggerUserconfigsPlugin extends Xoops\Module\Plugin\PluginAbstract impleme
      */
     public function configs()
     {
-        $config[]=array(
+        $config[] = [
             'name' => 'logger_enable',
             'title' => '_MI_LOGGER_UCONF_ENABLE_BAR',
             'description' => '',
             'formtype' => 'yesno',
             'valuetype' => 'int',
             'default' => 0,
-            'options' => array(),
-            'category' => 'cat_options'
-        );
+            'options' => [],
+            'category' => 'cat_options',
+        ];
 
-        $config[] = array(
+        $config[] = [
             'name' => 'logger_popup',
             'title' => '_MI_LOGGER_UCONF_POPUP',
             'description' => '',
             'formtype' => 'yesno',
             'valuetype' => 'int',
             'default' => 0,
-            'options' => array(),
-            'category' => 'cat_options'
-        );
+            'options' => [],
+            'category' => 'cat_options',
+        ];
 
-        $config[]=array(
+        $config[] = [
             'name' => 'debug_smarty_enable',
             'title' => '_MI_LOGGER_UCONF_ENABLE_SMARTY',
             'description' => '',
             'formtype' => 'yesno',
             'valuetype' => 'int',
             'default' => 0,
-            'options' => array(),
-            'category' => 'cat_options'
-        );
+            'options' => [],
+            'category' => 'cat_options',
+        ];
 
         return $config;
     }

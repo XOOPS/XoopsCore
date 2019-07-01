@@ -14,7 +14,6 @@
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author    Laurent JEN - aka DuGris
  */
-
 include dirname(dirname(__DIR__)) . '/mainfile.php';
 
 $xoops = Xoops::getInstance();
@@ -22,7 +21,7 @@ $xoops->header();
 
 // get a full img tag to show a QR code of a URL
 echo $xoops->service('qrcode')
-    ->getImgTag('https://xoops.org/', array('alt' => 'QR code', 'title'=>'Xoops.org'))
+    ->getImgTag('https://xoops.org/', ['alt' => 'QR code', 'title' => 'Xoops.org'])
     ->getValue();
 
 if (!$xoops->service('qrcode')->isAvailable()) {

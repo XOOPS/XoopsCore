@@ -33,7 +33,7 @@ class ButtonTray extends Element
      * @param string       $type       Type for primary button. This could be either "button", "submit", or "reset"
      * @param string       $onclick    setExtra() javascript code for primary button. If using the array
      *                                  of attributes invocation, set event handler(s) using attributes
-     * @param boolean      $showDelete show delete button, includes javascript confirmation dialog
+     * @param bool      $showDelete show delete button, includes javascript confirmation dialog
      */
     public function __construct($name, $value = '', $type = '', $onclick = '', $showDelete = false)
     {
@@ -81,6 +81,7 @@ class ButtonTray extends Element
             . '" onclick="history.go(-1);return true;" />'
             . ' <input type="reset"' . $class . ' name="reset"  id="reset" value="' . \XoopsLocale::A_RESET . '" />'
             . ' <input ' . $attributes . $this->getExtra() . ' />';
+
         return $ret;
     }
 }

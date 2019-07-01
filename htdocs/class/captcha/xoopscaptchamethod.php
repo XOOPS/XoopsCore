@@ -75,12 +75,13 @@ abstract class XoopsCaptchaMethod
      */
     public function loadConfig($name = '')
     {
-        if (!is_object($this->handler))
-            $this->config = array();
-        else
+        if (!is_object($this->handler)) {
+            $this->config = [];
+        } else {
             $this->config = empty($name)
                 ? $this->handler->config
                 : array_merge($this->handler->config, $this->handler->loadConfig($name));
+        }
     }
 
     /**
@@ -125,6 +126,7 @@ abstract class XoopsCaptchaMethod
             $func = !empty($this->config['casesensitive']) ? 'strcmp' : 'strcasecmp';
             $is_valid = !$func(trim(@$_POST[$sessionName]), $_SESSION["{$sessionName}_code"]);
         }
+
         return $is_valid;
     }
 
@@ -135,5 +137,4 @@ abstract class XoopsCaptchaMethod
     {
         return true;
     }
-
 }

@@ -18,16 +18,15 @@
  * @since           2.3.0
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
  */
-
-$adminmenu = array();
+$adminmenu = [];
 
 $i = 1;
 $adminmenu[$i]['title'] = _PM_MI_INDEX;
-$adminmenu[$i]['link'] = "admin/index.php";
+$adminmenu[$i]['link'] = 'admin/index.php';
 $adminmenu[$i]['icon'] = 'home.png';
 ++$i;
 $adminmenu[$i]['title'] = _PM_MI_PRUNE;
-$adminmenu[$i]['link'] = "admin/prune.php";
+$adminmenu[$i]['link'] = 'admin/prune.php';
 $adminmenu[$i]['icon'] = 'prune.png';
 ++$i;
 $adminmenu[$i]['title'] = _PM_MI_ABOUT;

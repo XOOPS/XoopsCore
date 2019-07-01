@@ -15,12 +15,11 @@
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
-
-define('_MD_USERCONFIGS_NOACCESS',"Sorry, you are not allowed to access this page!");
+define('_MD_USERCONFIGS_NOACCESS', 'Sorry, you are not allowed to access this page!');
 //define('_MD_USERCONFIGS_NOPLUGINS',"Sorry, there is nothing to display!");
-define('_MD_USERCONFIGS_NOPLUGIN',"Sorry, there is nothing to display!");
-define('_MD_USERCONFIGS_NOMOD',"Sorry, the selected module is not supported!");
-define('_MD_USERCONFIGS_UPDATED',"Your settings were updated!");
-define('_MD_USERCONFIGS_CONFIGS',"Settings");
-define('_MD_USERCONFIGS_CHOOSE_MODULE',"Choose settings :");
-define('_MD_USERCONFIGS_WELCOME',"Hello %s, welcome to your settings page!");
+define('_MD_USERCONFIGS_NOPLUGIN', 'Sorry, there is nothing to display!');
+define('_MD_USERCONFIGS_NOMOD', 'Sorry, the selected module is not supported!');
+define('_MD_USERCONFIGS_UPDATED', 'Your settings were updated!');
+define('_MD_USERCONFIGS_CONFIGS', 'Settings');
+define('_MD_USERCONFIGS_CHOOSE_MODULE', 'Choose settings :');
+define('_MD_USERCONFIGS_WELCOME', 'Hello %s, welcome to your settings page!');

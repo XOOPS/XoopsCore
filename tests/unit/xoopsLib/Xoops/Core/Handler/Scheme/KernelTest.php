@@ -1,8 +1,8 @@
 <?php
+
 namespace Xoops\Core\Handler\Scheme;
 
 use Xoops\Core\Handler\Factory;
-use Xoops\Core\Handler\Scheme\SchemeInterface;
 
 require_once __DIR__ . '/../../../../../init_new.php';
 
@@ -19,7 +19,7 @@ class KernelTest extends \PHPUnit\Framework\TestCase
      */
     protected function setUp()
     {
-        $this->object = new Kernel;
+        $this->object = new Kernel();
     }
 
     /**
@@ -49,7 +49,7 @@ class KernelTest extends \PHPUnit\Framework\TestCase
 
     public static function handlerValueProvider()
     {
-        return array(
+        return [
             ['block'          , '\Xoops\Core\Kernel\Handlers\XoopsBlockHandler'],
             ['blockmodulelink', '\Xoops\Core\Kernel\Handlers\XoopsBlockModuleLinkHandler'],
             ['config'         , '\Xoops\Core\Kernel\Handlers\XoopsConfigHandler'],
@@ -65,7 +65,7 @@ class KernelTest extends \PHPUnit\Framework\TestCase
             ['tplfile'        , '\Xoops\Core\Kernel\Handlers\XoopsTplFileHandler'],
             ['tplset'         , '\Xoops\Core\Kernel\Handlers\XoopsTplSetHandler'],
             ['user'           , '\Xoops\Core\Kernel\Handlers\XoopsUserHandler'],
-        );
+        ];
     }
 
     public function testBuild_exception()

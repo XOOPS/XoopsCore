@@ -35,10 +35,11 @@ class DebugbarUserconfigsPlugin extends Xoops\Module\Plugin\PluginAbstract imple
      */
     public function categories()
     {
-        $categories['cat_options'] = array(
-            'name'  => _MI_DEBUGBAR_UCONF_CAT_OPT,
-            'title' => _MI_DEBUGBAR_UCONF_CAT_OPT_DESC
-        );
+        $categories['cat_options'] = [
+            'name' => _MI_DEBUGBAR_UCONF_CAT_OPT,
+            'title' => _MI_DEBUGBAR_UCONF_CAT_OPT_DESC,
+        ];
+
         return $categories;
     }
 
@@ -58,27 +59,27 @@ class DebugbarUserconfigsPlugin extends Xoops\Module\Plugin\PluginAbstract imple
      */
     public function configs()
     {
-        $config[]=array(
+        $config[] = [
             'name' => 'debugbar_enable',
             'title' => '_MI_DEBUGBAR_UCONF_ENABLE_BAR',
             'description' => '',
             'formtype' => 'yesno',
             'valuetype' => 'int',
             'default' => 0,
-            'options' => array(),
-            'category' => 'cat_options'
-        );
+            'options' => [],
+            'category' => 'cat_options',
+        ];
 
-        $config[]=array(
+        $config[] = [
             'name' => 'debug_smarty_enable',
             'title' => '_MI_DEBUGBAR_UCONF_ENABLE_SMARTY',
             'description' => '',
             'formtype' => 'yesno',
             'valuetype' => 'int',
             'default' => 0,
-            'options' => array(),
-            'category' => 'cat_options'
-        );
+            'options' => [],
+            'category' => 'cat_options',
+        ];
 
         return $config;
     }

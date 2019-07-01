@@ -36,7 +36,7 @@ class Blocks extends PluginAbstract
     /**
      * @var array
      */
-    public $blocks = array();
+    public $blocks = [];
 
     /**
      * Blocks::xoInit()
@@ -57,6 +57,7 @@ class Blocks extends PluginAbstract
                 || !empty($this->blocks['page_topright'])
             );
         }
+
         return true;
     }
 
@@ -93,7 +94,7 @@ class Blocks extends PluginAbstract
 
         if ($xoops->isModule()) {
             $mid = $xoops->module->getVar('mid');
-            $isStart = (substr($_SERVER['PHP_SELF'], -9) === 'index.php'
+            $isStart = ('index.php' === mb_substr($_SERVER['PHP_SELF'], -9)
                 && $xoops->getConfig('startpage') == $xoops->module->getVar('dirname')
                 && empty($_SERVER['QUERY_STRING']));
         } else {
@@ -103,21 +104,21 @@ class Blocks extends PluginAbstract
 
         $groups = $xoops->getUserGroups();
 
-        $oldzones = array(
+        $oldzones = [
             XOOPS_SIDEBLOCK_LEFT => 'canvas_left', XOOPS_SIDEBLOCK_RIGHT => 'canvas_right',
             XOOPS_CENTERBLOCK_LEFT => 'page_topleft', XOOPS_CENTERBLOCK_CENTER => 'page_topcenter',
             XOOPS_CENTERBLOCK_RIGHT => 'page_topright', XOOPS_CENTERBLOCK_BOTTOMLEFT => 'page_bottomleft',
-            XOOPS_CENTERBLOCK_BOTTOM => 'page_bottomcenter', XOOPS_CENTERBLOCK_BOTTOMRIGHT => 'page_bottomright'
-        );
+            XOOPS_CENTERBLOCK_BOTTOM => 'page_bottomcenter', XOOPS_CENTERBLOCK_BOTTOMRIGHT => 'page_bottomright',
+        ];
         foreach ($oldzones as $zone) {
-            $this->blocks[$zone] = array();
+            $this->blocks[$zone] = [];
         }
-        $backup = array();
+        $backup = [];
         if ($this->theme) {
             $template = $this->theme->template;
-            $backup = array(
-                $template->caching, $template->cache_lifetime
-            );
+            $backup = [
+                $template->caching, $template->cache_lifetime,
+            ];
         } else {
             $template = null;
             $template = new XoopsTpl();
@@ -126,17 +127,17 @@ class Blocks extends PluginAbstract
         $block_arr = $block_handler->getAllByGroupModule($groups, $mid, $isStart, XOOPS_BLOCK_VISIBLE);
         $xoops->events()->triggerEvent(
             'core.class.theme_blocks.retrieveBlocks',
-            array(&$this, &$template, &$block_arr)
+            [&$this, &$template, &$block_arr]
         );
         foreach ($block_arr as $block) {
             /* @var $block XoopsBlock */
             $side = $oldzones[$block->getVar('side')];
             if ($var = $this->buildBlock($block, $template)) {
-                $this->blocks[$side][$var["id"]] = $var;
+                $this->blocks[$side][$var['id']] = $var;
             }
         }
         if ($this->theme) {
-            list ($template->caching, $template->cache_lifetime) = $backup;
+            list($template->caching, $template->cache_lifetime) = $backup;
         }
     }
 
@@ -152,6 +153,7 @@ class Blocks extends PluginAbstract
         if ($this->theme) {
             $cache_id = $this->theme->generateCacheId($cache_id);
         }
+
         return $cache_id;
     }
 
@@ -169,10 +171,10 @@ class Blocks extends PluginAbstract
         // The lame type workaround will change
         // bid is added temporarily as workaround for specific block manipulation
         $dirname = $xobject->getVar('dirname');
-        $block = array(
+        $block = [
             'id' => $xobject->getVar('bid'), 'module' => $dirname, 'title' => $xobject->getVar('title'),
-            'weight' => $xobject->getVar('weight'), 'lastmod' => $xobject->getVar('last_modified')
-        );
+            'weight' => $xobject->getVar('weight'), 'lastmod' => $xobject->getVar('last_modified'),
+        ];
 
         $bcachetime = (int)($xobject->getVar('bcachetime'));
         if (empty($bcachetime)) {
@@ -184,20 +186,19 @@ class Blocks extends PluginAbstract
         $template->setCompileId($dirname);
         $tplName = ($tplName = $xobject->getVar('template'))
                 ? "block:{$dirname}/{$tplName}"
-                : "module:system/system_block_dummy.tpl";
+                : 'module:system/system_block_dummy.tpl';
         //$tplName = str_replace('.html', '.tpl', $tplName);
 
         $cacheid = $this->generateCacheId('blk_' . $xobject->getVar('bid'));
 
         $xoops->events()->triggerEvent(
             'core.themeblocks.buildblock.start',
-            array($xobject, $template->isCached($tplName, $cacheid))
+            [$xobject, $template->isCached($tplName, $cacheid)]
         );
 
         if (!$bcachetime || !$template->isCached($tplName, $cacheid)) {
-
             //Get theme metas
-            $old = array();
+            $old = [];
             if ($this->theme && $bcachetime) {
                 foreach ($this->theme->metas as $type => $value) {
                     $old[$type] = $this->theme->metas[$type];
@@ -214,7 +215,7 @@ class Blocks extends PluginAbstract
 
             //check if theme added new metas
             if ($this->theme && $bcachetime) {
-                $metas = array();
+                $metas = [];
                 foreach ($this->theme->metas as $type => $value) {
                     $dif = \Xoops\Utils::arrayRecursiveDiff($this->theme->metas[$type], $old[$type]);
                     if (count($dif)) {
@@ -238,6 +239,7 @@ class Blocks extends PluginAbstract
             }
         }
         $template->setCompileId();
+
         return $block;
     }
 }

@@ -11,10 +11,10 @@
 
 namespace Xoops\Core\Database\Schema;
 
-use Doctrine\DBAL\Schema\Table;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\DBAL\Schema\SchemaConfig;
 use Doctrine\DBAL\Schema\Sequence;
+use Doctrine\DBAL\Schema\Table;
 
 /**
  * PrefixStripper extends Schema so we can easily add tables and
@@ -31,7 +31,6 @@ use Doctrine\DBAL\Schema\Sequence;
  */
 class PrefixStripper extends Schema
 {
-
     private $xPrefix;
     private $tableList = [];
 
@@ -54,17 +53,16 @@ class PrefixStripper extends Schema
      *
      * @param Table $table table object to add
      *
-     * @return void
-     *
      * @throws \Doctrine\DBAL\DBALException
+     * @return void
      */
     public function addTable(Table $table)
     {
         try {
             $name = $table->getName();
-            $len = strlen($this->xPrefix);
-            if (substr_compare($name, $this->xPrefix, 0, $len)===0) {
-                $name = substr($name, $len);
+            $len = mb_strlen($this->xPrefix);
+            if (0 === substr_compare($name, $this->xPrefix, 0, $len)) {
+                $name = mb_substr($name, $len);
                 if (empty($this->tableList) || in_array($name, $this->tableList)) {
                     $idGeneratorType = 0; // how should we handle this?
                     $newtable = new Table(
@@ -89,9 +87,8 @@ class PrefixStripper extends Schema
      *
      * @param Sequence $sequence a sequence
      *
-     * @return void
-     *
      * @throws \Doctrine\DBAL\Schema\SchemaException
+     * @return void
      */
     public function addSequence(Sequence $sequence)
     {

@@ -28,9 +28,8 @@ class Uuid
      *
      * Based on comment by pavel.volyntsev(at)gmail at http://php.net/manual/en/function.com-create-guid.php
      *
-     * @return string UUID
-     *
      * @throws \Exception on insufficient entropy
+     * @return string UUID
      */
     public static function generate()
     {

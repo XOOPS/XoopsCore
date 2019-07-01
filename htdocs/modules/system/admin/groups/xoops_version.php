@@ -18,17 +18,16 @@
  * @package     system
  * @version     $Id$
  */
-
-$modversion['name']        = XoopsLocale::GROUPS;
-$modversion['version']     = '1.0';
+$modversion['name'] = XoopsLocale::GROUPS;
+$modversion['version'] = '1.0';
 $modversion['description'] = SystemLocale::GROUPS_DESC;
-$modversion['author']      = '';
-$modversion['credits']     = 'The XOOPS Project; Cointin Maxime (AKA Kraven30)';
-$modversion['help']        = 'page=groups';
-$modversion['license']     = "GPL see LICENSE";
-$modversion['official']    = 1;
-$modversion['image']       = 'groups.png';
+$modversion['author'] = '';
+$modversion['credits'] = 'The XOOPS Project; Cointin Maxime (AKA Kraven30)';
+$modversion['help'] = 'page=groups';
+$modversion['license'] = 'GPL see LICENSE';
+$modversion['official'] = 1;
+$modversion['image'] = 'groups.png';
 
-$modversion['hasAdmin']    = 1;
-$modversion['adminpath']   = 'admin.php?fct=groups';
-$modversion['category']    = XOOPS_SYSTEM_GROUP;
+$modversion['hasAdmin'] = 1;
+$modversion['adminpath'] = 'admin.php?fct=groups';
+$modversion['category'] = XOOPS_SYSTEM_GROUP;

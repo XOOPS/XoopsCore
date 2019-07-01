@@ -1,12 +1,12 @@
 <?php
-require_once(__DIR__.'/../../../init_new.php');
+require_once(__DIR__ . '/../../../init_new.php');
 
 class RpcStructHandlerTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass = 'RpcStructHandler';
     protected $object = null;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->object = new $this->myclass();
     }
@@ -36,13 +36,13 @@ class RpcStructHandlerTest extends \PHPUnit\Framework\TestCase
         $instance->handleBeginElement($parser, $data);
         $workingLevel = $parser->getWorkingLevel();
         $tempStruct = $parser->getTempStruct();
-        $this->assertSame(array(), $tempStruct);
+        $this->assertSame([], $tempStruct);
         $this->assertNotSame($workingLevelBefore, $workingLevel);
 
         $instance->handleEndElement($parser, $data);
         $workingLevel = $parser->getWorkingLevel();
         $tempStruct = $parser->getTempStruct();
-        $this->assertSame(null, $tempStruct);
+        $this->assertNull($tempStruct);
         $this->assertSame($workingLevelBefore, $workingLevel);
     }
 }

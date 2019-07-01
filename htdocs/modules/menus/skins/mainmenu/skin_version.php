@@ -17,12 +17,10 @@
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
-
 $skinversion['template'] = 'templates/template.tpl';
 
-$skinversion['css'] = array();
+$skinversion['css'] = [];
 
-$skinversion['js'] = array();
+$skinversion['js'] = [];
 
 $skinversion['header'] = '';
-

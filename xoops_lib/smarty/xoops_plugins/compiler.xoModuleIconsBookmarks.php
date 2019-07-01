@@ -15,8 +15,9 @@
  * @license     GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author      Andricq Nicolas (AKA MusS)
  * @since       2.5.2
+ * @param mixed $argStr
+ * @param mixed $smarty
  */
-
 function smarty_compiler_xoModuleIconsBookmarks($argStr, &$smarty)
 {
     $xoops = Xoops::getInstance();
@@ -30,5 +31,6 @@ function smarty_compiler_xoModuleIconsBookmarks($argStr, &$smarty)
             $url = $xoops->url('modules/system/images/icons/default/xoops/xoops.png');
         }
     }
+
     return "\necho '" . addslashes($url) . "';";
 }

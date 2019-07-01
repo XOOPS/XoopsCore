@@ -16,7 +16,6 @@
  */
 class CodexWaitingPlugin implements WaitingPluginInterface
 {
-
     /**
      * @return array
      */
@@ -26,9 +25,9 @@ class CodexWaitingPlugin implements WaitingPluginInterface
         $ret[] = [
             'count' => count(\Xoops\Core\Lists\File::getList($xoops->path('modules/codex/'))) - 2,
             'name' => $xoops->getHandlerModule()->getByDirname('codex')->getVar('name'),
-            'link' => $xoops->url('modules/codex/')
+            'link' => $xoops->url('modules/codex/'),
         ];
+
         return $ret;
     }
-
 }

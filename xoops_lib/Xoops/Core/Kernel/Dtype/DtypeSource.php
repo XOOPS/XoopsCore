@@ -38,7 +38,7 @@ class DtypeSource extends DtypeAbstract
     public function getVar(XoopsObject $obj, $key, $format)
     {
         $value = $obj->vars[$key]['value'];
-        switch (strtolower($format)) {
+        switch (mb_strtolower($format)) {
             case 's':
             case Dtype::FORMAT_SHOW:
                 return $value;

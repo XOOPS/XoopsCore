@@ -20,14 +20,13 @@ use Xoops\Html\Menu\Link;
  * @since           2.3.0
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
  */
-
 include __DIR__ . '/header.php';
 
 $xoops = Xoops::getInstance();
 $xoops->getConfigs();
 
-if (!$xoops->user || $xoops->getConfig('allow_chgmail') != 1) {
-    $xoops->redirect(\XoopsBaseConfig::get('url') . "/modules/" . $xoops->module->getVar('dirname', 'n') . "/", 2, XoopsLocale::E_NO_ACCESS_PERMISSION);
+if (!$xoops->user || 1 != $xoops->getConfig('allow_chgmail')) {
+    $xoops->redirect(\XoopsBaseConfig::get('url') . '/modules/' . $xoops->module->getVar('dirname', 'n') . '/', 2, XoopsLocale::E_NO_ACCESS_PERMISSION);
 }
 
 $xoops->header('module:profile/profile_email.tpl');
@@ -42,7 +41,7 @@ if (!isset($_POST['submit']) || !isset($_POST['passwd'])) {
 } else {
     $pass = trim($_POST['passwd']);
     $email = trim($_POST['newmail']);
-    $errors = array();
+    $errors = [];
     if (!password_verify($pass, $xoops->user->getVar('pass', 'n'))) {
         $errors[] = _PROFILE_MA_WRONGPASSWORD;
     }
@@ -65,16 +64,15 @@ if (!isset($_POST['submit']) || !isset($_POST['passwd'])) {
             $xoopsMailer->useMail();
             $xoopsMailer->setTemplateDir($xoops->module->getVar('dirname', 'n'));
             $xoopsMailer->setTemplate('emailchanged.tpl');
-            $xoopsMailer->assign("SITENAME", $xoops->getConfig('sitename'));
-            $xoopsMailer->assign("ADMINMAIL", $xoops->getConfig('adminmail'));
-            $xoopsMailer->assign("SITEURL", \XoopsBaseConfig::get('url') . "/");
-            $xoopsMailer->assign("NEWEMAIL", $email);
+            $xoopsMailer->assign('SITENAME', $xoops->getConfig('sitename'));
+            $xoopsMailer->assign('ADMINMAIL', $xoops->getConfig('adminmail'));
+            $xoopsMailer->assign('SITEURL', \XoopsBaseConfig::get('url') . '/');
+            $xoopsMailer->assign('NEWEMAIL', $email);
             $xoopsMailer->setToEmails($email);
             $xoopsMailer->setFromEmail($xoops->getConfig('adminmail'));
             $xoopsMailer->setFromName($xoops->getConfig('sitename'));
             $xoopsMailer->setSubject(sprintf(_PROFILE_MA_NEWEMAIL, $xoops->getConfig('sitename')));
             $xoopsMailer->send();
-
         } else {
             $msg = implode('<br />', $xoops->user->getErrors());
         }

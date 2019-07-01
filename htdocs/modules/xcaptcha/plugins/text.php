@@ -15,28 +15,30 @@
  * @author          Laurent JEN (Aka DuGris)
  * @version         $Id$
  */
+use Xmf\Request;
 
 class XcaptchaText extends Xcaptcha
 {
-    public $config = array();
+    public $config = [];
 
     public $plugin;
 
-    function __construct()
+    public function __construct()
     {
         $this->xcaptcha_handler = Xcaptcha::getInstance();
         $this->config = $this->xcaptcha_handler->loadConfig('text');
         $this->plugin = 'text';
     }
 
-    function VerifyData()
+    public function VerifyData()
     {
         $system = System::getInstance();
-        $config = array();
-        $_POST['num_chars'] = $system->cleanVars($_POST, 'num_chars', 6, 'int');
+        $config = [];
+        $_POST['num_chars'] = Request::getInt('num_chars', 6, 'POST');
         foreach (array_keys($this->config) as $key) {
             $config[$key] = $_POST[$key];
         }
+
         return $config;
     }
 }

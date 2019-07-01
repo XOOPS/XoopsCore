@@ -16,6 +16,10 @@
  * @license     GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package     system
  * @version     $Id$
+ * @param mixed $global
+ * @param mixed $key
+ * @param mixed $default
+ * @param mixed $type
  */
 
 /**
@@ -46,9 +50,10 @@ function system_cleanVars(&$global, $key, $default = '', $type = 'int')
             $ret = (isset($global[$key])) ? filter_var($global[$key], FILTER_SANITIZE_NUMBER_INT) : $default;
             break;
     }
-    if ($ret === false) {
+    if (false === $ret) {
         return $default;
     }
+
     return $ret;
 }
 
@@ -61,7 +66,6 @@ function system_cleanVars(&$global, $key, $default = '', $type = 'int')
  * @param   string  $language   Language to be loaded, current language content will be loaded if not specified
  * @return  boolean
  * @todo    expand domain to multiple categories, e.g. module:system, framework:filter, etc.
- *
  */
 function system_loadLanguage($name, $domain = '', $language = null)
 {
@@ -73,7 +77,7 @@ function system_loadLanguage($name, $domain = '', $language = null)
         return false;
     }
     //for languages already moved into locale
-    $done = array('preferences', 'blocksadmin', 'extensions', 'modulesadmin', 'groups', 'tplsets', 'users');
+    $done = ['preferences', 'blocksadmin', 'extensions', 'modulesadmin', 'groups', 'tplsets', 'users'];
     if (in_array($name, $done)) {
         return false;
     }
@@ -84,6 +88,7 @@ function system_loadLanguage($name, $domain = '', $language = null)
     } else {
         $ret = include_once $xoops->path($path . 'english/admin/' . $name . '.php');
     }
+
     return $ret;
 }
 
@@ -94,19 +99,21 @@ function system_loadLanguage($name, $domain = '', $language = null)
  */
 function system_adminVersion($version, $value = '')
 {
-    static $tblVersion = array();
+    static $tblVersion = [];
     if (is_array($tblVersion) && array_key_exists($version . '.' . $value, $tblVersion)) {
         return $tblVersion[$version . '.' . $value];
     }
     $xoops = Xoops::getInstance();
     $path = $xoops->path('modules/system/admin/' . $version . '/xoops_version.php');
     if (XoopsLoad::fileExists($path)) {
-        $modversion = array();
+        $modversion = [];
         include $path;
         $retvalue = $modversion[$value];
         $tblVersion[$version . '.' . $value] = $retvalue;
+
         return $retvalue;
     }
+
     return '';
 }
 
@@ -120,6 +127,7 @@ function system_AdminIcons($img)
     $style = 'default';
 
     $url = $xoops->url('modules/system/images/icons/' . $style . '/' . $img);
+
     return $url;
 }
 
@@ -135,7 +143,7 @@ function system_loadTemplate($name)
     if (XoopsLoad::fileExists($path)) {
         echo $xoops->tpl()->fetch($path);
     } else {
-        echo "Unable to read " . $name;
+        echo 'Unable to read ' . $name;
     }
 }
 
@@ -148,55 +156,55 @@ function system_loadTemplate($name)
 function modify_chmod($value_chmod, $path_file, $id)
 {
     $chmod = '<div id="loading_' . $id . '" align="center" style="display:none;">' . '<img src="./images/mimetypes/spinner.gif" title="Loading" alt="Loading" width="12px"/></div>' . '<div id="chmod' . $id . '">' . '<select size="1" onChange="filemanager_modify_chmod(\'' . $path_file . '\', \'' . $id . '\')" name="chmod" id="chmod">';
-    if ($value_chmod == 777) {
+    if (777 == $value_chmod) {
         $chmod .= '<option value="777" selected><span style="color:green">777</span></option>';
     } else {
         $chmod .= '<option value="777"><span style="color:green">777</span></option>';
     }
 
-    if ($value_chmod == 776) {
+    if (776 == $value_chmod) {
         $chmod .= '<option value="776" selected>776</option>';
     } else {
         $chmod .= '<option value="776">776</option>';
     }
 
-    if ($value_chmod == 766) {
+    if (766 == $value_chmod) {
         $chmod .= '<option value="766" selected>766</option>';
     } else {
         $chmod .= '<option value="766">766</option>';
     }
 
-    if ($value_chmod == 666) {
+    if (666 == $value_chmod) {
         $chmod .= '<option value="666" selected>666</option>';
     } else {
         $chmod .= '<option value="666">666</option>';
     }
 
-    if ($value_chmod == 664) {
+    if (664 == $value_chmod) {
         $chmod .= '<option value="664" selected>664</option>';
     } else {
         $chmod .= '<option value="664">664</option>';
     }
 
-    if ($value_chmod == 644) {
+    if (644 == $value_chmod) {
         $chmod .= '<option value="644" selected>644</option>';
     } else {
         $chmod .= '<option value="644">644</option>';
     }
 
-    if ($value_chmod == 444) {
+    if (444 == $value_chmod) {
         $chmod .= '<option value="444" selected><span style="color:red">444</span></option>';
     } else {
         $chmod .= '<option value="444">444</option>';
     }
 
-    if ($value_chmod == 440) {
+    if (440 == $value_chmod) {
         $chmod .= '<option value="440" selected>440</option>';
     } else {
         $chmod .= '<option value="440">440</option>';
     }
 
-    if ($value_chmod == 400) {
+    if (400 == $value_chmod) {
         $chmod .= '<option value="400" selected>400</option>';
     } else {
         $chmod .= '<option value="400">400</option>';

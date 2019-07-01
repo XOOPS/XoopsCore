@@ -3,21 +3,21 @@
 namespace XoopsConsole\Commands;
 
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputOption;
 use Xoops\Core\XoopsTpl;
 
 class UpdateModuleCommand extends Command
 {
     protected function configure()
     {
-        $this->setName("update-module")
-            ->setDescription("Update a module")
-            ->setDefinition(array(
+        $this->setName('update-module')
+            ->setDescription('Update a module')
+            ->setDefinition([
                 new InputArgument('module', InputArgument::REQUIRED, 'Module directory name'),
-            ))->setHelp(<<<EOT
+            ])->setHelp(
+                <<<EOT
 The <info>update-module</info> command updates a currently installed module.
 
 This can be especially useful if the module configuration has changed, and
@@ -33,6 +33,7 @@ EOT
         $xoops = \Xoops::getInstance();
         if (false === $xoops->getModuleByDirname($module)) {
             $output->writeln(sprintf('<error>%s is not an installed module!</error>', $module));
+
             return;
         }
         $xoops->setTpl(new XoopsTpl());
@@ -50,7 +51,7 @@ EOT
                 $output->writeln(strip_tags($message));
             }
         }
-        if ($result===false) {
+        if (false === $result) {
             $output->writeln(sprintf('<error>Update of %s failed!</error>', $module));
         } else {
             $output->writeln(sprintf('<info>Update of %s completed.</info>', $module));

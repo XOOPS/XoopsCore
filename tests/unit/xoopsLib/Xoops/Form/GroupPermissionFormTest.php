@@ -1,7 +1,8 @@
 <?php
+
 namespace Xoops\Form;
 
-require_once(__DIR__.'/../../../init_new.php');
+require_once(__DIR__ . '/../../../init_new.php');
 
 class GroupPermissionFormTest extends \PHPUnit\Framework\TestCase
 {
@@ -32,12 +33,12 @@ class GroupPermissionFormTest extends \PHPUnit\Framework\TestCase
         $this->object->addItem(1, 'item_name1');
         $this->object->addItem(10, 'item_name10', 1);
         $value = $this->object->render();
-        $this->assertTrue(is_string($value));
-        $this->assertTrue(false !== strpos($value, '<h4>Caption</h4>description'));
-        $this->assertTrue(false !== strpos($value, '<form'));
-        $this->assertTrue(false !== strpos($value, 'title="Caption"'));
-        $this->assertTrue(false !== strpos($value, '<input'));
-        $this->assertTrue(false !== strpos($value, 'type="checkbox"'));
-        $this->assertTrue(false !== strpos($value, '</form'));
+        $this->assertInternalType('string', $value);
+        $this->assertTrue(false !== mb_strpos($value, '<h4>Caption</h4>description'));
+        $this->assertTrue(false !== mb_strpos($value, '<form'));
+        $this->assertTrue(false !== mb_strpos($value, 'title="Caption"'));
+        $this->assertTrue(false !== mb_strpos($value, '<input'));
+        $this->assertTrue(false !== mb_strpos($value, 'type="checkbox"'));
+        $this->assertTrue(false !== mb_strpos($value, '</form'));
     }
 }

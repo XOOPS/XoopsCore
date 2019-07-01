@@ -1,10 +1,8 @@
 <?php
+
 namespace Xoops\Core\Kernel\Dtype;
 
 require_once __DIR__ . '/../../../../../init_new.php';
-
-use Xoops\Core\Kernel\Dtype;
-use Xoops\Core\Kernel\XoopsObject;
 
 class DtypeFloatTest extends \PHPUnit\Framework\TestCase
 {
@@ -19,7 +17,7 @@ class DtypeFloatTest extends \PHPUnit\Framework\TestCase
      */
     protected function setUp()
     {
-        $this->object = new DtypeFloat;
+        $this->object = new DtypeFloat();
     }
 
     /**

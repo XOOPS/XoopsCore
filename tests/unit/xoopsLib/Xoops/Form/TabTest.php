@@ -1,7 +1,8 @@
 <?php
+
 namespace Xoops\Form;
 
-require_once(__DIR__.'/../../../init_new.php');
+require_once(__DIR__ . '/../../../init_new.php');
 
 class TabTest extends \PHPUnit\Framework\TestCase
 {
@@ -32,13 +33,13 @@ class TabTest extends \PHPUnit\Framework\TestCase
         $button = new Button('Caption', 'name');
         $this->object->addElement($button);
         $value = $this->object->render();
-        $this->assertTrue(is_string($value));
-        $this->assertTrue(false !== strpos($value, '<div class="form-group">'));
-        $this->assertTrue(false !== strpos($value, '<label>Caption</label>'));
+        $this->assertInternalType('string', $value);
+        $this->assertTrue(false !== mb_strpos($value, '<div class="form-group">'));
+        $this->assertTrue(false !== mb_strpos($value, '<label>Caption</label>'));
         //$this->assertTrue(false !== strpos($value, 'class="btn btn-default"'));
-        $this->assertTrue(false !== strpos($value, '<input'));
-        $this->assertTrue(false !== strpos($value, 'type="button"'));
-        $this->assertTrue(false !== strpos($value, 'title="Caption"'));
-        $this->assertTrue(false !== strpos($value, 'id="name"'));
+        $this->assertTrue(false !== mb_strpos($value, '<input'));
+        $this->assertTrue(false !== mb_strpos($value, 'type="button"'));
+        $this->assertTrue(false !== mb_strpos($value, 'title="Caption"'));
+        $this->assertTrue(false !== mb_strpos($value, 'id="name"'));
     }
 }

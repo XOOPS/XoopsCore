@@ -9,10 +9,10 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\FixedGroups;
 use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\Kernel\CriteriaCompo;
 use Xoops\Core\Kernel\Handlers\XoopsBlock;
-use Xoops\Core\FixedGroups;
 
 /**
  * Blocks Form Class
@@ -54,14 +54,14 @@ class SystemBlockForm extends Xoops\Form\ThemeForm
         $xoops->loadLanguage('blocks', 'system');
         if ($this->obj->isNew()) {
             $title = SystemLocale::ADD_BLOCK;
-            $modules = array(-1);
-            $groups = array(FixedGroups::USERS, FixedGroups::ANONYMOUS, FixedGroups::ADMIN);
+            $modules = [-1];
+            $groups = [FixedGroups::USERS, FixedGroups::ANONYMOUS, FixedGroups::ADMIN];
             $this->obj->setVar('block_type', XoopsBlock::BLOCK_TYPE_CUSTOM);
             $this->obj->setVar('visible', 1);
             $op = 'save';
         } else {
             $title = '';
-            $modules = array();
+            $modules = [];
             // Search modules
             $blockmodulelink_handler = $xoops->getHandlerBlockModuleLink();
             $criteria = new CriteriaCompo(new Criteria('block_id', $this->obj->getVar('bid')));
@@ -95,7 +95,7 @@ class SystemBlockForm extends Xoops\Form\ThemeForm
         }
         // Side position
         $side_select = new Xoops\Form\Select(XoopsLocale::SIDE, 'side', $this->obj->getVar('side'));
-        $side_select->addOptionArray(array(
+        $side_select->addOptionArray([
             0 => XoopsLocale::LEFT,
             1 => XoopsLocale::RIGHT,
             3 => SystemLocale::TOP_LEFT,
@@ -103,8 +103,8 @@ class SystemBlockForm extends Xoops\Form\ThemeForm
             5 => SystemLocale::TOP_CENTER,
             7 => SystemLocale::BOTTOM_LEFT,
             8 => SystemLocale::BOTTOM_RIGHT,
-            9 => SystemLocale::BOTTOM_CENTER
-        ));
+            9 => SystemLocale::BOTTOM_CENTER,
+        ]);
         $this->addElement($side_select);
         // Order
         $weight = new Xoops\Form\Text(XoopsLocale::WEIGHT, 'weight', 1, 5, $this->obj->getVar('weight'), '');
@@ -125,27 +125,27 @@ class SystemBlockForm extends Xoops\Form\ThemeForm
         // Title
         $this->addElement(new Xoops\Form\Text(XoopsLocale::TITLE, 'title', 5, 255, $this->obj->getVar('title')), false);
         if ($this->obj->isNew() || $this->obj->isCustom()) {
-            $editor_configs = array();
-            $editor_configs["name"] = "content_block";
-            $editor_configs["value"] = $this->obj->getVar('content', 'e');
-            $editor_configs["rows"] = 15;
-            $editor_configs["cols"] = 6;
-            $editor_configs["editor"] = $xoops->getModuleConfig('blocks_editor', 'system');
-            $this->addElement(new Xoops\Form\Editor(XoopsLocale::CONTENT, "content_block", $editor_configs), true);
-            if (in_array($editor_configs["editor"], array('dhtmltextarea', 'textarea'))) {
+            $editor_configs = [];
+            $editor_configs['name'] = 'content_block';
+            $editor_configs['value'] = $this->obj->getVar('content', 'e');
+            $editor_configs['rows'] = 15;
+            $editor_configs['cols'] = 6;
+            $editor_configs['editor'] = $xoops->getModuleConfig('blocks_editor', 'system');
+            $this->addElement(new Xoops\Form\Editor(XoopsLocale::CONTENT, 'content_block', $editor_configs), true);
+            if (in_array($editor_configs['editor'], ['dhtmltextarea', 'textarea'])) {
                 $ctype_select = new Xoops\Form\Select(SystemLocale::CONTENT_TYPE, 'c_type', $this->obj->getVar('c_type'));
-                $ctype_select->addOptionArray(array(
-                    XoopsBlock::CUSTOM_HTML   => XoopsLocale::HTML,
-                    XoopsBlock::CUSTOM_PHP    => SystemLocale::PHP_SCRIPT,
+                $ctype_select->addOptionArray([
+                    XoopsBlock::CUSTOM_HTML => XoopsLocale::HTML,
+                    XoopsBlock::CUSTOM_PHP => SystemLocale::PHP_SCRIPT,
                     XoopsBlock::CUSTOM_SMILIE => SystemLocale::AUTO_FORMAT_SMILIES_ENABLED,
-                    XoopsBlock::CUSTOM_TEXT   => SystemLocale::AUTO_FORMAT_SMILIES_DISABLED
-                ));
+                    XoopsBlock::CUSTOM_TEXT => SystemLocale::AUTO_FORMAT_SMILIES_DISABLED,
+                ]);
                 $this->addElement($ctype_select);
             } else {
                 $this->addElement(new Xoops\Form\Hidden('c_type', XoopsBlock::CUSTOM_HTML));
             }
         } else {
-            if ($this->obj->getVar('template') != '') {
+            if ('' != $this->obj->getVar('template')) {
                 $tplfile_handler = $xoops->getHandlerTplFile();
                 $btemplate = $tplfile_handler->
                     find($xoops->getConfig('template_set'), 'block', $this->obj->getVar('bid'));
@@ -167,7 +167,7 @@ class SystemBlockForm extends Xoops\Form\ThemeForm
                     }
                 }
             }
-            if ($this->obj->getOptions() != false) {
+            if (false != $this->obj->getOptions()) {
                 $this->addElement(new Xoops\Form\Label(XoopsLocale::OPTIONS, $this->obj->getOptions()));
             } else {
                 $this->addElement(new Xoops\Form\Hidden('options', $this->obj->getVar('options')));
@@ -179,19 +179,19 @@ class SystemBlockForm extends Xoops\Form\ThemeForm
             'bcachetime',
             $this->obj->getVar('bcachetime')
         );
-        $cache_select->addOptionArray(array(
-            '0'       => XoopsLocale::NO_CACHE,
-            '30'      => sprintf(XoopsLocale::F_SECONDS, 30),
-            '60'      => XoopsLocale::ONE_MINUTE,
-            '300'     => sprintf(XoopsLocale::F_MINUTES, 5),
-            '1800'    => sprintf(XoopsLocale::F_MINUTES, 30),
-            '3600'    => XoopsLocale::ONE_HOUR,
-            '18000'   => sprintf(XoopsLocale::F_HOURS, 5),
-            '86400'   => XoopsLocale::ONE_DAY,
-            '259200'  => sprintf(XoopsLocale::F_DAYS, 3),
-            '604800'  => XoopsLocale::ONE_WEEK,
-            '2592000' => XoopsLocale::ONE_MONTH
-        ));
+        $cache_select->addOptionArray([
+            '0' => XoopsLocale::NO_CACHE,
+            '30' => sprintf(XoopsLocale::F_SECONDS, 30),
+            '60' => XoopsLocale::ONE_MINUTE,
+            '300' => sprintf(XoopsLocale::F_MINUTES, 5),
+            '1800' => sprintf(XoopsLocale::F_MINUTES, 30),
+            '3600' => XoopsLocale::ONE_HOUR,
+            '18000' => sprintf(XoopsLocale::F_HOURS, 5),
+            '86400' => XoopsLocale::ONE_DAY,
+            '259200' => sprintf(XoopsLocale::F_DAYS, 3),
+            '604800' => XoopsLocale::ONE_WEEK,
+            '2592000' => XoopsLocale::ONE_MONTH,
+        ]);
         $this->addElement($cache_select);
         // Groups
         $this->addElement(new Xoops\Form\SelectGroup(XoopsLocale::GROUPS, 'groups', true, $groups, 5, true));
@@ -211,7 +211,7 @@ class SystemBlockForm extends Xoops\Form\ThemeForm
         $buttonTray = new Xoops\Form\ElementTray('', '&nbsp;');
         if ($this->obj->isNew() || $this->obj->isCustom()) {
             $preview = new Xoops\Form\Button('', 'previewblock', XoopsLocale::A_PREVIEW, 'preview');
-            $preview->setExtra("onclick=\"blocks_preview();\"");
+            $preview->setExtra('onclick="blocks_preview();"');
             $buttonTray->addElement($preview);
         }
         $buttonTray->addElement(new Xoops\Form\Button('', 'submitblock', XoopsLocale::A_SUBMIT, 'submit'));

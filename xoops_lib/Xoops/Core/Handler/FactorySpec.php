@@ -66,6 +66,7 @@ class FactorySpec
     public function scheme($value)
     {
         $this->specScheme = $value;
+
         return $this;
     }
 
@@ -79,6 +80,7 @@ class FactorySpec
     public function name($value)
     {
         $this->specName = $value;
+
         return $this;
     }
 
@@ -92,19 +94,21 @@ class FactorySpec
     public function dirname($value)
     {
         $this->specDirname = $value;
+
         return $this;
     }
 
     /**
      * Set Optional
      *
-     * @param boolean $value
+     * @param bool $value
      *
      * @return FactorySpec $this for fluent use
      */
     public function optional($value)
     {
         $this->specOptional = (bool) $value;
+
         return $this;
     }
 
@@ -118,6 +122,7 @@ class FactorySpec
     public function fqn($value)
     {
         $this->specFQN = $value;
+
         return $this;
     }
 

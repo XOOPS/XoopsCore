@@ -36,8 +36,6 @@ interface UserMessageInterface
      *
      * @param Response $response response object
      * @param Message  $message  message to be sent
-     *
-     * @return void - response->success set true if sent, otherwise false
      */
     public function sendMessage(Response $response, Message $message);
 }

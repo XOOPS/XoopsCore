@@ -21,10 +21,10 @@
  * @version         $Id$
  */
 
-return $config = array(
-    "class"  => "FormTextArea",
-    "file"   => \XoopsBaseConfig::get('root-path') . "/class/xoopseditor/textarea/textarea.php",
-    "title"  => _XOOPS_EDITOR_TEXTAREA, // display to end user
-    "order"  => 1, // 0 will disable the editor
-    "nohtml" => 1 // For forms that have "dohtml" disabled
-);
+return $config = [
+    'class' => 'FormTextArea',
+    'file' => \XoopsBaseConfig::get('root-path') . '/class/xoopseditor/textarea/textarea.php',
+    'title' => _XOOPS_EDITOR_TEXTAREA, // display to end user
+    'order' => 1, // 0 will disable the editor
+    'nohtml' => 1, // For forms that have "dohtml" disabled
+];

@@ -19,10 +19,10 @@
 
 namespace Xoops\Core\Kernel\Handlers;
 
-use Xoops\Core\Database\Connection;
-use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 use Doctrine\DBAL\FetchMode;
 use Doctrine\DBAL\ParameterType;
+use Xoops\Core\Database\Connection;
+use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 
 /**
  * XOOPS membership handler class. (Singleton)
@@ -63,10 +63,10 @@ class XoopsMembershipHandler extends XoopsPersistableObjectHandler
      */
     public function getGroupsByUser($uid)
     {
-        $ret = array();
+        $ret = [];
         $qb = $this->db2->createXoopsQueryBuilder();
         $eb = $qb->expr();
-        $qb ->select('groupid')
+        $qb->select('groupid')
             ->fromPrefix('system_usergroup', 'g')
             ->where($eb->eq('g.uid', ':uid'))
             ->setParameter(':uid', $uid, ParameterType::INTEGER);
@@ -89,14 +89,14 @@ class XoopsMembershipHandler extends XoopsPersistableObjectHandler
      */
     public function getUsersByGroup($groupid, $limit = 0, $start = 0)
     {
-        $ret = array();
+        $ret = [];
         $qb = $this->db2->createXoopsQueryBuilder();
         $eb = $qb->expr();
-        $qb ->select('uid')
+        $qb->select('uid')
             ->fromPrefix('system_usergroup', 'g')
             ->where($eb->eq('g.groupid', ':gid'))
             ->setParameter(':gid', $groupid, ParameterType::INTEGER);
-        if ($limit!=0 || $start!=0) {
+        if (0 != $limit || 0 != $start) {
             $qb->setFirstResult($start)
                 ->setMaxResults($limit);
         }

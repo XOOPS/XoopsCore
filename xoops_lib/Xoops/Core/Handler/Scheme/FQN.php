@@ -14,7 +14,6 @@ use Xoops\Core\Exception\NoHandlerException;
 use Xoops\Core\Handler\FactorySpec;
 use Xoops\Core\Kernel\XoopsObjectHandler;
 
-
 /**
  * FQN - build
  *
@@ -41,11 +40,12 @@ class FQN implements SchemeInterface
         if (class_exists($class)) {
             $handler = new $class($spec->getFactory()->db());
         }
-        if ($handler === null) {
+        if (null === $handler) {
             if (false === $spec->getOptional()) {
                 throw new NoHandlerException(sprintf('Class not found %s', $class));
             }
         }
+
         return $handler;
     }
 }

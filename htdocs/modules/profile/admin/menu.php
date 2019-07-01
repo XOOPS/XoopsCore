@@ -20,41 +20,40 @@
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
  * @version         d$
  */
+$adminmenu = [];
 
-$adminmenu = array();
-
-$adminmenu[] = array(
+$adminmenu[] = [
     'title' => _PROFILE_MI_HOME,
-    'link' => "admin/index.php",
+    'link' => 'admin/index.php',
     'icon' => 'home.png',
-);
-$adminmenu[] = array(
+];
+$adminmenu[] = [
     'title' => _PROFILE_MI_USERS,
-    'link' => "admin/user.php",
+    'link' => 'admin/user.php',
     'icon' => 'users.png',
-);
-$adminmenu[] = array(
+];
+$adminmenu[] = [
     'title' => _PROFILE_MI_CATEGORIES,
-    'link' => "admin/category.php",
+    'link' => 'admin/category.php',
     'icon' => 'category.png',
-);
-$adminmenu[] = array(
+];
+$adminmenu[] = [
     'title' => _PROFILE_MI_FIELDS,
-    'link' => "admin/field.php",
+    'link' => 'admin/field.php',
     'icon' => 'index.png',
-);
-$adminmenu[] = array(
+];
+$adminmenu[] = [
     'title' => _PROFILE_MI_STEPS,
-    'link' => "admin/step.php",
+    'link' => 'admin/step.php',
     'icon' => 'stats.png',
-);
-$adminmenu[] = array(
+];
+$adminmenu[] = [
     'title' => _PROFILE_MI_PERMISSIONS,
-    'link' => "admin/permissions.php",
+    'link' => 'admin/permissions.php',
     'icon' => 'permissions.png',
-);
-$adminmenu[] = array(
+];
+$adminmenu[] = [
     'title' => _PROFILE_MI_ABOUT,
     'link' => 'admin/about.php',
     'icon' => 'about.png',
-);
+];
