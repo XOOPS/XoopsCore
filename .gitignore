@@ -24,3 +24,6 @@ coverage.clover
 composer.json
 composer.lock
 xoopsCIconfigs.php
+
+# Project exclude paths
+/htdocs/language/00/

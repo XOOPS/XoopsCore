@@ -15,6 +15,8 @@
  * @author          Laurent JEN (Aka DuGris)
  * @version         $Id$
  */
+ 
+use Xmf\Request;
 
 include __DIR__ . '/header.php';
 
@@ -25,7 +27,7 @@ switch ($op) {
             $xoops->redirect('index.php', 2, implode(',', $xoops->security()->getErrors()));
         }
 
-        $xlanguage_id = $system->cleanVars($_POST, 'xlanguage_id', 0, 'int');
+        $xlanguage_id = Request::getInt('xlanguage_id', 0, 'POST');
         if (isset($xlanguage_id) && $xlanguage_id > 0) {
             $lang = $helper->getHandlerLanguage()->get($xlanguage_id);
         } else {
@@ -48,7 +50,7 @@ switch ($op) {
         break;
 
     case 'edit':
-        $xlanguage_id = $system->cleanVars($_REQUEST, 'xlanguage_id', 0, 'int');
+        $xlanguage_id = Request::getInt('xlanguage_id', 0, 'REQUEST');
         if (isset($xlanguage_id) && $xlanguage_id > 0) {
             if ($lang = $helper->getHandlerLanguage()->get($xlanguage_id)) {
                 $form = $helper->getForm($lang, 'language');
@@ -64,10 +66,10 @@ switch ($op) {
         break;
 
     case 'del':
-        $xlanguage_id = $system->cleanVars($_REQUEST, 'xlanguage_id', 0, 'int');
+        $xlanguage_id = Requestx::getInt('xlanguage_id', 0);
         if (isset($xlanguage_id) && $xlanguage_id > 0) {
             if ($lang = $helper->getHandlerLanguage()->get($xlanguage_id)) {
-                $delete = $system->cleanVars($_POST, 'ok', 0, 'int');
+                $delete = Request::getInt('ok', 0, 'POST');
                 if ($delete == 1) {
                     if (!$xoops->security()->check()) {
                         $xoops->redirect('index.php', 2, implode(',', $xoops->security()->getErrors()));
