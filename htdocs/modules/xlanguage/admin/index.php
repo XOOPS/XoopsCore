@@ -66,7 +66,7 @@ switch ($op) {
         break;
 
     case 'del':
-        $xlanguage_id = Requestx::getInt('xlanguage_id', 0);
+        $xlanguage_id = Request::getInt('xlanguage_id', 0);
         if (isset($xlanguage_id) && $xlanguage_id > 0) {
             if ($lang = $helper->getHandlerLanguage()->get($xlanguage_id)) {
                 $delete = Request::getInt('ok', 0, 'POST');
