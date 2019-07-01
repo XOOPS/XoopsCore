@@ -16,12 +16,11 @@
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
-
 class NotificationsSystemPlugin extends Xoops\Module\Plugin\PluginAbstract implements SystemPluginInterface
 {
     public function userPosts($uid)
     {
-        return array();
+        return [];
     }
 
     public function waiting()
@@ -31,7 +30,7 @@ class NotificationsSystemPlugin extends Xoops\Module\Plugin\PluginAbstract imple
 
     public function backend($limit)
     {
-        return array();
+        return [];
     }
 
     public function userMenus()
@@ -40,6 +39,7 @@ class NotificationsSystemPlugin extends Xoops\Module\Plugin\PluginAbstract imple
         $ret['name'] = $helper->getModule()->getVar('name');
         $ret['link'] = 'index.php';
         $ret['image'] = $helper->url('icons/logo_small.png');
+
         return $ret;
     }
 }

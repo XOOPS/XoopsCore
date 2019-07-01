@@ -66,21 +66,21 @@ abstract class Form implements ContainerInterface
      *
      * @var Element[]
      */
-    protected $elements = array();
+    protected $elements = [];
 
     /**
      * extra information for the <form> tag
      *
      * @var string[]
      */
-    protected $extra = array();
+    protected $extra = [];
 
     /**
      * required elements
      *
      * @var string[]
      */
-    protected $required = array();
+    protected $required = [];
 
     /**
      * constructor
@@ -89,7 +89,7 @@ abstract class Form implements ContainerInterface
      * @param string  $name     name attribute for the <form> tag
      * @param string  $action   action attribute for the <form> tag
      * @param string  $method   method attribute for the <form> tag
-     * @param boolean $addtoken whether to add a security token to the form
+     * @param bool $addtoken whether to add a security token to the form
      * @param string  $display  class for the form, i.e. horizontal, vertical, inline
      */
     public function __construct($title, $name, $action, $method = 'post', $addtoken = false, $display = '')
@@ -99,7 +99,7 @@ abstract class Form implements ContainerInterface
         $this->action = $action;
         $this->method = $method;
         $this->display = $display;
-        if ($addtoken != false) {
+        if (false != $addtoken) {
             $this->addElement(new Token());
         }
     }
@@ -107,7 +107,7 @@ abstract class Form implements ContainerInterface
     /**
      * getDisplay - return the summary of the form
      *
-     * @param boolean $encode True to encode special characters
+     * @param bool $encode True to encode special characters
      *
      * @return string
      */
@@ -145,7 +145,7 @@ abstract class Form implements ContainerInterface
      *
      * Deprecated, to be refactored
      *
-     * @param boolean $encode True to encode special characters
+     * @param bool $encode True to encode special characters
      *
      * @return string
      */
@@ -169,7 +169,7 @@ abstract class Form implements ContainerInterface
     /**
      * getAction - get the "action" attribute for the <form> tag
      *
-     * @param boolean $encode True to encode special characters
+     * @param bool $encode True to encode special characters
      *
      * @return string
      */
@@ -186,14 +186,14 @@ abstract class Form implements ContainerInterface
      */
     public function getMethod()
     {
-        return (strtolower($this->method) === 'get') ? 'get' : 'post';
+        return ('get' === mb_strtolower($this->method)) ? 'get' : 'post';
     }
 
     /**
      * addElement - Add an element to the form
      *
      * @param Element $formElement Xoops\Form\Element to add
-     * @param boolean $required    true if this is a required element
+     * @param bool $required    true if this is a required element
      *
      * @return void
      */
@@ -208,7 +208,7 @@ abstract class Form implements ContainerInterface
     /**
      * getElements - get an array of forms elements
      *
-     * @param boolean $recurse true to get elements recursively
+     * @param bool $recurse true to get elements recursively
      *
      * @return Element[]
      */
@@ -216,24 +216,24 @@ abstract class Form implements ContainerInterface
     {
         if (!$recurse) {
             return $this->elements;
-        } else {
-            $ret = array();
-            foreach ($this->elements as $ele) {
-                if ($ele instanceof ContainerInterface) {
-                    /* @var ContainerInterface $ele */
-                    $elements = $ele->getElements(true);
-                    foreach ($elements as $ele2) {
-                        $ret[] = $ele2;
-                    }
-                    unset($elements);
-                    unset($ele2);
-                } else {
-                    $ret[] = $ele;
-                }
-                unset($ele);
-            }
-            return $ret;
         }
+        $ret = [];
+        foreach ($this->elements as $ele) {
+            if ($ele instanceof ContainerInterface) {
+                /* @var ContainerInterface $ele */
+                $elements = $ele->getElements(true);
+                foreach ($elements as $ele2) {
+                    $ret[] = $ele2;
+                }
+                unset($elements);
+                unset($ele2);
+            } else {
+                $ret[] = $ele;
+            }
+            unset($ele);
+        }
+
+        return $ret;
     }
 
     /**
@@ -243,13 +243,14 @@ abstract class Form implements ContainerInterface
      */
     public function getElementNames()
     {
-        $ret = array();
+        $ret = [];
         $elements = $this->getElements(true);
         foreach ($elements as $ele) {
             /* @var Element $ele */
             $ret[] = $ele->getName();
             unset($ele);
         }
+
         return $ret;
     }
 
@@ -270,6 +271,7 @@ abstract class Form implements ContainerInterface
             }
         }
         $ele = null;
+
         return $ele;
     }
 
@@ -315,20 +317,21 @@ abstract class Form implements ContainerInterface
      * getElementValue - Gets the value attribute of a form element
      *
      * @param string  $name   the name attribute of a form element
-     * @param boolean $encode True to encode special characters
+     * @param bool $encode True to encode special characters
      *
      * @return string|null the value attribute assigned to a form element, null if not set
      */
     public function getElementValue($name, $encode = false)
     {
         $ele = $this->getElementByName($name);
+
         return $ele->getValue($encode);
     }
 
     /**
      * getElementValues - gets the value attribute of all form elements
      *
-     * @param boolean $encode True to encode special characters
+     * @param bool $encode True to encode special characters
      *
      * @return array array of name/value pairs assigned to form elements
      */
@@ -336,7 +339,7 @@ abstract class Form implements ContainerInterface
     {
         // will not use getElementByName() for performance..
         $elements = $this->getElements(true);
-        $values = array();
+        $values = [];
         foreach ($elements as $ele) {
             /* @var Element $ele */
             $name = $ele->getName();
@@ -344,6 +347,7 @@ abstract class Form implements ContainerInterface
                 $values[$name] = $ele->getValue($encode);
             }
         }
+
         return $values;
     }
 
@@ -369,6 +373,7 @@ abstract class Form implements ContainerInterface
     public function getExtra()
     {
         $extra = empty($this->extra) ? '' : ' ' . implode(' ', $this->extra);
+
         return $extra;
     }
 
@@ -399,6 +404,7 @@ abstract class Form implements ContainerInterface
                 $required[] = $el;
             }
         }
+
         return $required;
     }
 
@@ -441,7 +447,7 @@ abstract class Form implements ContainerInterface
      * }
      * </code>
      *
-     * @param boolean $withtags Include the < javascript > tags in the returned string
+     * @param bool $withtags Include the < javascript > tags in the returned string
      *
      * @return string
      */
@@ -463,6 +469,7 @@ abstract class Form implements ContainerInterface
             $js .= "//--></script>\n";
             $js .= "<!-- End Form Validation JavaScript //-->\n";
         }
+
         return $js;
     }
 
@@ -476,10 +483,10 @@ abstract class Form implements ContainerInterface
     public function assign(XoopsTpl $tpl)
     {
         $i = -1;
-        $elements = array();
+        $elements = [];
         if (count($this->getRequired()) > 0) {
             $this->elements[] =
-                new Raw("<tr class='foot'><td colspan='2'>* = " . \XoopsLocale::REQUIRED . "</td></tr>");
+                new Raw("<tr class='foot'><td colspan='2'>* = " . \XoopsLocale::REQUIRED . '</td></tr>');
         }
         foreach ($this->getElements() as $ele) {
             ++$i;
@@ -492,16 +499,16 @@ abstract class Form implements ContainerInterface
             $elements[$n]['body'] = $ele->render();
             $elements[$n]['hidden'] = $ele->isHidden();
             $elements[$n]['required'] = $ele->isRequired();
-            if ($ele_description != '') {
+            if ('' != $ele_description) {
                 $elements[$n]['description'] = $ele_description;
             }
         }
         $js = $this->renderValidationJS();
-        $tpl->assign($this->getName(), array(
+        $tpl->assign($this->getName(), [
                 'title' => $this->getTitle(), 'name' => $this->getName(), 'action' => $this->getAction(),
                 'method' => $this->getMethod(),
                 'extra' => 'onsubmit="return xoopsFormValidate_' . $this->getName() . '();"' . $this->getExtra(),
-                'javascript' => $js, 'elements' => $elements
-            ));
+                'javascript' => $js, 'elements' => $elements,
+            ]);
     }
 }

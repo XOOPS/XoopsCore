@@ -38,7 +38,7 @@ class XoopsTpl extends \Smarty
     {
         parent::__construct(); // SMARTY_PLUGINS_DIR is initialized into parent
         $xoops = \Xoops::getInstance();
-        $xoops->events()->triggerEvent('core.template.construct.start', array($this));
+        $xoops->events()->triggerEvent('core.template.construct.start', [$this]);
 
         $this->registerFilter(
             'pre',
@@ -51,17 +51,17 @@ class XoopsTpl extends \Smarty
         $this->setTemplateDir(\XoopsBaseConfig::get('themes-path'));
         $this->setCacheDir(\XoopsBaseConfig::get('smarty-cache'));
         $this->setCompileDir(\XoopsBaseConfig::get('smarty-compile'));
-        $this->compile_check = ($xoops->getConfig('theme_fromfile') == 1);
+        $this->compile_check = (1 == $xoops->getConfig('theme_fromfile'));
         $this->setPluginsDir(\XoopsBaseConfig::get('smarty-xoops-plugins'));
         $this->addPluginsDir(SMARTY_PLUGINS_DIR);
         $this->setCompileId();
         $this->assign(
-            array('xoops_url' => \XoopsBaseConfig::get('url'),
+            ['xoops_url' => \XoopsBaseConfig::get('url'),
                 'xoops_rootpath' => \XoopsBaseConfig::get('root-path'),
                 'xoops_langcode' => \XoopsLocale::getLangCode(),
                 'xoops_charset' => \XoopsLocale::getCharset(),
                 'xoops_version' => \Xoops::VERSION,
-                'xoops_upload_url' => \XoopsBaseConfig::get('uploads-url'))
+                'xoops_upload_url' => \XoopsBaseConfig::get('uploads-url'), ]
         );
     }
 
@@ -81,9 +81,10 @@ class XoopsTpl extends \Smarty
         $countLeft = 0;
         $countRight = -1;
         $temp = str_replace('<{', '{', $tpl_source, $countLeft);
-        if ($countLeft>0) {
+        if ($countLeft > 0) {
             $temp = str_replace('}>', '}', $temp, $countRight);
         }
+
         return ($countLeft === $countRight) ? $temp : $tpl_source;
     }
 
@@ -101,6 +102,7 @@ class XoopsTpl extends \Smarty
         parent::clearCache($resourceName);
         $result = true;
         $this->force_compile = $isForced;
+
         return $result;
     }
 
@@ -120,7 +122,7 @@ class XoopsTpl extends \Smarty
         $template_set = empty($template_set) ? $xoops->getConfig('template_set') : $template_set;
         $theme_set = empty($theme_set) ? $xoops->getConfig('theme_set') : $theme_set;
         $module_dirname = empty($module_dirname) ? $xoops->moduleDirname : $module_dirname;
-        $this->compile_id = substr(md5(\XoopsBaseConfig::get('url')), 0, 8) . '-' . $module_dirname
+        $this->compile_id = mb_substr(md5(\XoopsBaseConfig::get('url')), 0, 8) . '-' . $module_dirname
             . '-' . $theme_set . '-' . $template_set;
         //$this->_compile_id = $this->compile_id;
     }
@@ -148,7 +150,7 @@ class XoopsTpl extends \Smarty
         $this->compile_id = $hold_compile_id;
         $compile_id = preg_replace('![^\w\|]+!', '_', $compile_id);
         $glob = $compile_id . '*.php';
-        $count=0;
+        $count = 0;
         $files = glob($this->getCompileDir() . '/' . $glob);
         foreach ($files as $filename) {
             $count += unlink($filename) ? 1 : 0;
@@ -157,6 +159,7 @@ class XoopsTpl extends \Smarty
         foreach ($files as $filename) {
             $count += unlink($filename) ? 1 : 0;
         }
+
         return $count;
     }
 
@@ -171,10 +174,10 @@ class XoopsTpl extends \Smarty
      * @param  string  $template_name template name
      * @param  string  $cache_id      cache id
      * @param  string  $compile_id    compile id
-     * @param  integer $exp_time      expiration time
+     * @param  int $exp_time      expiration time
      * @param  string  $type          resource type
      *
-     * @return integer number of cache files deleted
+     * @return int number of cache files deleted
      */
     public function clearCache($template_name, $cache_id = null, $compile_id = null, $exp_time = null, $type = null)
     {

@@ -11,7 +11,6 @@
 
 namespace Xoops\Core\Kernel\Dtype;
 
-use Xoops\Core\Kernel\Dtype;
 use Xoops\Core\Kernel\XoopsObject;
 
 /**
@@ -37,13 +36,15 @@ class DtypeUrl extends DtypeAbstract
     public function cleanVar(XoopsObject $obj, $key)
     {
         $value = trim($obj->vars[$key]['value']);
-        if ($obj->vars[$key]['required'] && $value == '') {
+        if ($obj->vars[$key]['required'] && '' == $value) {
             $obj->setErrors(sprintf(\XoopsLocale::F_IS_REQUIRED, $key));
+
             return $value;
         }
-        if ($value != '' && !preg_match("/^http[s]*:\/\//i", $value)) {
+        if ('' != $value && !preg_match("/^http[s]*:\/\//i", $value)) {
             $value = 'http://' . $value;
         }
+
         return $value;
     }
 }

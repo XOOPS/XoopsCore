@@ -19,12 +19,8 @@
  * @author          Mage Grégory (AKA Mage)
  * @version         $Id$
  */
-
 class BannersBannerclientForm extends Xoops\Form\ThemeForm
 {
-    /**
-     * @param BannersBannerclient $obj
-     */
     public function __construct(BannersBannerClient $obj)
     {
         $title = $obj->isNew() ? sprintf(_AM_BANNERS_CLIENTS_ADD) : sprintf(_AM_BANNERS_CLIENTS_EDIT);
@@ -36,7 +32,7 @@ class BannersBannerclientForm extends Xoops\Form\ThemeForm
         if ($obj->isNew()) {
             $user = 'N';
         } else {
-            if ($obj->getVar('bannerclient_uid') == 0) {
+            if (0 == $obj->getVar('bannerclient_uid')) {
                 $user = 'N';
             } else {
                 $user = 'Y';
@@ -44,7 +40,7 @@ class BannersBannerclientForm extends Xoops\Form\ThemeForm
         }
         $uname = new Xoops\Form\ElementTray(_AM_BANNERS_CLIENTS_UNAME, '');
         $type = new Xoops\Form\Radio('', 'user', $user);
-        $options = array('N' =>_AM_BANNERS_CLIENTS_UNAME_NO, 'Y' => _AM_BANNERS_CLIENTS_UNAME_YES);
+        $options = ['N' => _AM_BANNERS_CLIENTS_UNAME_NO, 'Y' => _AM_BANNERS_CLIENTS_UNAME_YES];
         $type->addOptionArray($options);
         $uname->addElement($type);
         $uname->addElement(new Xoops\Form\SelectUser('', 'uid', false, $obj->getVar('bannerclient_uid'), 1, false));

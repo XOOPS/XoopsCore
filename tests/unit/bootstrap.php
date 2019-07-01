@@ -1,23 +1,22 @@
 <?php
 
-if (empty($_SERVER["argc"])) {
-	echo "Error: This script must be run from the command line";
-	die(1);
+if (empty($_SERVER['argc'])) {
+    echo 'Error: This script must be run from the command line';
+    die(1);
 }
- 
+
 if (!defined('PHP_VERSION_ID') || PHP_VERSION_ID < 50300) {
-	echo "Error: This script must be run from PHP >= 5.3.0";
-	die(1);
+    echo 'Error: This script must be run from PHP >= 5.3.0';
+    die(1);
 }
- 
+
 define('CLI', true);
 
 ini_set('memory_limit', -1);
- 
-while (ob_get_level()) {
-	ob_end_flush();
-}
 
+while (ob_get_level()) {
+    ob_end_flush();
+}
 
 /*
 <!--

@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/../../../init_new.php');
+require_once(__DIR__ . '/../../../init_new.php');
 
 use Xoops\Core\Security;
 
@@ -47,23 +47,25 @@ class SecurityTest extends \PHPUnit\Framework\TestCase
     {
         $instance = $this->object;
 
-        if(isset($_SESSION)) unset($_SESSION['XOOPS_TOKEN_SESSION']);
+        if (isset($_SESSION)) {
+            unset($_SESSION['XOOPS_TOKEN_SESSION']);
+        }
         $token = $instance->createToken();
         $this->assertTrue(!empty($token));
 
         $value = $instance->check(true, $token);
         $this->assertTrue($value);
-        $this->assertTrue(empty($_SESSION['XOOPS_TOKEN_SESSION']));
+        $this->assertEmpty($_SESSION['XOOPS_TOKEN_SESSION']);
 
         $value = $instance->check(true, false);
         $this->assertFalse($value);
         $err = $instance->getErrors();
-        $this->assertTrue(is_array($err));
+        $this->assertInternalType('array', $err);
 
         $value = $instance->check(true, $token);
         $this->assertFalse($value);
         $err = $instance->getErrors();
-        $this->assertTrue(is_array($err));
+        $this->assertInternalType('array', $err);
 
         unset($_SESSION['XOOPS_TOKEN_SESSION']);
         $token = $instance->createToken(1);
@@ -72,8 +74,8 @@ class SecurityTest extends \PHPUnit\Framework\TestCase
         $value = $instance->check(true, $token);
         $this->assertFalse($value);
         $err = $instance->getErrors();
-        $this->assertTrue(is_array($err));
-        $this->assertTrue(empty($_SESSION['XOOPS_TOKEN_SESSION']));
+        $this->assertInternalType('array', $err);
+        $this->assertEmpty($_SESSION['XOOPS_TOKEN_SESSION']);
     }
 
     public function test_createToken()
@@ -83,7 +85,7 @@ class SecurityTest extends \PHPUnit\Framework\TestCase
         $value = $instance->createToken();
         $x = $_SESSION['XOOPS_TOKEN_SESSION'];
         $token = array_pop($x);
-        $this->assertFalse(is_null($token));
+        $this->assertFalse(null === $token);
         $id = $token['id'];
         $expire = $token['expire'];
         $db_prefix = \XoopsBaseConfig::get('db-prefix');
@@ -92,9 +94,9 @@ class SecurityTest extends \PHPUnit\Framework\TestCase
 
         $tkName = 'MY_TOKEN';
         $value = $instance->createToken(1, $tkName);
-        $x = $_SESSION[$tkName.'_SESSION'];
+        $x = $_SESSION[$tkName . '_SESSION'];
         $token = array_pop($x);
-        $this->assertFalse(is_null($token));
+        $this->assertFalse(null === $token);
         $id = $token['id'];
         $this->assertSame($id, $value);
         unset($_SESSION['MY_TOKEN_SESSION']);
@@ -110,17 +112,17 @@ class SecurityTest extends \PHPUnit\Framework\TestCase
 
         $value = $instance->validateToken($token);
         $this->assertTrue($value);
-        $this->assertTrue(empty($_SESSION['XOOPS_TOKEN_SESSION']));
+        $this->assertEmpty($_SESSION['XOOPS_TOKEN_SESSION']);
 
         $value = $instance->validateToken(false);
         $this->assertFalse($value);
         $err = $instance->getErrors();
-        $this->assertTrue(is_array($err));
+        $this->assertInternalType('array', $err);
 
         $value = $instance->validateToken($token);
         $this->assertFalse($value);
         $err = $instance->getErrors();
-        $this->assertTrue(is_array($err));
+        $this->assertInternalType('array', $err);
 
         unset($_SESSION['XOOPS_TOKEN_SESSION']);
         $token = $instance->createToken(1);
@@ -129,8 +131,8 @@ class SecurityTest extends \PHPUnit\Framework\TestCase
         $value = $instance->validateToken($token);
         $this->assertFalse($value);
         $err = $instance->getErrors();
-        $this->assertTrue(is_array($err));
-        $this->assertTrue(empty($_SESSION['XOOPS_TOKEN_SESSION']));
+        $this->assertInternalType('array', $err);
+        $this->assertEmpty($_SESSION['XOOPS_TOKEN_SESSION']);
     }
 
     public function test_clearTokens()
@@ -142,7 +144,7 @@ class SecurityTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue(!empty($token));
 
         $instance->clearTokens();
-        $this->assertTrue(empty($_SESSION['XOOPS_TOKEN_SESSION']));
+        $this->assertEmpty($_SESSION['XOOPS_TOKEN_SESSION']);
     }
 
     public function test_garbageCollection()
@@ -156,12 +158,12 @@ class SecurityTest extends \PHPUnit\Framework\TestCase
         $token2 = $instance->createToken(10);
         $this->assertTrue(!empty($token2));
 
-        $this->assertTrue(count($_SESSION['XOOPS_TOKEN_SESSION']) == 2);
+        $this->assertTrue(2 == count($_SESSION['XOOPS_TOKEN_SESSION']));
 
         sleep(2);
 
         $instance->garbageCollection();
-        $this->assertTrue(count($_SESSION['XOOPS_TOKEN_SESSION']) == 1);
+        $this->assertTrue(1 == count($_SESSION['XOOPS_TOKEN_SESSION']));
     }
 
     public function test_checkReferer()
@@ -171,7 +173,7 @@ class SecurityTest extends \PHPUnit\Framework\TestCase
         $value = $instance->checkReferer(0);
         $this->assertTrue($value);
 
-        $_SERVER['HTTP_REFERER'] = \XoopsBaseConfig::get('url');;
+        $_SERVER['HTTP_REFERER'] = \XoopsBaseConfig::get('url');
         $value = $instance->checkReferer();
         $this->assertTrue($value);
 
@@ -193,8 +195,8 @@ class SecurityTest extends \PHPUnit\Framework\TestCase
         $this->assertNull($result);
 
         $xoops = \Xoops::getInstance();
-        $xoops->setConfig('enable_badips',1);
-        $xoops->setConfig('bad_ips', array('bad_ip1', 'bad_ip2'));
+        $xoops->setConfig('enable_badips', 1);
+        $xoops->setConfig('bad_ips', ['bad_ip1', 'bad_ip2']);
 
         $_SERVER['REMOTE_ADDR'] = 'bad_ip3';
         $result = $instance->checkBadips();
@@ -206,34 +208,33 @@ class SecurityTest extends \PHPUnit\Framework\TestCase
         $instance = $this->object;
 
         $value = $instance->getTokenHTML();
-        $this->assertTrue(strpos($value, '<input') === 0);
-        $this->assertNotFalse(strpos($value, 'type="hidden"'));
-        $this->assertNotFalse(strpos($value, 'name="XOOPS_TOKEN_REQUEST"'));
-        $this->assertNotFalse(strpos($value, 'id="XOOPS_TOKEN_REQUEST"'));
-        $this->assertNotFalse(strpos($value, 'value="'));
+        $this->assertTrue(0 === mb_strpos($value, '<input'));
+        $this->assertNotFalse(mb_strpos($value, 'type="hidden"'));
+        $this->assertNotFalse(mb_strpos($value, 'name="XOOPS_TOKEN_REQUEST"'));
+        $this->assertNotFalse(mb_strpos($value, 'id="XOOPS_TOKEN_REQUEST"'));
+        $this->assertNotFalse(mb_strpos($value, 'value="'));
 
-        $token = "MY_TOKEN";
+        $token = 'MY_TOKEN';
         $value = $instance->getTokenHTML($token);
-        $this->assertTrue(strpos($value, '<input') === 0);
-        $this->assertNotFalse(strpos($value, 'type="hidden"'));
-        $this->assertNotFalse(strpos($value, 'name="'.$token.'_REQUEST"'));
-        $this->assertNotFalse(strpos($value, 'id="'.$token.'_REQUEST"'));
-        $this->assertNotFalse(strpos($value, 'value="'));
+        $this->assertTrue(0 === mb_strpos($value, '<input'));
+        $this->assertNotFalse(mb_strpos($value, 'type="hidden"'));
+        $this->assertNotFalse(mb_strpos($value, 'name="' . $token . '_REQUEST"'));
+        $this->assertNotFalse(mb_strpos($value, 'id="' . $token . '_REQUEST"'));
+        $this->assertNotFalse(mb_strpos($value, 'value="'));
     }
 
     public function test_getErrors()
     {
         $instance = $this->object;
 
-        $str1 = "string1";
+        $str1 = 'string1';
         $instance->setErrors($str1);
         $instance->setErrors($str1);
         $value = $instance->getErrors();
-        $this->assertTrue(is_array($value));
-        $this->assertTrue(count($value)==2);
+        $this->assertInternalType('array', $value);
+        $this->assertTrue(2 == count($value));
         $value = $instance->getErrors(true);
-        $this->assertTrue(is_string($value));
-        $this->assertSame($str1.'<br />'.$str1.'<br />', $value);
+        $this->assertInternalType('string', $value);
+        $this->assertSame($str1 . '<br />' . $str1 . '<br />', $value);
     }
-
 }

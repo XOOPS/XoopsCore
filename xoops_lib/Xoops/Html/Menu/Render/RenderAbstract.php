@@ -11,7 +11,6 @@
 
 namespace Xoops\Html\Menu\Render;
 
-use Xoops\Html\Menu\Item;
 use Xoops\Html\Menu\ItemList;
 
 /**

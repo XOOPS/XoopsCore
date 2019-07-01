@@ -84,7 +84,7 @@ abstract class XoopsObjectHandler
      * @param XoopsObject $object object to delete
      * @param bool        $force  use force
      *
-     * @return boolean|null FALSE if failed.
+     * @return bool|null FALSE if failed.
      */
     public function delete(XoopsObject $object, $force = true)
     {

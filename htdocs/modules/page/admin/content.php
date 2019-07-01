@@ -30,7 +30,6 @@ $admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('content.php');
 
 switch ($op) {
-
     case 'list':
     default:
         $admin_page->addTips(PageLocale::CONTENT_TIPS);
@@ -59,7 +58,6 @@ switch ($op) {
             $xoops->tpl()->assign('error_message', PageLocale::E_NO_CONTENT);
         }
         break;
-
     case 'new':
         $admin_page->addItemButton(PageLocale::A_LIST_CONTENT, 'content.php', 'application-view-detail');
         $admin_page->renderButton();
@@ -67,7 +65,6 @@ switch ($op) {
         $form = $helper->getForm($obj, 'page_content');
         $xoops->tpl()->assign('form', $form->render());
         break;
-
     case 'edit':
         $admin_page->addItemButton(PageLocale::A_LIST_CONTENT, 'content.php', 'application-view-detail');
         $admin_page->addItemButton(PageLocale::A_ADD_CONTENT, 'content.php?op=new', 'add');
@@ -78,7 +75,6 @@ switch ($op) {
         $form = $helper->getForm($obj, 'page_content');
         $xoops->tpl()->assign('form', $form->render());
         break;
-
     case 'save':
         if (!$xoops->security()->check()) {
             $xoops->redirect('content.php', 3, implode(',', $xoops->security()->getErrors()));
@@ -100,10 +96,10 @@ switch ($op) {
         $obj->setVar('content_mkeyword', Request::getString('content_mkeyword', ''));
         $obj->setVar('content_mdescription', Request::getString('content_mdescription', ''));
 
-        $date_create = Request::getArray('content_create', array());
-        if (count($date_create) == 1) {
+        $date_create = Request::getArray('content_create', []);
+        if (1 == count($date_create)) {
             $content_create = strtotime($date_create['date']);
-        } elseif (count($date_create) == 2) {
+        } elseif (2 == count($date_create)) {
             $content_create = strtotime($date_create['date']) + $date_create['time'];
         } else {
             $content_create = time();
@@ -114,7 +110,7 @@ switch ($op) {
         $obj->setVar('content_status', Request::getInt('content_status', 1));
         $obj->setVar('content_maindisplay', Request::getInt('content_maindisplay', 1));
 
-        $content_option = Request::getArray('content_option', array());
+        $content_option = Request::getArray('content_option', []);
         $obj->setVar('content_dopdf', in_array('pdf', $content_option));
         $obj->setVar('content_doprint', in_array('print', $content_option));
         $obj->setVar('content_domail', in_array('mail', $content_option));
@@ -128,26 +124,26 @@ switch ($op) {
         $obj->setVar('content_dotitle', in_array('title', $content_option));
         $obj->setVar('content_donotifications', in_array('notifications', $content_option));
 
-        if (preg_match('/^\d+$/', Request::getInt('content_weight', 0)) == false) {
+        if (false == preg_match('/^\d+$/', Request::getInt('content_weight', 0))) {
             $error = true;
             $error_message .= PageLocale::E_WEIGHT . '<br />';
             $obj->setVar('content_weight', 0);
         } else {
             $obj->setVar('content_weight', Request::getInt('content_weight', 0));
         }
-        if ($error == true) {
+        if (true == $error) {
             $xoops->tpl()->assign('error_message', $error_message);
         } else {
             if ($newcontent_id = $content_Handler->insert($obj)) {
                 // update permissions
                 $perm_id = $content_id > 0 ? $content_id : $newcontent_id;
-                $groups_view_item = Request::getArray('groups_view_item', array());
+                $groups_view_item = Request::getArray('groups_view_item', []);
                 $gperm_Handler->updatePerms($perm_id, $groups_view_item);
 
                 //notifications
-                if ($content_id == 0 && $xoops->isActiveModule('notifications')) {
+                if (0 == $content_id && $xoops->isActiveModule('notifications')) {
                     $notification_handler = Notifications::getInstance()->getHandlerNotification();
-                    $tags = array();
+                    $tags = [];
                     $tags['MODULE_NAME'] = 'page';
                     $tags['ITEM_NAME'] = Request::getString('content_title', '');
                     $tags['ITEM_URL'] = \XoopsBaseConfig::get('url') . '/modules/page/viewpage.php?id=' . $newcontent_id;
@@ -161,7 +157,6 @@ switch ($op) {
         $form = $helper->getForm($obj, 'page_content');
         $xoops->tpl()->assign('form', $form->render());
         break;
-
     case 'delete':
         $admin_page->addItemButton(PageLocale::A_LIST_CONTENT, 'content.php', 'application-view-detail');
         $admin_page->addItemButton(PageLocale::A_ADD_CONTENT, 'content.php?op=new', 'add');
@@ -171,7 +166,7 @@ switch ($op) {
         $ok = Request::getInt('ok', 0);
 
         $obj = $content_Handler->get($content_id);
-        if ($ok == 1) {
+        if (1 == $ok) {
             if (!$xoops->security()->check()) {
                 $xoops->redirect('content.php', 3, implode(',', $xoops->security()->getErrors()));
             }
@@ -197,14 +192,13 @@ switch ($op) {
         } else {
             // deleting main and secondary
             echo $xoops->confirm(
-                array('ok' => 1, 'content_id' => $content_id, 'op' => 'delete'),
+                ['ok' => 1, 'content_id' => $content_id, 'op' => 'delete'],
                 'content.php',
                 XoopsLocale::Q_ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS_ITEM
                 . '<br /><span class="red">' . $obj->getvar('content_title') . '<span>'
             );
         }
         break;
-
     case 'update_status':
         $content_id = Request::getInt('content_id', 0);
         if ($content_id > 0) {
@@ -217,7 +211,6 @@ switch ($op) {
             echo $obj->getHtmlErrors();
         }
         break;
-
     case 'update_display':
         $content_id = Request::getInt('content_id', 0);
         if ($content_id > 0) {
@@ -230,7 +223,6 @@ switch ($op) {
             echo $obj->getHtmlErrors();
         }
         break;
-
     case 'clone':
         $content_id = Request::getInt('content_id', 0);
         $obj = $content_Handler->getClone($content_id);

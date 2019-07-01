@@ -46,13 +46,11 @@ class XoopsObjectTree extends ObjectTree
     {
         $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 1);
         \Xoops::getInstance()->deprecated(
-            "XoopsObjectTree is deprecated, please use Xoops\\Core\\ObjectTree, " .
+            'XoopsObjectTree is deprecated, please use Xoops\\Core\\ObjectTree, ' .
             "accessed from {$trace[0]['file']} line {$trace[0]['line']},"
         );
         parent::__construct($objectArr, $myId, $parentId, $rootId);
     }
-
-
 
     /**
      * Make options for a select box from
@@ -95,7 +93,7 @@ class XoopsObjectTree extends ObjectTree
      * @param  string  $prefix         String to indent deeper levels
      * @param  string  $selected       Value to display as selected
      * @param  bool    $addEmptyOption Set TRUE to add an empty option with value "0" at the top of the hierarchy
-     * @param  integer $key            ID of the object to display as the root of select options
+     * @param  int $key            ID of the object to display as the root of select options
      * @param  string  $extra          extra content to add to the element
      * @return string  HTML select box
      *
@@ -112,7 +110,7 @@ class XoopsObjectTree extends ObjectTree
     ) {
         $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 1);
         \Xoops::getInstance()->deprecated(
-            "makeSelBox() is deprecated since 2.5.9, please use makeSelectElement(), " .
+            'makeSelBox() is deprecated since 2.5.9, please use makeSelectElement(), ' .
             "accessed from {$trace[0]['file']} line {$trace[0]['line']},"
         );
         $ret = '<select name="' . $name . '" id="' . $name . '" ' . $extra . '>';
@@ -133,7 +131,7 @@ class XoopsObjectTree extends ObjectTree
      * @param  string  $prefix         String to indent deeper levels
      * @param  string  $selected       Value to display as selected
      * @param  bool    $addEmptyOption Set TRUE to add an empty option with value "0" at the top of the hierarchy
-     * @param  integer $key            ID of the object to display as the root of select options
+     * @param  int $key            ID of the object to display as the root of select options
      * @param  string  $extra          extra content to add to the element
      * @param  string  $caption        optional caption for form element
      *
@@ -176,17 +174,20 @@ class XoopsObjectTree extends ObjectTree
     public function __get($name)
     {
         $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 1);
-        if ($name === '_tree') {
+        if ('_tree' === $name) {
             \Xoops::getInstance()->deprecated(
-                "XoopsObjectTree::\$_tree is deprecated since 2.5.9, please use makeSelectElement(), " .
+                'XoopsObjectTree::$_tree is deprecated since 2.5.9, please use makeSelectElement(), ' .
                 "accessed from {$trace[0]['file']} line {$trace[0]['line']},"
             );
+
             return $this->tree;
         }
         trigger_error(
             'Undefined property: XoopsObjectTree::$' . $name .
             " in {$trace[0]['file']} line {$trace[0]['line']}, ",
-            E_USER_NOTICE);
+            E_USER_NOTICE
+        );
+
         return null;
     }
 }

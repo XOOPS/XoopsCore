@@ -16,7 +16,6 @@
  */
 class NotificationsUsermenuPlugin implements UsermenuPluginInterface
 {
-
     /**
      * @return array
      */
@@ -25,8 +24,9 @@ class NotificationsUsermenuPlugin implements UsermenuPluginInterface
         $helper = \Xoops::getModuleHelper('notifications');
         $ret[] = [
             'name' => $helper->getModule()->getVar('name'),
-            'link' => $helper->url('index.php')
+            'link' => $helper->url('index.php'),
         ];
+
         return $ret;
     }
 }

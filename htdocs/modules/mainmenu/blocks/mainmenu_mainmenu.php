@@ -23,8 +23,8 @@ use Xoops\Module\Plugin;
  */
 function b_mainmenu_mainmenu_show()
 {
-    $block = array();
-    $block['mainmenu'] = array();
+    $block = [];
+    $block['mainmenu'] = [];
 
     //Check read permissions
     $readAllowed = [];
@@ -55,7 +55,7 @@ function b_mainmenu_mainmenu_show()
                     if ($helper->isCurrentModule() && isset($res['subMenu']) && is_array($res['subMenu'])) {
                         foreach ($res['subMenu'] as  $key => $subMenu) {
                             if (isset($subMenu['name']) && isset($subMenu['link'])) {
-                                $subMenu['icon'] = isset($subMenu['icon']) ? $subMenu['icon'] :'glyphicon-menu-right';
+                                $subMenu['icon'] = isset($subMenu['icon']) ? $subMenu['icon'] : 'glyphicon-menu-right';
                                 $res['subMenu'][$key] = $subMenu;
                             }
                         }
@@ -74,5 +74,6 @@ function b_mainmenu_mainmenu_show()
     }
 
     $block['count'] = count($block['mainmenu']);
+
     return $block['count'] ? $block : false;
 }

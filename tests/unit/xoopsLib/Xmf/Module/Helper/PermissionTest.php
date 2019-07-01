@@ -1,7 +1,8 @@
 <?php
+
 namespace Xmf\Module\Helper;
 
-require_once(__DIR__.'/../../../../init_new.php');
+require_once(__DIR__ . '/../../../../init_new.php');
 
 class PermissionTest extends \PHPUnit\Framework\TestCase
 {
@@ -16,7 +17,7 @@ class PermissionTest extends \PHPUnit\Framework\TestCase
      */
     protected function setUp()
     {
-        $this->object = new Permission;
+        $this->object = new Permission();
     }
 
     /**
@@ -31,7 +32,7 @@ class PermissionTest extends \PHPUnit\Framework\TestCase
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-          'This test has not been implemented yet.'
+            'This test has not been implemented yet.'
         );
     }
 
@@ -39,7 +40,7 @@ class PermissionTest extends \PHPUnit\Framework\TestCase
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-          'This test has not been implemented yet.'
+            'This test has not been implemented yet.'
         );
     }
 
@@ -47,7 +48,7 @@ class PermissionTest extends \PHPUnit\Framework\TestCase
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-          'This test has not been implemented yet.'
+            'This test has not been implemented yet.'
         );
     }
 
@@ -55,7 +56,7 @@ class PermissionTest extends \PHPUnit\Framework\TestCase
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-          'This test has not been implemented yet.'
+            'This test has not been implemented yet.'
         );
     }
 
@@ -63,7 +64,7 @@ class PermissionTest extends \PHPUnit\Framework\TestCase
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-          'This test has not been implemented yet.'
+            'This test has not been implemented yet.'
         );
     }
 
@@ -71,7 +72,7 @@ class PermissionTest extends \PHPUnit\Framework\TestCase
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-          'This test has not been implemented yet.'
+            'This test has not been implemented yet.'
         );
     }
 
@@ -79,7 +80,7 @@ class PermissionTest extends \PHPUnit\Framework\TestCase
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-          'This test has not been implemented yet.'
+            'This test has not been implemented yet.'
         );
     }
 
@@ -87,7 +88,7 @@ class PermissionTest extends \PHPUnit\Framework\TestCase
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-          'This test has not been implemented yet.'
+            'This test has not been implemented yet.'
         );
     }
 
@@ -95,7 +96,7 @@ class PermissionTest extends \PHPUnit\Framework\TestCase
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-          'This test has not been implemented yet.'
+            'This test has not been implemented yet.'
         );
     }
 }

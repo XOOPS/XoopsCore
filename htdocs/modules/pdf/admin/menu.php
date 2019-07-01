@@ -18,17 +18,16 @@
  * @since           2.6.0
  * @author          Mage Grégory (AKA Mage)
  */
+$adminmenu = [];
 
-$adminmenu = array();
-
-$adminmenu[] = array(
+$adminmenu[] = [
     'title' => XoopsLocale::HOME,
-    'link'  => 'admin/index.php',
-    'icon'  => 'home.png',
-);
+    'link' => 'admin/index.php',
+    'icon' => 'home.png',
+];
 
-$adminmenu[] = array(
+$adminmenu[] = [
     'title' => XoopsLocale::ABOUT,
-    'link'  => 'admin/about.php',
-    'icon'  => 'about.png',
-);
+    'link' => 'admin/about.php',
+    'icon' => 'about.png',
+];

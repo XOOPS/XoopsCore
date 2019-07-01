@@ -16,7 +16,6 @@
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
-
 class UserconfigsSystemPlugin extends Xoops\Module\Plugin\PluginAbstract implements SystemPluginInterface
 {
     public function userPosts($uid)
@@ -26,12 +25,12 @@ class UserconfigsSystemPlugin extends Xoops\Module\Plugin\PluginAbstract impleme
 
     public function waiting()
     {
-        return array();
+        return [];
     }
 
     public function backend($limit)
     {
-        return array();
+        return [];
     }
 
     public function userMenus()
@@ -40,6 +39,7 @@ class UserconfigsSystemPlugin extends Xoops\Module\Plugin\PluginAbstract impleme
         $ret['name'] = $helper->getModule()->getVar('name');
         $ret['link'] = 'index.php';
         $ret['image'] = $helper->url('icons/logo_small.png');
+
         return $ret;
     }
 }

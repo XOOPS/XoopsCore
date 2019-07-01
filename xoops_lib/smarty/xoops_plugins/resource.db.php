@@ -19,13 +19,12 @@
  */
 class Smarty_Resource_Db extends Smarty_Resource_Custom
 {
-
     /**
      * Fetch a template and its modification time from database
      *
      * @param  string  $name   template name
      * @param  string  $source template source
-     * @param  integer $mtime  template modification timestamp (epoch)
+     * @param  int $mtime  template modification timestamp (epoch)
      *
      * @return void
      */
@@ -43,7 +42,7 @@ class Smarty_Resource_Db extends Smarty_Resource_Custom
             if ($stat) {
                 $mtime = $stat['mtime'];
                 $filesize = $stat['size'];
-                $fp = fopen($tpl, 'r');
+                $fp = fopen($tpl, 'rb');
                 $source = ($filesize > 0) ? fread($fp, $filesize) : '';
                 fclose($fp);
             } else {
@@ -62,7 +61,7 @@ class Smarty_Resource_Db extends Smarty_Resource_Custom
      */
     private function dbTplInfo($tpl_name)
     {
-        static $cache = array();
+        static $cache = [];
         global $xoopsConfig;
         $xoops = Xoops::getInstance();
 
@@ -73,14 +72,14 @@ class Smarty_Resource_Db extends Smarty_Resource_Custom
         $theme = isset($xoopsConfig['theme_set']) ? $xoopsConfig['theme_set'] : 'default';
         $tplfile_handler = $xoops->getHandlerTplFile();
         // If we're not using the "default" template set, then get the templates from the DB
-        if ($tplset !== "default") {
+        if ('default' !== $tplset) {
             $tplobj = $tplfile_handler->find($tplset, null, null, null, $tpl_name, true);
             if (count($tplobj)) {
                 return $cache[$tpl_name] = $tplobj[0];
             }
         }
         // If we'using the default tplset, get the template from the filesystem
-        $tplobj = $tplfile_handler->find("default", null, null, null, $tpl_name, true);
+        $tplobj = $tplfile_handler->find('default', null, null, null, $tpl_name, true);
 
         if (!count($tplobj)) {
             return $cache[$tpl_name] = $tpl_name;
@@ -111,9 +110,10 @@ class Smarty_Resource_Db extends Smarty_Resource_Custom
             // If no custom version exists, get the tpl from its default location
             $filepath = \XoopsBaseConfig::get('root-path') . "/modules/{$module}/templates/{$path}{$tpl_name}";
             if (!file_exists($filepath)) {
-                return $cache[$tpl_name] = $tplobj ;
+                return $cache[$tpl_name] = $tplobj;
             }
         }
+
         return $cache[$tpl_name] = $filepath;
     }
 }

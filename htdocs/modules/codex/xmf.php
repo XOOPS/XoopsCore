@@ -15,13 +15,12 @@
  * @author    Richard Griffith <richard@geekwright.com>
  * @author    trabis <lusopoemas@gmail.com>
  */
-
 use Xmf\Debug;
 use Xmf\Highlighter;
 use Xmf\Metagen;
-use Xmf\Request;
 use Xmf\Module\Helper\Permission;
 use Xmf\Module\Helper\Session;
+use Xmf\Request;
 
 include dirname(dirname(__DIR__)) . '/mainfile.php';
 
@@ -47,15 +46,15 @@ echo '<h2>Permission demo</h2>';
 $permissionHelper = new Permission();
 if ($permissionHelper) {
     // this is the name and item we are going to work with
-    $permissionName='fred';
-    $permissionItemId=1;
+    $permissionName = 'fred';
+    $permissionItemId = 1;
 
     // if this is a post operation get the input and save it
-    if ('POST'===Request::getMethod()) {
+    if ('POST' === Request::getMethod()) {
         echo $xoops->alert('success', 'Permission updated');
         // save the data
-        $name=$permissionHelper->defaultFieldName($permissionName, $permissionItemId);
-        $groups=Request::getVar($name, array(), 'POST');
+        $name = $permissionHelper->defaultFieldName($permissionName, $permissionItemId);
+        $groups = Request::getVar($name, [], 'POST');
         $permissionHelper->savePermissionForItem($permissionName, $permissionItemId, $groups);
     }
 
@@ -90,9 +89,9 @@ if ($permissionHelper) {
 echo '<h2>Metagen</h2>';
 
 //define a title and article to work with
-$keywords='';
-$title="xmf - the XOOPS Module Framework";
-$article =<<<EOT
+$keywords = '';
+$title = 'xmf - the XOOPS Module Framework';
+$article = <<<EOT
 xmf - XOOPS Module Framework
 
 XMF is Copyright © 2011-2018 The XOOPS Project

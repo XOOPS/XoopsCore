@@ -25,7 +25,7 @@ namespace Xmf\Key;
  */
 abstract class KeyAbstract
 {
-    /** @var StorageInterface  */
+    /** @var StorageInterface */
     protected $storage;
 
     /** @var string */
@@ -39,7 +39,7 @@ abstract class KeyAbstract
     public function __construct(StorageInterface $storage, $name)
     {
         $this->storage = $storage;
-        $this->name = strtolower(preg_replace('/[^A-Z0-9_-]/i', '', $name));
+        $this->name = mb_strtolower(preg_replace('/[^A-Z0-9_-]/i', '', $name));
     }
 
     /**
@@ -59,14 +59,14 @@ abstract class KeyAbstract
     /**
      * create the key and store it for use
      *
-     * @return boolean true if key was created and stored, otherwise false
+     * @return bool true if key was created and stored, otherwise false
      */
     abstract public function create();
 
     /**
      * delete the key
      *
-     * @return boolean true if key was deleted, otherwise false
+     * @return bool true if key was deleted, otherwise false
      */
     abstract public function kill();
 }

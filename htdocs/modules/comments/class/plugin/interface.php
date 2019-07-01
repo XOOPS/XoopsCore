@@ -15,7 +15,6 @@
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
-
 interface CommentsPluginInterface
 {
     /**
@@ -45,7 +44,6 @@ interface CommentsPluginInterface
      * An CommentsComment object that has been approved will be passed as the first and only parameter.
      * This should be useful for example notifying the item submitter of a comment post.
      *
-     * @param CommentsComment $comment
      *
      * @return void
      */
@@ -75,6 +73,4 @@ interface CommentsPluginInterface
      * @return array
      */
     public function itemInfo($item_id);
-
 }
-

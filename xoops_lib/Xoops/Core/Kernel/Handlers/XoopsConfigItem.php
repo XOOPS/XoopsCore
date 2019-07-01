@@ -46,13 +46,12 @@ define('XOOPS_CONF_AUTH', 7);
  */
 class XoopsConfigItem extends XoopsObject
 {
-
     /**
      * Config options
      *
      * @var    array
      */
-    private $configurationOptions = array();
+    private $configurationOptions = [];
 
     /**
      * Constructor
@@ -216,9 +215,11 @@ class XoopsConfigItem extends XoopsObject
                 break;
             case 'array':
                 $value = @unserialize($this->getVar('conf_value', 'n'));
-                return $value ? $value : array();
+
+                return $value ? $value : [];
             case 'float':
                 $value = $this->getVar('conf_value', 'n');
+
                 return (float)$value;
                 break;
             case 'textarea':
@@ -292,6 +293,6 @@ class XoopsConfigItem extends XoopsObject
      **/
     public function clearConfOptions()
     {
-        $this->configurationOptions = array();
+        $this->configurationOptions = [];
     }
 }

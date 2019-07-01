@@ -34,8 +34,8 @@ class PagePreload extends PreloadItem
     public static function eventCoreIncludeCommonClassmaps($args)
     {
         $path = dirname(__DIR__);
-        XoopsLoad::addMap(array(
+        XoopsLoad::addMap([
             'page' => $path . '/class/helper.php',
-        ));
+        ]);
     }
 }

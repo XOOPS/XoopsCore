@@ -32,6 +32,5 @@ class NullExtension extends ExtensionAbstract
      */
     public function registerExtensionProcessing()
     {
-        return;
     }
 }

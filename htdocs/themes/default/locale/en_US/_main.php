@@ -19,23 +19,21 @@
  * @author          Andricq Nicolas (AKA MusS)
  * @version         $Id$
  */
+define('_THEME_LOGIN', 'Login');
+define('_THEME_REGISTER', 'Register');
 
-define("_THEME_LOGIN","Login");
-define("_THEME_REGISTER","Register");
+define('_THEME_HOME', 'Home');
 
-define("_THEME_HOME","Home");
+define('_THEME_WELCOME', 'Welcome');
 
-define("_THEME_WELCOME","Welcome");
+define('_THEME_QUICK', 'Quick links');
+define('_THEME_ADMIN', 'Administration');
+define('_THEME_MYACCOUNT', 'View account');
+define('_THEME_EDITPROFILE', 'Edit account');
+define('_THEME_NOTIFICATION', 'Notifications');
+define('_THEME_PM', 'Inbox');
+define('_THEME_LOGOUT', 'Logout');
 
+define('_THEME_BACKTOP', 'Back to top');
 
-define("_THEME_QUICK","Quick links");
-define("_THEME_ADMIN","Administration");
-define("_THEME_MYACCOUNT","View account");
-define("_THEME_EDITPROFILE","Edit account");
-define("_THEME_NOTIFICATION","Notifications");
-define("_THEME_PM","Inbox");
-define("_THEME_LOGOUT","Logout");
-
-define("_THEME_BACKTOP","Back to top");
-
-define("_THEME_LANGUAGE","Choose your language");
+define('_THEME_LANGUAGE', 'Choose your language');

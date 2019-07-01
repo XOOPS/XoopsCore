@@ -1,7 +1,6 @@
 <?php
 
 /**
- *
  * Location: xml/SaxParser.class
  *
  * Provides basic functionality to read and parse XML documents.  Subclasses
@@ -13,7 +12,6 @@
  *
  * @author Ken Egervari
  */
-
 class SaxParser
 {
     public $level;
@@ -23,15 +21,15 @@ class SaxParser
     public $targetEncoding;
 
     /* Custom Handler Variables */
-    public $tagHandlers = array();
+    public $tagHandlers = [];
 
     /* Tag stack */
-    public $tags = array();
+    public $tags = [];
 
     /* Xml Source Input */
     public $xmlInput;
 
-    public $errors = array();
+    public $errors = [];
 
     /**
      * Creates a SaxParser object using a FileInput to represent the stream
@@ -71,7 +69,7 @@ class SaxParser
     }
 
     /**
-     * @param boolean $isCaseFolding
+     * @param bool $isCaseFolding
      * @return void
      */
     public function setCaseFolding($isCaseFolding)
@@ -123,9 +121,9 @@ class SaxParser
         if (isset($this->tags[count($this->tags) - 2])) {
             return $this->tags[count($this->tags) - 2];
         }
+
         return false;
     }
-
 
     /*---------------------------------------------------------------------------
         Parser methods
@@ -139,6 +137,7 @@ class SaxParser
         if (!is_resource($this->input)) {
             if (!xml_parse($this->parser, $this->input)) {
                 $this->setErrors($this->getXmlError());
+
                 return false;
             }
             //if (!$fp = fopen($this->input, 'r')) {
@@ -147,14 +146,16 @@ class SaxParser
             //}
         } else {
             while ($data = fread($this->input, 4096)) {
-                if (!xml_parse($this->parser, str_replace("'", "&apos;", $data), feof($this->input))) {
+                if (!xml_parse($this->parser, str_replace("'", '&apos;', $data), feof($this->input))) {
                     $this->setErrors($this->getXmlError());
                     fclose($this->input);
+
                     return false;
                 }
             }
             fclose($this->input);
         }
+
         return true;
     }
 
@@ -172,7 +173,7 @@ class SaxParser
      */
     public function getXmlError()
     {
-        return sprintf("XmlParse error: %s at line %d", xml_error_string(xml_get_error_code($this->parser)), xml_get_current_line_number($this->parser));
+        return sprintf('XmlParse error: %s at line %d', xml_error_string(xml_get_error_code($this->parser)), xml_get_current_line_number($this->parser));
     }
 
     /*---------------------------------------------------------------------------
@@ -181,7 +182,6 @@ class SaxParser
 
     /**
      * Adds a callback function to be called when a tag is encountered.<br>
-     * @param XmlTagHandler $tagHandler
      * @return void
      */
     public function addTagHandler(XmlTagHandler $tagHandler)
@@ -195,7 +195,6 @@ class SaxParser
             $this->tagHandlers[$name] = $tagHandler;
         }
     }
-
 
     /*---------------------------------------------------------------------------
         Private Handler Methods
@@ -277,7 +276,6 @@ class SaxParser
      */
     public function handleDefault($parser, $data)
     {
-
     }
 
     /**
@@ -291,7 +289,6 @@ class SaxParser
      */
     public function handleUnparsedEntityDecl($parser, $entityName, $base, $systemId, $publicId, $notationName)
     {
-
     }
 
     /**
@@ -304,7 +301,6 @@ class SaxParser
      */
     public function handleNotationDecl($parser, $notationName, $base, $systemId, $publicId)
     {
-
     }
 
     /**
@@ -317,7 +313,6 @@ class SaxParser
      */
     public function handleExternalEntityRef($parser, $openEntityNames, $base, $systemId, $publicId)
     {
-
     }
 
     /**
@@ -376,14 +371,14 @@ class SaxParser
     {
         if (!$ashtml) {
             return $this->errors;
-        } else {
-            $ret = '';
-            if (count($this->errors) > 0) {
-                foreach ($this->errors as $error) {
-                    $ret .= $error . '<br />';
-                }
-            }
-            return $ret;
         }
+        $ret = '';
+        if (count($this->errors) > 0) {
+            foreach ($this->errors as $error) {
+                $ret .= $error . '<br />';
+            }
+        }
+
+        return $ret;
     }
 }

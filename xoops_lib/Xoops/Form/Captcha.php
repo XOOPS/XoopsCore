@@ -48,10 +48,10 @@ class Captcha extends Element
      *
      * @param string|array $caption    Caption (default defined in captcha/language/) or array of all attributes
      * @param string       $name       Name for the input box
-     * @param boolean      $skipmember Skip CAPTCHA check for members
+     * @param bool      $skipmember Skip CAPTCHA check for members
      * @param array        $configs    key/value pairs
      */
-    public function __construct($caption = '', $name = 'xoopscaptcha', $skipmember = true, $configs = array())
+    public function __construct($caption = '', $name = 'xoopscaptcha', $skipmember = true, $configs = [])
     {
         $this->captchaHandler = \XoopsCaptcha::getInstance();
 
@@ -74,7 +74,7 @@ class Captcha extends Element
         $configs = $this->captchaHandler->loadConfig();
 
         $this->captchaHandler->setConfigs($configs);
-        if (! $this->captchaHandler->isActive()) {
+        if (!$this->captchaHandler->isActive()) {
             $this->setHidden();
         }
     }

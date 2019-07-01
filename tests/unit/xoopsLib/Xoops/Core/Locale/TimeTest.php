@@ -1,7 +1,8 @@
 <?php
+
 namespace Xoops\Core\Locale;
 
-require_once (__DIR__.'/../../../../init_new.php');
+require_once(__DIR__ . '/../../../../init_new.php');
 
 class TimeTest extends \PHPUnit\Framework\TestCase
 {
@@ -16,7 +17,7 @@ class TimeTest extends \PHPUnit\Framework\TestCase
      */
     protected function setUp()
     {
-        $this->object = new Time;
+        $this->object = new Time();
     }
 
     /**

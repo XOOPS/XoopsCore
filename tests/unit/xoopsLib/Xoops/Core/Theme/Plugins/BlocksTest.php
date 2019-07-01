@@ -1,7 +1,8 @@
 <?php
+
 namespace Xoops\Core\Theme\Plugins;
 
-require_once __DIR__.'/../../../../../init_new.php';
+require_once __DIR__ . '/../../../../../init_new.php';
 
 class BlocksTest extends \PHPUnit\Framework\TestCase
 {
@@ -16,7 +17,7 @@ class BlocksTest extends \PHPUnit\Framework\TestCase
      */
     protected function setUp()
     {
-        $this->object = new Blocks;
+        $this->object = new Blocks();
     }
 
     /**

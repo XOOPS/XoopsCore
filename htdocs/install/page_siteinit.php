@@ -22,14 +22,13 @@
  * @author      Taiwen Jiang <phppp@users.sourceforge.net>
  * @author      DuGris (aka L. JEN) <dugris@frxoops.org>
  */
-
 require_once __DIR__ . '/include/common.inc.php';
 
 set_time_limit(0); // don't want this to timeout
 
 function exception_handler($exception)
 {
-    echo "Uncaught exception: " , $exception->getMessage(), "\n";
+    echo 'Uncaught exception: ' , $exception->getMessage(), "\n";
     var_dump($exception->getTrace());
 }
 
@@ -44,7 +43,7 @@ $GLOBALS['xoopsDB'] = \XoopsDatabaseFactory::getDatabaseConnection(true);
 
 //Set active modules in cache folder, delete caches if existing
 //$xoops->setActiveModules();
-$modules_active = array();
+$modules_active = [];
 $xoops->cache()->write('system/modules/active', $modules_active);
 
 $root = dirname(__DIR__);
@@ -54,8 +53,8 @@ $xoops->loadLocale();
 $xoops->loadLocale('system');
 
 // Install system module
-include_once $root . "/modules/system/class/module.php";
-include_once $root . "/modules/system/class/system.php";
+include_once $root . '/modules/system/class/module.php';
+include_once $root . '/modules/system/class/system.php';
 
 $system_module = new SystemModule();
 $system = System::getInstance();
@@ -71,12 +70,12 @@ $siteconfig = $_SESSION['siteconfig'];
 
 $error = $_SESSION['error'];
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ('POST' === $_SERVER['REQUEST_METHOD']) {
     $siteconfig['adminname'] = $_POST['adminname'];
     $siteconfig['adminmail'] = $_POST['adminmail'];
     $siteconfig['adminpass'] = $_POST['adminpass'];
     $siteconfig['adminpass2'] = $_POST['adminpass2'];
-    $error = array();
+    $error = [];
 
     if (empty($siteconfig['adminname'])) {
         $error['name'][] = ERR_REQUIRED;
@@ -97,14 +96,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['error'] = $error;
         $_SESSION['siteconfig'] = $siteconfig;
         $wizard->redirectToPage('+0');
+
         return 200;
-    } else {
-        $_SESSION['error'] = $error;
-        $_SESSION['siteconfig'] = $siteconfig;
-        $wizard->redirectToPage('+1');
-        return 302;
     }
-} else {
+    $_SESSION['error'] = $error;
+    $_SESSION['siteconfig'] = $siteconfig;
+    $wizard->redirectToPage('+1');
+
+    return 302;
+}
     $dbm = new XoopsDatabaseManager();
 
     if (!$dbm->isConnectable()) {
@@ -114,9 +114,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 
-    $res = $dbm->query("SELECT COUNT(*) FROM " . $dbm->db->prefix('system_user'));
-    list ($isadmin) = $dbm->db->fetchRow($res);
-}
+    $res = $dbm->query('SELECT COUNT(*) FROM ' . $dbm->db->prefix('system_user'));
+    list($isadmin) = $dbm->db->fetchRow($res);
 
 ob_start();
 
@@ -142,37 +141,35 @@ if ($isadmin) {
         </script>';
 
     echo xoFormField('adminname', $siteconfig['adminname'], ADMIN_LOGIN_LABEL);
-    if (!empty($error["name"])) {
+    if (!empty($error['name'])) {
         echo '<ul class="diags1">';
-        foreach ($error["name"] as $errmsg) {
+        foreach ($error['name'] as $errmsg) {
             echo '<li class="failure">' . $errmsg . '</li>';
         }
         echo '</ul>';
     }
 
     echo xoFormField('adminmail', $siteconfig['adminmail'], ADMIN_EMAIL_LABEL);
-    if (!empty($error["email"])) {
+    if (!empty($error['email'])) {
         echo '<ul class="diags1">';
-        foreach ($error["email"] as $errmsg) {
+        foreach ($error['email'] as $errmsg) {
             echo '<li class="failure">' . $errmsg . '</li>';
         }
         echo '</ul>';
-    }
-    ?>
+    } ?>
 
     <div id="password">
         <div id="passwordinput">
     <?php
         echo xoPassField('adminpass', '', ADMIN_PASS_LABEL);
-        echo xoPassField('adminpass2', '', ADMIN_CONFIRMPASS_LABEL);
-        if (!empty($error["pass"])) {
-            echo '<ul class="diags1">';
-            foreach ($error["pass"] as $errmsg) {
-                echo '<li class="failure">' . $errmsg . '</li>';
-            }
-            echo '</ul>';
+    echo xoPassField('adminpass2', '', ADMIN_CONFIRMPASS_LABEL);
+    if (!empty($error['pass'])) {
+        echo '<ul class="diags1">';
+        foreach ($error['pass'] as $errmsg) {
+            echo '<li class="failure">' . $errmsg . '</li>';
         }
-        ?>
+        echo '</ul>';
+    } ?>
         </div>
 
         <div id="passwordmetter" class="xoform-help">
@@ -200,7 +197,6 @@ if ($isadmin) {
     showHideHelp(this);
 </script>
     <?php
-
 }
 $content = ob_get_contents();
 ob_end_clean();

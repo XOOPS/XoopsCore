@@ -1,7 +1,8 @@
 <?php
+
 namespace Xoops\Form;
 
-require_once(__DIR__.'/../../../init_new.php');
+require_once(__DIR__ . '/../../../init_new.php');
 
 class CaptchaTest extends \PHPUnit\Framework\TestCase
 {
@@ -34,19 +35,19 @@ class CaptchaTest extends \PHPUnit\Framework\TestCase
 
         $handler = \XoopsCaptcha::getInstance();
         $configs = $handler->config;
-        $this->assertTrue(is_array($configs));
+        $this->assertInternalType('array', $configs);
         $this->assertSame('dummy_value', $configs['dummy_name']);
     }
 
     public function testRender()
     {
         $value = $this->object->render();
-        $this->assertTrue(is_string($value));
+        $this->assertInternalType('string', $value);
     }
 
     public function testRenderValidationJS()
     {
         $value = $this->object->renderValidationJS();
-        $this->assertTrue(is_string($value));
+        $this->assertInternalType('string', $value);
     }
 }

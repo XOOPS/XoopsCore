@@ -16,7 +16,6 @@
  */
 class PmUsermenuPlugin implements UsermenuPluginInterface
 {
-
     /**
      * @return array
      */
@@ -24,7 +23,7 @@ class PmUsermenuPlugin implements UsermenuPluginInterface
     {
         $xoops = \Xoops::getInstance();
         $helper = \Xoops::getModuleHelper('pm');
-        $ret = array();
+        $ret = [];
 
         $criteria = new CriteriaCompo(new Criteria('read_msg', 0));
         $criteria->add(new Criteria('to_userid', $xoops->user->getVar('uid')));
@@ -39,7 +38,6 @@ class PmUsermenuPlugin implements UsermenuPluginInterface
             'name' => $name,
             'link' => $helper->url('viewpmsg.php'),
         ];
-
 
         return $ret;
     }

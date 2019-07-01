@@ -10,6 +10,7 @@
 */
 
 use Xoops\Core\FixedGroups;
+
 /**
  * System menu
  *
@@ -19,9 +20,8 @@ use Xoops\Core\FixedGroups;
  * @package     system
  * @version     $Id$
  */
-
 $xoops = Xoops::getInstance();
-$groups = array();
+$groups = [];
 if (is_object($xoops->user)) {
     $groups = $xoops->user->getGroups();
 }

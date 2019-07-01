@@ -1,12 +1,12 @@
 <?php
-require_once(__DIR__.'/../../init_new.php');
+require_once(__DIR__ . '/../../init_new.php');
 
 class ThemeSetGeneratorHandlerTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass = 'ThemeSetGeneratorHandler';
     protected $object = null;
-    
-    public function setUp()
+
+    protected function setUp()
     {
         $input = 'input';
         $this->object = new $this->myclass($input);
@@ -21,29 +21,29 @@ class ThemeSetGeneratorHandlerTest extends \PHPUnit\Framework\TestCase
     public function test_getName()
     {
         $instance = $this->object;
-        
+
         $name = $instance->getName();
         $this->assertSame('generator', $name);
     }
-    
+
     public function test_handleCharacterData()
     {
         $instance = $this->object;
-        
+
         $input = 'input';
         $parser = new XoopsThemeSetParser($input);
-        $parser->tags = array('themeset','themeset');
+        $parser->tags = ['themeset', 'themeset'];
         $data = 'data';
         $x = $instance->handleCharacterData($parser, $data);
-        $this->assertSame(null, $x);
+        $this->assertNull($x);
         $this->assertSame($data, $parser->getThemeSetData('generator'));
-        
+
         $input = 'input';
         $parser = new XoopsThemeSetParser($input);
-        $parser->tags = array('dummy','dummy');
+        $parser->tags = ['dummy', 'dummy'];
         $data = 'data';
         $x = $instance->handleCharacterData($parser, $data);
-        $this->assertSame(null, $x);
-        $this->assertSame(false, $parser->getThemeSetData('generator'));
+        $this->assertNull($x);
+        $this->assertFalse($parser->getThemeSetData('generator'));
     }
 }

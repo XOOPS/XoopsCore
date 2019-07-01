@@ -18,24 +18,25 @@
  * @package     system
  * @version     $Id$
  */
-
 function b_system_login_show()
 {
     $xoops = Xoops::getInstance();
     if (!$xoops->isUser()) {
-        $block = array();
+        $block = [];
         $block['lang_username'] = XoopsLocale::C_USERNAME;
-        $block['unamevalue'] = "";
+        $block['unamevalue'] = '';
         $block['lang_password'] = XoopsLocale::C_PASSWORD;
         $block['lang_login'] = XoopsLocale::A_LOGIN;
         $block['lang_lostpass'] = XoopsLocale::Q_LOST_YOUR_PASSWORD;
         $block['lang_registernow'] = XoopsLocale::REGISTER_NOW;
-        if ($xoops->getConfig('use_ssl') == 1 && $xoops->getConfig('sslloginlink') != '') {
-            $block['sslloginlink'] = "<a href=\"javascript:openWithSelfMain('" . $xoops->getConfig('sslloginlink') . "', 'ssllogin', 300, 200);\">" . SystemLocale::SECURE_LOGIN . "</a>";
+        if (1 == $xoops->getConfig('use_ssl') && '' != $xoops->getConfig('sslloginlink')) {
+            $block['sslloginlink'] = "<a href=\"javascript:openWithSelfMain('" . $xoops->getConfig('sslloginlink') . "', 'ssllogin', 300, 200);\">" . SystemLocale::SECURE_LOGIN . '</a>';
         } elseif ($xoops->getConfig('usercookie')) {
             $block['lang_rememberme'] = XoopsLocale::REMEMBER_ME;
         }
+
         return $block;
     }
+
     return false;
 }

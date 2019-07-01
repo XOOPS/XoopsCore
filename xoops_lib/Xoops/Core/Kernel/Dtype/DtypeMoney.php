@@ -11,10 +11,10 @@
 
 namespace Xoops\Core\Kernel\Dtype;
 
-use Xoops\Core\Kernel\XoopsObject;
-use Xoops\Core\Kernel\Dtype;
-use Money\Money;
 use Money\Currency;
+use Money\Money;
+use Xoops\Core\Kernel\Dtype;
+use Xoops\Core\Kernel\XoopsObject;
 
 /**
  * DtypeMoney
@@ -42,7 +42,7 @@ class DtypeMoney extends DtypeAbstract
     public function getVar(XoopsObject $obj, $key, $format)
     {
         $storedValue = $obj->vars[$key]['value'];
-        switch (strtolower($format)) {
+        switch (mb_strtolower($format)) {
             case Dtype::FORMAT_NONE:
             case 'n':
             case 's':
@@ -51,6 +51,7 @@ class DtypeMoney extends DtypeAbstract
                 $value = $this->unserializeJson($storedValue);
                 break;
         }
+
         return $value;
     }
 
@@ -65,6 +66,7 @@ class DtypeMoney extends DtypeAbstract
     public function cleanVar(XoopsObject $obj, $key)
     {
         $value = $obj->vars[$key]['value'];
+
         return ($value instanceof Money) ? $this->serializeAsJson($value) : $value;
     }
 
@@ -93,6 +95,7 @@ class DtypeMoney extends DtypeAbstract
         if (false === $decoded || !(isset($decoded['amount']) && isset($decoded['currency']))) {
             return null;
         }
+
         return new Money((int) $decoded['amount'], new Currency($decoded['currency']));
     }
 }

@@ -18,7 +18,6 @@
  * @since           2.4.0
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
  */
-
 $xoopsOption['nocommon'] = true;
 require_once __DIR__ . '/mainfile.php';
 
@@ -33,22 +32,22 @@ $xoops = Xoops::getInstance();
 if (!isset($path)) {
     if (!empty($_SERVER['QUERY_STRING'])) {
         $path = $_SERVER['QUERY_STRING'];
-        $path = (substr($path, 0, 1) === '/') ? substr($path, 1) : $path;
+        $path = ('/' === mb_substr($path, 0, 1)) ? mb_substr($path, 1) : $path;
     } else {
-        header("HTTP/1.0 404 Not Found");
+        header('HTTP/1.0 404 Not Found');
         exit();
     }
 }
 
-$path_type = substr($path, 0, strpos($path, '/'));
+$path_type = mb_substr($path, 0, mb_strpos($path, '/'));
 if (!isset($xoops->paths[$path_type])) {
-    $path = "XOOPS/" . $path;
-    $path_type = "XOOPS";
+    $path = 'XOOPS/' . $path;
+    $path_type = 'XOOPS';
 }
 
 //We are not allowing output of xoops_data
-if ($path_type === 'var') {
-    header("HTTP/1.0 404 Not Found");
+if ('var' === $path_type) {
+    header('HTTP/1.0 404 Not Found');
     exit();
 }
 
@@ -56,14 +55,14 @@ $file = realpath($xoops->path($path));
 $dir = realpath($xoops->paths[$path_type][0]);
 
 //We are not allowing directory traversal either
-if ($file===false || $dir===false || !strstr($file, $dir)) {
-    header("HTTP/1.0 404 Not Found");
+if (false === $file || false === $dir || !mb_strstr($file, $dir)) {
+    header('HTTP/1.0 404 Not Found');
     exit();
 }
 
 //We can't output empty files and php files do not output
-if (empty($file) || strpos($file, '.php') !== false) {
-    header("HTTP/1.0 404 Not Found");
+if (empty($file) || false !== mb_strpos($file, '.php')) {
+    header('HTTP/1.0 404 Not Found');
     exit();
 }
 
@@ -71,8 +70,8 @@ if (empty($file) || strpos($file, '.php') !== false) {
 $mtime = filemtime($file);
 
 // Is there really a file to output?
-if ($mtime === false) {
-    header("HTTP/1.0 404 Not Found");
+if (false === $mtime) {
+    header('HTTP/1.0 404 Not Found');
     exit();
 }
 
@@ -88,15 +87,15 @@ $ext = (isset($path_parts['extension'])) ? $path_parts['extension'] : '';
 $mimetype = \Xoops\Core\MimeTypes::findType($ext);
 //Do not output garbage
 if (empty($mimetype)) {
-    header("HTTP/1.0 404 Not Found");
+    header('HTTP/1.0 404 Not Found');
     exit();
 }
 
 // Output now
 // seconds, minutes, hours, days
-$expires = 60*60*24*15;
+$expires = 60 * 60 * 24 * 15;
 //header("Pragma: public");
-header("Cache-Control: public, max-age=" . $expires);
+header('Cache-Control: public, max-age=' . $expires);
 header('Expires: ' . gmdate('D, d M Y H:i:s', time() + $expires) . ' GMT');
 header('Last-Modified: ' . gmdate('D, d M Y H:i:s T', $mtime));
 header('Content-type: ' . $mimetype);

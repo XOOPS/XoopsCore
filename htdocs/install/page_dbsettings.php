@@ -23,7 +23,6 @@
  * @author      DuGris (aka L. JEN) <dugris@frxoops.org>
  * @version     $Id$
  */
-
 require_once __DIR__ . '/include/common.inc.php';
 
 /* @var $wizard XoopsInstallWizard */
@@ -31,18 +30,18 @@ $wizard = $_SESSION['wizard'];
 
 $settings = $_SESSION['settings'];
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $params = array('DB_NAME');
+if ('POST' === $_SERVER['REQUEST_METHOD']) {
+    $params = ['DB_NAME'];
     foreach ($params as $name) {
-        $settings[$name] = isset($_POST[$name]) ? $_POST[$name] : "";
+        $settings[$name] = isset($_POST[$name]) ? $_POST[$name] : '';
     }
     $settings['DB_PARAMETERS'] = serialize(getDbConnectionParams());
     $_SESSION['settings'] = $settings;
 }
 
-$platform=false;
+$platform = false;
 $error = '';
-$availableDatabases = array();
+$availableDatabases = [];
 
 $tried_create = false;
 $connection = null;
@@ -50,11 +49,11 @@ $connection = getDbConnection($error);
 // if we specified the dbname and failed, try again without it
 // we will try and create it later
 if (!$connection && !empty($settings['DB_NAME'])) {
-    $hold_name=$settings['DB_NAME'];
+    $hold_name = $settings['DB_NAME'];
     unset($settings['DB_NAME']);
     $_SESSION['settings'] = $settings;
     $hold_error = $error;
-    $error='';
+    $error = '';
     $connection = getDbConnection($error);
     $settings['DB_NAME'] = $hold_name;
     $_SESSION['settings'] = $settings;
@@ -65,6 +64,7 @@ if (!$connection && !empty($settings['DB_NAME'])) {
             $canCreate = $platform->supportsCreateDropDatabase();
             if ($canCreate) {
                 $tried_create = true;
+
                 try {
                     $sql = $platform->getCreateDatabaseSQL($connection->quoteIdentifier($settings['DB_NAME']));
                     $result = $connection->exec($sql);
@@ -107,6 +107,7 @@ if ($connection && empty($error)) {
 
 if ($connection) {
     $platform = $connection->getDatabasePlatform();
+
     try {
         $sql = $platform->getListDatabasesSQL();
         $dbResults = $connection->fetchAll($sql);
@@ -129,7 +130,7 @@ if ($connection) {
     }
 }
 
-if (is_array($availableDatabases) && count($availableDatabases)==1) {
+if (is_array($availableDatabases) && 1 == count($availableDatabases)) {
     if (empty($settings['DB_NAME'])) {
         $settings['DB_NAME'] = $availableDatabases[0];
     }
@@ -160,7 +161,7 @@ if (!empty($availableDatabases)) {
     echo '<label class="xolabel" for="DB_DATABASE_LABEL" class="center">';
     echo DB_AVAILABLE_LABEL;
     echo ' <select size="1" name="DB_AVAILABLE" id="DB_AVAILABLE" onchange="updateDbName();">';
-    $selected = ($settings['DB_NAME'] == '') ? 'selected' : '';
+    $selected = ('' == $settings['DB_NAME']) ? 'selected' : '';
     echo '<option value="" {$selected}>-----------</option>';
     foreach ($availableDatabases as $dbase) {
         $selected = ($settings['DB_NAME'] == $dbase) ? 'selected' : '';

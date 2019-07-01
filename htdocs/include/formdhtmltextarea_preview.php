@@ -18,6 +18,7 @@
  * @version         $Id$
  */
 use Xmf\Request;
+
 include_once dirname(__DIR__) . '/mainfile.php';
 
 $xoops = Xoops::getInstance();
@@ -39,10 +40,10 @@ $content = $myts->displayTarea($content, $html, 1, 1, 1, 1);
 //    $content = urldecode($content);
 //}
 
-if (! headers_sent()) {
+if (!headers_sent()) {
     header('Content-Type:text/html; charset=UTF-8');
     header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
     header('Cache-Control: private, no-cache');
     header('Pragma: no-cache');
 }
-echo "<div>" . $content . "</div>";
+echo '<div>' . $content . '</div>';

@@ -22,9 +22,9 @@
  * @since     2.6.0
  */
 
-return $config = array(
+return $config = [
     'private_key' => 'YourPrivateApiKey',
     'public_key' => 'YourPublicApiKey',
     'theme' => 'white', // 'red' | 'white' | 'blackglass' | 'clean' | 'custom'
-    'lang' => XoopsLocale::getLangCode()
-);
+    'lang' => XoopsLocale::getLangCode(),
+];

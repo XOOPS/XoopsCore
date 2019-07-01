@@ -20,20 +20,20 @@
  * @version         $Id$
  */
 // Info module
-define("_MI_USERRANK_NAME","User ranks");
-define("_MI_USERRANK_DESC","You can add ranks for your users.");
+define('_MI_USERRANK_NAME', 'User ranks');
+define('_MI_USERRANK_DESC', 'You can add ranks for your users.');
 // Menu
-define("_USERRANK_MI_INDEX", "Home");
-define("_USERRANK_MI_USERRANK", "User Ranks");
-define("_USERRANK_MI_ABOUT", "About");
+define('_USERRANK_MI_INDEX', 'Home');
+define('_USERRANK_MI_USERRANK', 'User Ranks');
+define('_USERRANK_MI_ABOUT', 'About');
 // Preferences
-define("_MI_USERRANK_PREFERENCE_PAGER", "Number of ranks to display per page");
+define('_MI_USERRANK_PREFERENCE_PAGER', 'Number of ranks to display per page');
 
 // default ranks
-define("_MI_RANK_TITLE_1", "Just popping in");
-define("_MI_RANK_TITLE_2", "Not too shy to talk");
-define("_MI_RANK_TITLE_3", "Quite a regular");
-define("_MI_RANK_TITLE_4", "Just can't stay away");
-define("_MI_RANK_TITLE_5", "Home away from home");
-define("_MI_RANK_TITLE_6", "Moderator");
-define("_MI_RANK_TITLE_7", "Webmaster");
+define('_MI_RANK_TITLE_1', 'Just popping in');
+define('_MI_RANK_TITLE_2', 'Not too shy to talk');
+define('_MI_RANK_TITLE_3', 'Quite a regular');
+define('_MI_RANK_TITLE_4', "Just can't stay away");
+define('_MI_RANK_TITLE_5', 'Home away from home');
+define('_MI_RANK_TITLE_6', 'Moderator');
+define('_MI_RANK_TITLE_7', 'Webmaster');

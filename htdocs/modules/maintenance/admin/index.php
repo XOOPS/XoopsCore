@@ -19,7 +19,6 @@
  * @author          Mage Grégory (AKA Mage), Cointin Maxime (AKA Kraven30)
  * @version         $Id$
  */
-
 include __DIR__ . '/header.php';
 
 $xoops = Xoops::getInstance();
@@ -35,12 +34,12 @@ $folder_path = \XoopsBaseConfig::get('root-path') . '/modules/maintenance/dump';
 $files = glob(\XoopsBaseConfig::get('root-path') . '/modules/maintenance/dump/*.*');
 $count = 0;
 foreach ($files as $filename_path) {
-    if (basename(strtolower($filename_path)) !== 'index.html') {
+    if ('index.html' !== basename(mb_strtolower($filename_path))) {
         ++$count;
     }
 }
 $admin_page->addConfigBoxLine($folder_path, 'folder');
-$admin_page->addConfigBoxLine(array($folder_path, '777'), 'chmod');
+$admin_page->addConfigBoxLine([$folder_path, '777'], 'chmod');
 $admin_page->addInfoBox(_MI_MAINTENANCE_DUMP);
 $admin_page->addInfoBoxLine(sprintf(_AM_MAINTENANCE_NBFILES, $count));
 $admin_page->displayIndex();

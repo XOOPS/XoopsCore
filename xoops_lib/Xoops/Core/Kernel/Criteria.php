@@ -78,18 +78,18 @@ class Criteria extends CriteriaElement
      */
     public function render()
     {
-        $clause = (!empty($this->prefix) ? "{$this->prefix}." : "") . $this->column;
+        $clause = (!empty($this->prefix) ? "{$this->prefix}." : '') . $this->column;
         if (!empty($this->function)) {
             $clause = sprintf($this->function, $clause);
         }
-        if (in_array(strtoupper($this->operator), array('IS NULL', 'IS NOT NULL'))) {
+        if (in_array(mb_strtoupper($this->operator), ['IS NULL', 'IS NOT NULL'])) {
             $clause .= ' ' . $this->operator;
         } else {
             if ('' === ($value = trim($this->value))) {
                 return '';
             }
-            if (!in_array(strtoupper($this->operator), array('IN', 'NOT IN'))) {
-                if ((substr($value, 0, 1) !== '`') && (substr($value, -1) !== '`')) {
+            if (!in_array(mb_strtoupper($this->operator), ['IN', 'NOT IN'])) {
+                if (('`' !== mb_substr($value, 0, 1)) && ('`' !== mb_substr($value, -1))) {
                     $value = "'{$value}'";
                 } else {
                     if (!preg_match('/^[a-zA-Z0-9_\.\-`]*$/', $value)) {
@@ -112,28 +112,29 @@ class Criteria extends CriteriaElement
     public function renderLdap()
     {
         $clause = '';
-        if ($this->operator === '>') {
+        if ('>' === $this->operator) {
             $this->operator = '>=';
         }
-        if ($this->operator === '<') {
+        if ('<' === $this->operator) {
             $this->operator = '<=';
         }
 
-        if ($this->operator === '!=' || $this->operator === '<>') {
+        if ('!=' === $this->operator || '<>' === $this->operator) {
             $operator = '=';
-            $clause = "(!(" . $this->column . $operator . $this->value . "))";
+            $clause = '(!(' . $this->column . $operator . $this->value . '))';
         } else {
-            if ($this->operator === 'IN') {
-                $newvalue = str_replace(array('(', ')'), '', $this->value);
+            if ('IN' === $this->operator) {
+                $newvalue = str_replace(['(', ')'], '', $this->value);
                 $tab = explode(',', $newvalue);
                 foreach ($tab as $uid) {
                     $clause .= "({$this->column}={$uid})";
                 }
                 $clause = '(|' . $clause . ')';
             } else {
-                $clause = "(" . $this->column . ' ' . $this->operator . ' ' . $this->value . ")";
+                $clause = '(' . $this->column . ' ' . $this->operator . ' ' . $this->value . ')';
             }
         }
+
         return $clause;
     }
 
@@ -145,6 +146,7 @@ class Criteria extends CriteriaElement
     public function renderWhere()
     {
         $cond = $this->render();
+
         return empty($cond) ? '' : "WHERE {$cond}";
     }
 
@@ -159,13 +161,13 @@ class Criteria extends CriteriaElement
      */
     public function renderQb(QueryBuilder $qb = null, $whereMode = '')
     {
-        if ($qb==null) { // initialize query builder if not passed in
+        if (null == $qb) { // initialize query builder if not passed in
             $qb = \Xoops::getInstance()->db()->createXoopsQueryBuilder();
             $whereMode = ''; // first entry in new instance must be where
         }
         $expr = $this->buildExpressionQb($qb);
 
-        switch (strtolower($whereMode)) {
+        switch (mb_strtolower($whereMode)) {
             case 'and':
                 $qb->andWhere($expr);
                 break;
@@ -177,7 +179,7 @@ class Criteria extends CriteriaElement
                 break;
         }
 
-        if ($this->limit!=0 || $this->start!=0) {
+        if (0 != $this->limit || 0 != $this->start) {
             $qb->setFirstResult($this->start)
                 ->setMaxResults($this->limit);
         }
@@ -209,20 +211,20 @@ class Criteria extends CriteriaElement
     {
         $eb = $qb->expr();
 
-        $column = (empty($this->prefix) ? "" : $this->prefix.'.') . $this->column;
+        $column = (empty($this->prefix) ? '' : $this->prefix . '.') . $this->column;
 
         // this should be done using portability functions
         if (!empty($this->function)) {
             $column = sprintf($this->function, $column);
         }
 
-        $value=trim($this->value);
+        $value = trim($this->value);
 
-        $operator = strtolower($this->operator);
+        $operator = mb_strtolower($this->operator);
         $expr = '';
 
         // handle special case of value
-        if (in_array($operator, array('is null', 'is not null', 'in', 'not in'))) {
+        if (in_array($operator, ['is null', 'is not null', 'in', 'not in'])) {
             switch ($operator) {
                 case 'is null':
                     $expr = $eb->isNull($column);
@@ -231,7 +233,7 @@ class Criteria extends CriteriaElement
                     $expr = $eb->isNotNull($column);
                     break;
                 case 'in':
-                    if (!empty($value) && $value!=='()') {
+                    if (!empty($value) && '()' !== $value) {
                         $expr = $column . ' IN ' . $value;
                     } else {
                         // odd case of a null set - this won't match anything
@@ -239,7 +241,7 @@ class Criteria extends CriteriaElement
                     }
                     break;
                 case 'not in':
-                    if (!empty($value) && $value!=='()') {
+                    if (!empty($value) && '()' !== $value) {
                         $expr = $column . ' NOT IN ' . $value;
                     }
                     break;
@@ -279,12 +281,13 @@ class Criteria extends CriteriaElement
                     $expr = $eb->notLike($column, $columnValue);
                     break;
                 default:
-                    $expr = $eb->comparison($column, strtoupper($operator), $columnValue);
+                    $expr = $eb->comparison($column, mb_strtoupper($operator), $columnValue);
                     break;
             }
         } else {
             $expr = '(1)';
         }
+
         return $expr;
     }
 }

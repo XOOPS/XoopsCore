@@ -21,33 +21,31 @@
  * @author      Taiwen Jiang <phppp@users.sourceforge.net>
  * @version     $Id$
  */
-
 class upgrade_231 extends xoopsUpgrade
 {
-    var $tasks = array('field');
+    public $tasks = ['field'];
 
-    function upgrade_231()
+    public function upgrade_231()
     {
         $this->xoopsUpgrade(basename(dirname(__FILE__)));
     }
 
     /**
      * Check if field type already fixed for mysql strict mode
-
      */
-    function check_field()
+    public function check_field()
     {
         $xoops = Xoops::getInstance();
         $db = $xoops->db();
-        $fields = array(
-            "cache_data"     => "cache_model", "htmlcode" => "banner", "extrainfo" => "bannerclient",
-            "com_text"       => "xoopscomments", "conf_value" => "config", "description" => "groups",
-            "imgsetimg_body" => "imgsetimg", "content" => "newblocks", "msg_text" => "priv_msgs",
-            "sess_data"      => "session", "tplset_credits" => "tplset", "tpl_source" => "tplsource",
-            "user_sig"       => "users", "bio" => "users",
-        );
+        $fields = [
+            'cache_data' => 'cache_model', 'htmlcode' => 'banner', 'extrainfo' => 'bannerclient',
+            'com_text' => 'xoopscomments', 'conf_value' => 'config', 'description' => 'groups',
+            'imgsetimg_body' => 'imgsetimg', 'content' => 'newblocks', 'msg_text' => 'priv_msgs',
+            'sess_data' => 'session', 'tplset_credits' => 'tplset', 'tpl_source' => 'tplsource',
+            'user_sig' => 'users', 'bio' => 'users',
+        ];
         foreach ($fields as $field => $table) {
-            $sql = "SHOW COLUMNS FROM `" . $db->prefix($table) . "` LIKE '{$field}'";
+            $sql = 'SHOW COLUMNS FROM `' . $db->prefix($table) . "` LIKE '{$field}'";
             if (!$result = $db->queryF($sql)) {
                 return false;
             }
@@ -55,25 +53,28 @@ class upgrade_231 extends xoopsUpgrade
                 if ($row['Field'] != $field) {
                     continue;
                 }
-                if (strtoupper($row['Null']) != "YES") {
+                if ('YES' != mb_strtoupper($row['Null'])) {
                     return false;
                 }
             }
         }
+
         return true;
     }
 
-    function apply_field()
+    public function apply_field()
     {
         $xoops = Xoops::getInstance();
         $db = $xoops->db();
         $allowWebChanges = $db->allowWebChanges;
         $db->allowWebChanges = true;
-        $result = $db->queryFromFile(dirname(__FILE__) . "/mysql.structure.sql");
+        $result = $db->queryFromFile(dirname(__FILE__) . '/mysql.structure.sql');
         $db->allowWebChanges = $allowWebChanges;
+
         return $result;
     }
 }
 
 $upg = new upgrade_231();
+
 return $upg;

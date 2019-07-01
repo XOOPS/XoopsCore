@@ -29,8 +29,6 @@ class UserrankPreload extends PreloadItem
      * listen for core.service.locate.userrank event
      *
      * @param Provider $provider - provider object for requested service
-     *
-     * @return void - our implementation is registered with the passed Provider object
      */
     public static function eventCoreServiceLocateUserrank(Provider $provider)
     {

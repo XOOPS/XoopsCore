@@ -9,11 +9,10 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
-use Xoops\Core\PreloadItem;
 use Xoops\Core\Kernel\Handlers\XoopsModule;
+use Xoops\Core\PreloadItem;
 use Xoops\Module\Plugin;
 use Xoops\Module\Plugin\ConfigCollector;
-
 
 /**
  * Comments core preloads
@@ -35,10 +34,10 @@ class CommentsPreload extends PreloadItem
     public static function eventCoreIncludeCommonClassmaps($args)
     {
         $path = dirname(__DIR__);
-        XoopsLoad::addMap(array(
-            'comments'                => $path . '/class/helper.php',
-            'commentscommentrenderer' => $path . '/class/commentrenderer.php'
-        ));
+        XoopsLoad::addMap([
+            'comments' => $path . '/class/helper.php',
+            'commentscommentrenderer' => $path . '/class/commentrenderer.php',
+        ]);
     }
 
     public static function eventCoreFooterStart($args)

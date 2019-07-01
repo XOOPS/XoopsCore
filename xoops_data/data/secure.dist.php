@@ -16,35 +16,35 @@
 
 // Database
 // Choose the database to be used
-define("XOOPS_DB_TYPE", "mysql");
+define('XOOPS_DB_TYPE', 'mysql');
 
 // Set the database charset if applicable
-define("XOOPS_DB_CHARSET", "");
+define('XOOPS_DB_CHARSET', '');
 
 // Table Prefix
 // This prefix will be added to all new tables created to avoid name conflict in the database. If you are unsure, just use the default "xoops".
-define("XOOPS_DB_PREFIX", "xoops");
+define('XOOPS_DB_PREFIX', 'xoops');
 
 // Database Hostname
 // Hostname of the database server. If you are unsure, "localhost" works in most cases.
-define("XOOPS_DB_HOST", "localhost");
+define('XOOPS_DB_HOST', 'localhost');
 
 // Database Username
 // Your database user account on the host
-define("XOOPS_DB_USER", "");
+define('XOOPS_DB_USER', '');
 
 // Database Password
 // Password for your database user account
-define("XOOPS_DB_PASS", "");
+define('XOOPS_DB_PASS', '');
 
 // Database Name
 // The name of database on the host.
-define("XOOPS_DB_NAME", "");
+define('XOOPS_DB_NAME', '');
 
 // Use persistent connection? (Yes=1 No=0)
 // Default is "No". Choose "No" if you are unsure.
-define("XOOPS_DB_PCONNECT", 0);
+define('XOOPS_DB_PCONNECT', 0);
 
 // Serialized connection parameter
 // This is built by the installer and includes all connection parameters
-define("XOOPS_DB_PARAMETERS", "");
+define('XOOPS_DB_PARAMETERS', '');

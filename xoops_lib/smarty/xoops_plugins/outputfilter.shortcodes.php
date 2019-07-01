@@ -22,15 +22,15 @@ function smarty_outputfilter_shortcodes($output, Smarty_Internal_Template $templ
         },
         $output
     );
-    if ($text===null) {
+    if (null === $text) {
         trigger_error('preg_last_error=' . preg_last_error(), E_USER_WARNING);
+
         return $output;
     }
 
     $text = $shortcodes->process($text);
 
     return $text;
-
     /*
     $noscPattern = '/({nosc42filter}([\S\s]*){\/nosc42filter})/U';
 

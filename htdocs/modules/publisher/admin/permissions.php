@@ -17,10 +17,10 @@
  * @author          trabis <lusopoemas@gmail.com>
  * @author          The SmartFactory <www.smartfactory.ca>
  */
+use Doctrine\DBAL\FetchMode;
 use Xoops\Core\Text\Sanitizer;
 use Xoops\Form\GroupPermissionForm;
 use XoopsModules\Publisher;
-use Doctrine\DBAL\FetchMode;
 
 require_once __DIR__ . '/admin_header.php';
 

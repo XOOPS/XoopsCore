@@ -12,7 +12,6 @@
 namespace Xoops\Core\Service\Data;
 
 use Xmf\Assert;
-use Xoops\Core\Service\Data\EmailAddress;
 
 /**
  * The EmailAddressList data object is a traversable list of EmailAddress objects
@@ -39,7 +38,7 @@ class EmailAddressList
 
     /* assert messages */
     protected const MESSAGE_ADDRESS = 'EmailAddress is invalid';
-    protected const MESSAGE_LIST    = 'EmailAddress list is empty';
+    protected const MESSAGE_LIST = 'EmailAddress list is empty';
 
     /**
      * EmailAddress constructor.
@@ -53,8 +52,9 @@ class EmailAddressList
      */
     public function __construct(?array $addresses = null)
     {
-        if (null!==$addresses) {
+        if (null !== $addresses) {
             Assert::allIsInstanceOf($addresses, EmailAddress::class, static::MESSAGE_ADDRESS);
+
             try {
                 /** @var EmailAddress $address */
                 foreach ($addresses as $address) {
@@ -72,13 +72,13 @@ class EmailAddressList
      *
      * @param EmailAddress[] $addresses  an array of EmailAddress objects
      *
-     * @return EmailAddressList
-     *
      * @throws \InvalidArgumentException
+     * @return EmailAddressList
      */
-    public function withAddedAddresses(array $addresses) : EmailAddressList
+    public function withAddedAddresses(array $addresses): self
     {
         Assert::allIsInstanceOf($addresses, EmailAddress::class, static::MESSAGE_ADDRESS);
+
         try {
             /** @var EmailAddress $address */
             foreach ($addresses as $address) {
@@ -90,17 +90,17 @@ class EmailAddressList
         }
         $new = clone $this;
         $new->addresses = array_merge($existingAddresses, $addresses);
+
         return $new;
     }
 
     /**
      * getAddresses
      *
-     * @return EmailAddress[] an array of EmailAddress objects
-     *
      * @throws \LogicException (property was not properly set before used)
+     * @return EmailAddress[] an array of EmailAddress objects
      */
-    public function getAddresses() : array
+    public function getAddresses(): array
     {
         try {
             Assert::notNull($this->addresses, static::MESSAGE_LIST);
@@ -112,17 +112,17 @@ class EmailAddressList
         } catch (\InvalidArgumentException $e) {
             throw new \LogicException($e->getMessage(), $e->getCode(), $e);
         }
+
         return $this->addresses;
     }
 
     /**
      * getEachAddress - return each EmailAddress in the list
      *
-     * @return \Generator|EmailAddress[]
-     *
      * @throws \LogicException (property was not properly set before used)
+     * @return \Generator|EmailAddress[]
      */
-    public function getEachAddress() : \Generator
+    public function getEachAddress(): \Generator
     {
         $this->getAddresses();
         foreach ($this->addresses as $address) {

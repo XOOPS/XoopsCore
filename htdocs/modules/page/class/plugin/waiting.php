@@ -21,7 +21,7 @@ class PageWaitingPlugin implements WaitingPluginInterface
      */
     public function waiting()
     {
-        $ret = array();
+        $ret = [];
 
         /* @var $page Page */
         $page = \Xoops::getModuleHelper('page');
@@ -32,7 +32,7 @@ class PageWaitingPlugin implements WaitingPluginInterface
             $ret[] = [
                 'count' => $count,
                 'name' => $page->getModule()->getVar('name'),
-                'link' => $page->url('admin/content.php')
+                'link' => $page->url('admin/content.php'),
             ];
         }
 

@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/../../../../init_new.php');
+require_once(__DIR__ . '/../../../../init_new.php');
 
 class Scripts_ImageClassTest extends \PHPUnit\Framework\TestCase
 {
@@ -8,7 +8,7 @@ class Scripts_ImageClassTest extends \PHPUnit\Framework\TestCase
         $image_handler = new XoopsCaptchaImageHandler();
         $this->assertInstanceOf('XoopsCaptchaImageHandler', $image_handler);
         $this->assertInstanceOf('XoopsCaptcha', $image_handler->captcha_handler);
-        $this->assertTrue(is_array($image_handler->config));
+        $this->assertInternalType('array', $image_handler->config);
     }
 
     public function test_loadImage()
@@ -39,39 +39,39 @@ class Scripts_ImageClassTest extends \PHPUnit\Framework\TestCase
         ob_start();
         $value = @$image_handler->createImage();
         ob_end_clean();
-        $this->assertSame(null, $value);
+        $this->assertNull($value);
     }
 
     public function test_getList()
     {
         $image_handler = new XoopsCaptchaImageHandler();
-        $fonts = $image_handler->getList("fonts", "ttf");
-        $this->assertTrue(is_array($fonts));
+        $fonts = $image_handler->getList('fonts', 'ttf');
+        $this->assertInternalType('array', $fonts);
     }
 
     public function test_loadFont()
     {
         $image_handler = new XoopsCaptchaImageHandler();
         $image_handler->loadFont();
-        $this->assertTrue(is_string($image_handler->font));
-        $this->assertTrue(false !== strpos($image_handler->font, '.ttf'));
+        $this->assertInternalType('string', $image_handler->font);
+        $this->assertTrue(false !== mb_strpos($image_handler->font, '.ttf'));
     }
 
     public function test_setImageSize()
     {
         $image_handler = new XoopsCaptchaImageHandler();
         $image_handler->setImageSize();
-        $this->assertTrue(is_int($image_handler->width));
-        $this->assertTrue(is_int($image_handler->spacing));
-        $this->assertTrue(is_int($image_handler->height));
+        $this->assertInternalType('int', $image_handler->width);
+        $this->assertInternalType('int', $image_handler->spacing);
+        $this->assertInternalType('int', $image_handler->height);
     }
 
     public function test_loadBackground()
     {
         $image_handler = new XoopsCaptchaImageHandler();
         $value = $image_handler->loadBackground();
-        $this->assertTrue(is_string($value));
-        $this->assertTrue(false !== strpos($value, 'image/backgrounds/'));
+        $this->assertInternalType('string', $value);
+        $this->assertTrue(false !== mb_strpos($value, 'image/backgrounds/'));
     }
 
     public function test_createFromFile()
@@ -81,7 +81,7 @@ class Scripts_ImageClassTest extends \PHPUnit\Framework\TestCase
         ob_start();
         $value = @$image_handler->createFromFile();
         ob_end_clean();
-        $this->assertSame(null, $value);
+        $this->assertNull($value);
     }
 
     public function test_drawCode()
@@ -91,7 +91,7 @@ class Scripts_ImageClassTest extends \PHPUnit\Framework\TestCase
         ob_start();
         $value = @$image_handler->drawCode();
         ob_end_clean();
-        $this->assertSame(null, $value);
+        $this->assertNull($value);
     }
 
     public function test_drawBorder()
@@ -101,7 +101,7 @@ class Scripts_ImageClassTest extends \PHPUnit\Framework\TestCase
         ob_start();
         $value = @$image_handler->drawBorder();
         ob_end_clean();
-        $this->assertSame(null, $value);
+        $this->assertNull($value);
     }
 
     public function test_drawCircles()
@@ -111,7 +111,7 @@ class Scripts_ImageClassTest extends \PHPUnit\Framework\TestCase
         ob_start();
         $value = @$image_handler->drawCircles();
         ob_end_clean();
-        $this->assertSame(null, $value);
+        $this->assertNull($value);
     }
 
     public function test_drawLines()
@@ -121,7 +121,7 @@ class Scripts_ImageClassTest extends \PHPUnit\Framework\TestCase
         ob_start();
         $value = @$image_handler->drawLines();
         ob_end_clean();
-        $this->assertSame(null, $value);
+        $this->assertNull($value);
     }
 
     public function test_drawRectangles()
@@ -131,7 +131,7 @@ class Scripts_ImageClassTest extends \PHPUnit\Framework\TestCase
         ob_start();
         $value = @$image_handler->drawRectangles();
         ob_end_clean();
-        $this->assertSame(null, $value);
+        $this->assertNull($value);
     }
 
     public function test_drawBars()
@@ -141,7 +141,7 @@ class Scripts_ImageClassTest extends \PHPUnit\Framework\TestCase
         ob_start();
         $value = @$image_handler->drawBars();
         ob_end_clean();
-        $this->assertSame(null, $value);
+        $this->assertNull($value);
     }
 
     public function test_drawEllipses()
@@ -151,7 +151,7 @@ class Scripts_ImageClassTest extends \PHPUnit\Framework\TestCase
         ob_start();
         $value = @$image_handler->drawEllipses();
         ob_end_clean();
-        $this->assertSame(null, $value);
+        $this->assertNull($value);
     }
 
     public function test_drawPolygons()
@@ -161,7 +161,7 @@ class Scripts_ImageClassTest extends \PHPUnit\Framework\TestCase
         ob_start();
         $value = @$image_handler->drawPolygons();
         ob_end_clean();
-        $this->assertSame(null, $value);
+        $this->assertNull($value);
     }
 
     public function test_createImageBmp()

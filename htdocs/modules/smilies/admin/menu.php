@@ -19,7 +19,7 @@
  * @author          Mage Grégory (AKA Mage)
  * @version         $Id$
  */
-$adminmenu = array();
+$adminmenu = [];
 $i = 1;
 $adminmenu[$i]['title'] = _MI_SMILIES_INDEX;
 $adminmenu[$i]['link'] = 'admin/index.php';

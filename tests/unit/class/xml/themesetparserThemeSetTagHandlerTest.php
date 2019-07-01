@@ -1,12 +1,12 @@
 <?php
-require_once(__DIR__.'/../../init_new.php');
+require_once(__DIR__ . '/../../init_new.php');
 
 class ThemeSetTagHandlerTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass = 'ThemeSetTagHandler';
     protected $object = null;
 
-    public function setUp()
+    protected function setUp()
     {
         $input = 'input';
         $this->object = new $this->myclass($input);
@@ -32,17 +32,17 @@ class ThemeSetTagHandlerTest extends \PHPUnit\Framework\TestCase
 
         $input = 'input';
         $parser = new XoopsThemeSetParser($input);
-        $parser->tags = array('image','image');
+        $parser->tags = ['image', 'image'];
         $data = 'something';
         $x = $instance->handleCharacterData($parser, $data);
-        $this->assertSame(null, $x);
+        $this->assertNull($x);
         $this->assertSame($data, $parser->getTempArr('tag'));
 
         $input = 'input';
         $parser = new XoopsThemeSetParser($input);
-        $parser->tags = array('dummy','dummy');
+        $parser->tags = ['dummy', 'dummy'];
         $data = 'something';
         $instance->handleCharacterData($parser, $data);
-        $this->assertSame(false, $parser->getTempArr('tag'));
+        $this->assertFalse($parser->getTempArr('tag'));
     }
 }

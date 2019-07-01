@@ -1,7 +1,8 @@
 <?php
+
 namespace Xmf;
 
-require_once(__DIR__.'/../../init_new.php');
+require_once(__DIR__ . '/../../init_new.php');
 
 class LanguageTest extends \PHPUnit\Framework\TestCase
 {
@@ -16,7 +17,7 @@ class LanguageTest extends \PHPUnit\Framework\TestCase
      */
     protected function setUp()
     {
-        $this->object = new Language;
+        $this->object = new Language();
     }
 
     /**

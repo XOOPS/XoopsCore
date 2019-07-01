@@ -16,10 +16,9 @@
  * @since
  * @author       XOOPS Development Team
  */
-
-use Xmf\Request;
 use Xmf\Module\Helper;
 use Xmf\Module\Helper\Permission;
+use Xmf\Request;
 
 include_once __DIR__ . '/admin_header.php';
 
@@ -30,13 +29,13 @@ $helper = Helper::getHelper('monolog');
 $permHelper = new Permission();
 if ($permHelper) {
     // this is the name and item we are going to work with
-    $gperm_name='use_monolog';
-    $gperm_itemid=0;
+    $gperm_name = 'use_monolog';
+    $gperm_itemid = 0;
 
     // if this is a post operation get our variables
-    if ('POST'===Request::getMethod()) {
-        $name=$permHelper->defaultFieldName($gperm_name, $gperm_itemid);
-        $groups=Request::getVar($name, array(), 'POST');
+    if ('POST' === Request::getMethod()) {
+        $name = $permHelper->defaultFieldName($gperm_name, $gperm_itemid);
+        $groups = Request::getVar($name, [], 'POST');
         $permHelper->savePermissionForItem($gperm_name, $gperm_itemid, $groups);
         echo $xoops->alert('success', _MA_MONOLOG_FORM_PROCESSED, _MA_MONOLOG_PERMISSION_FORM);
     }

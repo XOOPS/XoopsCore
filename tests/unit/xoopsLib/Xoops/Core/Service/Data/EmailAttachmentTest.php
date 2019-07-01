@@ -1,4 +1,5 @@
 <?php
+
 namespace Xoops\Test\Core\Service\Data;
 
 use Xoops\Core\Service\Data\EmailAttachment;
@@ -56,7 +57,7 @@ class EmailAttachmentTest extends \PHPUnit\Framework\TestCase
     public function testNewBadFilename()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $attachment = new EmailAttachment(__DIR__.'/bogus.file');
+        $attachment = new EmailAttachment(__DIR__ . '/bogus.file');
     }
 
     public function testWithFilename()
@@ -97,17 +98,16 @@ class EmailAttachmentTest extends \PHPUnit\Framework\TestCase
     {
         $mimeType = 'text/json+juice-1.2';
         $this->assertNull($this->object->getMimeType());
-        $attachment=$this->object->withMimeType($mimeType);
+        $attachment = $this->object->withMimeType($mimeType);
         $this->assertSame($mimeType, $attachment->getMimeType());
 
         $this->expectException(\InvalidArgumentException::class);
-        $attachment=$this->object->withMimeType('notamimetype');
+        $attachment = $this->object->withMimeType('notamimetype');
     }
 
     public function testForcedBadMimeType()
     {
-        $attachment = new class() extends EmailAttachment
-        {
+        $attachment = new class() extends EmailAttachment {
             public function __construct()
             {
                 parent::__construct();
@@ -128,8 +128,7 @@ class EmailAttachmentTest extends \PHPUnit\Framework\TestCase
 
     public function testForcedBadName()
     {
-        $attachment = new class() extends EmailAttachment
-        {
+        $attachment = new class() extends EmailAttachment {
             public function __construct()
             {
                 parent::__construct();

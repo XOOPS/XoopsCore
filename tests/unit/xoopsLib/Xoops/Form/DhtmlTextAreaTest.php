@@ -1,7 +1,8 @@
 <?php
+
 namespace Xoops\Form;
 
-require_once(__DIR__.'/../../../init_new.php');
+require_once(__DIR__ . '/../../../init_new.php');
 
 class DhtmlTextAreaTest extends \PHPUnit\Framework\TestCase
 {
@@ -17,7 +18,7 @@ class DhtmlTextAreaTest extends \PHPUnit\Framework\TestCase
     protected function setUp()
     {
         $this->object = new DhtmlTextArea('Caption', 'name');
-        \Xoops::getInstance()->setTheme(new \Xoops\Core\Theme\NullTheme);
+        \Xoops::getInstance()->setTheme(new \Xoops\Core\Theme\NullTheme());
         //$this->markTestSkipped('side effects');
     }
 
@@ -32,19 +33,19 @@ class DhtmlTextAreaTest extends \PHPUnit\Framework\TestCase
     public function testRender()
     {
         $value = $this->object->render();
-        $this->assertTrue(is_string($value));
+        $this->assertInternalType('string', $value);
     }
 
     public function testXoopsCodeControls()
     {
         $value = $this->object->xoopsCodeControls();
-        $this->assertTrue(is_string($value));
+        $this->assertInternalType('string', $value);
     }
 
     public function testFontArray()
     {
         $value = $this->object->fontArray();
-        $this->assertTrue(is_string($value));
+        $this->assertInternalType('string', $value);
     }
 
     public function testRenderValidationJS()

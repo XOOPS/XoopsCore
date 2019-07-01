@@ -50,28 +50,27 @@ class ThumbsProvider extends AbstractContract implements ThumbnailInterface
         return 'Thumbnail generation using stefangabos/zebra_image';
     }
 
-
     /**
      * getThumbnailUrl
      *
      * @param string  $imgPath path to image to be thumbed
-     * @param integer $width   maximum width of thumbnail in pixels, 0 to use default
-     * @param integer $height  maximum height of thumbnail in pixels, 0 to use default
+     * @param int $width   maximum width of thumbnail in pixels, 0 to use default
+     * @param int $height  maximum height of thumbnail in pixels, 0 to use default
      *
      * @return string URL to obtain QR Code image of $qrText
      */
     private function getThumbnailUrl($imgPath, $width, $height)
     {
         $xoops = \Xoops::getInstance();
-        $helper  = $xoops->getModuleHelper('thumbs');
+        $helper = $xoops->getModuleHelper('thumbs');
         $thumbPath = $helper->buildThumbPath($imgPath, $width, $height);
 
         $originalMtime = filemtime($xoops->path($imgPath));
         $thumbMtime = filemtime($xoops->path($thumbPath));
-        if (false===$thumbMtime || $originalMtime>$thumbMtime) {
-            $params = array(
+        if (false === $thumbMtime || $originalMtime > $thumbMtime) {
+            $params = [
                 'img' => (string) $imgPath,
-            );
+            ];
             if ($height) {
                 $params['h'] = $height;
             }
@@ -91,10 +90,8 @@ class ThumbsProvider extends AbstractContract implements ThumbnailInterface
      *
      * @param Response $response \Xoops\Core\Service\Response object
      * @param string   $imgPath  path to image to be thumbed
-     * @param integer  $width    maximum width of thumbnail in pixels, 0 to use default
-     * @param integer  $height   maximum height of thumbnail in pixels, 0 to use default
-     *
-     * @return void  - response->value set to URL string
+     * @param int  $width    maximum width of thumbnail in pixels, 0 to use default
+     * @param int  $height   maximum height of thumbnail in pixels, 0 to use default
      */
     public function getImgUrl(Response $response, $imgPath, $width = 0, $height = 0)
     {
@@ -106,25 +103,23 @@ class ThumbsProvider extends AbstractContract implements ThumbnailInterface
      *
      * @param Response $response   \Xoops\Core\Service\Response object
      * @param string   $imgPath    path to image to be thumbed
-     * @param integer  $width      maximum width of thumbnail in pixels, 0 to use default
-     * @param integer  $height     maximum height of thumbnail in pixels, 0 to use default
+     * @param int  $width      maximum width of thumbnail in pixels, 0 to use default
+     * @param int  $height     maximum height of thumbnail in pixels, 0 to use default
      * @param array    $attributes array of attribute name => value pairs for img tag
-     *
-     * @return void  - response->value set to image tag
      */
     public function getImgTag(
         Response $response,
         $imgPath,
         $width = 0,
         $height = 0,
-        $attributes = array()
+        $attributes = []
     ) {
         $url = $this->getThumbnailUrl($imgPath, $width, $height);
         if (!is_array($attributes)) {
-            $attributes = array();
+            $attributes = [];
         }
 
-        $imgTag = new Img(array('src' => $url));
+        $imgTag = new Img(['src' => $url]);
         $imgTag->setMerge($attributes);
         $response->setValue($imgTag->render());
     }

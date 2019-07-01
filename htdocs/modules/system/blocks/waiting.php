@@ -18,10 +18,9 @@
  * @package     system
  * @version     $Id$
  */
-
 function b_system_waiting_show()
 {
-    $block = array();
+    $block = [];
     $plugins = \Xoops\Module\Plugin::getPlugins('system');
     /* @var $plugin SystemPluginInterface */
     foreach ($plugins as $plugin) {
@@ -31,5 +30,6 @@ function b_system_waiting_show()
             }
         }
     }
+
     return $block;
 }

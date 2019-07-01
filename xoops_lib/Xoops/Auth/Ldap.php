@@ -26,7 +26,6 @@ use Xoops\Core\Database\Connection;
  */
 class Ldap extends AuthAbstract
 {
-
     /**
      * @var
      */
@@ -116,6 +115,7 @@ class Ldap extends AuthAbstract
     {
         if (!extension_loaded('ldap')) {
             trigger_error(sprintf(\XoopsLocale::F_EXTENSION_PHP_NOT_LOADED, 'LDAP'), E_USER_ERROR);
+
             return;
         }
 
@@ -161,9 +161,8 @@ class Ldap extends AuthAbstract
             if ($authenticated) {
                 // We load the Xoops User database
                 return $this->loadXoopsUser($userDN, $uname, $pwd);
-            } else {
-                $this->setErrors(ldap_errno($this->ds), ldap_err2str(ldap_errno($this->ds)) . '(' . $userDN . ')');
             }
+            $this->setErrors(ldap_errno($this->ds), ldap_err2str(ldap_errno($this->ds)) . '(' . $userDN . ')');
         } else {
             $this->setErrors(0, \XoopsLocale::E_CANNOT_CONNECT_TO_SERVER);
         }
@@ -221,7 +220,7 @@ class Ldap extends AuthAbstract
      */
     public function getFilter($uname)
     {
-        if ($this->ldap_filter_person != '') {
+        if ('' != $this->ldap_filter_person) {
             $filter = str_replace('@@loginname@@', $uname, $this->ldap_filter_person);
         } else {
             $filter = $this->ldap_loginldap_attr . '=' . $uname;

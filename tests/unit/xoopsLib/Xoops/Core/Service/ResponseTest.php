@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/../../../../init_new.php');
+require_once(__DIR__ . '/../../../../init_new.php');
 
 use Xoops\Core\Service\Response;
 
@@ -16,7 +16,7 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
      */
     protected function setUp()
     {
-        $this->object = new Response;
+        $this->object = new Response();
     }
 
     /**
@@ -38,7 +38,7 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
         $value = 'value';
         $instance = new Response($value);
         $result = $instance->getValue();
-        $this->assertSame($value,$result);
+        $this->assertSame($value, $result);
     }
 
     public function testIsSuccess()
@@ -59,8 +59,8 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
         $error = 'error';
         $instance = new Response($value, true, $error);
         $result = $instance->getErrorMessage();
-        $this->assertTrue(is_array($result));
-        $this->assertTrue(in_array($error,$result));
+        $this->assertInternalType('array', $result);
+        $this->assertTrue(in_array($error, $result));
     }
 
     public function testSetValue()
@@ -68,14 +68,14 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
         $instance = $this->object;
 
         $result = $instance->getValue();
-        $this->assertTrue(is_null($result));
+        $this->assertTrue(null === $result);
 
         $value = 'value';
         $result = $instance->setValue($value);
         $this->assertSame($instance, $result);
 
         $result = $instance->getValue();
-        $this->assertSame($value,$result);
+        $this->assertSame($value, $result);
     }
 
     public function testSetSuccess()
@@ -106,14 +106,14 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
         $result = $instance->addErrorMessage($error1);
         $this->assertSame($instance, $result);
 
-        $data = array('error2','error3');
+        $data = ['error2', 'error3'];
         $result = $instance->addErrorMessage($data);
 
         $result = $instance->getErrorMessage();
-        $this->assertTrue(is_array($result));
-        $this->assertTrue(in_array($error,$result));
-        $this->assertTrue(in_array($error1,$result));
-        $this->assertTrue(in_array('error2',$result));
-        $this->assertTrue(in_array('error3',$result));
+        $this->assertInternalType('array', $result);
+        $this->assertTrue(in_array($error, $result));
+        $this->assertTrue(in_array($error1, $result));
+        $this->assertTrue(in_array('error2', $result));
+        $this->assertTrue(in_array('error3', $result));
     }
 }

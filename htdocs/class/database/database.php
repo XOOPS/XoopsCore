@@ -48,13 +48,12 @@ abstract class XoopsDatabase
      */
     public $allowWebChanges = false;
 
-
     /**
      * set the prefix for tables in the database
      *
      * @param string $value table prefix
      *
-     * @return this does not return a value
+     * @return $this does not return a value
      * @deprecated since version 2.6.0 - alpha 3. Switch to doctrine connector.
      */
     public function setPrefix($value)
@@ -75,12 +74,11 @@ abstract class XoopsDatabase
      */
     public function prefix($tablename = '')
     {
-
-        if ($tablename != '') {
+        if ('' != $tablename) {
             return $this->prefix . '_' . $tablename;
-        } else {
-            return $this->prefix;
         }
+
+        return $this->prefix;
     }
 
     /**
@@ -91,7 +89,6 @@ abstract class XoopsDatabase
      * @return bool successful?
      * @deprecated since version 2.6.0 - alpha 3. Switch to doctrine connector.
      * @abstract
-     *
      */
     abstract public function connect($selectdb = true);
 

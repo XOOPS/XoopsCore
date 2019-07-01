@@ -9,14 +9,14 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Doctrine\DBAL\FetchMode;
 use Xoops\Core\Database\Connection;
 use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\Kernel\CriteriaCompo;
 use Xoops\Core\Kernel\CriteriaElement;
+use Xoops\Core\Kernel\Handlers\XoopsUser;
 use Xoops\Core\Kernel\XoopsObject;
 use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
-use Xoops\Core\Kernel\Handlers\XoopsUser;
-use Doctrine\DBAL\FetchMode;
 
 /**
  * A Notification
@@ -90,7 +90,7 @@ class NotificationsNotification extends XoopsObject
             case NOTIFICATIONS_METHOD_EMAIL:
                 $xoopsMailer->useMail();
                 foreach ($tags as $k => $v) {
-                    $xoopsMailer->assign($k, preg_replace("/&amp;/i", '&', $v));
+                    $xoopsMailer->assign($k, preg_replace('/&amp;/i', '&', $v));
                 }
                 break;
             default:
@@ -112,15 +112,17 @@ class NotificationsNotification extends XoopsObject
         // If send-once-then-wait, disable notification
         $notification_handler = $helper->getHandlerNotification();
 
-        if ($this->getVar('mode') == NOTIFICATIONS_MODE_SENDONCETHENDELETE) {
+        if (NOTIFICATIONS_MODE_SENDONCETHENDELETE == $this->getVar('mode')) {
             $notification_handler->delete($this);
+
             return $success;
         }
 
-        if ($this->getVar('mode') == NOTIFICATIONS_MODE_SENDONCETHENWAIT) {
+        if (NOTIFICATIONS_MODE_SENDONCETHENWAIT == $this->getVar('mode')) {
             $this->setVar('mode', NOTIFICATIONS_MODE_WAITFORLOGIN);
             $notification_handler->insert($this);
         }
+
         return $success;
     }
 }
@@ -163,7 +165,7 @@ class NotificationsNotificationHandler extends XoopsPersistableObjectHandler
             $criteria->renderQb($qb);
         }
         $result = $qb->execute();
-        $ret = array();
+        $ret = [];
         if (!$result) {
             return $ret;
         }
@@ -177,6 +179,7 @@ class NotificationsNotificationHandler extends XoopsPersistableObjectHandler
             }
             unset($notification);
         }
+
         return $ret;
     }
 
@@ -203,10 +206,11 @@ class NotificationsNotificationHandler extends XoopsPersistableObjectHandler
         $criteria->add(new Criteria('event', $event));
         $criteria->add(new Criteria('uid', (int)($user_id)));
         $objects = $this->getObjectsArray($criteria);
-        if (count($objects) == 1) {
+        if (1 == count($objects)) {
             return $objects[0];
         }
         $inst = false;
+
         return $inst;
     }
 
@@ -230,6 +234,7 @@ class NotificationsNotificationHandler extends XoopsPersistableObjectHandler
         $criteria->add(new Criteria('itemid', (int)($item_id)));
         $criteria->add(new Criteria('event', $event));
         $criteria->add(new Criteria('uid', (int)($user_id)));
+
         return $this->getCount($criteria);
     }
 
@@ -256,9 +261,8 @@ class NotificationsNotificationHandler extends XoopsPersistableObjectHandler
         if (!isset($user_id)) {
             if (!$xoops->isUser()) {
                 return false; // anonymous cannot subscribe
-            } else {
-                $user_id = $xoops->user->getVar('uid');
             }
+            $user_id = $xoops->user->getVar('uid');
         }
 
         if (!isset($module_id)) {
@@ -272,7 +276,7 @@ class NotificationsNotificationHandler extends XoopsPersistableObjectHandler
         }
 
         if (!is_array($events)) {
-            $events = array($events);
+            $events = [$events];
         }
         foreach ($events as $event) {
             if ($notification = $this->getNotification($module_id, $category, $item_id, $event, $user_id)) {
@@ -290,6 +294,7 @@ class NotificationsNotificationHandler extends XoopsPersistableObjectHandler
                 $this->insert($notification);
             }
         }
+
         return true;
     }
 
@@ -308,6 +313,7 @@ class NotificationsNotificationHandler extends XoopsPersistableObjectHandler
     public function getByUser($user_id)
     {
         $criteria = new Criteria('uid', $user_id);
+
         return $this->getObjectsArray($criteria, true);
     }
 
@@ -333,11 +339,12 @@ class NotificationsNotificationHandler extends XoopsPersistableObjectHandler
         }
         $criteria->add(new Criteria('uid', (int)($user_id)));
         $results = $this->getObjectsArray($criteria, true);
-        $ret = array();
+        $ret = [];
         /* @var NotificationsNotification $result*/
         foreach ($results as $result) {
             $ret[] = $result->getVar('event');
         }
+
         return $ret;
     }
 
@@ -363,6 +370,7 @@ class NotificationsNotificationHandler extends XoopsPersistableObjectHandler
         if (isset($order)) {
             $criteria->setOrder($order);
         }
+
         return $this->getObjectsArray($criteria);
     }
 
@@ -392,13 +400,13 @@ class NotificationsNotificationHandler extends XoopsPersistableObjectHandler
         $category,
         $item_id,
         $events,
-        $extra_tags = array(),
-        $user_list = array(),
+        $extra_tags = [],
+        $user_list = [],
         $module_id = null,
         $omit_user_id = null
     ) {
         if (!is_array($events)) {
-            $events = array($events);
+            $events = [$events];
         }
         foreach ($events as $event) {
             $this->triggerEvent($category, $item_id, $event, $extra_tags, $user_list, $module_id, $omit_user_id);
@@ -422,8 +430,8 @@ class NotificationsNotificationHandler extends XoopsPersistableObjectHandler
         $category,
         $item_id,
         $event,
-        $extra_tags = array(),
-        $user_list = array(),
+        $extra_tags = [],
+        $user_list = [],
         $module_id = null,
         $omit_user_id = null
     ) {
@@ -512,6 +520,7 @@ class NotificationsNotificationHandler extends XoopsPersistableObjectHandler
                 $notification->notifyUser($template_dir, $template, $subject, $tags);
             }
         }
+
         return true;
     }
 
@@ -525,6 +534,7 @@ class NotificationsNotificationHandler extends XoopsPersistableObjectHandler
     public function unsubscribeByUser($user_id)
     {
         $criteria = new Criteria('uid', (int)($user_id));
+
         return $this->deleteAll($criteria);
     }
 
@@ -547,9 +557,8 @@ class NotificationsNotificationHandler extends XoopsPersistableObjectHandler
         if (!isset($user_id)) {
             if (!$xoops->isUser()) {
                 return false; // anonymous cannot subscribe
-            } else {
-                $user_id = $xoops->user->getVar('uid');
             }
+            $user_id = $xoops->user->getVar('uid');
         }
         if (!isset($module_id)) {
             $module_id = $xoops->module->getVar('mid');
@@ -560,13 +569,14 @@ class NotificationsNotificationHandler extends XoopsPersistableObjectHandler
         $criteria->add(new Criteria('itemid', (int)($item_id)));
         $criteria->add(new Criteria('uid', (int)($user_id)));
         if (!is_array($events)) {
-            $events = array($events);
+            $events = [$events];
         }
         $event_criteria = new CriteriaCompo();
         foreach ($events as $event) {
             $event_criteria->add(new Criteria('event', $event), 'OR');
         }
         $criteria->add($event_criteria);
+
         return $this->deleteAll($criteria);
     }
 
@@ -582,6 +592,7 @@ class NotificationsNotificationHandler extends XoopsPersistableObjectHandler
     public function unsubscribeByModule($module_id)
     {
         $criteria = new Criteria('modid', (int)($module_id));
+
         return $this->deleteAll($criteria);
     }
 
@@ -600,6 +611,7 @@ class NotificationsNotificationHandler extends XoopsPersistableObjectHandler
         $criteria->add(new Criteria('modid', (int)($module_id)));
         $criteria->add(new Criteria('category', $category));
         $criteria->add(new Criteria('itemid', (int)($item_id)));
+
         return $this->deleteAll($criteria);
     }
 
@@ -640,6 +652,7 @@ class NotificationsNotificationHandler extends XoopsPersistableObjectHandler
     {
         $notification->unsetNew();
         $notification->setVar($field_name, $field_value);
+
         return $this->insert($notification);
     }
 }

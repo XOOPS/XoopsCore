@@ -9,8 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+use Punic\Territory;
 use Xmf\Request;
-use \Punic\Territory;
 
 /**
  * @author    Richard Griffith <richard@geekwright.com>
@@ -18,7 +18,6 @@ use \Punic\Territory;
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  */
-
 include dirname(dirname(__DIR__)) . '/mainfile.php';
 
 $xoops = Xoops::getInstance();

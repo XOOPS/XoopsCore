@@ -7,7 +7,6 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
-
 use Xoops\Core\Database\Connection;
 
 /**
@@ -53,6 +52,10 @@ abstract class XoopsPersistableObjectHandler extends Xoops\Core\Kernel\XoopsPers
      * this is a legacy compatibility shim to make the legacy database available
      *
      * @param Connection $db reference to the {@link Connection} object
+     * @param mixed $table
+     * @param mixed $className
+     * @param mixed $keyName
+     * @param mixed $identifierName
      */
     protected function __construct(
         Connection $db = null,
@@ -61,7 +64,7 @@ abstract class XoopsPersistableObjectHandler extends Xoops\Core\Kernel\XoopsPers
         $keyName = '',
         $identifierName = ''
     ) {
-        if ($db===null) {
+        if (null === $db) {
             $this->db2 = \Xoops\Core\Database\Factory::getConnection();
             $db = $this->db2;
         }

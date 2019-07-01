@@ -16,7 +16,6 @@
  */
 class SystemUsermenuPlugin implements UsermenuPluginInterface
 {
-
     /**
      * @return array
      */
@@ -24,7 +23,7 @@ class SystemUsermenuPlugin implements UsermenuPluginInterface
     {
         $xoops = \Xoops::getInstance();
         $xoops->loadLocale('system');
-        $ret = array();
+        $ret = [];
         if (!$xoops->isActiveModule('profile')) {
             // View Account
             $ret[] = [
@@ -55,7 +54,7 @@ class SystemUsermenuPlugin implements UsermenuPluginInterface
             $criteria = new CriteriaCompo(new Criteria('read_msg', 0));
             $criteria->add(new Criteria('to_userid', $xoops->user->getVar('uid')));
             $pm_handler = $xoops->getHandlerPrivateMessage();
-            $xoops->events()->triggerEvent('system.blocks.system_blocks.usershow', array(&$pm_handler));
+            $xoops->events()->triggerEvent('system.blocks.system_blocks.usershow', [&$pm_handler]);
 
             $name = XoopsLocale::INBOX;
             if ($pm_count = $pm_handler->getCount($criteria)) {

@@ -22,60 +22,60 @@
  * @author      trabis <lusopoemas@gmail.com>
  * @version     $Id$
  */
-
 class upgrade_240a extends xoopsUpgrade
 {
-    var $tasks = array('config', 'configoption');
+    public $tasks = ['config', 'configoption'];
 
     /**
      * Check if cpanel config already exists
-
      */
-    function check_config()
+    public function check_config()
     {
         $xoops = Xoops::getInstance();
         $db = $xoops->db();
-        $sql = "SELECT COUNT(*) FROM `" . $db->prefix('config') . "` WHERE `conf_name` IN ('systemkey', 'soap_xoops_username', 'soap_xoops_password', 'soap_soapclient', 'soap_wdsl', 'soap_keepclient', 'soap_filterperson', 'soap_proxyhost', 'soap_proxyport', 'soap_proxyusername', 'soap_proxypassword', 'soap_timeout', 'soap_responsetimeout', 'soap_fieldmapping', 'soap_provisionning', 'soap_provisionning_group')";
+        $sql = 'SELECT COUNT(*) FROM `' . $db->prefix('config') . "` WHERE `conf_name` IN ('systemkey', 'soap_xoops_username', 'soap_xoops_password', 'soap_soapclient', 'soap_wdsl', 'soap_keepclient', 'soap_filterperson', 'soap_proxyhost', 'soap_proxyport', 'soap_proxyusername', 'soap_proxypassword', 'soap_timeout', 'soap_responsetimeout', 'soap_fieldmapping', 'soap_provisionning', 'soap_provisionning_group')";
         if (!$result = $db->queryF($sql)) {
             return false;
         }
         list($count) = $db->fetchRow($result);
+
         return ($count > 0) ? false : true;
     }
 
-    function check_configoption()
+    public function check_configoption()
     {
         $xoops = Xoops::getInstance();
         $db = $xoops->db();
-        $sql = "SELECT COUNT(*) FROM `" . $db->prefix('configoption') . "` WHERE `confop_name` IN ('_MD_AM_AUTH_CONFOPTION_SOAP')";
+        $sql = 'SELECT COUNT(*) FROM `' . $db->prefix('configoption') . "` WHERE `confop_name` IN ('_MD_AM_AUTH_CONFOPTION_SOAP')";
         if (!$result = $db->queryF($sql)) {
             return false;
         }
         list($count) = $db->fetchRow($result);
-        return ($count == 1) ? false : true;
+
+        return (1 == $count) ? false : true;
     }
 
-    function apply_config()
+    public function apply_config()
     {
         $xoops = Xoops::getInstance();
         $db = $xoops->db();
-        $configs = array(
+        $configs = [
             'systemkey', 'soap_xoops_username', 'soap_xoops_password', 'soap_soapclient', 'soap_wdsl',
             'soap_keepclient', 'soap_filterperson', 'soap_proxyhost', 'soap_proxyport', 'soap_proxyusername',
             'soap_proxypassword', 'soap_timeout', 'soap_responsetimeout', 'soap_fieldmapping', 'soap_provisionning',
-            'soap_provisionning_group'
-        );
+            'soap_provisionning_group',
+        ];
         foreach ($configs as $config) {
             $config_installed = false;
-            $sql = "SELECT COUNT(*) FROM " . $db->prefix('config') . " WHERE `conf_name` = '{$config}' AND `conf_modid` = 0";
+            $sql = 'SELECT COUNT(*) FROM ' . $db->prefix('config') . " WHERE `conf_name` = '{$config}' AND `conf_modid` = 0";
             if ($result = $db->queryF($sql)) {
                 list($count) = $db->fetchRow($result);
-                if ($count == 1) {
+                if (1 == $count) {
                     $config_installed = true;
                 }
             }
             if ($config_installed) {
-                $sql = "DELETE FROM " . $db->prefix('config') . " WHERE `conf_name` = '{$config}' AND `conf_modid` = 0";
+                $sql = 'DELETE FROM ' . $db->prefix('config') . " WHERE `conf_name` = '{$config}' AND `conf_modid` = 0";
                 if (!$db->queryF($sql)) {
                     return false;
                 }
@@ -85,21 +85,21 @@ class upgrade_240a extends xoopsUpgrade
         return true;
     }
 
-    function apply_configoption()
+    public function apply_configoption()
     {
         $xoops = Xoops::getInstance();
         $db = $xoops->db();
         $configoption_installed = false;
-        $sql = "SELECT COUNT(*) FROM `" . $db->prefix('configoption') . "`" . " WHERE `confop_name` = '_MD_AM_AUTH_CONFOPTION_SOAP' AND `confop_value` = 'soap'";
+        $sql = 'SELECT COUNT(*) FROM `' . $db->prefix('configoption') . '`' . " WHERE `confop_name` = '_MD_AM_AUTH_CONFOPTION_SOAP' AND `confop_value` = 'soap'";
         if ($result = $db->queryF($sql)) {
             list($count) = $db->fetchRow($result);
-            if ($count == 1) {
+            if (1 == $count) {
                 $configoption_installed = true;
             }
         }
 
         if ($configoption_installed) {
-            $sql = "DELETE FROM " . $db->prefix('configoption') . " WHERE `confop_name` = '_MD_AM_AUTH_CONFOPTION_SOAP' AND `confop_value` = 'soap'";
+            $sql = 'DELETE FROM ' . $db->prefix('configoption') . " WHERE `confop_name` = '_MD_AM_AUTH_CONFOPTION_SOAP' AND `confop_value` = 'soap'";
             if (!$db->queryF($sql)) {
                 return false;
             }
@@ -108,11 +108,12 @@ class upgrade_240a extends xoopsUpgrade
         return true;
     }
 
-    function upgrade_240a()
+    public function upgrade_240a()
     {
         $this->xoopsUpgrade(basename(dirname(__FILE__)));
     }
 }
 
 $upg = new upgrade_240a();
+
 return $upg;

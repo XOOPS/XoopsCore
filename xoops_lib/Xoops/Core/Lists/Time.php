@@ -34,18 +34,18 @@ class Time extends ListAbstract
      */
     public static function getList($interval = 15, $start = 0, $end = 86400)
     {
-        $timeList = array();
+        $timeList = [];
         $tz = new \DateTimeZone('UTC');
 
         $start = (int) $start;
         $end = (int) $end;
-        if (abs($end-$start) > 86400) {
+        if (abs($end - $start) > 86400) {
             $start = 0;
             $end = 86400;
         }
-        $end = ($end <= 86400 && $end > 0) ?  $end : 86400;
+        $end = ($end <= 86400 && $end > 0) ? $end : 86400;
 
-        $interval = ((int) $interval !== 0) ? 60 * $interval : 60*15;
+        $interval = (0 !== (int) $interval) ? 60 * $interval : 60 * 15;
 
         for ($t = $start; $t < $end; $t += $interval) {
             //$formatted = Calendar::formatTimeEx($t, 'short', $tz);

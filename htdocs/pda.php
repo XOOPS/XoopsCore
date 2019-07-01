@@ -18,29 +18,28 @@
  * @since           2.0.0
  * @version         $Id$
  */
-
 include __DIR__ . '/mainfile.php';
 $xoops_url = \XoopsBaseConfig::get('url');
 
-header("Content-Type: text/html");
-echo "<html><head><title>" . htmlspecialchars($xoops->getConfig('sitename')) . "</title>
+header('Content-Type: text/html');
+echo '<html><head><title>' . htmlspecialchars($xoops->getConfig('sitename')) . "</title>
       <meta name='HandheldFriendly' content='True' />
       <meta name='PalmComputingPlatform' content='True' />
       </head>
       <body>";
 
-$sql = "SELECT storyid, title FROM " . $xoopsDB->prefix("stories") . " WHERE published>0 AND published<" . time() . " ORDER BY published DESC";
+$sql = 'SELECT storyid, title FROM ' . $xoopsDB->prefix('stories') . ' WHERE published>0 AND published<' . time() . ' ORDER BY published DESC';
 $result = $xoopsDB->query($sql, 10, 0);
 //TODO Remove this hardcoded string
 if (!$result) {
-    echo "An error occured";
+    echo 'An error occured';
 } else {
     echo "<img src='images/logo.gif' alt='" . htmlspecialchars($xoops->getConfig('sitename'), ENT_QUOTES) . "' border='0' /><br />";
-    echo "<h2>" . htmlspecialchars($xoops->getConfig('slogan')) . "</h2>";
-    echo "<div>";
-    while (false !== (list ($storyid, $title) = $xoopsDB->fetchRow($result))) {
-        echo "<a href='" . $xoops_url . "/modules/news/print.php?storyid={$storyid}'>" . htmlspecialchars($title) . "</a><br />";
+    echo '<h2>' . htmlspecialchars($xoops->getConfig('slogan')) . '</h2>';
+    echo '<div>';
+    while (false !== (list($storyid, $title) = $xoopsDB->fetchRow($result))) {
+        echo "<a href='" . $xoops_url . "/modules/news/print.php?storyid={$storyid}'>" . htmlspecialchars($title) . '</a><br />';
     }
-    echo "</div>";
+    echo '</div>';
 }
-echo "</body></html>";
+echo '</body></html>';

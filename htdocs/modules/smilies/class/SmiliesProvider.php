@@ -52,8 +52,6 @@ class SmiliesProvider extends AbstractContract implements EmojiInterface
      *
      * @param Response $response \Xoops\Core\Service\Response object
      * @param string   $buffer   source text to be processed
-     *
-     * @return void - $response->value set to processed buffer
      */
     public function renderEmoji(Response $response, $buffer)
     {
@@ -70,11 +68,6 @@ class SmiliesProvider extends AbstractContract implements EmojiInterface
      * getEmojiList - return a list of available emoji
      *
      * @param Response $response \Xoops\Core\Service\Response object
-     *
-     * @return void - $response->value set to array of emoji information
-     *                    'name'        => (string) code that represents the emoji, i.e. ":wink:"
-     *                    'description' => (string) description
-     *                    'rendered'    => (string) valid HTML to display a rendering of the emoji
      */
     public function getEmojiList(Response $response)
     {
@@ -90,12 +83,10 @@ class SmiliesProvider extends AbstractContract implements EmojiInterface
      *
      * @param Response $response   \Xoops\Core\Service\Response object
      * @param string   $identifier element identifier to receive emoji from selector
-     *
-     * @return void - $response->value (string) HTML code to launch the emoji selector, i.e. button
      */
     public function renderEmojiSelector(Response $response, $identifier)
     {
-        $selector =  '<button type="button" class="btn btn-default btn-sm" alt="'
+        $selector = '<button type="button" class="btn btn-default btn-sm" alt="'
             . \XoopsLocale::SMILIES . '" title="' . \XoopsLocale::SMILIES . '" onclick=\'openWithSelfMain("'
             . \XoopsBaseConfig::get('url') . '/modules/smilies/include/popup.php?target=' . $identifier
             . '","smilies",300,650);\' onmouseover=\'style.cursor="hand"\'>'
@@ -113,7 +104,7 @@ class SmiliesProvider extends AbstractContract implements EmojiInterface
     {
         static $emojiList = null;
 
-        if ($emojiList === null) {
+        if (null === $emojiList) {
             $smiliesArray = \Xoops::getInstance()->getModuleHandler('smiley', 'smilies')->getActiveSmilies(false);
             $emojiList = [];
             foreach ($smiliesArray as $smile) {
@@ -124,6 +115,7 @@ class SmiliesProvider extends AbstractContract implements EmojiInterface
                 $emojiList[] = $emoji;
             }
         }
+
         return $emojiList;
     }
 }

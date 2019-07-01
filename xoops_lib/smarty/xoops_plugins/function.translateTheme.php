@@ -14,11 +14,13 @@
  * @license     GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
+ * @param mixed $params
+ * @param mixed $smarty
  */
-
 function smarty_function_translateTheme($params, &$smarty)
 {
     $key = isset($params['key']) ? $params['key'] : '';
     $dirname = isset($params['dirname']) ? $params['dirname'] : '';
+
     return \Xoops\Locale::translateTheme($key, $dirname);
 }

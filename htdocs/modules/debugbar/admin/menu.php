@@ -15,23 +15,22 @@
  * @package      debugbar
  * @author       XOOPS Development Team
  */
+$adminmenu = [];
 
-$adminmenu=array();
+$adminmenu[] = [
+    'title' => _MI_DEBUGBAR_ADMENU1 ,
+    'link' => 'admin/index.php' ,
+    'icon' => 'home.png',
+];
 
-$adminmenu[] = array(
-    'title'	=> _MI_DEBUGBAR_ADMENU1 ,
-    'link'	=> 'admin/index.php' ,
-    'icon'	=> 'home.png'
-) ;
+$adminmenu[] = [
+    'title' => _MI_DEBUGBAR_ADMENU2 ,
+    'link' => 'admin/about.php' ,
+    'icon' => 'about.png',
+];
 
-$adminmenu[] = array(
-    'title'	=> _MI_DEBUGBAR_ADMENU2 ,
-    'link'	=> 'admin/about.php' ,
-    'icon'	=> 'about.png'
-) ;
-
-$adminmenu[] = array(
-    'title'	=> _MI_DEBUGBAR_ADMENU3 ,
-    'link'	=> 'admin/permissions.php' ,
-    'icon'	=> 'permissions.png'
-) ;
+$adminmenu[] = [
+    'title' => _MI_DEBUGBAR_ADMENU3 ,
+    'link' => 'admin/permissions.php' ,
+    'icon' => 'permissions.png',
+];

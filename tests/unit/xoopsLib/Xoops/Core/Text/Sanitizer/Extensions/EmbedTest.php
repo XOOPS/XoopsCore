@@ -1,9 +1,10 @@
 <?php
+
 namespace Xoops\Core\Text\Sanitizer\Extensions;
 
 use Xoops\Core\Text\Sanitizer;
 
-require_once __DIR__.'/../../../../../../init_new.php';
+require_once __DIR__ . '/../../../../../../init_new.php';
 
 class EmbedTest extends \PHPUnit\Framework\TestCase
 {
@@ -48,18 +49,18 @@ class EmbedTest extends \PHPUnit\Framework\TestCase
         \Xoops::getInstance()->cache()->delete('embed');
         $in = 'https://xoops.org';
         $value = $this->sanitizer->executeFilter('embed', $in);
-        $this->assertTrue(is_string($value));
-        if (false === strpos($value, '<div class="media">')) {
+        $this->assertInternalType('string', $value);
+        if (false === mb_strpos($value, '<div class="media">')) {
             echo 'embed return: ' , $value; // this has failed, but what is it doing?
         }
-        $this->assertNotFalse(strpos($value, '<div class="media">'));
-        $this->assertNotFalse(strpos($value, 'href="https://xoops.org/"'));
+        $this->assertNotFalse(mb_strpos($value, '<div class="media">'));
+        $this->assertNotFalse(mb_strpos($value, 'href="https://xoops.org/"'));
 
         $in = 'https://www.youtube.com/watch?v=S7znI_Kpzbs';
 //        <iframe width="480" height="270" src="https://www.youtube.com/embed/-vBqazs3j3A?feature=oembed" frameborder="0" allowfullscreen></iframe>
         $value = $this->sanitizer->executeFilter('embed', $in);
-        $this->assertTrue(is_string($value));
-        $this->assertNotFalse(strpos($value, '<iframe '));
-        $this->assertNotFalse(strpos($value, 'src="https://www.youtube.com/embed/'));
+        $this->assertInternalType('string', $value);
+        $this->assertNotFalse(mb_strpos($value, '<iframe '));
+        $this->assertNotFalse(mb_strpos($value, 'src="https://www.youtube.com/embed/'));
     }
 }

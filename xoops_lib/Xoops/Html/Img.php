@@ -9,7 +9,6 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
-
 namespace Xoops\Html;
 
 /**
@@ -29,7 +28,7 @@ class Img extends Attributes
      *
      * @param array $attributes array of attribute name => value pairs for img tag
      */
-    public function __construct($attributes = array())
+    public function __construct($attributes = [])
     {
         parent::__construct($attributes);
     }

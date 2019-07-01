@@ -27,11 +27,11 @@
  * @deprecated since 2.6.0
  *
  */
-class XoopsLogger
+class xoopslogger
 {
     /**
      * getInstance - get only instance of this class
-     * 
+     *
      * @return object XoopsLogger
      * @deprecated
      */
@@ -42,12 +42,13 @@ class XoopsLogger
             $class = __CLASS__;
             $instance = new $class();
         }
+
         return $instance;
     }
 
     /**
      * deprecatedWarning - centralized warning for all methods
-     * 
+     *
      * @return void
      */
     private function deprecatedWarning()
@@ -57,7 +58,7 @@ class XoopsLogger
 
     /**
      * magic set method
-     * 
+     *
      * @param string $var does nothing
      * @param mixed  $val does nothing
      *
@@ -84,7 +85,7 @@ class XoopsLogger
 
     /**
      * magic call method
-     * 
+     *
      * @param string $method does nothing
      * @param mixed  $args   does nothing
      *

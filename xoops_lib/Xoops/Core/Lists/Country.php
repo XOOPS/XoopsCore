@@ -11,7 +11,7 @@
 
 namespace Xoops\Core\Lists;
 
-use \Punic\Territory;
+use Punic\Territory;
 use Xoops\Form\OptionElement;
 
 /**
@@ -35,19 +35,19 @@ class Country extends ListAbstract
     {
         $countryList = Territory::getCountries();
         \XoopsLocale::asort($countryList);
+
         return $countryList;
     }
 
     /**
      * add list to a Xoops\Form\OptionElement
      *
-     * @param OptionElement $element
      *
      * @return void
      */
     public static function setOptionsArray(OptionElement $element)
     {
-        $element->addOptionArray([""   => "-"]);
+        $element->addOptionArray(['' => '-']);
         parent::setOptionsArray($element);
     }
 }

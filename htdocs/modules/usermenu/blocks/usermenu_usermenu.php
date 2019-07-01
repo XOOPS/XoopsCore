@@ -28,12 +28,11 @@ function b_usermenu_usermenu_show()
         return false;
     }
 
-    $block = array();
-    $block['usermenu'] = array();
+    $block = [];
+    $block['usermenu'] = [];
     $plugins = Plugin::getPlugins('usermenu');
     /* @var $plugin UsermenuPluginInterface */
     foreach ($plugins as $dirName => $plugin) {
-
         $helper = \Xoops::getModuleHelper($dirName);
 
         if (is_array($results = $plugin->usermenu())) {
@@ -51,7 +50,7 @@ function b_usermenu_usermenu_show()
                     if ($helper->isCurrentModule() && isset($res['subMenu']) && is_array($res['subMenu'])) {
                         foreach ($res['subMenu'] as  $key => $subMenu) {
                             if (isset($subMenu['name']) && isset($subMenu['link'])) {
-                                $subMenu['icon'] = isset($subMenu['icon']) ? $subMenu['icon'] :'glyphicon-menu-right';
+                                $subMenu['icon'] = isset($subMenu['icon']) ? $subMenu['icon'] : 'glyphicon-menu-right';
                                 $res['subMenu'][$key] = $subMenu;
                             }
                         }
@@ -61,7 +60,7 @@ function b_usermenu_usermenu_show()
 
                     //Handle active
                     $activeUrl = \Xoops\Core\HttpRequest::getInstance()->getUrl();
-                    $res['isActive'] = strpos($activeUrl, $res['link']) === 0;
+                    $res['isActive'] = 0 === mb_strpos($activeUrl, $res['link']);
 
                     $res['dirName'] = $dirName;
                     $block['usermenu'][] = $res;
@@ -70,5 +69,6 @@ function b_usermenu_usermenu_show()
         }
     }
     $block['count'] = count($block['usermenu']);
+
     return $block['count'] ? $block : false;
 }

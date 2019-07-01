@@ -17,7 +17,6 @@
  * @author          Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
  * @version         $Id$
  */
-
 use Xoops\Core\Database\Connection;
 use Xoops\Core\Kernel\XoopsObject;
 use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
@@ -30,7 +29,6 @@ use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
  */
 class CommentsComment extends XoopsObject
 {
-
     /**
      * Constructor
      **/
@@ -111,6 +109,7 @@ class CommentsCommentHandler extends XoopsPersistableObjectHandler
             $criteria->setLimit($limit);
             $criteria->setStart($start);
         }
+
         return $this->getObjects($criteria);
     }
 
@@ -121,7 +120,7 @@ class CommentsCommentHandler extends XoopsPersistableObjectHandler
      * @param   int     $item_id    Item ID
      * @param   int     $status     Status of the comment
      *
-     * @return  integer   Array of {@link CommentsComment} objects
+     * @return  int   Array of {@link CommentsComment} objects
      **/
     public function getCountByItemId($module_id, $item_id, $status = null)
     {
@@ -130,6 +129,7 @@ class CommentsCommentHandler extends XoopsPersistableObjectHandler
         if (isset($status)) {
             $criteria->add(new Criteria('status', (int)($status)));
         }
+
         return $this->getCount($criteria);
     }
 
@@ -144,6 +144,7 @@ class CommentsCommentHandler extends XoopsPersistableObjectHandler
         if (isset($item_id)) {
             $criteria->add(new Criteria('itemid', (int)($item_id)));
         }
+
         return $this->getCount($criteria);
     }
 
@@ -166,6 +167,7 @@ class CommentsCommentHandler extends XoopsPersistableObjectHandler
             $criteria->add(new Criteria('status', (int)($status)));
         }
         $criteria->setOrder($order);
+
         return $this->getObjects($criteria);
     }
 
@@ -185,6 +187,7 @@ class CommentsCommentHandler extends XoopsPersistableObjectHandler
         if (isset($status)) {
             $criteria->add(new Criteria('status', (int)($status)));
         }
+
         return $this->getObjects($criteria);
     }
 
@@ -201,6 +204,7 @@ class CommentsCommentHandler extends XoopsPersistableObjectHandler
     {
         $comment->unsetNew();
         $comment->setVar($field_name, $field_value);
+
         return $this->insert($comment);
     }
 
@@ -220,7 +224,7 @@ class CommentsCommentHandler extends XoopsPersistableObjectHandler
      * @param int $item_id
      * @return bool
      */
-    function deleteByItemId($module_id, $item_id)
+    public function deleteByItemId($module_id, $item_id)
     {
         $module_id = (int)($module_id);
         $item_id = (int)($item_id);
@@ -228,12 +232,12 @@ class CommentsCommentHandler extends XoopsPersistableObjectHandler
             $comments = $this->getByItemId($module_id, $item_id);
             if (is_array($comments)) {
                 $count = count($comments);
-                $deleted_num = array();
+                $deleted_num = [];
                 for ($i = 0; $i < $count; ++$i) {
                     if (false != $this->delete($comments[$i])) {
                         // store poster ID and deleted post number into array for later use
                         $poster_id = $comments[$i]->getVar('uid');
-                        if ($poster_id != 0) {
+                        if (0 != $poster_id) {
                             $deleted_num[$poster_id] = !isset($deleted_num[$poster_id]) ? 1
                                 : ($deleted_num[$poster_id] + 1);
                         }
@@ -249,9 +253,11 @@ class CommentsCommentHandler extends XoopsPersistableObjectHandler
                         $member_handler->updateUserByField($poster, 'posts', $poster->getVar('posts') - $post_num);
                     }
                 }
+
                 return true;
             }
         }
+
         return false;
     }
 }

@@ -11,8 +11,8 @@
 
 namespace Xoops\Core\Kernel\Dtype;
 
-use Xoops\Core\Kernel\XoopsObject;
 use Xoops\Core\Kernel\Dtype;
+use Xoops\Core\Kernel\XoopsObject;
 
 /**
  * DtypeJson
@@ -38,7 +38,7 @@ class DtypeJson extends DtypeAbstract
     public function getVar(XoopsObject $obj, $key, $format)
     {
         $value = $obj->vars[$key]['value'];
-        switch (strtolower($format)) {
+        switch (mb_strtolower($format)) {
             case Dtype::FORMAT_NONE:
             case 'n':
                 break;
@@ -47,6 +47,7 @@ class DtypeJson extends DtypeAbstract
                 $value = (false === $decoded) ? null : $decoded;
                 break;
         }
+
         return $value;
     }
 
@@ -61,16 +62,17 @@ class DtypeJson extends DtypeAbstract
     public function cleanVar(XoopsObject $obj, $key)
     {
         $value = $obj->vars[$key]['value'];
-        $value = ($value===null || $value==='' || $value===false) ? null : $value;
-        if ($value!==null && null === json_decode($value, true)) {
+        $value = (null === $value || '' === $value || false === $value) ? null : $value;
+        if (null !== $value && null === json_decode($value, true)) {
             $value = json_encode($value, JSON_FORCE_OBJECT);
-            if ($value===false) {
+            if (false === $value) {
                 \Xoops::getInstance()->logger()->warning(
                     sprintf('Failed to encode to JSON - %s', json_last_error_msg())
                 );
                 $value = null;
             }
         }
+
         return $value;
     }
 }

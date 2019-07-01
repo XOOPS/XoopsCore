@@ -1,9 +1,8 @@
 <?php
+
 namespace Xoops\Core\Handler;
 
 use Xoops\Core\Database\Connection;
-use Xoops\Core\Exception\InvalidHandlerSpecException;
-use Xoops\Core\Exception\NoHandlerException;
 
 require_once __DIR__ . '/../../../../init_new.php';
 
@@ -51,8 +50,6 @@ class FactoryTest extends \PHPUnit\Framework\TestCase
 
         $handler = $this->object->create('avatar', 'avatars');
         $this->assertInstanceOf('\AvatarsAvatarHandler', $handler);
-
-
     }
 
     public function testRegisterScheme()

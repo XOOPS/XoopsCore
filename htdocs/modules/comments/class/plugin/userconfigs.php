@@ -15,10 +15,8 @@
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
-
 class CommentsUserconfigsPlugin extends Xoops\Module\Plugin\PluginAbstract implements UserconfigsPluginInterface
 {
-
     /**
      * Expects an array of arrays containing:
      *
@@ -29,7 +27,7 @@ class CommentsUserconfigsPlugin extends Xoops\Module\Plugin\PluginAbstract imple
      */
     public function categories()
     {
-        return array();
+        return [];
     }
 
     /**
@@ -51,7 +49,7 @@ class CommentsUserconfigsPlugin extends Xoops\Module\Plugin\PluginAbstract imple
         $configs[$i]['description'] = '_MI_COMMENTS_MODEDSC';
         $configs[$i]['formtype'] = 'select';
         $configs[$i]['valuetype'] = 'text';
-        $configs[$i]['options'] = array('XoopsLocale::NESTED' => 'nest', 'XoopsLocale::FLAT' => 'flat', 'XoopsLocale::THREADED' => 'thread');
+        $configs[$i]['options'] = ['XoopsLocale::NESTED' => 'nest', 'XoopsLocale::FLAT' => 'flat', 'XoopsLocale::THREADED' => 'thread'];
         $configs[$i]['default'] = 'flat';
 
         ++$i;
@@ -60,8 +58,9 @@ class CommentsUserconfigsPlugin extends Xoops\Module\Plugin\PluginAbstract imple
         $configs[$i]['description'] = '_MI_COMMENTS_ORDERDSC';
         $configs[$i]['formtype'] = 'select';
         $configs[$i]['valuetype'] = 'int';
-        $configs[$i]['options'] = array('XoopsLocale::OLDEST_FIRST' => 0, 'XoopsLocale::NEWEST_FIRST' => 1);
+        $configs[$i]['options'] = ['XoopsLocale::OLDEST_FIRST' => 0, 'XoopsLocale::NEWEST_FIRST' => 1];
         $configs[$i]['default'] = 0;
+
         return $configs;
     }
 }

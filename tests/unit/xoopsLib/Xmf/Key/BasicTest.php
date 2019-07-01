@@ -1,4 +1,5 @@
 <?php
+
 namespace Xmf\Test\Key;
 
 use Xmf\Key\ArrayStorage;
@@ -42,7 +43,7 @@ class BasicTest extends \PHPUnit\Framework\TestCase
         $actual = $this->object->create();
         $this->assertTrue($actual);
         $actual = $this->object->getSigning();
-        $this->assertTrue(is_string($actual));
+        $this->assertInternalType('string', $actual);
         $this->assertRegExp('/^[0-9a-f]{128}$/', $actual);
     }
 
@@ -53,7 +54,7 @@ class BasicTest extends \PHPUnit\Framework\TestCase
         $actual = $this->object->create();
         $this->assertTrue($actual);
         $actual = $this->object->getVerifying();
-        $this->assertTrue(is_string($actual));
+        $this->assertInternalType('string', $actual);
         $this->assertRegExp('/^[0-9a-f]{128}$/', $actual);
     }
 

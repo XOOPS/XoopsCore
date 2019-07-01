@@ -14,7 +14,6 @@ use Xoops\Core\Exception\NoHandlerException;
 use Xoops\Core\Handler\FactorySpec;
 use Xoops\Core\Kernel\XoopsObjectHandler;
 
-
 /**
  * LegacyModule - build a handler using legacy module rules
  *
@@ -37,8 +36,8 @@ class LegacyModule implements SchemeInterface
     public function build(FactorySpec $spec)
     {
         $handler = null;
-        $name = strtolower($spec->getName());
-        $dirname = strtolower($spec->getDirname());
+        $name = mb_strtolower($spec->getName());
+        $dirname = mb_strtolower($spec->getDirname());
 
         $handlerFile = \XoopsBaseConfig::get('root-path') . "/modules/{$dirname}/class/{$name}.php";
         if (\XoopsLoad::fileExists($handlerFile)) {
@@ -48,11 +47,12 @@ class LegacyModule implements SchemeInterface
         if (class_exists($class, false)) {
             $handler = new $class($spec->getFactory()->db());
         }
-        if ($handler === null) {
+        if (null === $handler) {
             if (false === $spec->getOptional()) {
                 throw new NoHandlerException(sprintf('Class not found %s', $class));
             }
         }
+
         return $handler;
     }
 }

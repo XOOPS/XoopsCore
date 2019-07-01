@@ -51,7 +51,7 @@ class Sanitizer extends SanitizerConfigurable
     /**
      * @var array
      */
-    protected $patterns = array();
+    protected $patterns = [];
 
     /**
      * @var Configuration
@@ -92,9 +92,8 @@ class Sanitizer extends SanitizerConfigurable
      *
      * @see getShortCodes
      *
-     * @return ShortCodes
-     *
      * @throws \ErrorException
+     * @return ShortCodes
      */
     public function getShortCodesInstance()
     {
@@ -104,13 +103,13 @@ class Sanitizer extends SanitizerConfigurable
     /**
      * get our ShortCodes instance, but make sure extensions are loaded so caller can extend and override
      *
-     * @return ShortCodes
-     *
      * @throws \ErrorException
+     * @return ShortCodes
      */
     public function getShortCodes()
     {
         $this->registerExtensions();
+
         return $this->shortcodes;
     }
 
@@ -137,9 +136,9 @@ class Sanitizer extends SanitizerConfigurable
     public function smiley($text)
     {
         $response = \Xoops::getInstance()->service('emoji')->renderEmoji($text);
+
         return $response->isSuccess() ? $response->getValue() : $text;
     }
-
 
     /**
      * Turn bare URLs and email addresses into links
@@ -182,6 +181,7 @@ class Sanitizer extends SanitizerConfigurable
     public function htmlSpecialChars($text, $quote_style = ENT_QUOTES)
     {
         $text = htmlspecialchars($text, $quote_style | ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8', false);
+
         return $text;
     }
 
@@ -198,6 +198,7 @@ class Sanitizer extends SanitizerConfigurable
     public function escapeForJavascript($text)
     {
         $text = str_replace(["'", '"'], ['\x27', '\x22'], $text);
+
         return $this->htmlSpecialChars($text);
     }
 
@@ -211,6 +212,7 @@ class Sanitizer extends SanitizerConfigurable
     public function escapeShortCodes($text)
     {
         $text = str_replace(['[', ']'], ['&#91;', '&#93;'], $text);
+
         return $text;
     }
 
@@ -254,6 +256,7 @@ class Sanitizer extends SanitizerConfigurable
         $this->config['image']['allowimage'] = $holdAllowImage;
 
         $text = $this->executeFilter('quote', $text);
+
         return $text;
     }
 
@@ -368,7 +371,7 @@ class Sanitizer extends SanitizerConfigurable
         $text = preg_replace_callback(
             $patterns,
             function ($matches) {
-                return '[code' . $matches[1] . ']' . base64_encode($matches[2]). '[/code]';
+                return '[code' . $matches[1] . ']' . base64_encode($matches[2]) . '[/code]';
             },
             $text
         );
@@ -411,10 +414,11 @@ class Sanitizer extends SanitizerConfigurable
     {
         $list = [];
         foreach ($this->config as $name => $configs) {
-            if (((bool) $configs['enabled']) && $configs['type'] === 'extension') {
+            if (((bool) $configs['enabled']) && 'extension' === $configs['type']) {
                 $list[] = $name;
             }
         }
+
         return $list;
     }
 
@@ -440,7 +444,7 @@ class Sanitizer extends SanitizerConfigurable
      */
     public function getConfig($componentName = 'sanitizer')
     {
-        return $this->config->get(strtolower($componentName), []);
+        return $this->config->get(mb_strtolower($componentName), []);
     }
 
     /**
@@ -458,7 +462,7 @@ class Sanitizer extends SanitizerConfigurable
 
             // we need xoopscode to be called first
             $key = array_search('xoopscode', $extensions);
-            if ($key !== false) {
+            if (false !== $key) {
                 unset($extensions[$key]);
             }
             $this->registerExtension('xoopscode');
@@ -495,6 +499,7 @@ class Sanitizer extends SanitizerConfigurable
         if (isset($config['configured_class']) && class_exists($config['configured_class'])) {
             $component = new $config['configured_class']($this);
         }
+
         return $component;
     }
 
@@ -511,6 +516,7 @@ class Sanitizer extends SanitizerConfigurable
         if (!($extension instanceof Sanitizer\ExtensionAbstract)) {
             $extension = new Sanitizer\NullExtension($this);
         }
+
         return $extension;
     }
 
@@ -527,6 +533,7 @@ class Sanitizer extends SanitizerConfigurable
         if (!($filter instanceof Sanitizer\FilterAbstract)) {
             $filter = new Sanitizer\NullFilter($this);
         }
+
         return $filter;
     }
 
@@ -541,7 +548,8 @@ class Sanitizer extends SanitizerConfigurable
     {
         $extension = $this->loadExtension($name);
         $args = array_slice(func_get_args(), 1);
-        return call_user_func_array(array($extension, 'registerExtensionProcessing'), $args);
+
+        return call_user_func_array([$extension, 'registerExtensionProcessing'], $args);
     }
 
     /**
@@ -555,7 +563,8 @@ class Sanitizer extends SanitizerConfigurable
     {
         $filter = $this->loadFilter($name);
         $args = array_slice(func_get_args(), 1);
-        return call_user_func_array(array($filter, 'applyFilter'), $args);
+
+        return call_user_func_array([$filter, 'applyFilter'], $args);
     }
 
     /**
@@ -596,9 +605,9 @@ class Sanitizer extends SanitizerConfigurable
     public function cleanEnum($text, $enumSet, $default = '', $firstLetter = false)
     {
         if ($firstLetter) {
-            $test = strtolower(substr($text, 0, 1));
+            $test = mb_strtolower(mb_substr($text, 0, 1));
             foreach ($enumSet as $enum) {
-                $match = strtolower(substr($enum, 0, 1));
+                $match = mb_strtolower(mb_substr($enum, 0, 1));
                 if ($test === $match) {
                     return $enum;
                 }
@@ -610,6 +619,7 @@ class Sanitizer extends SanitizerConfigurable
                 }
             }
         }
+
         return $default;
     }
 
@@ -624,7 +634,7 @@ class Sanitizer extends SanitizerConfigurable
     {
         if ($this->config->has($name)) {
             $this->config[$name]['enabled'] = true;
-            if($this->extensionsLoaded) {
+            if ($this->extensionsLoaded) {
                 $this->extensionsLoaded = false;
             }
             $this->registerExtensions();

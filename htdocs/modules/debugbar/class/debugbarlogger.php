@@ -9,8 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
-use DebugBar\StandardDebugBar;
 use DebugBar\DataCollector\MessagesCollector;
+use DebugBar\StandardDebugBar;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 use Xoops\Core\Logger;
@@ -29,7 +29,7 @@ use Xoops\Core\Logger;
  * @link      http://xoops.org
  * @since     1.0
  */
-class DebugbarLogger implements LoggerInterface
+class debugbarlogger implements LoggerInterface
 {
     /**
      * @var object
@@ -113,19 +113,19 @@ class DebugbarLogger implements LoggerInterface
         $this->enableRendering();
 
         if (!$this->debugbar) {
-                $this->debugbar = new StandardDebugBar();
-                $this->renderer = $this->debugbar->getJavascriptRenderer();
+            $this->debugbar = new StandardDebugBar();
+            $this->renderer = $this->debugbar->getJavascriptRenderer();
 
-                //$this->debugbar->addCollector(new MessagesCollector('Errors'));
-                $this->debugbar->addCollector(new MessagesCollector('Deprecated'));
-                $this->debugbar->addCollector(new MessagesCollector('Blocks'));
-                $this->debugbar->addCollector(new MessagesCollector('Extra'));
-                //$this->debugbar->addCollector(new MessagesCollector('Queries'));
+            //$this->debugbar->addCollector(new MessagesCollector('Errors'));
+            $this->debugbar->addCollector(new MessagesCollector('Deprecated'));
+            $this->debugbar->addCollector(new MessagesCollector('Blocks'));
+            $this->debugbar->addCollector(new MessagesCollector('Extra'));
+            //$this->debugbar->addCollector(new MessagesCollector('Queries'));
 
-                $xoops = Xoops::getInstance();
-                $debugStack = $xoops->db()->getConfiguration()->getSQLLogger();
-                $this->debugbar->addCollector(new DebugBar\Bridge\DoctrineCollector($debugStack));
-                //$this->debugbar->setStorage(new DebugBar\Storage\FileStorage(\XoopsBaseConfig::get('var-path').'/debugbar'));
+            $xoops = Xoops::getInstance();
+            $debugStack = $xoops->db()->getConfiguration()->getSQLLogger();
+            $this->debugbar->addCollector(new DebugBar\Bridge\DoctrineCollector($debugStack));
+            //$this->debugbar->setStorage(new DebugBar\Storage\FileStorage(\XoopsBaseConfig::get('var-path').'/debugbar'));
         }
         $this->addToTheme();
     }
@@ -174,20 +174,21 @@ class DebugbarLogger implements LoggerInterface
                 // with debugbar avoids the issue.
 
                 // Supress unwanted assets - exclude anything containing these strings
-                $excludes = array(
+                $excludes = [
                     //'/vendor/font-awesome/', // font-awesome needs special process
                     //'/vendor/highlightjs/',  // highlightjs has some negative side effects
                     '/vendor/jquery/',       // jquery is already available
-                );
+                ];
 
                 $cssAssets = array_filter(
                     $cssAssets,
                     function ($filename) use ($excludes) {
                         foreach ($excludes as $exclude) {
-                            if (false !== strpos($filename, $exclude)) {
+                            if (false !== mb_strpos($filename, $exclude)) {
                                 return false;
                             }
                         }
+
                         return true;
                     }
                 );
@@ -196,10 +197,11 @@ class DebugbarLogger implements LoggerInterface
                     $jsAssets,
                     function ($filename) use ($excludes) {
                         foreach ($excludes as $exclude) {
-                            if (false !== strpos($filename, $exclude)) {
+                            if (false !== mb_strpos($filename, $exclude)) {
                                 return false;
                             }
                         }
+
                         return true;
                     }
                 );
@@ -270,12 +272,12 @@ class DebugbarLogger implements LoggerInterface
             if (!empty($error)) {
                 $level = LogLevel::ERROR;
             }
-            $context = array(
-                'channel'=>'Queries',
-                'error'=>$error,
-                'errno'=>$errno,
-                'query_time'=>$query_time
-            );
+            $context = [
+                'channel' => 'Queries',
+                'error' => $error,
+                'errno' => $errno,
+                'query_time' => $query_time,
+            ];
             $this->log($level, $sql, $context);
         }
     }
@@ -292,7 +294,7 @@ class DebugbarLogger implements LoggerInterface
     public function addBlock($name, $cached = false, $cachetime = 0)
     {
         if ($this->activated) {
-            $context = array('channel'=>'Blocks', 'cached'=>$cached, 'cachetime'=>$cachetime);
+            $context = ['channel' => 'Blocks', 'cached' => $cached, 'cachetime' => $cachetime];
             $this->log(LogLevel::INFO, $name, $context);
         }
     }
@@ -308,7 +310,7 @@ class DebugbarLogger implements LoggerInterface
     public function addExtra($name, $msg)
     {
         if ($this->activated) {
-            $context = array('channel'=>'Extra', 'name'=>$name);
+            $context = ['channel' => 'Extra', 'name' => $name];
             $this->log(LogLevel::INFO, $msg, $context);
         }
     }
@@ -323,7 +325,7 @@ class DebugbarLogger implements LoggerInterface
     public function addDeprecated($msg)
     {
         if ($this->activated) {
-            $this->log(LogLevel::WARNING, $msg, array('channel'=>'Deprecated'));
+            $this->log(LogLevel::WARNING, $msg, ['channel' => 'Deprecated']);
         }
     }
 
@@ -352,13 +354,13 @@ class DebugbarLogger implements LoggerInterface
             $data = Xoops::getInstance()->tpl()->getTemplateVars();
             // fix values that don't display properly
             foreach ($data as $k => $v) {
-                if ($v === '') {
+                if ('' === $v) {
                     $data[$k] = '(empty string)';
-                } elseif ($v === null) {
+                } elseif (null === $v) {
                     $data[$k] = 'NULL';
-                } elseif ($v === true) { // just to be consistent with false
+                } elseif (true === $v) { // just to be consistent with false
                     $data[$k] = 'bool TRUE';
-                } elseif ($v === false) {
+                } elseif (false === $v) {
                     $data[$k] = 'bool FALSE';
                 }
             }
@@ -390,7 +392,7 @@ class DebugbarLogger implements LoggerInterface
     {
         if ($this->activated) {
             $this->debugbar->stackData();
-            $this->activated=false;
+            $this->activated = false;
             $this->renderingEnabled = false;
         }
     }
@@ -422,19 +424,19 @@ class DebugbarLogger implements LoggerInterface
         }
 
         $xoops = Xoops::getInstance();
-        $head = '</script>'.$this->renderer->renderHead().'<script>';
+        $head = '</script>' . $this->renderer->renderHead() . '<script>';
         $xoops->theme()->addScript(null, null, $head);
 
         $log = $this->renderer->render();
         $this->renderingEnabled = $this->activated = false;
 
         $pattern = '<!--<xo-logger-output>-->';
-        $pos = strpos($output, $pattern);
-        if ($pos !== false) {
-            return substr($output, 0, $pos) . $log . substr($output, $pos + strlen($pattern));
-        } else {
-            return $output . $log;
+        $pos = mb_strpos($output, $pattern);
+        if (false !== $pos) {
+            return mb_substr($output, 0, $pos) . $log . mb_substr($output, $pos + mb_strlen($pattern));
         }
+
+        return $output . $log;
     }
 
     /**
@@ -467,7 +469,7 @@ class DebugbarLogger implements LoggerInterface
 
             if (false === $this->quietmode) {
                 if (isset($_SERVER['HTTP_X_REQUESTED_WITH'])
-                    && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest') {
+                    && 'XMLHttpRequest' === $_SERVER['HTTP_X_REQUESTED_WITH']) {
                     // default for ajax, do not initialize a new toolbar, just add dataset
                     $log = $this->renderer->render(false);
                 } else {
@@ -488,7 +490,7 @@ class DebugbarLogger implements LoggerInterface
      *
      * @return null
      */
-    public function emergency($message, array $context = array())
+    public function emergency($message, array $context = [])
     {
         if ($this->activated) {
             $this->log(LogLevel::EMERGENCY, $message, $context);
@@ -506,7 +508,7 @@ class DebugbarLogger implements LoggerInterface
      *
      * @return null
      */
-    public function alert($message, array $context = array())
+    public function alert($message, array $context = [])
     {
         if ($this->activated) {
             $this->log(LogLevel::ALERT, $message, $context);
@@ -523,7 +525,7 @@ class DebugbarLogger implements LoggerInterface
      *
      * @return null
      */
-    public function critical($message, array $context = array())
+    public function critical($message, array $context = [])
     {
         if ($this->activated) {
             $this->log(LogLevel::CRITICAL, $message, $context);
@@ -539,7 +541,7 @@ class DebugbarLogger implements LoggerInterface
      *
      * @return null
      */
-    public function error($message, array $context = array())
+    public function error($message, array $context = [])
     {
         if ($this->activated) {
             $this->log(LogLevel::ERROR, $message, $context);
@@ -557,7 +559,7 @@ class DebugbarLogger implements LoggerInterface
      *
      * @return null
      */
-    public function warning($message, array $context = array())
+    public function warning($message, array $context = [])
     {
         if ($this->activated) {
             $this->log(LogLevel::WARNING, $message, $context);
@@ -572,7 +574,7 @@ class DebugbarLogger implements LoggerInterface
      *
      * @return null
      */
-    public function notice($message, array $context = array())
+    public function notice($message, array $context = [])
     {
         if ($this->activated) {
             $this->log(LogLevel::NOTICE, $message, $context);
@@ -589,7 +591,7 @@ class DebugbarLogger implements LoggerInterface
      *
      * @return null
      */
-    public function info($message, array $context = array())
+    public function info($message, array $context = [])
     {
         if ($this->activated) {
             $this->log(LogLevel::INFO, $message, $context);
@@ -604,7 +606,7 @@ class DebugbarLogger implements LoggerInterface
      *
      * @return null
      */
-    public function debug($message, array $context = array())
+    public function debug($message, array $context = [])
     {
         if ($this->activated) {
             $this->log(LogLevel::DEBUG, $message, $context);
@@ -620,7 +622,7 @@ class DebugbarLogger implements LoggerInterface
      *
      * @return null
      */
-    public function log($level, $message, array $context = array())
+    public function log($level, $message, array $context = [])
     {
         if (!$this->activated) {
             return;
@@ -634,7 +636,7 @@ class DebugbarLogger implements LoggerInterface
          * approriatly using context values.
          */
         if (isset($context['channel'])) {
-            $chan = strtolower($context['channel']);
+            $chan = mb_strtolower($context['channel']);
             switch ($chan) {
                 case 'blocks':
                     $channel = 'Blocks';
@@ -658,14 +660,14 @@ class DebugbarLogger implements LoggerInterface
                     $msg = $message;
                     $qt = empty($context['query_time']) ?
                         '' : sprintf('%0.6f - ', $context['query_time']);
-                    if ($level == LogLevel::ERROR) {
+                    if (LogLevel::ERROR == $level) {
                         //if (!is_scalar($context['errno']) ||  !is_scalar($context['errno'])) {
                         //    \Xmf\Debug::dump($context);
                         //}
                         $msg .= ' -- Error number: '
-                            . (is_scalar($context['errno']) ?  $context['errno'] : '?')
+                            . (is_scalar($context['errno']) ? $context['errno'] : '?')
                             . ' Error message: '
-                            . (is_scalar($context['error']) ?  $context['error'] : '?');
+                            . (is_scalar($context['error']) ? $context['error'] : '?');
                     }
                     $msg = $qt . $msg;
                     break;

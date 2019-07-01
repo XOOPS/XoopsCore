@@ -54,7 +54,7 @@ class Configuration extends ConfigurationAbstract
     {
         $xoops = \Xoops::getInstance();
 
-        $sanitizerPrefs = array();
+        $sanitizerPrefs = [];
 
         try {
             $file = $xoops->path($this->sanitizerPrefsFilename);
@@ -63,7 +63,7 @@ class Configuration extends ConfigurationAbstract
             $xoops->events()->triggerEvent('core.exception', $e);
         }
         if (!is_array($sanitizerPrefs)) {
-            $sanitizerPrefs = array();
+            $sanitizerPrefs = [];
         }
         $changed = false;
         $defaultPrefs = new DefaultConfiguration();
@@ -76,6 +76,7 @@ class Configuration extends ConfigurationAbstract
         if ($changed) {
             $this->saveSanitizerPrefrences($sanitizerPrefs);
         }
+
         return $sanitizerPrefs;
     }
 
@@ -90,6 +91,7 @@ class Configuration extends ConfigurationAbstract
     {
         if (is_array($sanitizerPrefs)) {
             $xoops = \Xoops::getInstance();
+
             try {
                 Yaml::save($sanitizerPrefs, $xoops->path($this->sanitizerPrefsFilename));
             } catch (\Exception $e) {

@@ -39,10 +39,9 @@ $cat_handler = \Xoops::getModuleHelper('profile')->getHandler('category');
 $admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('field.php');
 
-
 switch ($op) {
     default:
-    case "list":
+    case 'list':
         $admin_page->addItemButton(XoopsLocale::A_ADD . ' ' . _PROFILE_AM_FIELD, 'field.php?op=new', 'add');
         $admin_page->renderButton();
         $fields = $field_handler->getObjects(null, true, false);
@@ -61,7 +60,7 @@ switch ($op) {
         }
         $xoops->tpl()->assign('categories', $categories);
         unset($categories);
-        $valuetypes = array(
+        $valuetypes = [
             Dtype::TYPE_ARRAY => _PROFILE_AM_ARRAY,
             Dtype::TYPE_EMAIL => _PROFILE_AM_EMAIL,
             Dtype::TYPE_INTEGER => _PROFILE_AM_INT,
@@ -69,19 +68,19 @@ switch ($op) {
             Dtype::TYPE_TEXT_BOX => _PROFILE_AM_TXTBOX,
             Dtype::TYPE_URL => _PROFILE_AM_URL,
             Dtype::TYPE_OTHER => _PROFILE_AM_OTHER,
-            Dtype::TYPE_MEDIUM_TIME => _PROFILE_AM_DATE
-        );
+            Dtype::TYPE_MEDIUM_TIME => _PROFILE_AM_DATE,
+        ];
 
-        $fieldtypes = array(
+        $fieldtypes = [
             'checkbox' => _PROFILE_AM_CHECKBOX, 'group' => _PROFILE_AM_GROUP, 'group_multi' => _PROFILE_AM_GROUPMULTI,
             'language' => _PROFILE_AM_LANGUAGE, 'radio' => _PROFILE_AM_RADIO, 'select' => _PROFILE_AM_SELECT,
             'select_multi' => _PROFILE_AM_SELECTMULTI, 'textarea' => _PROFILE_AM_TEXTAREA,
             'dhtml' => _PROFILE_AM_DHTMLTEXTAREA, 'textbox' => _PROFILE_AM_TEXTBOX, 'timezone' => _PROFILE_AM_TIMEZONE,
             'yesno' => _PROFILE_AM_YESNO, 'date' => _PROFILE_AM_DATE, 'datetime' => _PROFILE_AM_DATETIME,
             'longdate' => _PROFILE_AM_LONGDATE, 'theme' => _PROFILE_AM_THEME, 'autotext' => _PROFILE_AM_AUTOTEXT,
-            'rank' => _PROFILE_AM_RANK
-        );
-        $categories = array();
+            'rank' => _PROFILE_AM_RANK,
+        ];
+        $categories = [];
         foreach (array_keys($fields) as $i) {
             $fields[$i]['canEdit'] = $fields[$i]['field_config'] || $fields[$i]['field_show']
                 || $fields[$i]['field_edit'];
@@ -100,16 +99,14 @@ switch ($op) {
         $xoops->tpl()->assign('token', $xoops->security()->getTokenHTML());
         $xoops->tpl()->assign('fieldlist', true);
         break;
-
-    case "new":
+    case 'new':
         $admin_page->addItemButton(_PROFILE_AM_FIELD_LIST, 'field.php', 'application-view-detail');
         $admin_page->renderButton();
         $obj = $field_handler->create();
         $form = $xoops->getModuleForm($obj, 'field');
         $xoops->tpl()->assign('form', $form->render());
         break;
-
-    case "edit":
+    case 'edit':
         $admin_page->addItemButton(XoopsLocale::A_ADD . ' ' . _PROFILE_AM_FIELD, 'field.php?op=new', 'add');
         $admin_page->addItemButton(_PROFILE_AM_FIELD_LIST, 'field.php', 'application-view-detail');
         $admin_page->renderButton();
@@ -122,8 +119,7 @@ switch ($op) {
             $xoops->redirect('field.php', 1, XoopsLocale::E_DATABASE_NOT_UPDATED);
         }
         break;
-
-    case "reorder":
+    case 'reorder':
         if (!$xoops->security()->check()) {
             $xoops->redirect('field.php', 3, implode(',', $xoops->security()->getErrors()));
         }
@@ -132,7 +128,7 @@ switch ($op) {
             $oldcat = $_POST['oldcat'];
             $category = $_POST['category'];
             $weight = $_POST['weight'];
-            $ids = array();
+            $ids = [];
             foreach ($_POST['field_ids'] as $field_id) {
                 if ($oldweight[$field_id] != $weight[$field_id] || $oldcat[$field_id] != $category[$field_id]) {
                     //if field has changed
@@ -140,10 +136,10 @@ switch ($op) {
                 }
             }
             if (count($ids) > 0) {
-                $errors = array();
+                $errors = [];
                 //if there are changed fields, fetch the fieldcategory objects
                 $fields = $field_handler->getObjects(
-                    new Criteria('field_id', "(" . implode(',', $ids) . ")", "IN"),
+                    new Criteria('field_id', '(' . implode(',', $ids) . ')', 'IN'),
                     true
                 );
                 foreach ($ids as $i) {
@@ -153,7 +149,7 @@ switch ($op) {
                         $errors = array_merge($errors, $fields[$i]->getErrors());
                     }
                 }
-                if (count($errors) == 0) {
+                if (0 == count($errors)) {
                     //no errors
                     $xoops->redirect('field.php', 2, sprintf(_PROFILE_AM_SAVEDSUCCESS, _PROFILE_AM_FIELDS));
                 } else {
@@ -162,8 +158,7 @@ switch ($op) {
             }
         }
         break;
-
-    case "save":
+    case 'save':
         if (!$xoops->security()->check()) {
             $xoops->redirect('field.php', 3, implode(',', $xoops->security()->getErrors()));
         }
@@ -241,7 +236,7 @@ switch ($op) {
         if ($field_handler->insertFields($obj)) {
             $groupperm_handler = $xoops->getHandlerGroupPermission();
 
-            $perm_arr = array();
+            $perm_arr = [];
             if ($obj->getVar('field_show')) {
                 $perm_arr[] = 'profile_show';
                 $perm_arr[] = 'profile_visible';
@@ -264,7 +259,7 @@ switch ($op) {
                                 $groups[$perms[$i]->getVar('gperm_groupid')] = $perms[$i];
                             }
                         } else {
-                            $groups = array();
+                            $groups = [];
                         }
                         foreach ($_REQUEST[$perm] as $groupid) {
                             $groupid = (int)($groupid);
@@ -281,7 +276,7 @@ switch ($op) {
                         $removed_groups = array_diff(array_keys($groups), $_REQUEST[$perm]);
                         if (count($removed_groups) > 0) {
                             $criteria->add(
-                                new Criteria('gperm_groupid', "(" . implode(',', $removed_groups) . ")", "IN")
+                                new Criteria('gperm_groupid', '(' . implode(',', $removed_groups) . ')', 'IN')
                             );
                             $groupperm_handler->deleteAll($criteria);
                         }
@@ -299,20 +294,19 @@ switch ($op) {
         $form = $xoops->getModuleForm($obj, 'regstep');
         $xoops->tpl()->assign('form', $form->render());
         break;
-
-    case "delete":
+    case 'delete':
         $admin_page->addItemButton(XoopsLocale::A_ADD . ' ' . _PROFILE_AM_FIELD, 'field.php?op=new', 'add');
         $admin_page->addItemButton(_PROFILE_AM_FIELD_LIST, 'field.php', 'application-view-detail');
         $admin_page->renderButton();
         $id = Request::getInt('id', 0);
         if ($id > 0) {
             $obj = $field_handler->get($id);
-            if (isset($_POST["ok"]) && $_POST["ok"] == 1) {
+            if (isset($_POST['ok']) && 1 == $_POST['ok']) {
                 if (!$xoops->security()->check()) {
-                    $xoops->redirect("field.php", 3, implode(",", $xoops->security()->getErrors()));
+                    $xoops->redirect('field.php', 3, implode(',', $xoops->security()->getErrors()));
                 }
                 if ($field_handler->deleteFields($obj)) {
-                    $xoops->redirect("field.php", 2, sprintf(_PROFILE_AM_DELETEDSUCCESS, _PROFILE_AM_CATEGORY));
+                    $xoops->redirect('field.php', 2, sprintf(_PROFILE_AM_DELETEDSUCCESS, _PROFILE_AM_CATEGORY));
                 } else {
                     echo $xoops->alert('error', $obj->getHtmlErrors());
                 }
@@ -321,7 +315,7 @@ switch ($op) {
                 $xoops->theme()->addStylesheet('modules/system/css/admin.css');
                 $xoops->tpl()->assign('form', false);
                 echo $xoops->confirm(
-                    array("ok" => 1, "id" => $id, "op" => "delete"),
+                    ['ok' => 1, 'id' => $id, 'op' => 'delete'],
                     'field.php',
                     sprintf(_PROFILE_AM_RUSUREDEL, $obj->getVar('field_title')) . '<br />'
                 );

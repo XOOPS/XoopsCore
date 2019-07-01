@@ -18,14 +18,13 @@
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
-
 class protector_postcommon_post_htmlpurify4guest extends ProtectorFilterAbstract
 {
-    var $purifier;
+    public $purifier;
 
-    var $method;
+    public $method;
 
-    function execute()
+    public function execute()
     {
         $xoops = Xoops::getInstance();
 
@@ -43,15 +42,16 @@ class protector_postcommon_post_htmlpurify4guest extends ProtectorFilterAbstract
         $this->method = 'purify';
 
         $_POST = $this->purify_recursive($_POST);
+
         return true;
     }
 
-    function purify_recursive($data)
+    public function purify_recursive($data)
     {
         if (is_array($data)) {
-            return array_map(array($this, 'purify_recursive'), $data);
-        } else {
-            return strlen($data) > 32 ? call_user_func(array($this->purifier, $this->method), $data) : $data;
+            return array_map([$this, 'purify_recursive'], $data);
         }
+
+        return mb_strlen($data) > 32 ? call_user_func([$this->purifier, $this->method], $data) : $data;
     }
 }

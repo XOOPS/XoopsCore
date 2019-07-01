@@ -41,7 +41,7 @@ class FilterInput
     protected $attrMethod;        // default is 0
 
     protected $xssAuto;           // default is 1
-    protected $tagBlacklist = array(
+    protected $tagBlacklist = [
         'applet',
         'body',
         'bgsound',
@@ -63,10 +63,10 @@ class FilterInput
         'script',
         'style',
         'title',
-        'xml'
-    );
+        'xml',
+    ];
     // also will strip ALL event handlers
-    protected $attrBlacklist = array('action', 'background', 'codebase', 'dynsrc', 'lowsrc');
+    protected $attrBlacklist = ['action', 'background', 'codebase', 'dynsrc', 'lowsrc'];
 
     /**
      * Constructor
@@ -78,8 +78,8 @@ class FilterInput
      * @param int   $xssAuto    - 0 = only auto clean essentials, 1 = allow clean blacklisted tags/attr
      */
     protected function __construct(
-        $tagsArray = array(),
-        $attrArray = array(),
+        $tagsArray = [],
+        $attrArray = [],
         $tagsMethod = 0,
         $attrMethod = 0,
         $xssAuto = 1
@@ -87,18 +87,18 @@ class FilterInput
         // make sure user defined arrays are in lowercase
         $tagsArrayCount = count($tagsArray);
         for ($i = 0; $i < $tagsArrayCount; ++$i) {
-            $tagsArray[$i] = strtolower($tagsArray[$i]);
+            $tagsArray[$i] = mb_strtolower($tagsArray[$i]);
         }
         $attrArrayCount = count($attrArray);
         for ($i = 0; $i < $attrArrayCount; ++$i) {
-            $attrArray[$i] = strtolower($attrArray[$i]);
+            $attrArray[$i] = mb_strtolower($attrArray[$i]);
         }
         // assign to member vars
-        $this->tagsArray  = (array) $tagsArray;
-        $this->attrArray  = (array) $attrArray;
+        $this->tagsArray = (array) $tagsArray;
+        $this->attrArray = (array) $attrArray;
         $this->tagsMethod = $tagsMethod;
         $this->attrMethod = $attrMethod;
-        $this->xssAuto    = $xssAuto;
+        $this->xssAuto = $xssAuto;
     }
 
     /**
@@ -117,8 +117,8 @@ class FilterInput
      * @return FilterInput object.
      */
     public static function getInstance(
-        $tagsArray = array(),
-        $attrArray = array(),
+        $tagsArray = [],
+        $attrArray = [],
         $tagsMethod = 0,
         $attrMethod = 0,
         $xssAuto = 1
@@ -127,10 +127,10 @@ class FilterInput
 
         $className = get_called_class(); // so an extender gets an instance of itself
 
-        $sig = md5(serialize(array($className, $tagsArray, $attrArray, $tagsMethod, $attrMethod, $xssAuto)));
+        $sig = md5(serialize([$className, $tagsArray, $attrArray, $tagsMethod, $attrMethod, $xssAuto]));
 
         if (!isset($instances)) {
-            $instances = array();
+            $instances = [];
         }
 
         if (empty($instances[$sig])) {
@@ -158,14 +158,14 @@ class FilterInput
                     $source[$key] = $this->remove($this->decode($value));
                 }
             }
+
             return $source;
         } elseif (is_string($source)) {
             // clean this string
             return $this->remove($this->decode($source));
-        } else {
-            // return parameter as given
-            return $source;
         }
+        // return parameter as given
+        return $source;
     }
 
     /**
@@ -209,69 +209,58 @@ class FilterInput
     public function cleanVar($source, $type = 'string')
     {
         // Handle the type constraint
-        switch (strtoupper($type)) {
+        switch (mb_strtoupper($type)) {
             case 'INT':
             case 'INTEGER':
                 // Only use the first integer value
                 preg_match('/-?\d+/', (string) $source, $matches);
-                $result = @ (int) $matches[0];
+                $result = @(int) $matches[0];
                 break;
-
             case 'FLOAT':
             case 'DOUBLE':
                 // Only use the first floating point value
                 preg_match('/-?\d+(\.\d+)?/', (string) $source, $matches);
-                $result = @ (float) $matches[0];
+                $result = @(float) $matches[0];
                 break;
-
             case 'BOOL':
             case 'BOOLEAN':
                 $result = (bool) $source;
                 break;
-
             case 'WORD':
                 $result = (string) preg_replace('/[^A-Z_]/i', '', $source);
                 break;
-
             case 'ALPHANUM':
             case 'ALNUM':
                 $result = (string) preg_replace('/[^A-Z0-9]/i', '', $source);
                 break;
-
             case 'CMD':
                 $result = (string) preg_replace('/[^A-Z0-9_\.-]/i', '', $source);
-                $result = strtolower($result);
+                $result = mb_strtolower($result);
                 break;
-
             case 'BASE64':
                 $result = (string) preg_replace('/[^A-Z0-9\/+=]/i', '', $source);
                 break;
-
             case 'STRING':
                 $result = (string) $this->process($source);
                 break;
-
             case 'ARRAY':
                 $result = (array) $this->process($source);
                 break;
-
             case 'PATH':
                 $source = trim((string) $source);
                 $pattern = '/^([-_\.\/A-Z0-9=&%?~]+)(.*)$/i';
                 preg_match($pattern, $source, $matches);
-                $result = @ (string) $matches[1];
+                $result = @(string) $matches[1];
                 break;
-
             case 'USERNAME':
                 $result = (string) preg_replace('/[\x00-\x1F\x7F<>"\'%&]/', '', $source);
                 break;
-
             case 'WEBURL':
                 $result = (string) $this->process($source);
                 // allow only relative, http or https
                 $urlparts = parse_url($result);
                 if (!empty($urlparts['scheme'])
-                    && !($urlparts['scheme'] === 'http' || $urlparts['scheme'] === 'https')
+                    && !('http' === $urlparts['scheme'] || 'https' === $urlparts['scheme'])
                 ) {
                     $result = '';
                 }
@@ -280,14 +269,12 @@ class FilterInput
                     $result = '';
                 }
                 break;
-
             case 'EMAIL':
                 $result = (string) $source;
                 if (!filter_var((string) $source, FILTER_VALIDATE_EMAIL)) {
                     $result = '';
                 }
                 break;
-
             case 'IP':
                 $result = (string) $source;
                 // this may be too restrictive.
@@ -296,7 +283,6 @@ class FilterInput
                     $result = '';
                 }
                 break;
-
             default:
                 $result = $this->process($source);
                 break;
@@ -308,9 +294,9 @@ class FilterInput
     /**
      * Internal method to iteratively remove all unwanted tags and attributes
      *
-     * @param String $source - input string to be 'cleaned'
+     * @param string $source - input string to be 'cleaned'
      *
-     * @return String $source - 'cleaned' version of input parameter
+     * @return string $source - 'cleaned' version of input parameter
      */
     protected function remove($source)
     {
@@ -327,9 +313,9 @@ class FilterInput
     /**
      * Internal method to strip a string of certain tags
      *
-     * @param String $source - input string to be 'cleaned'
+     * @param string $source - input string to be 'cleaned'
      *
-     * @return String $source - 'cleaned' version of input parameter
+     * @return string $source - 'cleaned' version of input parameter
      */
     protected function filterTags($source)
     {
@@ -337,76 +323,76 @@ class FilterInput
         $preTag = null;
         $postTag = $source;
         // find initial tag's position
-        $tagOpen_start = strpos($source, '<');
+        $tagOpen_start = mb_strpos($source, '<');
         // iterate through string until no tags left
-        while ($tagOpen_start !== false) {
+        while (false !== $tagOpen_start) {
             // process tag iteratively
-            $preTag .= substr($postTag, 0, $tagOpen_start);
-            $postTag = substr($postTag, $tagOpen_start);
-            $fromTagOpen = substr($postTag, 1);
+            $preTag .= mb_substr($postTag, 0, $tagOpen_start);
+            $postTag = mb_substr($postTag, $tagOpen_start);
+            $fromTagOpen = mb_substr($postTag, 1);
             // end of tag
-            $tagOpen_end = strpos($fromTagOpen, '>');
-            if ($tagOpen_end === false) {
+            $tagOpen_end = mb_strpos($fromTagOpen, '>');
+            if (false === $tagOpen_end) {
                 break;
             }
             // next start of tag (for nested tag assessment)
-            $tagOpen_nested = strpos($fromTagOpen, '<');
-            if (($tagOpen_nested !== false) && ($tagOpen_nested < $tagOpen_end)) {
-                $preTag .= substr($postTag, 0, ($tagOpen_nested + 1));
-                $postTag = substr($postTag, ($tagOpen_nested + 1));
-                $tagOpen_start = strpos($postTag, '<');
+            $tagOpen_nested = mb_strpos($fromTagOpen, '<');
+            if ((false !== $tagOpen_nested) && ($tagOpen_nested < $tagOpen_end)) {
+                $preTag .= mb_substr($postTag, 0, ($tagOpen_nested + 1));
+                $postTag = mb_substr($postTag, ($tagOpen_nested + 1));
+                $tagOpen_start = mb_strpos($postTag, '<');
                 continue;
             }
-            $currentTag = substr($fromTagOpen, 0, $tagOpen_end);
-            $tagLength = strlen($currentTag);
+            $currentTag = mb_substr($fromTagOpen, 0, $tagOpen_end);
+            $tagLength = mb_strlen($currentTag);
             if (!$tagOpen_end) {
                 $preTag .= $postTag;
             }
             // iterate through tag finding attribute pairs - setup
             $tagLeft = $currentTag;
-            $attrSet = array();
-            $currentSpace = strpos($tagLeft, ' ');
-            if (substr($currentTag, 0, 1) === "/") {
+            $attrSet = [];
+            $currentSpace = mb_strpos($tagLeft, ' ');
+            if ('/' === mb_substr($currentTag, 0, 1)) {
                 // is end tag
                 $isCloseTag = true;
                 list($tagName) = explode(' ', $currentTag);
-                $tagName = substr($tagName, 1);
+                $tagName = mb_substr($tagName, 1);
             } else {
                 // is start tag
                 $isCloseTag = false;
                 list($tagName) = explode(' ', $currentTag);
             }
             // excludes all "non-regular" tagnames OR no tagname OR remove if xssauto is on and tag is blacklisted
-            if ((!preg_match("/^[a-z][a-z0-9]*$/i", $tagName))
+            if ((!preg_match('/^[a-z][a-z0-9]*$/i', $tagName))
                 || (!$tagName)
-                || ((in_array(strtolower($tagName), $this->tagBlacklist))
+                || ((in_array(mb_strtolower($tagName), $this->tagBlacklist))
                     && ($this->xssAuto))
             ) {
-                $postTag = substr($postTag, ($tagLength + 2));
-                $tagOpen_start = strpos($postTag, '<');
+                $postTag = mb_substr($postTag, ($tagLength + 2));
+                $tagOpen_start = mb_strpos($postTag, '<');
                 // don't append this tag
                 continue;
             }
             // this while is needed to support attribute values with spaces in!
-            while ($currentSpace !== false) {
-                $fromSpace = substr($tagLeft, ($currentSpace + 1));
-                $nextSpace = strpos($fromSpace, ' ');
-                $openQuotes = strpos($fromSpace, '"');
-                $closeQuotes = strpos(substr($fromSpace, ($openQuotes + 1)), '"') + $openQuotes + 1;
+            while (false !== $currentSpace) {
+                $fromSpace = mb_substr($tagLeft, ($currentSpace + 1));
+                $nextSpace = mb_strpos($fromSpace, ' ');
+                $openQuotes = mb_strpos($fromSpace, '"');
+                $closeQuotes = mb_strpos(mb_substr($fromSpace, ($openQuotes + 1)), '"') + $openQuotes + 1;
                 // another equals exists
-                if (strpos($fromSpace, '=') !== false) {
+                if (false !== mb_strpos($fromSpace, '=')) {
                     // opening and closing quotes exists
-                    if (($openQuotes !== false)
-                        && (strpos(substr($fromSpace, ($openQuotes + 1)), '"') !== false)
+                    if ((false !== $openQuotes)
+                        && (false !== mb_strpos(mb_substr($fromSpace, ($openQuotes + 1)), '"'))
                     ) {
-                        $attr = substr($fromSpace, 0, ($closeQuotes + 1));
+                        $attr = mb_substr($fromSpace, 0, ($closeQuotes + 1));
                     } else {
-                        $attr = substr($fromSpace, 0, $nextSpace);
+                        $attr = mb_substr($fromSpace, 0, $nextSpace);
                     }
                     // one or neither exist
                 } else {
                     // no more equals exist
-                    $attr = substr($fromSpace, 0, $nextSpace);
+                    $attr = mb_substr($fromSpace, 0, $nextSpace);
                 }
                 // last attr pair
                 if (!$attr) {
@@ -415,11 +401,11 @@ class FilterInput
                 // add to attribute pairs array
                 $attrSet[] = $attr;
                 // next inc
-                $tagLeft = substr($fromSpace, strlen($attr));
-                $currentSpace = strpos($tagLeft, ' ');
+                $tagLeft = mb_substr($fromSpace, mb_strlen($attr));
+                $currentSpace = mb_strpos($tagLeft, ' ');
             }
             // appears in array specified by user
-            $tagFound = in_array(strtolower($tagName), $this->tagsArray);
+            $tagFound = in_array(mb_strtolower($tagName), $this->tagsArray);
             // remove this tag on condition
             if ((!$tagFound && $this->tagsMethod) || ($tagFound && !$this->tagsMethod)) {
                 // reconstruct tag with allowed attributes
@@ -431,7 +417,7 @@ class FilterInput
                         $preTag .= ' ' . $attrSet[$i];
                     }
                     // reformat single tags to XHTML
-                    if (strpos($fromTagOpen, "</" . $tagName)) {
+                    if (mb_strpos($fromTagOpen, '</' . $tagName)) {
                         $preTag .= '>';
                     } else {
                         $preTag .= ' />';
@@ -442,8 +428,8 @@ class FilterInput
                 }
             }
             // find next tag's start
-            $postTag = substr($postTag, ($tagLength + 2));
-            $tagOpen_start = strpos($postTag, '<');
+            $postTag = mb_substr($postTag, ($tagLength + 2));
+            $tagOpen_start = mb_strpos($postTag, '<');
         }
         // append any code after end of tags
         $preTag .= $postTag;
@@ -460,7 +446,7 @@ class FilterInput
      */
     protected function filterAttr($attrSet)
     {
-        $newSet = array();
+        $newSet = [];
         // process attributes
         $attrSetCount = count($attrSet);
         for ($i = 0; $i < $attrSetCount; ++$i) {
@@ -474,8 +460,8 @@ class FilterInput
             // removes all "non-regular" attr names AND also attr blacklisted
             if ((!preg_match('/[a-z]*$/i', $attrSubSet[0]))
                 || (($this->xssAuto)
-                    && ((in_array(strtolower($attrSubSet[0]), $this->attrBlacklist))
-                        || (substr($attrSubSet[0], 0, 2) === 'on')))
+                    && ((in_array(mb_strtolower($attrSubSet[0]), $this->attrBlacklist))
+                        || ('on' === mb_substr($attrSubSet[0], 0, 2))))
             ) {
                 continue;
             }
@@ -489,34 +475,34 @@ class FilterInput
                 $attrSubSet[1] = str_replace('"', '', $attrSubSet[1]);
                 // [requested feature] convert single quotes from either side to doubles
                 // (Single quotes shouldn't be used to pad attr value)
-                if ((substr($attrSubSet[1], 0, 1) === "'")
-                    && (substr($attrSubSet[1], (strlen($attrSubSet[1]) - 1), 1) === "'")
+                if (("'" === mb_substr($attrSubSet[1], 0, 1))
+                    && ("'" === mb_substr($attrSubSet[1], (mb_strlen($attrSubSet[1]) - 1), 1))
                 ) {
-                    $attrSubSet[1] = substr($attrSubSet[1], 1, (strlen($attrSubSet[1]) - 2));
+                    $attrSubSet[1] = mb_substr($attrSubSet[1], 1, (mb_strlen($attrSubSet[1]) - 2));
                 }
                 // strip slashes
                 $attrSubSet[1] = stripslashes($attrSubSet[1]);
             }
             // auto strip attr's with "javascript:
-            if (((strpos(strtolower($attrSubSet[1]), 'expression') !== false)
-                    && (strtolower($attrSubSet[0]) === 'style')) ||
-                (strpos(strtolower($attrSubSet[1]), 'javascript:') !== false) ||
-                (strpos(strtolower($attrSubSet[1]), 'behaviour:') !== false) ||
-                (strpos(strtolower($attrSubSet[1]), 'vbscript:') !== false) ||
-                (strpos(strtolower($attrSubSet[1]), 'mocha:') !== false) ||
-                (strpos(strtolower($attrSubSet[1]), 'livescript:') !== false)
+            if (((false !== mb_strpos(mb_strtolower($attrSubSet[1]), 'expression'))
+                    && ('style' === mb_strtolower($attrSubSet[0]))) ||
+                (false !== mb_strpos(mb_strtolower($attrSubSet[1]), 'javascript:')) ||
+                (false !== mb_strpos(mb_strtolower($attrSubSet[1]), 'behaviour:')) ||
+                (false !== mb_strpos(mb_strtolower($attrSubSet[1]), 'vbscript:')) ||
+                (false !== mb_strpos(mb_strtolower($attrSubSet[1]), 'mocha:')) ||
+                (false !== mb_strpos(mb_strtolower($attrSubSet[1]), 'livescript:'))
             ) {
                 continue;
             }
 
             // if matches user defined array
-            $attrFound = in_array(strtolower($attrSubSet[0]), $this->attrArray);
+            $attrFound = in_array(mb_strtolower($attrSubSet[0]), $this->attrArray);
             // keep this attr on condition
             if ((!$attrFound && $this->attrMethod) || ($attrFound && !$this->attrMethod)) {
                 if ($attrSubSet[1]) {
                     // attr has value
                     $newSet[] = $attrSubSet[0] . '="' . $attrSubSet[1] . '"';
-                } elseif ($attrSubSet[1] == "0") {
+                } elseif ('0' == $attrSubSet[1]) {
                     // attr has decimal zero as value
                     $newSet[] = $attrSubSet[0] . '="0"';
                 } else {
@@ -532,9 +518,9 @@ class FilterInput
     /**
      * Try to convert to plaintext
      *
-     * @param String $source string to decode
+     * @param string $source string to decode
      *
-     * @return String $source decoded
+     * @return string $source decoded
      */
     protected function decode($source)
     {
@@ -585,47 +571,47 @@ class FilterInput
      */
     public static function gather($source, $input_map, $require = false)
     {
-        $output = array();
+        $output = [];
 
         if (!empty($source)) {
-            $source = strtolower($source);
+            $source = mb_strtolower($source);
             foreach ($input_map as $input) {
                 // set defaults
                 if (isset($input[0])) {
                     $name = $input[0];
                     $type = isset($input[1]) ? $input[1] : 'string';
                     $default = isset($input[2]) ?
-                        (($require && $require==$name) ? '': $input[2]) : '';
+                        (($require && $require == $name) ? '' : $input[2]) : '';
                     $trim = isset($input[3]) ? $input[3] : true;
                     $maxlen = isset($input[4]) ? $input[4] : 0;
                     $value = $default;
                     switch ($source) {
                         case 'get':
                             if (isset($_GET[$name])) {
-                                $value=$_GET[$name];
+                                $value = $_GET[$name];
                             }
                             break;
                         case 'post':
                             if (isset($_POST[$name])) {
-                                $value=$_POST[$name];
+                                $value = $_POST[$name];
                             }
                             break;
                         case 'cookie':
                             if (isset($_COOKIE[$name])) {
-                                $value=$_COOKIE[$name];
+                                $value = $_COOKIE[$name];
                             }
                             break;
                     }
                     if ($trim) {
                         $value = trim($value);
                     }
-                    if ($maxlen>0) {
+                    if ($maxlen > 0) {
                         if (function_exists('mb_strlen')) {
-                            if (mb_strlen($value)>$maxlen) {
-                                $value=mb_substr($value, 0, $maxlen);
+                            if (mb_strlen($value) > $maxlen) {
+                                $value = mb_substr($value, 0, $maxlen);
                             }
                         } else {
-                            $value=substr($value, 0, $maxlen);
+                            $value = mb_substr($value, 0, $maxlen);
                         }
                         if ($trim) {
                             $value = trim($value);
@@ -640,6 +626,7 @@ class FilterInput
                 $output = false;
             }
         }
+
         return $output;
     }
 }

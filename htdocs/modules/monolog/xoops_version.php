@@ -18,36 +18,35 @@
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  */
-
-$modversion                  = array();
-$modversion['name']          = _MI_MONOLOG_NAME;
-$modversion['description']   = _MI_MONOLOG_DSC;
-$modversion['version']       = 0.1;
-$modversion['author']        = 'Richard Griffith';
-$modversion['nickname']      = 'geekwright';
-$modversion['credits']       = 'The XOOPS Project';
-$modversion['license']       = 'GNU GPL 2.0';
-$modversion['license_url']   = 'www.gnu.org/licenses/gpl-2.0.html/';
-$modversion['official']      = 1;
-$modversion['help']          = 'page=help';
-$modversion['helpsection'][] = array(
+$modversion = [];
+$modversion['name'] = _MI_MONOLOG_NAME;
+$modversion['description'] = _MI_MONOLOG_DSC;
+$modversion['version'] = 0.1;
+$modversion['author'] = 'Richard Griffith';
+$modversion['nickname'] = 'geekwright';
+$modversion['credits'] = 'The XOOPS Project';
+$modversion['license'] = 'GNU GPL 2.0';
+$modversion['license_url'] = 'www.gnu.org/licenses/gpl-2.0.html/';
+$modversion['official'] = 1;
+$modversion['help'] = 'page=help';
+$modversion['helpsection'][] = [
     'name' => _MI_MONOLOG_HELP,
-    'link' => 'page=help'
-);
-$modversion['helpsection'][] = array(
+    'link' => 'page=help',
+];
+$modversion['helpsection'][] = [
     'name' => _MI_MONOLOG_HACKING,
-    'link' => 'page=hacking'
-);
-$modversion['image']         = 'images/logo.png';
-$modversion['dirname']       = 'monolog';
+    'link' => 'page=hacking',
+];
+$modversion['image'] = 'images/logo.png';
+$modversion['dirname'] = 'monolog';
 
 //about
-$modversion['release_date']        = '2013/09/05';
-$modversion['module_website_url']  = 'http://www.xoops.org/';
+$modversion['release_date'] = '2013/09/05';
+$modversion['module_website_url'] = 'http://www.xoops.org/';
 $modversion['module_website_name'] = 'XOOPS';
-$modversion['module_status']       = 'ALPHA 1';
-$modversion['min_php']             = '5.3.7';
-$modversion['min_xoops']           = '2.6.0';
+$modversion['module_status'] = 'ALPHA 1';
+$modversion['min_php'] = '5.3.7';
+$modversion['min_xoops'] = '2.6.0';
 
 // paypal
 /*
@@ -65,105 +64,105 @@ $modversion['system_menu'] = 1;
 /*
  Manage extension
  */
-$modversion['extension']          = 1;
+$modversion['extension'] = 1;
 $modversion['extension_module'][] = 'system';
 
 // Admin things
-$modversion['hasAdmin']   = 1;
+$modversion['hasAdmin'] = 1;
 $modversion['adminindex'] = 'admin/index.php';
-$modversion['adminmenu']  = 'admin/menu.php';
+$modversion['adminmenu'] = 'admin/menu.php';
 
 // Menu
 $modversion['hasMain'] = 0;
 
 // Preferences
-$modversion['config'][] = array(
-    'name'        => 'monolog_enable',
-    'title'       => '_MI_MONOLOG_ENABLE',
+$modversion['config'][] = [
+    'name' => 'monolog_enable',
+    'title' => '_MI_MONOLOG_ENABLE',
     'description' => '',
-    'formtype'    => 'yesno',
-    'valuetype'   => 'int',
-    'default'     => 0, // default to off to give chance to review module access rights
-);
+    'formtype' => 'yesno',
+    'valuetype' => 'int',
+    'default' => 0, // default to off to give chance to review module access rights
+];
 
-$modversion['config'][] = array(
-    'name'        => 'include_blocks',
-    'title'       => '_MI_MONOLOG_INCLUDE_BLOCKS',
+$modversion['config'][] = [
+    'name' => 'include_blocks',
+    'title' => '_MI_MONOLOG_INCLUDE_BLOCKS',
     'description' => '',
-    'formtype'    => 'yesno',
-    'valuetype'   => 'int',
-    'default'     => 1,
-);
+    'formtype' => 'yesno',
+    'valuetype' => 'int',
+    'default' => 1,
+];
 
-$modversion['config'][] = array(
-    'name'        => 'include_deprecated',
-    'title'       => '_MI_MONOLOG_INCLUDE_DEPRECATED',
+$modversion['config'][] = [
+    'name' => 'include_deprecated',
+    'title' => '_MI_MONOLOG_INCLUDE_DEPRECATED',
     'description' => '',
-    'formtype'    => 'yesno',
-    'valuetype'   => 'int',
-    'default'     => 1,
-);
+    'formtype' => 'yesno',
+    'valuetype' => 'int',
+    'default' => 1,
+];
 
-$modversion['config'][] = array(
-    'name'        => 'include_extra',
-    'title'       => '_MI_MONOLOG_INCLUDE_EXTRA',
+$modversion['config'][] = [
+    'name' => 'include_extra',
+    'title' => '_MI_MONOLOG_INCLUDE_EXTRA',
     'description' => '',
-    'formtype'    => 'yesno',
-    'valuetype'   => 'int',
-    'default'     => 1,
-);
+    'formtype' => 'yesno',
+    'valuetype' => 'int',
+    'default' => 1,
+];
 
-$modversion['config'][] = array(
-    'name'        => 'include_queries',
-    'title'       => '_MI_MONOLOG_INCLUDE_QUERIES',
+$modversion['config'][] = [
+    'name' => 'include_queries',
+    'title' => '_MI_MONOLOG_INCLUDE_QUERIES',
     'description' => '',
-    'formtype'    => 'yesno',
-    'valuetype'   => 'int',
-    'default'     => 1,
-);
+    'formtype' => 'yesno',
+    'valuetype' => 'int',
+    'default' => 1,
+];
 
-$modversion['config'][] = array(
-    'name'        => 'include_timers',
-    'title'       => '_MI_MONOLOG_INCLUDE_TIMERS',
+$modversion['config'][] = [
+    'name' => 'include_timers',
+    'title' => '_MI_MONOLOG_INCLUDE_TIMERS',
     'description' => '',
-    'formtype'    => 'yesno',
-    'valuetype'   => 'int',
-    'default'     => 1,
-);
+    'formtype' => 'yesno',
+    'valuetype' => 'int',
+    'default' => 1,
+];
 
-$modversion['config'][] = array(
-    'name'        => 'logging_threshold',
-    'title'       => '_MI_MONOLOG_THRESHOLD_LEVEL',
+$modversion['config'][] = [
+    'name' => 'logging_threshold',
+    'title' => '_MI_MONOLOG_THRESHOLD_LEVEL',
     'description' => '',
-    'formtype'    => 'select',
-    'valuetype'   => 'text',
-    'default'     => 'debug',
-    'options'     => array_flip(
-        array(
-            'debug'   => _MI_MONOLOG_THRESHOLD_DEBUG,
-            'info'    => _MI_MONOLOG_THRESHOLD_INFO,
+    'formtype' => 'select',
+    'valuetype' => 'text',
+    'default' => 'debug',
+    'options' => array_flip(
+        [
+            'debug' => _MI_MONOLOG_THRESHOLD_DEBUG,
+            'info' => _MI_MONOLOG_THRESHOLD_INFO,
             'warning' => _MI_MONOLOG_THRESHOLD_WARNING,
-            'error'   => _MI_MONOLOG_THRESHOLD_ERROR,
-        )
+            'error' => _MI_MONOLOG_THRESHOLD_ERROR,
+        ]
     ),
-);
+];
 
-$modversion['config'][] = array(
-    'name'        => 'log_file_path',
-    'title'       => '_MI_MONOLOG_LOG_FILE_PATH',
+$modversion['config'][] = [
+    'name' => 'log_file_path',
+    'title' => '_MI_MONOLOG_LOG_FILE_PATH',
     'description' => '',
-    'formtype'    => 'textbox',
-    'valuetype'   => 'text',
-    'default'     => \XoopsBaseConfig::get('var-path') . '/logs/xoops_monolog.log',
-    'options'     => array(),
-);
+    'formtype' => 'textbox',
+    'valuetype' => 'text',
+    'default' => \XoopsBaseConfig::get('var-path') . '/logs/xoops_monolog.log',
+    'options' => [],
+];
 
-$modversion['config'][] = array(
-    'name'        => 'max_versions',
-    'title'       => '_MI_MONOLOG_LOG_MAX_VERSIONS',
+$modversion['config'][] = [
+    'name' => 'max_versions',
+    'title' => '_MI_MONOLOG_LOG_MAX_VERSIONS',
     'description' => '',
-    'formtype'    => 'textbox',
-    'valuetype'   => 'int',
-    'default'     => 7,
-    'options'     => array(),
-);
+    'formtype' => 'textbox',
+    'valuetype' => 'int',
+    'default' => 7,
+    'options' => [],
+];

@@ -35,10 +35,10 @@ class Legacy
         $frameSelf = $stack[1];
         $frame = isset($stack[2]) ? $stack[2] : false;
         $append = ' ' . get_called_class() . '::' . $frameSelf['function'] . '() called from ';
-        if ($frame !== false) {
+        if (false !== $frame) {
             $append .= $frame['function'] . '() in ';
         }
-        $append .= $frameSelf['file'] . ' line '. $frameSelf['line'];
+        $append .= $frameSelf['file'] . ' line ' . $frameSelf['line'];
         \Xoops::getInstance()->deprecated($message . $append);
     }
 
@@ -55,12 +55,13 @@ class Legacy
     /**
      * Garbage collection
      *
-     * @return boolean true on success
+     * @return bool true on success
      */
     public static function gc()
     {
         self::deprecated();
         $cache = self::getCache();
+
         return $cache->garbageCollect();
     }
 
@@ -71,7 +72,7 @@ class Legacy
      * @param mixed  $value    Data to be cached - anything except a resource
      * @param mixed  $duration time to live in seconds
      *
-     * @return boolean True if the data was successfully cached, false on failure
+     * @return bool True if the data was successfully cached, false on failure
      */
     public static function write($key, $value, $duration = 0)
     {
@@ -79,8 +80,8 @@ class Legacy
         $ttl = (int)($duration);
         $ttl = $ttl > 0 ? $ttl : null;
         $cache = self::getCache();
-        return $cache->write($key, $value, $ttl);
 
+        return $cache->write($key, $value, $ttl);
         //$key = substr(md5(\XoopsBaseConfig::get('url')), 0, 8) . '_' . $key;
     }
 
@@ -95,6 +96,7 @@ class Legacy
     {
         self::deprecated();
         $cache = self::getCache();
+
         return $cache->read($key);
     }
 
@@ -103,24 +105,26 @@ class Legacy
      *
      * @param string $key Identifier for the data
      *
-     * @return boolean True if the value was successfully deleted, false if it didn't exist or couldn't be removed
+     * @return bool True if the value was successfully deleted, false if it didn't exist or couldn't be removed
      */
     public static function delete($key)
     {
         self::deprecated();
         $cache = self::getCache();
+
         return $cache->delete($key);
     }
 
     /**
      * Delete all keys from the cache
      *
-     * @return boolean True if the cache was successfully cleared, false otherwise
+     * @return bool True if the cache was successfully cleared, false otherwise
      */
     public static function clear()
     {
         self::deprecated();
         $cache = self::getCache();
+
         return $cache->clear();
     }
 
@@ -135,6 +139,7 @@ class Legacy
     public function __call($name, $args)
     {
         self::deprecated(sprintf('XoopsCache->%s() is no longer used', $name));
+
         return false;
     }
 
@@ -149,6 +154,7 @@ class Legacy
     public static function __callStatic($name, $args)
     {
         self::deprecated(sprintf('XoopsCache::%s() is no longer used', $name));
+
         return false;
     }
 }

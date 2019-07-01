@@ -21,12 +21,12 @@
  */
 
 // Info module
-define("_MI_MAILUSERS_NAME", "Mail users");
-define("_MI_MAILUSERS_DESC", "Plugin for managing mails");
-define("_MI_MAILUSERS_SENDMAIL", "Send Mail");
+define('_MI_MAILUSERS_NAME', 'Mail users');
+define('_MI_MAILUSERS_DESC', 'Plugin for managing mails');
+define('_MI_MAILUSERS_SENDMAIL', 'Send Mail');
 // Menu
-define("_MI_MAILUSERS_INDEX", "Home");
-define("_MI_MAILUSERS_MAILUSER_MANAGER", "Mail users manager");
-define("_MI_MAILUSERS_ABOUT", "About");
+define('_MI_MAILUSERS_INDEX', 'Home');
+define('_MI_MAILUSERS_MAILUSER_MANAGER', 'Mail users manager');
+define('_MI_MAILUSERS_ABOUT', 'About');
 // Preferences
-define("_AM_MAILUSERS_EDITOR", "Editor");
+define('_AM_MAILUSERS_EDITOR', 'Editor');

@@ -11,15 +11,15 @@
 
 namespace Xoops\Core;
 
-use Assetic\AssetManager;
-use Assetic\FilterManager;
-use Assetic\Filter;
-use Assetic\Factory\AssetFactory;
-use Assetic\Factory\Worker\CacheBustingWorker;
-use Assetic\AssetWriter;
 use Assetic\Asset\AssetCollection;
 use Assetic\Asset\FileAsset;
 use Assetic\Asset\GlobAsset;
+use Assetic\AssetManager;
+use Assetic\AssetWriter;
+use Assetic\Factory\AssetFactory;
+use Assetic\Factory\Worker\CacheBustingWorker;
+use Assetic\Filter;
+use Assetic\FilterManager;
 use Xmf\Yaml;
 
 /**
@@ -36,59 +36,58 @@ use Xmf\Yaml;
  */
 class Assets
 {
-    /** @var array  */
+    /** @var array */
     protected $assetPrefs;
 
-    /** @var boolean */
+    /** @var bool */
     private $debug = false;
 
     /** @var array of default filter strings - may be overridden by prefs */
-    private $default_filters = array(
+    private $default_filters = [
             'css' => 'cssimport,cssembed,?cssmin',
-            'js'  => '?jsqueeze',
-    );
+            'js' => '?jsqueeze',
+    ];
 
     /** @var array of output locations in assets directory */
-    private $default_output = array(
+    private $default_output = [
             'css' => 'css/*.css',
-            'js'  => 'js/*.js',
-    );
+            'js' => 'js/*.js',
+    ];
 
     /** @var array of asset reference definitions - may be overridden by prefs */
-    private $default_asset_refs = array(
-        array(
+    private $default_asset_refs = [
+        [
             'name' => 'jquery',
-            'assets' => array('media/jquery/jquery.js'),
+            'assets' => ['media/jquery/jquery.js'],
             'filters' => null,
-        ),
-        array(
+        ],
+        [
             'name' => 'jqueryui',
-            'assets' => array('media/jquery/ui/jquery-ui.js'),
+            'assets' => ['media/jquery/ui/jquery-ui.js'],
             'filters' => null,
-        ),
-        array(
+        ],
+        [
             'name' => 'jgrowl',
-            'assets' => array('media/jquery/plugins/jquery.jgrowl.js'),
+            'assets' => ['media/jquery/plugins/jquery.jgrowl.js'],
             'filters' => null,
-        ),
-        array(
+        ],
+        [
             'name' => 'fontawesome',
-            'assets' => array('media/font-awesome/css/font-awesome.min.css'),
+            'assets' => ['media/font-awesome/css/font-awesome.min.css'],
             'filters' => null,
-        ),
-    );
+        ],
+    ];
 
     /**
      * @var array of file assets to copy to assets
      */
-    private $default_file_assets = array(
-        array(
+    private $default_file_assets = [
+        [
             'type' => 'fonts',
             'path' => 'media/font-awesome/fonts',
             'pattern' => '*',
-        ),
-    );
-
+        ],
+    ];
 
     /** @var AssetManager */
     private $assetManager = null;
@@ -131,26 +130,26 @@ class Assets
             $assetsPrefs = $xoops->cache()->read($this->assetsPrefsCacheKey);
             $file = $xoops->path($this->assetsPrefsFilename);
             $mtime = filemtime($file);
-            if ($assetsPrefs===false || !isset($assetsPrefs['mtime']) || !$mtime
-                || (isset($assetsPrefs['mtime']) && $assetsPrefs['mtime']<$mtime)) {
+            if (false === $assetsPrefs || !isset($assetsPrefs['mtime']) || !$mtime
+                || (isset($assetsPrefs['mtime']) && $assetsPrefs['mtime'] < $mtime)) {
                 if ($mtime) {
                     $assetsPrefs = Yaml::read($file);
                     if (!is_array($assetsPrefs)) {
-                        $xoops->logger()->error("Invalid config in system_assets_prefs.yml");
-                        $assetsPrefs = array();
+                        $xoops->logger()->error('Invalid config in system_assets_prefs.yml');
+                        $assetsPrefs = [];
                     } else {
-                        $assetsPrefs['mtime']=$mtime;
+                        $assetsPrefs['mtime'] = $mtime;
                         $xoops->cache()->write($this->assetsPrefsCacheKey, $assetsPrefs);
                         $this->copyBaseFileAssets();
                     }
                 } else {
                     // use defaults to create file
-                    $assetsPrefs = array(
+                    $assetsPrefs = [
                         'default_filters' => $this->default_filters,
                         'default_asset_refs' => $this->default_asset_refs,
                         'default_file_assets' => $this->default_file_assets,
                         'mtime' => time(),
-                    );
+                    ];
                     $this->saveAssetsPrefs($assetsPrefs);
                     $this->copyBaseFileAssets();
                 }
@@ -166,8 +165,9 @@ class Assets
             }
         } catch (\Exception $e) {
             $xoops->events()->triggerEvent('core.exception', $e);
-            $assetsPrefs = array();
+            $assetsPrefs = [];
         }
+
         return $assetsPrefs;
     }
 
@@ -183,6 +183,7 @@ class Assets
     {
         if (is_array($assets_prefs)) {
             $xoops = \Xoops::getInstance();
+
             try {
                 Yaml::save($assets_prefs, $xoops->path($this->assetsPrefsFilename));
                 $xoops->cache()->write($this->assetsPrefsCacheKey, $assets_prefs);
@@ -191,7 +192,6 @@ class Assets
             }
         }
     }
-
 
     /**
      * getUrlToAssets
@@ -209,10 +209,10 @@ class Assets
     public function getUrlToAssets($type, $assets, $filters = 'default', $target = null)
     {
         if (is_scalar($assets)) {
-            $assets = array($assets); // just a single path name
+            $assets = [$assets]; // just a single path name
         }
 
-        if ($filters==='default') {
+        if ('default' === $filters) {
             if (isset($this->default_filters[$type])) {
                 $filters = $this->default_filters[$type];
             } else {
@@ -222,7 +222,7 @@ class Assets
 
         if (!is_array($filters)) {
             if (empty($filters)) {
-                $filters = array();
+                $filters = [];
             } else {
                 $filters = explode(',', str_replace(' ', '', $filters));
             }
@@ -294,10 +294,10 @@ class Assets
             $writer = new AssetWriter($target_path);
 
             // Translate asset paths, remove duplicates
-            $translated_assets = array();
+            $translated_assets = [];
             foreach ($assets as $k => $v) {
                 // translate path if not a reference or absolute path
-                if (0 == preg_match("/^\\/|^\\\\|^[a-zA-Z]:|^@/", $v)) {
+                if (0 == preg_match('/^\\/|^\\\\|^[a-zA-Z]:|^@/', $v)) {
                     $v = $xoops->path($v);
                 }
                 if (!in_array($v, $translated_assets)) {
@@ -312,7 +312,7 @@ class Assets
             );
             $asset_path = $asset->getTargetPath();
             if (!is_readable($target_path . $asset_path)) {
-                $assetKey = 'Asset '.$asset_path;
+                $assetKey = 'Asset ' . $asset_path;
                 $xoops->events()->triggerEvent('debug.timer.start', $assetKey);
                 $oldumask = umask(0002);
                 $writer->writeAsset($asset);
@@ -321,13 +321,12 @@ class Assets
             }
 
             return $xoops->url('assets/' . $asset_path);
-
         } catch (\Exception $e) {
             $xoops->events()->triggerEvent('core.exception', $e);
+
             return null;
         }
     }
-
 
     /**
      * setDebug enable debug mode, will skip filters prefixed with '?'
@@ -337,6 +336,7 @@ class Assets
     public function setDebug()
     {
         $this->debug = true;
+
         return true;
     }
 
@@ -349,26 +349,26 @@ class Assets
      * @param string|array $filters either a comma separated list of known named filters
      *                              or an array of named filters and/or filter object
      *
-     * @return boolean true if asset registers, false on error
+     * @return bool true if asset registers, false on error
      */
     public function registerAssetReference($name, $assets, $filters = null)
     {
         $xoops = \Xoops::getInstance();
 
-        $assetArray = array();
-        $filterArray = array();
+        $assetArray = [];
+        $filterArray = [];
 
         try {
             if (is_scalar($assets)) {
-                $assets = array($assets);  // just a single path name
+                $assets = [$assets];  // just a single path name
             }
             foreach ($assets as $a) {
                 // translate path if not a reference or absolute path
-                if ((substr_compare($a, '@', 0, 1) != 0)
-                    && (substr_compare($a, '/', 0, 1) != 0)) {
+                if ((0 != substr_compare($a, '@', 0, 1))
+                    && (0 != substr_compare($a, '/', 0, 1))) {
                     $a = $xoops->path($a);
                 }
-                if (false===strpos($a, '*')) {
+                if (false === mb_strpos($a, '*')) {
                     $assetArray[] = new FileAsset($a); // single file
                 } else {
                     $assetArray[] = new GlobAsset($a);  // wild card match
@@ -377,7 +377,7 @@ class Assets
 
             if (!is_array($filters)) {
                 if (empty($filters)) {
-                    $filters = array();
+                    $filters = [];
                 } else {
                     $filters = explode(',', str_replace(' ', '', $filters));
                 }
@@ -424,6 +424,7 @@ class Assets
             return true;
         } catch (\Exception $e) {
             $xoops->events()->triggerEvent('core.exception', $e);
+
             return false;
         }
     }
@@ -468,9 +469,9 @@ class Assets
             foreach ($from as $filepath) {
                 $xoops->events()->triggerEvent('debug.timer.start', $filepath);
                 $filename = basename($filepath);
-                $status=copy($filepath, $toPath.$filename);
-                if (false===$status) {
-                    $xoops->logger()->warning('Failed to copy asset '.$filename);
+                $status = copy($filepath, $toPath . $filename);
+                if (false === $status) {
+                    $xoops->logger()->warning('Failed to copy asset ' . $filename);
                 } else {
                     //$xoops->logger()->debug('Copied asset '.$filename);
                     ++$count;
@@ -478,10 +479,11 @@ class Assets
                 $xoops->events()->triggerEvent('debug.timer.stop', $filepath);
             }
             umask($oldUmask);
+
             return $count;
-        } else {
-            $xoops->logger()->warning('Asset directory is not writable. ' . $output);
-            return false;
         }
+        $xoops->logger()->warning('Asset directory is not writable. ' . $output);
+
+        return false;
     }
 }

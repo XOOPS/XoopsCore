@@ -33,7 +33,7 @@ class Factory
      *
      * @var array
      */
-    public $allowedThemes = array();
+    public $allowedThemes = [];
 
     /**
      * Default theme to instantiate if none specified
@@ -56,7 +56,7 @@ class Factory
      *
      * @return XoopsTheme
      */
-    public function createInstance($options = array())
+    public function createInstance($options = [])
     {
         $xoops = \Xoops::getInstance();
         // Grab the theme folder from request vars if present
@@ -83,6 +83,7 @@ class Factory
             $inst->$k = $v;
         }
         $inst->xoInit();
+
         return $inst;
     }
 

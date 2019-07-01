@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/../../../init_new.php');
+require_once(__DIR__ . '/../../../init_new.php');
 
 use Xoops\Html\Attributes;
 
@@ -16,7 +16,7 @@ class AttributesTest extends \PHPUnit\Framework\TestCase
      */
     protected function setUp()
     {
-        $this->object = new Attributes;
+        $this->object = new Attributes();
     }
 
     /**
@@ -36,7 +36,7 @@ class AttributesTest extends \PHPUnit\Framework\TestCase
 
     public function test__construct()
     {
-        $expected = ['a'=>'1', 'key'=>'value', 'required' => null ];
+        $expected = ['a' => '1', 'key' => 'value', 'required' => null ];
         $instance = new Attributes($expected);
         $actual = $instance->getAll();
         $this->assertSame($expected, $actual);
@@ -48,7 +48,7 @@ class AttributesTest extends \PHPUnit\Framework\TestCase
 
         $key = 'key';
         $value = 'value';
-        $instance->set($key,$value);
+        $instance->set($key, $value);
         $result = $instance->get($key);
         $this->assertSame($value, $result);
     }
@@ -59,7 +59,7 @@ class AttributesTest extends \PHPUnit\Framework\TestCase
 
         $key = 'key';
         $value = 'value';
-        $instance->set($key,$value);
+        $instance->set($key, $value);
         $result = $instance->get($key);
         $this->assertSame($value, $result);
 
@@ -75,7 +75,7 @@ class AttributesTest extends \PHPUnit\Framework\TestCase
 
         $key = 'key';
         $value = 'value';
-        $instance->set($key,$value);
+        $instance->set($key, $value);
         $result = $instance->get($key);
         $this->assertSame($value, $result);
 
@@ -94,7 +94,7 @@ class AttributesTest extends \PHPUnit\Framework\TestCase
         $instance->add('key', $strAttr);
 
         $result = $instance->get('key');
-        $this->assertTrue(is_array($result));
+        $this->assertInternalType('array', $result);
         $this->assertTrue(in_array('value1', $result));
         $this->assertTrue(in_array('value2', $result));
         $this->assertTrue(in_array('value3', $result));
@@ -102,7 +102,7 @@ class AttributesTest extends \PHPUnit\Framework\TestCase
         $instance->add('key', 'value4');
 
         $result = $instance->get('key');
-        $this->assertTrue(is_array($result));
+        $this->assertInternalType('array', $result);
         $this->assertTrue(in_array('value1', $result));
         $this->assertTrue(in_array('value2', $result));
         $this->assertTrue(in_array('value3', $result));
@@ -111,13 +111,13 @@ class AttributesTest extends \PHPUnit\Framework\TestCase
         $instance->set('key2', 'value4');
 
         $result = $instance->get('key2');
-        $this->assertFalse(is_array($result));
+        $this->assertNotInternalType('array', $result);
         $this->assertEquals('value4', $result);
 
         $arrayAttr = ['value1', 'value2', 'value3'];
         $instance->add('key2', $arrayAttr);
         $result = $instance->get('key2');
-        $this->assertTrue(is_array($result));
+        $this->assertInternalType('array', $result);
         $this->assertTrue(in_array('value1', $result));
         $this->assertTrue(in_array('value2', $result));
         $this->assertTrue(in_array('value3', $result));
@@ -128,7 +128,7 @@ class AttributesTest extends \PHPUnit\Framework\TestCase
     {
         $instance = $this->object;
 
-        $arrAttr = array('key1' =>'value1', 'key2' => 'value2', 'key3' => 'value3');
+        $arrAttr = ['key1' => 'value1', 'key2' => 'value2', 'key3' => 'value3'];
         $instance->setAll($arrAttr);
 
         $result = $instance->renderAttributeString();
@@ -199,7 +199,7 @@ class AttributesTest extends \PHPUnit\Framework\TestCase
         $this->object->set('test1', 'OK1');
         $this->object->set('test2', 'OK2');
         $all = $this->object->getNames();
-        $this->assertEquals(array('test1', 'test2'), $all);
+        $this->assertEquals(['test1', 'test2'], $all);
     }
 
     public function testHas()
@@ -239,10 +239,10 @@ class AttributesTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue($this->object->has('test1'));
         $this->assertTrue($this->object->has('test2'));
 
-        $replacements = array(
+        $replacements = [
             'test3' => 'OK3',
             'test4' => 'OK4',
-        );
+        ];
         $oldValues = $this->object->setAll($replacements);
         $this->assertArrayHasKey('test1', $oldValues);
         $this->assertArrayHasKey('test2', $oldValues);
@@ -264,10 +264,10 @@ class AttributesTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue($this->object->has('test1'));
         $this->assertTrue($this->object->has('test2'));
 
-        $replacements = array(
+        $replacements = [
             'test2' => 'OK2new',
             'test3' => 'OK3',
-        );
+        ];
         $this->object->setMerge($replacements);
 
         $this->assertTrue($this->object->has('test1'));
@@ -284,20 +284,20 @@ class AttributesTest extends \PHPUnit\Framework\TestCase
         $this->object->setArrayItem('test', 'a', 'OK1');
         $this->object->setArrayItem('test', 'b', 'OK2');
 
-        $expected = array(
+        $expected = [
             'a' => 'OK1',
             'b' => 'OK2',
-        );
+        ];
         $this->assertEquals($expected, $this->object->get('test'));
 
         $this->object->set('test', 'NOTOK1');
         $this->object->setArrayItem('test', null, 'OK1');
         $this->object->setArrayItem('test', null, 'OK2');
 
-        $expected = array(
+        $expected = [
             0 => 'OK1',
             1 => 'OK2',
-        );
+        ];
         $actual = $this->object->get('test');
         $this->assertEquals($expected, $actual);
     }
@@ -341,7 +341,7 @@ class AttributesTest extends \PHPUnit\Framework\TestCase
 
         $this->assertSame('OK1', $this->object->get('test1'));
         $this->assertSame('OK2', $this->object['test2']);
-        $this->assertEquals(2, count($this->object));
+        $this->assertCount(2, $this->object);
         $i = 0;
         foreach ($this->object as $v) {
             ++$i;

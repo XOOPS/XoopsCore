@@ -36,8 +36,6 @@ interface AvatarInterface
      * @param mixed    $userinfo XoopsUser object for user or
      *                           array     user info, 'uid', 'uname' and 'email' required
      *                           int       user uid
-     *
-     * @return void - response->value set to absolute URL to avatar image
      */
     public function getAvatarUrl($response, $userinfo);
 
@@ -46,8 +44,6 @@ interface AvatarInterface
      *
      * @param Response  $response \Xoops\Core\Service\Response object
      * @param XoopsUser $userinfo XoopsUser object for user
-     *
-     * @return void - response->value set to absolute URL to editing function for avatar data
      */
     public function getAvatarEditUrl($response, XoopsUser $userinfo);
 }

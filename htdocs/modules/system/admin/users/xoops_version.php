@@ -19,17 +19,16 @@
  * @subpackage      users
  * @version         $Id$
  */
-
-$modversion['name']        = XoopsLocale::USERS;
-$modversion['version']     = '1.0';
+$modversion['name'] = XoopsLocale::USERS;
+$modversion['version'] = '1.0';
 $modversion['description'] = SystemLocale::USERS_DESC;
-$modversion['author']      = '';
-$modversion['credits']     = 'The XOOPS Project; Francisco Burzi<br>'
+$modversion['author'] = '';
+$modversion['credits'] = 'The XOOPS Project; Francisco Burzi<br>'
     . '( http://phpnuke.org/ ); Kazumi Ono; Maxime Cointin (AKA Kraven30)';
-$modversion['help']        = 'page=users';
-$modversion['license']     = "GPL see LICENSE";
-$modversion['official']    = 1;
-$modversion['image']       = 'edituser.png';
-$modversion['hasAdmin']    = 1;
-$modversion['adminpath']   = 'admin.php?fct=users';
-$modversion['category']    = XOOPS_SYSTEM_USER;
+$modversion['help'] = 'page=users';
+$modversion['license'] = 'GPL see LICENSE';
+$modversion['official'] = 1;
+$modversion['image'] = 'edituser.png';
+$modversion['hasAdmin'] = 1;
+$modversion['adminpath'] = 'admin.php?fct=users';
+$modversion['category'] = XOOPS_SYSTEM_USER;

@@ -1,7 +1,8 @@
 <?php
+
 namespace Xoops\Form;
 
-require_once(__DIR__.'/../../../init_new.php');
+require_once(__DIR__ . '/../../../init_new.php');
 
 class LabelTest extends \PHPUnit\Framework\TestCase
 {
@@ -30,9 +31,9 @@ class LabelTest extends \PHPUnit\Framework\TestCase
     public function testRender()
     {
         $value = $this->object->render();
-        $this->assertTrue(is_string($value));
-        $this->assertTrue(false !== strpos($value, '<div'));
-        $this->assertTrue(false !== strpos($value, 'id="name"'));
+        $this->assertInternalType('string', $value);
+        $this->assertTrue(false !== mb_strpos($value, '<div'));
+        $this->assertTrue(false !== mb_strpos($value, 'id="name"'));
     }
 
     public function test__construct()

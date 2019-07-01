@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__.'/../../../../init_new.php';
+require_once __DIR__ . '/../../../../init_new.php';
 
 use Xoops\Core\Cache\CacheManager;
 
@@ -16,7 +16,7 @@ class CacheManagerTest extends \PHPUnit\Framework\TestCase
      */
     protected function setUp()
     {
-        $this->object = new CacheManager;
+        $this->object = new CacheManager();
     }
 
     /**

@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/../../../../../init_new.php');
+require_once(__DIR__ . '/../../../../../init_new.php');
 
 use Doctrine\DBAL\Types\Type;
 
@@ -24,22 +24,31 @@ class ImportSchemaTest extends \PHPUnit\Framework\TestCase
 
         $instance->acceptColumn($table, $column);
 
-        $columns = array('groupid');
+        $columns = ['groupid'];
         $fk_table = 'system_permission';
         $fk_name = 'fk_name';
-        $fk_options = array('o'=>'o1');
-        $fk_columns = array('system_permission');
+        $fk_options = ['o' => 'o1'];
+        $fk_columns = ['system_permission'];
         $fk_constraint = new Doctrine\DBAL\Schema\ForeignKeyConstraint(
-            $columns, $fk_table, $fk_columns, $fk_name, $fk_options);
+            $columns,
+            $fk_table,
+            $fk_columns,
+            $fk_name,
+            $fk_options
+        );
 
         $instance->acceptForeignKey($table, $fk_constraint);
 
         $name = 'index_name';
-        $columns = array('name','description');
+        $columns = ['name', 'description'];
         $unique = true;
         $primary = true;
         $index = new Doctrine\DBAL\Schema\Index(
-            $name, $columns, $unique, $primary);
+            $name,
+            $columns,
+            $unique,
+            $primary
+        );
 
         $instance->acceptIndex($table, $index);
 
@@ -47,7 +56,10 @@ class ImportSchemaTest extends \PHPUnit\Framework\TestCase
         $alloc_size = 10;
         $initial_value = 11;
         $sequence = new Doctrine\DBAL\Schema\Sequence(
-            $name, $alloc_size, $initial_value);
+            $name,
+            $alloc_size,
+            $initial_value
+        );
 
         $instance->acceptSequence($sequence);
 

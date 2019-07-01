@@ -21,90 +21,88 @@
  * @author      DuGris (aka L. JEN) <dugris@frxoops.org>
  * @version     $Id$
  */
-
 defined('XOOPS_INSTALL') or die('XOOPS Custom Installation die');
 
-$configs = array();
+$configs = [];
 
 // setup config site info
 //$configs['db_types'] = array('mysql');
 $available_pdo_drivers = \PDO::getAvailableDrivers();
-$configs['db_types'] = array();
+$configs['db_types'] = [];
 if (in_array('mysql', $available_pdo_drivers)) {
-    $configs['db_types']['pdo_mysql']  = array(
+    $configs['db_types']['pdo_mysql'] = [
         'desc' => 'PDO MySql Driver',
         'type' => 'mysql',
         'params' => 'dbname,host,user,password,port,unix_socket',
-        'ignoredb' => array('information_schema','test'),
-    );
+        'ignoredb' => ['information_schema', 'test'],
+    ];
 }
 if (in_array('sqlite', $available_pdo_drivers)) {
-    $configs['db_types']['pdo_sqlite'] = array(
+    $configs['db_types']['pdo_sqlite'] = [
         'desc' => 'PDO Sqlite Driver (untested)',
         'type' => 'sqlite',
         'params' => 'path',
-        'ignoredb' => array(),
-    );
+        'ignoredb' => [],
+    ];
 }
 if (in_array('pgsql', $available_pdo_drivers)) {
-    $configs['db_types']['pdo_pgsql'] = array(
+    $configs['db_types']['pdo_pgsql'] = [
         'desc' => 'PDO PostgreSql Driver (untested)',
         'type' => 'pgsql',
         'params' => 'dbname,host,user,password,port',
-        'ignoredb' => array(),
-    );
+        'ignoredb' => [],
+    ];
 }
 if (function_exists('oci_connect')) {
-    $configs['db_types']['oci8'] = array(
+    $configs['db_types']['oci8'] = [
         'desc' => 'Oracle OCI8 Driver (untested)',
         'type' => 'oci',
         'params' => 'dbname,host,user,password,port,service,pooled',
-        'ignoredb' => array(),
-    );
+        'ignoredb' => [],
+    ];
 }
 if (in_array('oci', $available_pdo_drivers)) {
-    $configs['db_types']['pdo_oci'] = array(
+    $configs['db_types']['pdo_oci'] = [
         'desc' => 'PDO Oracle Driver (untested)',
         'type' => 'oci',
         'params' => 'dbname,host,user,password,port,service',
-        'ignoredb' => array(),
-    );
+        'ignoredb' => [],
+    ];
 }
 if (function_exists('db2_connect')) {
-    $configs['db_types']['ibm_db2'] = array(
+    $configs['db_types']['ibm_db2'] = [
         'desc' => 'IBM DB2 Driver (untested)',
         'type' => 'db2',
         'params' => 'dbname,host,user,password,protocol,port',
-        'ignoredb' => array(),
-    );
+        'ignoredb' => [],
+    ];
 }
 if (in_array('sqlsrv', $available_pdo_drivers)) {
-    $configs['db_types']['pdo_sqlsrv'] = array(
+    $configs['db_types']['pdo_sqlsrv'] = [
         'desc' => 'PDO SqlServer Driver (untested)',
         'type' => 'sqlsrv',
         'params' => 'dbname,host,user,password,port',
-        'ignoredb' => array(),
-    );
+        'ignoredb' => [],
+    ];
 }
 if (function_exists('sqlsrv_connect')) {
-    $configs['db_types']['sqlsrv'] = array(
+    $configs['db_types']['sqlsrv'] = [
         'desc' => 'SqlServer Driver (untested)',
         'type' => 'sqlsrv',
         'params' => 'dbname,host,user,password,port',
-        'ignoredb' => array(),
-    );
+        'ignoredb' => [],
+    ];
 }
 if (function_exists('mysqli_connect')) {
-    $configs['db_types']['mysqli'] = array(
+    $configs['db_types']['mysqli'] = [
         'desc' => 'Mysqli Driver (untested)',
         'type' => 'mysql',
         'params' => 'dbname,host,user,password,port,unix_socket',
-        'ignoredb' => array('information_schema','test'),
-    );
+        'ignoredb' => ['information_schema', 'test'],
+    ];
 }
 
-
-$configs['db_param_names'] = array(
+$configs['db_param_names'] = [
     'host' => 'DB_HOST',
     'user' => 'DB_USER',
     'password' => 'DB_PASS',
@@ -113,11 +111,11 @@ $configs['db_param_names'] = array(
     'path' => 'DB_PATH',
     'service' => 'DB_SERVICE',
     'pooled' => 'DB_POOLED',
-    'protocol'=>'DB_PROTOCOL',
-    'dbname'=>'DB_NAME',
-);
+    'protocol' => 'DB_PROTOCOL',
+    'dbname' => 'DB_NAME',
+];
 
-$configs['db_param_types'] = array(
+$configs['db_param_types'] = [
     'host' => 'string',
     'user' => 'string',
     'password' => 'password',
@@ -126,30 +124,30 @@ $configs['db_param_types'] = array(
     'path' => 'string',
     'service' => 'boolean',
     'pooled' => 'boolean',
-    'protocol'=>'string',
-    'dbname'=>'string',
-);
+    'protocol' => 'string',
+    'dbname' => 'string',
+];
 
-$configs['conf_names'] = array(
+$configs['conf_names'] = [
     'sitename', 'slogan', 'allow_register', 'meta_keywords', 'meta_description', 'meta_author', 'meta_copyright',
-);
+];
 
 // extension_loaded
-$configs['extensions'] = array(
-    'mbstring' => array('MBString', sprintf(PHP_EXTENSION, CHAR_ENCODING)),
-    'iconv' => array('Iconv', sprintf(PHP_EXTENSION, ICONV_CONVERSION)),
-    'xml' => array('XML', sprintf(PHP_EXTENSION, XML_PARSING)),
-    'zlib' => array('Zlib', sprintf(PHP_EXTENSION, ZLIB_COMPRESSION)),
-    'gd' => array(
+$configs['extensions'] = [
+    'mbstring' => ['MBString', sprintf(PHP_EXTENSION, CHAR_ENCODING)],
+    'iconv' => ['Iconv', sprintf(PHP_EXTENSION, ICONV_CONVERSION)],
+    'xml' => ['XML', sprintf(PHP_EXTENSION, XML_PARSING)],
+    'zlib' => ['Zlib', sprintf(PHP_EXTENSION, ZLIB_COMPRESSION)],
+    'gd' => [
         (function_exists('gd_info') && $gdlib = @gd_info()) ? 'GD ' . $gdlib['GD Version'] : '',
-        sprintf(PHP_EXTENSION, IMAGE_FUNCTIONS)
-    ),
-    'exif' => array('Exif', sprintf(PHP_EXTENSION, IMAGE_METAS)),
-    'curl' => array('Curl', sprintf(PHP_EXTENSION, CURL_HTTP)),
-);
+        sprintf(PHP_EXTENSION, IMAGE_FUNCTIONS),
+    ],
+    'exif' => ['Exif', sprintf(PHP_EXTENSION, IMAGE_METAS)],
+    'curl' => ['Curl', sprintf(PHP_EXTENSION, CURL_HTTP)],
+];
 
 // Writable files and directories
-$configs['writable'] = array(
+$configs['writable'] = [
     'assets/',
     'uploads/',
 //  'uploads/avatars/',
@@ -158,20 +156,20 @@ $configs['writable'] = array(
 //  'uploads/smilies/',
 //  'uploads/banners/',
 //  'mainfile.php'
-);
+];
 
 // Modules to be installed by default
-$configs['modules'] = array(
+$configs['modules'] = [
     'banners',
     'comments',
     'notifications',
     'page',
     'search',
     'userconfigs',
-);
+];
 
 // Extensions to be installed by default
-$configs['ext'] = array(
+$configs['ext'] = [
     'avatars',
     'debugbar',
     'images',
@@ -182,19 +180,19 @@ $configs['ext'] = array(
     'smilies',
     'thumbs',
     'userrank',
-);
+];
 
 // xoops_lib, xoops_data directories
-$configs['xoopsPathDefault'] = array(
+$configs['xoopsPathDefault'] = [
     'lib' => 'xoops_lib',
     'data' => 'xoops_data',
-);
+];
 
 // writable xoops_lib, xoops_data directories
-$configs['dataPath'] = array(
-    'caches' => array(
+$configs['dataPath'] = [
+    'caches' => [
         'xoops_cache', 'smarty_cache', 'smarty_compile',
-    ),
+    ],
     'configs' => null,
-    'data' => null
-);
+    'data' => null,
+];

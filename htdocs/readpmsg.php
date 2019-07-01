@@ -21,13 +21,12 @@ use Xoops\Core\Kernel\Handlers\XoopsUser;
  * @since           2.0.0
  * @version         $Id$
  */
-
 include __DIR__ . '/mainfile.php';
 $xoops = Xoops::getInstance();
 $xoops->events()->triggerEvent('core.readpmsg.start');
 
 if (!$xoops->isUser()) {
-    $xoops->redirect("user.php", 2, XoopsLocale::E_YOU_ARE_NOT_REGISTERED);
+    $xoops->redirect('user.php', 2, XoopsLocale::E_YOU_ARE_NOT_REGISTERED);
 }
 
 $op = Request::getCmd('op', 'list');
@@ -40,7 +39,6 @@ $pm_handler = $xoops->getHandlerPrivateMessage();
 $xoops->header('module:system/system_readpmsg.tpl');
 
 switch ($op) {
-
     case 'list':
     default:
 
@@ -54,14 +52,14 @@ switch ($op) {
         $criteria->setSort('msg_time');
         $criteria->setOrder('DESC');
         $pm_arr = $pm_handler->getObjects($criteria);
-        $xoops->tpl()->assign('uid', $xoops->user->getVar("uid"));
+        $xoops->tpl()->assign('uid', $xoops->user->getVar('uid'));
         if (empty($pm_arr)) {
             $xoops->tpl()->assign('error_msg', $xoops->alert('error', XoopsLocale::E_YOU_DO_NOT_HAVE_ANY_PRIVATE_MESSAGE));
         } else {
-            if ($pm_arr[0]->getVar('read_msg') == 0) {
+            if (0 == $pm_arr[0]->getVar('read_msg')) {
                 $pm_handler->setRead($pm_arr[0]);
             }
-            $poster = new XoopsUser($pm_arr[0]->getVar("from_userid"));
+            $poster = new XoopsUser($pm_arr[0]->getVar('from_userid'));
             if (!is_object($poster)) {
                 $xoops->tpl()->assign('poster', false);
                 $xoops->tpl()->assign('anonymous', $xoopsConfig['anonymous']);
@@ -70,11 +68,11 @@ switch ($op) {
                 $avatar = $xoops->service('avatar')->getAvatarUrl($poster)->getValue();
                 $xoops->tpl()->assign('poster_avatar', $avatar);
             }
-            $xoops->tpl()->assign('msg_id', $pm_arr[0]->getVar("msg_id"));
-            $xoops->tpl()->assign('subject', $pm_arr[0]->getVar("subject"));
-            $xoops->tpl()->assign('msg_time', $pm_arr[0]->getVar("msg_time"));
-            $xoops->tpl()->assign('msg_image', $pm_arr[0]->getVar("msg_image", "E"));
-            $xoops->tpl()->assign('msg_text', $pm_arr[0]->getVar("msg_text"));
+            $xoops->tpl()->assign('msg_id', $pm_arr[0]->getVar('msg_id'));
+            $xoops->tpl()->assign('subject', $pm_arr[0]->getVar('subject'));
+            $xoops->tpl()->assign('msg_time', $pm_arr[0]->getVar('msg_time'));
+            $xoops->tpl()->assign('msg_image', $pm_arr[0]->getVar('msg_image', 'E'));
+            $xoops->tpl()->assign('msg_text', $pm_arr[0]->getVar('msg_text'));
             $xoops->tpl()->assign('previous', $start - 1);
             $xoops->tpl()->assign('next', $start + 1);
             $xoops->tpl()->assign('total_messages', $total_messages);
@@ -82,21 +80,20 @@ switch ($op) {
             $xoops->tpl()->assign('token', $xoops->security()->getTokenHTML());
         }
         break;
-
     case 'delete':
         $obj = $pm_handler->get($id);
-        if (isset($_POST["ok"]) && $_POST["ok"] == 1) {
+        if (isset($_POST['ok']) && 1 == $_POST['ok']) {
             if (!$xoops->security()->check()) {
-                $xoops->redirect("viewpmsg.php", 3, implode(",", $xoops->security()->getErrors()));
+                $xoops->redirect('viewpmsg.php', 3, implode(',', $xoops->security()->getErrors()));
             }
             if ($pm_handler->delete($obj)) {
-                $xoops->redirect("viewpmsg.php", 2, XoopsLocale::S_YOUR_MESSAGES_DELETED);
+                $xoops->redirect('viewpmsg.php', 2, XoopsLocale::S_YOUR_MESSAGES_DELETED);
             } else {
                 echo $xoops->alert('error', $obj->getHtmlErrors());
             }
         } else {
-            $xoops->tpl()->assign('subject', $obj->getVar("subject"));
-            echo $xoops->confirm(array("ok" => 1, "msg_id" => $id, "op" => "delete"), 'readpmsg.php', XoopsLocale::Q_ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS_MESSAGES . '<br />' . $obj->getVar("subject"));
+            $xoops->tpl()->assign('subject', $obj->getVar('subject'));
+            echo $xoops->confirm(['ok' => 1, 'msg_id' => $id, 'op' => 'delete'], 'readpmsg.php', XoopsLocale::Q_ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS_MESSAGES . '<br />' . $obj->getVar('subject'));
         }
         break;
 }

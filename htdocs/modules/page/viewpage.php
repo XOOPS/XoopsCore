@@ -21,7 +21,6 @@ use Xmf\Request;
  * @author          Mage Grégory (AKA Mage)
  * @version         $Id$
  */
-
 include_once 'header.php';
 
 // Call header
@@ -41,14 +40,14 @@ if (!$perm_view) {
 $view_content = $content_Handler->get($content_id);
 
 // Test if the page exist
-if (count($view_content) == 0 || $view_content->getVar('content_status') == 0) {
+if (0 == count($view_content) || 0 == $view_content->getVar('content_status')) {
     $xoops->redirect('index.php', 3, PageLocale::E_NOT_EXIST);
     exit();
 }
 
 // hits
-if ($view_content->getVar('content_author') != $uid && $view_content->getVar('content_dohits') != false) {
-    if (!isset( $_SESSION['page_hits' . $content_id] ) || isset( $_SESSION['page_hits' . $content_id] ) && ($_SESSION['page_hits' . $content_id]['content_time'] + $interval) <  time()) {
+if ($view_content->getVar('content_author') != $uid && false != $view_content->getVar('content_dohits')) {
+    if (!isset($_SESSION['page_hits' . $content_id]) || isset($_SESSION['page_hits' . $content_id]) && ($_SESSION['page_hits' . $content_id]['content_time'] + $interval) < time()) {
         $hits = $view_content->getVar('content_hits') + 1;
         $view_content->setVar('content_hits', $hits);
         $content_Handler->insert($view_content);
@@ -70,7 +69,7 @@ $xoops->tpl()->assign('yourvote', $rating_Handler->getVotebyUser($content_id));
 // get token for rating
 $xoops->tpl()->assign('security', $xoops->security()->createToken());
 // Meta
-$xoops->tpl()->assign('xoops_pagetitle', strip_tags($view_content->getVar('content_title')  . ' - ' . $xoops->module->name()));
+$xoops->tpl()->assign('xoops_pagetitle', strip_tags($view_content->getVar('content_title') . ' - ' . $xoops->module->name()));
 $xoops->theme()->addMeta('meta', 'description', strip_tags($view_content->getVar('content_mdescription')));
 $xoops->theme()->addMeta('meta', 'keywords', strip_tags($view_content->getVar('content_mkeyword')));
 $xoops->footer();

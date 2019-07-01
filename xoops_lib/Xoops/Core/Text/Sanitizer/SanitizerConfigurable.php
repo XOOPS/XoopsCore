@@ -38,7 +38,7 @@ abstract class SanitizerConfigurable
     final public static function getDefaultConfig()
     {
         $fullName = get_called_class();
-        $shortName = ($pos = strrpos($fullName, '\\')) ? substr($fullName, $pos + 1) : $fullName;
+        $shortName = ($pos = mb_strrpos($fullName, '\\')) ? mb_substr($fullName, $pos + 1) : $fullName;
         $defaults = static::$defaultConfiguration;
         $defaults['configured_class'] = $fullName;
         $defaults['type'] = 'extension';
@@ -50,7 +50,7 @@ abstract class SanitizerConfigurable
         if (!array_key_exists('enabled', $defaults)) {
             $defaults['enabled'] = false;
         }
-        $return[strtolower($shortName)] = $defaults;
+        $return[mb_strtolower($shortName)] = $defaults;
 
         return $return;
     }

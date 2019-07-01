@@ -39,7 +39,7 @@ class DtypeTextBox extends DtypeAbstract
     public function getVar(XoopsObject $obj, $key, $format)
     {
         $value = $obj->vars[$key]['value'];
-        switch (strtolower($format)) {
+        switch (mb_strtolower($format)) {
             case 's':
             case Dtype::FORMAT_SHOW:
             case 'e':
@@ -68,12 +68,14 @@ class DtypeTextBox extends DtypeAbstract
     public function cleanVar(XoopsObject $obj, $key)
     {
         $value = $obj->vars[$key]['value'];
-        if ($obj->vars[$key]['required'] && $value != '0' && $value == '') {
+        if ($obj->vars[$key]['required'] && '0' != $value && '' == $value) {
             $obj->setErrors(sprintf(\XoopsLocale::F_IS_REQUIRED, $key));
+
             return $value;
         }
         if (isset($obj->vars[$key]['maxlength']) && mb_strlen($value) > (int)($obj->vars[$key]['maxlength'])) {
             $obj->setErrors(sprintf(\XoopsLocale::F_MUST_BE_SHORTER_THAN, $key, (int)($obj->vars[$key]['maxlength'])));
+
             return $value;
         }
 

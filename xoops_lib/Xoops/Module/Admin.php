@@ -36,15 +36,15 @@ class Admin
      *
      * @var array
      */
-    public $tplFile = array(
+    public $tplFile = [
         'index' => 'admin_index.tpl',
         'about' => 'admin_about.tpl',
         'infobox' => 'admin_infobox.tpl',
         'bread' => 'admin_breadcrumb.tpl',
         'button' => 'admin_buttons.tpl',
         'tips' => 'admin_tips.tpl',
-        'nav'   => 'admin_navigation.tpl',
-    );
+        'nav' => 'admin_navigation.tpl',
+    ];
 
     /**
      * Tips to display in admin page
@@ -58,28 +58,28 @@ class Admin
      *
      * @var array
      */
-    private $itemButton = array();
+    private $itemButton = [];
 
     /**
      * List of Info Box
      *
      * @var array
      */
-    private $itemInfoBox = array();
+    private $itemInfoBox = [];
 
     /**
      * List of line of an Info Box
      *
      * @var array
      */
-    private $itemConfigBoxLine = array();
+    private $itemConfigBoxLine = [];
 
     /**
      * Breadcrumb data
      *
      * @var array
      */
-    private $bread = array();
+    private $bread = [];
 
     /**
      * Current module object
@@ -109,10 +109,10 @@ class Admin
      */
     public function addBreadcrumbLink($title = '', $link = '', $home = false)
     {
-        if ($title != '') {
-            $this->bread[] = array(
-                'link' => $link, 'title' => $title, 'home' => $home
-            );
+        if ('' != $title) {
+            $this->bread[] = [
+                'link' => $link, 'title' => $title, 'home' => $home,
+            ];
         }
     }
 
@@ -129,49 +129,46 @@ class Admin
     {
         switch ($type) {
             default:
-            case "default":
-                $this->itemConfigBoxLine[] = array('type' => $type, 'text' => $value);
+            case 'default':
+                $this->itemConfigBoxLine[] = ['type' => $type, 'text' => $value];
                 break;
-
-            case "folder":
+            case 'folder':
                 if (!is_dir($value)) {
-                    $this->itemConfigBoxLine[] = array(
-                        'type' => 'error', 'text' => sprintf(\XoopsLocale::EF_FOLDER_DOES_NOT_EXIST, $value)
-                    );
+                    $this->itemConfigBoxLine[] = [
+                        'type' => 'error', 'text' => sprintf(\XoopsLocale::EF_FOLDER_DOES_NOT_EXIST, $value),
+                    ];
                 } else {
-                    $this->itemConfigBoxLine[] = array(
-                        'type' => 'accept', 'text' => sprintf(\XoopsLocale::SF_FOLDER_EXISTS, $value)
-                    );
+                    $this->itemConfigBoxLine[] = [
+                        'type' => 'accept', 'text' => sprintf(\XoopsLocale::SF_FOLDER_EXISTS, $value),
+                    ];
                 }
                 break;
-
-            case "chmod":
+            case 'chmod':
                 if (is_dir($value[0])) {
-                    if (substr(decoct(fileperms($value[0])), 2) != $value[1]) {
-                        $this->itemConfigBoxLine[] = array(
+                    if (mb_substr(decoct(fileperms($value[0])), 2) != $value[1]) {
+                        $this->itemConfigBoxLine[] = [
                             'type' => 'error',
                             'text' => sprintf(
                                 \XoopsLocale::EF_FOLDER_MUST_BE_WITH_CHMOD,
                                 $value[0],
                                 $value[1],
-                                substr(decoct(fileperms($value[0])), 2)
-                            )
-                        );
+                                mb_substr(decoct(fileperms($value[0])), 2)
+                            ),
+                        ];
                     } else {
-                        $this->itemConfigBoxLine[] = array(
+                        $this->itemConfigBoxLine[] = [
                             'type' => 'accept',
                             'text' => sprintf(
                                 \XoopsLocale::EF_FOLDER_MUST_BE_WITH_CHMOD,
                                 $value[0],
                                 $value[1],
-                                substr(decoct(fileperms($value[0])), 2)
-                            )
-                        );
+                                mb_substr(decoct(fileperms($value[0])), 2)
+                            ),
+                        ];
                     }
                 }
                 break;
-
-            case "extension":
+            case 'extension':
                 $xoops = \Xoops::getInstance();
                 if (is_array($value)) {
                     $text = $value[0];
@@ -180,18 +177,17 @@ class Admin
                     $text = $value;
                     $type = 'error';
                 }
-                if ($xoops->isActiveModule($text) == false) {
-                    $this->itemConfigBoxLine[] = array(
-                        'type' => $type, 'text' => sprintf(\XoopsLocale::EF_EXTENSION_IS_NOT_INSTALLED, $text)
-                    );
+                if (false == $xoops->isActiveModule($text)) {
+                    $this->itemConfigBoxLine[] = [
+                        'type' => $type, 'text' => sprintf(\XoopsLocale::EF_EXTENSION_IS_NOT_INSTALLED, $text),
+                    ];
                 } else {
-                    $this->itemConfigBoxLine[] = array(
-                        'type' => 'accept', 'text' => sprintf(\XoopsLocale::SF_EXTENSION_IS_INSTALLED, $text)
-                    );
+                    $this->itemConfigBoxLine[] = [
+                        'type' => 'accept', 'text' => sprintf(\XoopsLocale::SF_EXTENSION_IS_INSTALLED, $text),
+                    ];
                 }
                 break;
-
-            case "module":
+            case 'module':
                 $xoops = \Xoops::getInstance();
                 if (is_array($value)) {
                     $text = $value[0];
@@ -200,18 +196,17 @@ class Admin
                     $text = $value;
                     $type = 'error';
                 }
-                if ($xoops->isActiveModule($text) == false) {
-                    $this->itemConfigBoxLine[] = array(
-                        'type' => $type, 'text' => sprintf(\XoopsLocale::F_MODULE_IS_NOT_INSTALLED, $text)
-                    );
+                if (false == $xoops->isActiveModule($text)) {
+                    $this->itemConfigBoxLine[] = [
+                        'type' => $type, 'text' => sprintf(\XoopsLocale::F_MODULE_IS_NOT_INSTALLED, $text),
+                    ];
                 } else {
-                    $this->itemConfigBoxLine[] = array(
-                        'type' => 'accept', 'text' => sprintf(\XoopsLocale::F_MODULE_IS_INSTALLED, $text)
-                    );
+                    $this->itemConfigBoxLine[] = [
+                        'type' => 'accept', 'text' => sprintf(\XoopsLocale::F_MODULE_IS_INSTALLED, $text),
+                    ];
                 }
                 break;
-
-            case "service":
+            case 'service':
                 $xoops = \Xoops::getInstance();
                 if (is_array($value)) {
                     $text = $value[0];
@@ -221,17 +216,17 @@ class Admin
                     $type = 'error';
                 }
                 if ($xoops->service($text)->isAvailable()) {
-                    $this->itemConfigBoxLine[] = array(
-                        'type' => 'accept', 'text' => sprintf(\XoopsLocale::SF_SERVICE_IS_INSTALLED, $text)
-                    );
+                    $this->itemConfigBoxLine[] = [
+                        'type' => 'accept', 'text' => sprintf(\XoopsLocale::SF_SERVICE_IS_INSTALLED, $text),
+                    ];
                 } else {
-                    $this->itemConfigBoxLine[] = array(
-                        'type' => $type, 'text' => sprintf(\XoopsLocale::EF_SERVICE_IS_NOT_INSTALLED, $text)
-                    );
+                    $this->itemConfigBoxLine[] = [
+                        'type' => $type, 'text' => sprintf(\XoopsLocale::EF_SERVICE_IS_NOT_INSTALLED, $text),
+                    ];
                 }
                 break;
-
         }
+
         return true;
     }
 
@@ -277,35 +272,35 @@ class Admin
      * Check for installed module and version and to configuration box
      *
      * @param string  $moddir     module directory name
-     * @param integer $minversion minimum acceptable module version (100 = V1.00)
+     * @param int $minversion minimum acceptable module version (100 = V1.00)
      *
      * @return bool true if requested version of the module is available
      */
     public function addConfigModuleVersion($moddir, $minversion)
     {
-        $return=false;
-        $helper= \Xoops::getInstance()->getModuleHelper($moddir);
+        $return = false;
+        $helper = \Xoops::getInstance()->getModuleHelper($moddir);
         if (is_object($helper) && is_object($helper->getModule())) {
-            $mod_modversion=$helper->getModule()->getVar('version');
-            $mod_version_f = $mod_modversion/100;
-            $min_version_f = $minversion/100;
+            $mod_modversion = $helper->getModule()->getVar('version');
+            $mod_version_f = $mod_modversion / 100;
+            $min_version_f = $minversion / 100;
             $value = sprintf(
                 \XoopsLocale::EF_MODULE_VERSION,
-                strtoupper($moddir),
+                mb_strtoupper($moddir),
                 $min_version_f,
                 $mod_version_f
             );
-            if ($mod_modversion>=$minversion) {
+            if ($mod_modversion >= $minversion) {
                 $this->addConfigAccept($value);
-                $return=true;
+                $return = true;
             } else {
                 $this->addConfigError($value);
             }
         } else {
             $value = sprintf(
                 \XoopsLocale::EF_MODULE_NOTFOUND,
-                strtoupper($moddir),
-                $minversion/100
+                mb_strtoupper($moddir),
+                $minversion / 100
             );
             $this->addConfigError($value);
         }
@@ -329,6 +324,7 @@ class Admin
         $ret['type'] = $type;
         $ret['extra'] = $extra;
         $this->itemInfoBox[] = $ret;
+
         return true;
     }
 
@@ -343,7 +339,7 @@ class Admin
      */
     public function addInfoBoxLine($text = '', $type = 'default', $color = 'inherit')
     {
-        $ret = array();
+        $ret = [];
         $ret['text'] = $text;
         $ret['color'] = $color;
 
@@ -352,6 +348,7 @@ class Admin
                 $this->itemInfoBox[$i]['line'][] = $ret;
             }
         }
+
         return true;
     }
 
@@ -372,6 +369,7 @@ class Admin
         $ret['icon'] = $icon;
         $ret['extra'] = $extra;
         $this->itemButton[] = $ret;
+
         return true;
     }
 
@@ -408,6 +406,7 @@ class Admin
     {
         $xoops = \Xoops::getInstance();
         $xoops->tpl()->assign('xo_admin_breadcrumb', $this->bread);
+
         return $xoops->tpl()->fetch($this->getTplPath('bread'));
     }
 
@@ -429,13 +428,14 @@ class Admin
      *
      * @return string
      */
-    public function renderButton($position = "floatright", $delimiter = "&nbsp;")
+    public function renderButton($position = 'floatright', $delimiter = '&nbsp;')
     {
         $xoops = \Xoops::getInstance();
 
         $xoops->tpl()->assign('xo_admin_buttons_position', $position);
         $xoops->tpl()->assign('xo_admin_buttons_delim', $delimiter);
         $xoops->tpl()->assign('xo_admin_buttons', $this->itemButton);
+
         return $xoops->tpl()->fetch($this->getTplPath('button'));
     }
 
@@ -447,7 +447,7 @@ class Admin
      *
      * @return void
      */
-    public function displayButton($position = "floatright", $delimiter = "&nbsp;")
+    public function displayButton($position = 'floatright', $delimiter = '&nbsp;')
     {
         echo $this->renderButton($position, $delimiter);
     }
@@ -461,6 +461,7 @@ class Admin
     {
         $xoops = \Xoops::getInstance();
         $xoops->tpl()->assign('xo_admin_box', $this->itemInfoBox);
+
         return $xoops->tpl()->fetch($this->getTplPath('infobox'));
     }
 
@@ -484,20 +485,20 @@ class Admin
         $xoops = \Xoops::getInstance();
         $this->module->loadAdminMenu();
         foreach (array_keys($this->module->adminmenu) as $i) {
-            if (\XoopsLoad::fileExists($xoops->path("media/xoops/images/icons/32/" . $this->module->adminmenu[$i]['icon']))) {
-                $this->module->adminmenu[$i]['icon'] = $xoops->url("media/xoops/images/icons/32/" . $this->module->adminmenu[$i]['icon']);
-            } elseif (\XoopsLoad::fileExists($xoops->path("modules/" . $xoops->module->dirname() . "/assets/icons/32/" . $this->module->adminmenu[$i]['icon']))) {
-                $this->module->adminmenu[$i]['icon'] = $xoops->url("modules/" . $xoops->module->dirname() . "/assets/icons/32/" . $this->module->adminmenu[$i]['icon']);
+            if (\XoopsLoad::fileExists($xoops->path('media/xoops/images/icons/32/' . $this->module->adminmenu[$i]['icon']))) {
+                $this->module->adminmenu[$i]['icon'] = $xoops->url('media/xoops/images/icons/32/' . $this->module->adminmenu[$i]['icon']);
+            } elseif (\XoopsLoad::fileExists($xoops->path('modules/' . $xoops->module->dirname() . '/assets/icons/32/' . $this->module->adminmenu[$i]['icon']))) {
+                $this->module->adminmenu[$i]['icon'] = $xoops->url('modules/' . $xoops->module->dirname() . '/assets/icons/32/' . $this->module->adminmenu[$i]['icon']);
             } else {
-                $this->module->adminmenu[$i]['icon'] = $xoops->url("modules/" . $xoops->module->dirname() . "/icons/32/" . $this->module->adminmenu[$i]['icon']);
+                $this->module->adminmenu[$i]['icon'] = $xoops->url('modules/' . $xoops->module->dirname() . '/icons/32/' . $this->module->adminmenu[$i]['icon']);
             }
             $xoops->tpl()->append('xo_admin_index_menu', $this->module->adminmenu[$i]);
         }
         if ($this->module->getInfo('help')) {
-            $help = array();
+            $help = [];
             $help['link'] = '../system/help.php?mid=' . $this->module->getVar('mid', 's')
-                . "&amp;" . $this->module->getInfo('help');
-            $help['icon'] = $xoops->url("/media/xoops/images/icons/32/help.png");
+                . '&amp;' . $this->module->getInfo('help');
+            $help['icon'] = $xoops->url('/media/xoops/images/icons/32/help.png');
             $help['title'] = \XoopsLocale::HELP;
             $xoops->tpl()->append('xo_admin_index_menu', $help);
         }
@@ -509,7 +510,7 @@ class Admin
         ) {
             // PHP version
             if ($this->module->getInfo('min_php')) {
-                if (0 >= version_compare(phpversion(), $this->module->getInfo('min_php'))) {
+                if (version_compare(phpversion(), $this->module->getInfo('min_php')) <= 0) {
                     $this->addConfigBoxLine(
                         sprintf(
                             \XoopsLocale::F_MINIMUM_PHP_VERSION_REQUIRED,
@@ -549,15 +550,15 @@ class Admin
             // and versions are set by XoopsCore and Doctrine, and should not be restricted without reason.
 
             $dbarray = $this->module->getInfo('min_db');
-            if ($dbarray !== false) {
+            if (false !== $dbarray) {
                 $dbCurrentPlatform = $xoops->db()->getDatabasePlatform()->getName();
-                $dbCurrentVersion  = $xoops->db()->getWrappedConnection()->getServerVersion();
+                $dbCurrentVersion = $xoops->db()->getWrappedConnection()->getServerVersion();
                 if (isset($dbarray[$dbCurrentPlatform])) {
                     $dbRequiredVersion = $dbarray[$dbCurrentPlatform];
-                    if (0 >= version_compare($dbCurrentVersion, $dbRequiredVersion)) {
+                    if (version_compare($dbCurrentVersion, $dbRequiredVersion) <= 0) {
                         $this->addConfigBoxLine(
                             sprintf(
-                                strtoupper(\XoopsBaseConfig::get('db-type')) . ' '
+                                mb_strtoupper(\XoopsBaseConfig::get('db-type')) . ' '
                                 . \XoopsLocale::F_MINIMUM_DATABASE_VERSION_REQUIRED,
                                 $dbRequiredVersion,
                                 $dbCurrentVersion
@@ -567,7 +568,7 @@ class Admin
                     } else {
                         $this->addConfigBoxLine(
                             sprintf(
-                                strtoupper(\XoopsBaseConfig::get('db-type')) . ' ' . \XoopsLocale::F_MINIMUM_DATABASE_VERSION_REQUIRED,
+                                mb_strtoupper(\XoopsBaseConfig::get('db-type')) . ' ' . \XoopsLocale::F_MINIMUM_DATABASE_VERSION_REQUIRED,
                                 $dbRequiredVersion,
                                 $dbCurrentVersion
                             ),
@@ -575,7 +576,7 @@ class Admin
                         );
                     }
                 } else {
-                        $this->addConfigBoxLine(
+                    $this->addConfigBoxLine(
                             sprintf(\XoopsLocale::EF_DATABASE_NOT_SUPPORTED, $dbCurrentPlatform),
                             'error'
                         );
@@ -584,9 +585,9 @@ class Admin
 
             // xoops version
             if ($this->module->getInfo('min_xoops')) {
-                $xoopsVersion = substr(\Xoops::VERSION, 6); // skip 'XOOPS ' prefix
+                $xoopsVersion = mb_substr(\Xoops::VERSION, 6); // skip 'XOOPS ' prefix
                 $xoopsCmpVersion = str_ireplace(['Alpha', 'Beta', 'RC'], ['0Alpha', '0Beta', '0RC'], $xoopsVersion);
-                if (0 >= version_compare($xoopsCmpVersion, $this->module->getInfo('min_xoops'))) {
+                if (version_compare($xoopsCmpVersion, $this->module->getInfo('min_xoops')) <= 0) {
                     $this->addConfigBoxLine(
                         sprintf(
                             \XoopsLocale::F_MINIMUM_XOOPS_VERSION_REQUIRED,
@@ -608,6 +609,7 @@ class Admin
             }
             $xoops->tpl()->assign('xo_admin_index_config', $this->itemConfigBoxLine);
         }
+
         return $xoops->tpl()->fetch($this->getTplPath('index'));
     }
 
@@ -631,22 +633,23 @@ class Admin
     public function renderNavigation($menu = '')
     {
         $xoops = \Xoops::getInstance();
-        $ret = array();
+        $ret = [];
 
         $this->module->loadAdminMenu();
         foreach (array_keys($this->module->adminmenu) as $i) {
-            if ($this->module->adminmenu[$i]['link'] == "admin/" . $menu) {
-                if (\XoopsLoad::fileExists($xoops->path("media/xoops/images/icons/32/" . $this->module->adminmenu[$i]['icon']))) {
-                    $this->module->adminmenu[$i]['icon'] = $xoops->url("media/xoops/images/icons/32/". $this->module->adminmenu[$i]['icon']);
-                } elseif (\XoopsLoad::fileExists($xoops->path("modules/" . $xoops->module->dirname() . "/assets/icons/32/" . $this->module->adminmenu[$i]['icon']))) {
-                    $this->module->adminmenu[$i]['icon'] = $xoops->url("modules/" . $xoops->module->dirname() . "/assets/icons/32/" . $this->module->adminmenu[$i]['icon']);
+            if ($this->module->adminmenu[$i]['link'] == 'admin/' . $menu) {
+                if (\XoopsLoad::fileExists($xoops->path('media/xoops/images/icons/32/' . $this->module->adminmenu[$i]['icon']))) {
+                    $this->module->adminmenu[$i]['icon'] = $xoops->url('media/xoops/images/icons/32/' . $this->module->adminmenu[$i]['icon']);
+                } elseif (\XoopsLoad::fileExists($xoops->path('modules/' . $xoops->module->dirname() . '/assets/icons/32/' . $this->module->adminmenu[$i]['icon']))) {
+                    $this->module->adminmenu[$i]['icon'] = $xoops->url('modules/' . $xoops->module->dirname() . '/assets/icons/32/' . $this->module->adminmenu[$i]['icon']);
                 } else {
-                    $this->module->adminmenu[$i]['icon'] = $xoops->url("modules/" . $xoops->module->dirname() . "/icons/32/". $this->module->adminmenu[$i]['icon']);
+                    $this->module->adminmenu[$i]['icon'] = $xoops->url('modules/' . $xoops->module->dirname() . '/icons/32/' . $this->module->adminmenu[$i]['icon']);
                 }
                 $xoops->tpl()->assign('xo_sys_navigation', $this->module->adminmenu[$i]);
                 $ret[] = $xoops->tpl()->fetch($this->getTplPath('nav'));
             }
         }
+
         return $ret;
     }
 
@@ -674,6 +677,7 @@ class Admin
     {
         $xoops = \Xoops::getInstance();
         $xoops->tpl()->assign('xo_admin_tips', $this->tips);
+
         return $xoops->tpl()->fetch($this->getTplPath('tips'));
     }
 
@@ -706,31 +710,31 @@ class Admin
         $author_list = '';
         foreach (array_keys($author) as $i) {
             $author_list .= $author[$i];
-            if (isset($nickname[$i]) && $nickname[$i] != '') {
-                $author_list .= " (" . $nickname[$i] . "), ";
+            if (isset($nickname[$i]) && '' != $nickname[$i]) {
+                $author_list .= ' (' . $nickname[$i] . '), ';
             } else {
-                $author_list .= ", ";
+                $author_list .= ', ';
             }
         }
         $changelog = '';
         $language = $xoops->getConfig('locale');
         if (!is_file(
-            \XoopsBaseConfig::get('root-path') . "/modules/" . $this->module->getVar("dirname")
-            . "/locale/" . $language . "/changelog.txt"
+            \XoopsBaseConfig::get('root-path') . '/modules/' . $this->module->getVar('dirname')
+            . '/locale/' . $language . '/changelog.txt'
         )) {
             $language = 'en_US';
         }
-        $file = \XoopsBaseConfig::get('root-path') . "/modules/" . $this->module->getVar("dirname")
-            . "/locale/" . $language . "/changelog.txt";
+        $file = \XoopsBaseConfig::get('root-path') . '/modules/' . $this->module->getVar('dirname')
+            . '/locale/' . $language . '/changelog.txt';
         if (is_readable($file)) {
-            $changelog = utf8_encode(implode("<br />", file($file))) . "\n";
+            $changelog = utf8_encode(implode('<br />', file($file))) . "\n";
         } else {
-            $file = \XoopsBaseConfig::get('root-path') . "/modules/" . $this->module->getVar("dirname") . "/docs/changelog.txt";
+            $file = \XoopsBaseConfig::get('root-path') . '/modules/' . $this->module->getVar('dirname') . '/docs/changelog.txt';
             if (is_readable($file)) {
-                $changelog = utf8_encode(implode("<br />", file($file))) . "\n";
+                $changelog = utf8_encode(implode('<br />', file($file))) . "\n";
             }
         }
-        $author_list = substr($author_list, 0, -2);
+        $author_list = mb_substr($author_list, 0, -2);
 
         $this->module->setInfo('release_date', $release_date);
         $this->module->setInfo('author_list', $author_list);
@@ -742,27 +746,28 @@ class Admin
 
         $this->addInfoBox(\XoopsLocale::MODULE_INFORMATION, 'info', 'id="xo-about"');
         $this->addInfoBoxLine(
-            \XoopsLocale::C_DESCRIPTION . ' ' . $this->module->getInfo("description"),
+            \XoopsLocale::C_DESCRIPTION . ' ' . $this->module->getInfo('description'),
             'info'
         );
         $this->addInfoBoxLine(
             \XoopsLocale::C_UPDATE_DATE . ' <span class="bold">'
-            . \XoopsLocale::formatTimestamp($this->module->getVar("last_update"), "m")
+            . \XoopsLocale::formatTimestamp($this->module->getVar('last_update'), 'm')
             . '</span>',
             'info'
         );
         $this->addInfoBoxLine(
             \XoopsLocale::C_WEBSITE . ' <a class="xo-tooltip" href="http://'
-            . $this->module->getInfo("module_website_url")
+            . $this->module->getInfo('module_website_url')
             . '" rel="external" title="'
-            . $this->module->getInfo("module_website_name") . ' - '
-            . $this->module->getInfo("module_website_url") . '">'
-            . $this->module->getInfo("module_website_name") . '</a>',
+            . $this->module->getInfo('module_website_name') . ' - '
+            . $this->module->getInfo('module_website_url') . '">'
+            . $this->module->getInfo('module_website_name') . '</a>',
             'info'
         );
 
         $xoops->tpl()->assign('xoops_logo', $logo_xoops);
         $xoops->tpl()->assign('xo_admin_box', $this->itemInfoBox);
+
         return $xoops->tpl()->fetch($this->getTplPath('about'));
     }
 

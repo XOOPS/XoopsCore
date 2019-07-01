@@ -1,12 +1,12 @@
 <?php
-require_once(__DIR__.'/../../init_new.php');
+require_once(__DIR__ . '/../../init_new.php');
 
 class ThemeSetLinkHandlerTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass = 'ThemeSetLinkHandler';
     protected $object = null;
 
-    public function setUp()
+    protected function setUp()
     {
         $input = 'input';
         $this->object = new $this->myclass($input);
@@ -32,18 +32,18 @@ class ThemeSetLinkHandlerTest extends \PHPUnit\Framework\TestCase
 
         $input = 'input';
         $parser = new XoopsThemeSetParser($input);
-        $parser->tags = array('author','author');
+        $parser->tags = ['author', 'author'];
         $data = 'data';
         $x = $instance->handleCharacterData($parser, $data);
-        $this->assertSame(null, $x);
+        $this->assertNull($x);
         $this->assertSame($data, $parser->getTempArr('link'));
 
         $input = 'input';
         $parser = new XoopsThemeSetParser($input);
-        $parser->tags = array('dummy','dummy');
+        $parser->tags = ['dummy', 'dummy'];
         $data = 'data';
         $x = $instance->handleCharacterData($parser, $data);
-        $this->assertSame(null, $x);
-        $this->assertSame(false, $parser->getTempArr('link'));
+        $this->assertNull($x);
+        $this->assertFalse($parser->getTempArr('link'));
     }
 }

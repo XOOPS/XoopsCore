@@ -16,7 +16,6 @@
  * @author          Laurent JEN (Aka DuGris)
  * @version         $Id$
  */
-
 $cpt = 1;
 $adminmenu[$cpt]['title'] = _MI_XCAPTCHA_INDEX;
 $adminmenu[$cpt]['link'] = 'admin/index.php';
@@ -30,11 +29,11 @@ if (!isset($xcaptcha_handler)) {
 
 $xoops = Xoops::getInstance();
 
-foreach ( array_keys($xcaptcha_handler->getPluginList()) as $key ) {
+foreach (array_keys($xcaptcha_handler->getPluginList()) as $key) {
     ++$cpt;
     $xoops->loadLanguage($key, 'xcaptcha');
 
-    $adminmenu[$cpt]['title'] = constant('_MI_XCAPTCHA_ADMENU_' . strtoupper($key) );
+    $adminmenu[$cpt]['title'] = constant('_MI_XCAPTCHA_ADMENU_' . mb_strtoupper($key));
     $adminmenu[$cpt]['link'] = 'admin/index.php?type=' . $key;
     $adminmenu[$cpt]['icon'] = 'administration.png';
 }

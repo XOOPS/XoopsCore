@@ -1,9 +1,8 @@
 <?php
+
 namespace Xoops\Form;
 
-require_once(__DIR__.'/../../../init_new.php');
-
-use Xoops\Form\Element;
+require_once(__DIR__ . '/../../../init_new.php');
 
 class ElementTest extends \PHPUnit\Framework\TestCase
 {
@@ -33,7 +32,7 @@ class ElementTest extends \PHPUnit\Framework\TestCase
     {
         $instance = $this->object;
 
-        $arrAttr = array('title' => 'title_value', 'name' => 'name_value[]');
+        $arrAttr = ['title' => 'title_value', 'name' => 'name_value[]'];
         $instance->setAll($arrAttr);
 
         $value = $instance->renderAttributeString();
@@ -43,7 +42,7 @@ class ElementTest extends \PHPUnit\Framework\TestCase
 
     public function testRenderAttributeString100()
     {
-        $arrAttr = array('caption' => 'caption_value');
+        $arrAttr = ['caption' => 'caption_value'];
         $this->object->setAll($arrAttr);
 
         $value = $this->object->renderAttributeString();
@@ -51,7 +50,7 @@ class ElementTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($expected, $value);
 
         $this->object->clear();
-        $arrAttr = array('caption' => 'caption_value', ':pattern_description' => 'pattern description');
+        $arrAttr = ['caption' => 'caption_value', ':pattern_description' => 'pattern description'];
         $this->object->setAll($arrAttr);
         $value = $this->object->renderAttributeString();
         $expected = 'title="caption_value - pattern description" id="0" ';
@@ -62,7 +61,7 @@ class ElementTest extends \PHPUnit\Framework\TestCase
     {
         $instance = $this->object;
 
-        $arrAttr = array('title' => 'title_value', 'id'=>100);
+        $arrAttr = ['title' => 'title_value', 'id' => 100];
         $instance->setAll($arrAttr);
 
         $value = $instance->renderAttributeString();
@@ -77,7 +76,7 @@ class ElementTest extends \PHPUnit\Framework\TestCase
         $value = $this->object->getValue();
         $this->assertSame($name, $value);
 
-        $names = array('name1', 'name2');
+        $names = ['name1', 'name2'];
         $this->object->setValue($names);
         $value = $this->object->getValue();
         $this->assertSame($names, $value);
@@ -110,7 +109,7 @@ class ElementTest extends \PHPUnit\Framework\TestCase
         $result = $instance->getAccessString($str);
 
         $expected = '<span style="text-decoration: underline;">n</span>ame';
-        $this->assertTrue(false !== strpos($result, $expected));
+        $this->assertTrue(false !== mb_strpos($result, $expected));
 
         $str = 'this sentence contains no access string';
         $result = $instance->getAccessString($str);
@@ -184,7 +183,7 @@ class ElementTest extends \PHPUnit\Framework\TestCase
         $name = 'name';
         $instance->setName($name);
 
-        $data = array('key1'=>'value1','key2'=>'value2',);
+        $data = ['key1' => 'value1', 'key2' => 'value2'];
         $instance->setDatalist($data);
 
         $result = $instance->renderDatalist();
@@ -430,15 +429,15 @@ class ElementTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($value, $instance[$key]);
 
         $key = 'hidden';
-        $this->assertFalse(array_key_exists($key, $instance));
+        $this->assertArrayNotHasKey($key, $instance);
         $instance->setHidden();
-        $this->assertTrue(array_key_exists($key, $instance));
+        $this->assertArrayHasKey($key, $instance);
         $this->assertNull($instance[$key]);
 
         $key = 'required';
-        $this->assertFalse(array_key_exists($key, $instance));
+        $this->assertArrayNotHasKey($key, $instance);
         $instance->setRequired(true);
-        $this->assertTrue(array_key_exists($key, $instance));
+        $this->assertArrayHasKey($key, $instance);
         $this->assertNull($instance[$key]);
     }
 }

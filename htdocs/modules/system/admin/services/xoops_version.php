@@ -18,17 +18,16 @@
  * @package     system
  * @version     $Id$
  */
-
-$modversion['name']        = XoopsLocale::SERVICES;
-$modversion['version']     = '1.0';
+$modversion['name'] = XoopsLocale::SERVICES;
+$modversion['version'] = '1.0';
 $modversion['description'] = SystemLocale::SERVICES_DESC;
-$modversion['author']      = 'Richard Griffith <richard@geekwright.com>';
-$modversion['credits']     = 'The XOOPS Project';
-$modversion['help']        = 'page=services';
-$modversion['license']     = "GPL see LICENSE";
-$modversion['official']    = 1;
-$modversion['image']       = 'services.png';
+$modversion['author'] = 'Richard Griffith <richard@geekwright.com>';
+$modversion['credits'] = 'The XOOPS Project';
+$modversion['help'] = 'page=services';
+$modversion['license'] = 'GPL see LICENSE';
+$modversion['official'] = 1;
+$modversion['image'] = 'services.png';
 
-$modversion['hasAdmin']    = 1;
-$modversion['adminpath']   = 'admin.php?fct=services';
-$modversion['category']    = XOOPS_SYSTEM_SERVICE;
+$modversion['hasAdmin'] = 1;
+$modversion['adminpath'] = 'admin.php?fct=services';
+$modversion['category'] = XOOPS_SYSTEM_SERVICE;

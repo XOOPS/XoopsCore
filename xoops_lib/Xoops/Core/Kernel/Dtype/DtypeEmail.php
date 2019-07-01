@@ -11,7 +11,6 @@
 
 namespace Xoops\Core\Kernel\Dtype;
 
-use Xoops\Core\Kernel\Dtype;
 use Xoops\Core\Kernel\XoopsObject;
 
 /**
@@ -38,14 +37,17 @@ class DtypeEmail extends DtypeAbstract
     {
         $value = trim($obj->vars[$key]['value']);
 
-        if ($obj->vars[$key]['required'] && $value == '') {
+        if ($obj->vars[$key]['required'] && '' == $value) {
             $obj->setErrors(sprintf(\XoopsLocale::F_IS_REQUIRED, $key));
+
             return $value;
         }
-        if ($value != '' && !preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+([\.][a-z0-9-]+)+$/i", $value)) {
-            $obj->setErrors("Invalid Email");
+        if ('' != $value && !preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+([\.][a-z0-9-]+)+$/i", $value)) {
+            $obj->setErrors('Invalid Email');
+
             return $value;
         }
+
         return $value;
     }
 }

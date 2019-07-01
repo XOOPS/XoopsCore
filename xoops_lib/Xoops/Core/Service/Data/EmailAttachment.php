@@ -49,10 +49,10 @@ class EmailAttachment
     protected $inline = false;
 
     /* assert messages */
-    protected const MESSAGE_FILE   = 'File is invalid';
-    protected const MESSAGE_MIME   = 'Mime Type is invalid';
-    protected const MESSAGE_NAME   = 'Name is invalid';
-    protected const MESSAGE_BODY   = 'Body string is invalid';
+    protected const MESSAGE_FILE = 'File is invalid';
+    protected const MESSAGE_MIME = 'Mime Type is invalid';
+    protected const MESSAGE_NAME = 'Name is invalid';
+    protected const MESSAGE_BODY = 'Body string is invalid';
     protected const MESSAGE_INLINE = 'Inline flag is invalid';
 
     protected const MIME_REGEX = '/^[a-z0-9\-+.]+\/[a-z0-9\-+.]+$/';
@@ -70,11 +70,11 @@ class EmailAttachment
      */
     public function __construct(?string $filename = null, ?string $mimeType = null)
     {
-        if (null!==$filename) {
+        if (null !== $filename) {
             Assert::fileExists($filename, static::MESSAGE_FILE);
             $this->filename = $filename;
         }
-        if (null!==$mimeType) {
+        if (null !== $mimeType) {
             Assert::regex($mimeType, static::MIME_REGEX, static::MESSAGE_MIME);
             $this->mimeType = $mimeType;
         }
@@ -85,15 +85,15 @@ class EmailAttachment
      *
      * @param string $filename fully qualified filename
      *
-     * @return EmailAttachment
-     *
      * @throws \InvalidArgumentException
+     * @return EmailAttachment
      */
-    public function withFilename(string $filename) : EmailAttachment
+    public function withFilename(string $filename): self
     {
         Assert::fileExists($filename, static::MESSAGE_FILE);
         $new = clone $this;
         $new->filename = $filename;
+
         return $new;
     }
 
@@ -102,15 +102,15 @@ class EmailAttachment
      *
      * @param string $mimeType mime type of the filename contents or stringBody
      *
-     * @return EmailAttachment
-     *
      * @throws \InvalidArgumentException
+     * @return EmailAttachment
      */
-    public function withMimeType(string $mimeType)  : EmailAttachment
+    public function withMimeType(string $mimeType): self
     {
         Assert::regex($mimeType, static::MIME_REGEX, static::MESSAGE_MIME);
         $new = clone $this;
         $new->mimeType = $mimeType;
+
         return $new;
     }
 
@@ -119,15 +119,15 @@ class EmailAttachment
      *
      * @param string $name name or content id for attachment
      *
-     * @return EmailAttachment
-     *
      * @throws \InvalidArgumentException
+     * @return EmailAttachment
      */
-    public function withName(string $name) : EmailAttachment
+    public function withName(string $name): self
     {
         Assert::stringNotEmpty($name, static::MESSAGE_NAME);
         $new = clone $this;
         $new->name = $name;
+
         return $new;
     }
 
@@ -136,15 +136,15 @@ class EmailAttachment
      *
      * @param string $stringBody alternate body used instead of file contents
      *
-     * @return EmailAttachment
-     *
      * @throws \InvalidArgumentException
+     * @return EmailAttachment
      */
-    public function withStringBody(string $stringBody) : EmailAttachment
+    public function withStringBody(string $stringBody): self
     {
         Assert::stringNotEmpty($stringBody, static::MESSAGE_BODY);
         $new = clone $this;
         $new->stringBody = $stringBody;
+
         return $new;
     }
 
@@ -153,26 +153,25 @@ class EmailAttachment
      *
      * @param bool $inline true to treat attachment as inline, false for download
      *
-     * @return EmailAttachment
-     *
      * @throws \InvalidArgumentException
+     * @return EmailAttachment
      */
-    public function withInlineAttribute(bool $inline = true) : EmailAttachment
+    public function withInlineAttribute(bool $inline = true): self
     {
         Assert::boolean($inline, static::MESSAGE_INLINE);
         $new = clone $this;
         $new->inline = $inline;
+
         return $new;
     }
 
     /**
      * getFilename
      *
-     * @return string an file name
-     *
      * @throws \LogicException (property was not properly set before used)
+     * @return string an file name
      */
-    public function getFilename() : ?string
+    public function getFilename(): ?string
     {
         if (null === $this->stringBody) {
             try {
@@ -182,51 +181,51 @@ class EmailAttachment
                 throw new \LogicException($e->getMessage(), $e->getCode(), $e);
             }
         }
+
         return $this->filename;
     }
 
     /**
      * getMimeType
      *
-     * @return string|null mime type of filename contents or stringBody
-     *
      * @throws \LogicException (property was not properly set before used)
+     * @return string|null mime type of filename contents or stringBody
      */
-    public function getMimeType() : ?string
+    public function getMimeType(): ?string
     {
         try {
             Assert::nullOrRegex($this->mimeType, static::MIME_REGEX, static::MESSAGE_MIME);
         } catch (\InvalidArgumentException $e) {
             throw new \LogicException($e->getMessage(), $e->getCode(), $e);
         }
+
         return $this->mimeType;
     }
 
     /**
      * getName
      *
-     * @return string|null name or content id for attachment
-     *
      * @throws \LogicException (property was not properly set before used)
+     * @return string|null name or content id for attachment
      */
-    public function getName() : ?string
+    public function getName(): ?string
     {
         try {
             Assert::nullOrStringNotEmpty($this->name, static::MESSAGE_NAME);
         } catch (\InvalidArgumentException $e) {
             throw new \LogicException($e->getMessage(), $e->getCode(), $e);
         }
+
         return $this->name;
     }
 
     /**
      * getStringBody
      *
-     * @return string|null string body attachment contents
-     *
      * @throws \LogicException (property was not properly set before used)
+     * @return string|null string body attachment contents
      */
-    public function getStringBody() : ?string
+    public function getStringBody(): ?string
     {
         if (null === $this->filename) {
             try {
@@ -235,6 +234,7 @@ class EmailAttachment
                 throw new \LogicException($e->getMessage(), $e->getCode(), $e);
             }
         }
+
         return $this->stringBody;
     }
 
@@ -243,7 +243,7 @@ class EmailAttachment
      *
      * @return bool attachment inline attribute, true for inline, false for download
      */
-    public function getInlineAttribute() : bool
+    public function getInlineAttribute(): bool
     {
         return (bool) $this->inline;
     }

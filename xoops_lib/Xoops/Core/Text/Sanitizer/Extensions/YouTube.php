@@ -34,8 +34,8 @@ class YouTube extends ExtensionAbstract
         'template' => '<div class="embed-responsive %4$s">
             <iframe class="embed-responsive-item" width="%2$d" height="%3$d" src="https://www.youtube.com/embed/%1$s" frameborder="0" allowfullscreen></iframe>
             </div>',
-        'width'  => "640",
-        'height' => "385",
+        'width' => '640',
+        'height' => '385',
     ];
 
     /**
@@ -100,14 +100,14 @@ EOH;
         $this->shortcodes->addShortcode(
             'youtube',
             function ($attributes, $content, $tagName) {
-                if (array_key_exists(0, $attributes) && '=' === substr($attributes[0], 0, 1)) {
+                if (array_key_exists(0, $attributes) && '=' === mb_substr($attributes[0], 0, 1)) {
                     $args = ltrim($attributes[0], '=');
                     list($width, $height) = explode(',', $args);
                     $url = $content;
                 } else {
                     $defaults = [
-                        'url'    => trim($content),
-                        'width'  => $this->config['width'],
+                        'url' => trim($content),
+                        'width' => $this->config['width'],
                         'height' => $this->config['height'],
                     ];
                     $cleanAttributes = $this->shortcodes->shortcodeAttributes($defaults, $attributes);
@@ -118,7 +118,7 @@ EOH;
 
                 // from: http://stackoverflow.com/questions/2936467/parse-youtube-video-id-using-preg-match/6382259#6382259
                 $youtubeRegex = '%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)'
-                    .'([^"&?/ ]{11})%i';
+                    . '([^"&?/ ]{11})%i';
 
                 if (preg_match($youtubeRegex, $url, $match)) {
                     $videoId = $match[1];
@@ -137,7 +137,7 @@ EOH;
                         break;
                 }
 
-                $aspectRatio = $width/$height; // 16x9 = 1.777777778, 4x3 = 1.333333333
+                $aspectRatio = $width / $height; // 16x9 = 1.777777778, 4x3 = 1.333333333
                 $responsiveAspect = ($aspectRatio < 1.4) ? 'embed-responsive-4by3' : 'embed-responsive-16by9';
                 if ($width < 17 && $height < 10) {
                     $scale = (int) 640 / $width;
@@ -147,6 +147,7 @@ EOH;
 
                 $template = $this->config['template'];
                 $newContent = sprintf($template, $videoId, $width, $height, $responsiveAspect);
+
                 return $newContent;
             }
         );

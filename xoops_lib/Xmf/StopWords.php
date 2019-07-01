@@ -25,14 +25,13 @@ namespace Xmf;
  */
 class StopWords
 {
-
     /**
      * mbstring encoding
      */
     const ENCODING = 'UTF-8';
 
     /** @var string[] */
-    protected $stopwordList = array();
+    protected $stopwordList = [];
 
     /**
      * StopWords constructor - load stop words for current locale
@@ -62,7 +61,8 @@ class StopWords
     {
         $key = function_exists('mb_strtolower')
             ? mb_strtolower($key, static::ENCODING)
-            : strtolower($key);
+            : mb_strtolower($key);
+
         return !isset($this->stopwordList[$key]);
     }
 }

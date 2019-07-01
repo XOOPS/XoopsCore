@@ -19,7 +19,6 @@
  * @author          Mage Grégory (AKA Mage)
  * @version         $Id$
  */
-
 class ProtectorCenterForm extends Xoops\Form\ThemeForm
 {
     /**
@@ -31,6 +30,8 @@ class ProtectorCenterForm extends Xoops\Form\ThemeForm
 
     /**
      * Maintenance Form
+     * @param mixed $bad_ips4disp
+     * @param mixed $group1_ips4disp
      * @return void
      */
     public function getPrefIp($bad_ips4disp, $group1_ips4disp)
@@ -40,7 +41,7 @@ class ProtectorCenterForm extends Xoops\Form\ThemeForm
         $protector = Protector::getInstance($db->conn);
         require_once dirname(__DIR__) . '/gtickets.php';
 
-        parent::__construct('', "form_prefip", "center.php", 'post', true);
+        parent::__construct('', 'form_prefip', 'center.php', 'post', true);
 
         $bad_ips = new Xoops\Form\TextArea(_AM_TH_BADIPS, 'bad_ips', $bad_ips4disp, 3, 90);
         $bad_ips->setDescription('<br />' . htmlspecialchars($protector->get_filepath4badips()));
@@ -51,10 +52,10 @@ class ProtectorCenterForm extends Xoops\Form\ThemeForm
         $group1_ips->setDescription('<br />' . htmlspecialchars($protector->get_filepath4group1ips()));
         $group1_ips->setClass('span3');
         $this->addElement($group1_ips);
-        $formTicket = new xoopsGTicket;
-        $this->addElement(new Xoops\Form\Hidden("action", "update_ips"));
+        $formTicket = new xoopsGTicket();
+        $this->addElement(new Xoops\Form\Hidden('action', 'update_ips'));
         $ticket = $formTicket->getTicketXoopsForm(__LINE__, 1800, 'protector_admin');
         $this->addElement($ticket);
-        $this->addElement(new Xoops\Form\Button('', "submit_prefip", XoopsLocale::A_SUBMIT, "submit"));
+        $this->addElement(new Xoops\Form\Button('', 'submit_prefip', XoopsLocale::A_SUBMIT, 'submit'));
     }
 }

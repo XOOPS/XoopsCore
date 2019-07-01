@@ -23,21 +23,20 @@
  * @author      DuGris (aka L. JEN) <dugris@frxoops.org>
  * @version     $Id$
  */
-
 require_once __DIR__ . '/include/common.inc.php';
 
 include_once XOOPS_INSTALL_PATH . '/class/pathcontroller.php';
 
 $ctrl = new XoopsPathController($wizard->configs['xoopsPathDefault'], $wizard->configs['dataPath']);
 
-if ($_SERVER['REQUEST_METHOD'] === 'GET' && @$_GET['var'] && @$_GET['action'] === 'checkpath') {
+if ('GET' === $_SERVER['REQUEST_METHOD'] && @$_GET['var'] && 'checkpath' === @$_GET['action']) {
     $path = $_GET['var'];
-    $ctrl->xoopsPath[$path] = htmlspecialchars( trim($_GET['path']) );
-    echo genPathCheckHtml( $path, $ctrl->checkPath($path) );
+    $ctrl->xoopsPath[$path] = htmlspecialchars(trim($_GET['path']));
+    echo genPathCheckHtml($path, $ctrl->checkPath($path));
     exit();
 }
 $ctrl->execute();
-if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
+if ('POST' === $_SERVER['REQUEST_METHOD']) {
     return;
 }
 ob_start();
@@ -64,9 +63,9 @@ function updPath( key, val ) {
     <label class="xolabel" for="root"><?php echo XOOPS_ROOT_PATH_LABEL; ?></label>
     <div class="xoform-help"><?php echo XOOPS_ROOT_PATH_HELP; ?></div>
         <input type="text" name="root" id="root" value="<?php echo $ctrl->xoopsPath['root']; ?>" onchange="updPath('root', this.value)" />
-        <span id="rootpathimg"><?php echo genPathCheckHtml( 'root', $ctrl->validPath['root'] ); ?></span>
+        <span id="rootpathimg"><?php echo genPathCheckHtml('root', $ctrl->validPath['root']); ?></span>
         <?php
-        if ($ctrl->validPath['root'] && !empty( $ctrl->permErrors['root'])) {
+        if ($ctrl->validPath['root'] && !empty($ctrl->permErrors['root'])) {
             echo '<div id="rootperms" class="x2-note">';
             echo CHECKING_PERMISSIONS . '<br /><p>' . ERR_NEED_WRITE_ACCESS . '</p>';
             echo '<ul class="diags">';
@@ -87,9 +86,9 @@ function updPath( key, val ) {
     <label class="xolabel" for="data"><?php echo XOOPS_DATA_PATH_LABEL; ?></label>
     <div class="xoform-help"><?php echo XOOPS_DATA_PATH_HELP; ?></div>
         <input type="text" name="data" id="data" value="<?php echo $ctrl->xoopsPath['data']; ?>" onchange="updPath('data', this.value)" />
-        <span id="datapathimg"><?php echo genPathCheckHtml('data', $ctrl->validPath['data'] ); ?></span>
+        <span id="datapathimg"><?php echo genPathCheckHtml('data', $ctrl->validPath['data']); ?></span>
         <?php
-        if ($ctrl->validPath['data'] && !empty( $ctrl->permErrors['data'])) {
+        if ($ctrl->validPath['data'] && !empty($ctrl->permErrors['data'])) {
             echo '<div id="dataperms" class="x2-note">';
             echo CHECKING_PERMISSIONS . '<br /><p>' . ERR_NEED_WRITE_ACCESS . '</p>';
             echo '<ul class="diags">';

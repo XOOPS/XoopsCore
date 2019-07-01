@@ -23,7 +23,6 @@ namespace Xoops\Form;
  */
 class Button extends Element
 {
-
     /**
      * Constructor
      *
@@ -32,7 +31,7 @@ class Button extends Element
      * @param string       $value   button value
      * @param string       $type    type of the button. Possible values: "button", "submit", or "reset"
      */
-    public function __construct($caption, $name = null, $value = "", $type = "button")
+    public function __construct($caption, $name = null, $value = '', $type = 'button')
     {
         if (is_array($caption)) {
             parent::__construct($caption);
@@ -53,6 +52,7 @@ class Button extends Element
     public function defaultRender()
     {
         $attributes = $this->renderAttributeString();
-        return '<input ' . $attributes . $this->getExtra() .' >';
+
+        return '<input ' . $attributes . $this->getExtra() . ' >';
     }
 }

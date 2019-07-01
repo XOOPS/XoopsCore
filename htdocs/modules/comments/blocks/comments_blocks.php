@@ -16,14 +16,14 @@
  * @author          trabis <lusopoemas@gmail.com>
  * @author          Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
  * @version         $Id$
+ * @param mixed $options
  */
-
 function b_comments_show($options)
 {
     $xoops = Xoops::getInstance();
     $helper = $xoops->getModuleHelper('comments');
 
-    $block = array();
+    $block = [];
     $available_modules = \Xoops\Module\Plugin::getPlugins('comments');
     if (empty($available_modules)) {
         return $block;
@@ -41,7 +41,7 @@ function b_comments_show($options)
     $criteria1 = new CriteriaCompo(new Criteria('gperm_name', 'module_read', '='));
     $criteria1->add(new Criteria('gperm_groupid', '(' . implode(',', $gperm_groupid) . ')', 'IN'));
     $perms = $moduleperm_handler->getObjects($criteria1, true);
-    $modIds = array();
+    $modIds = [];
     foreach ($perms as $item) {
         $modIds[] = $item->getVar('gperm_itemid');
     }
@@ -55,8 +55,8 @@ function b_comments_show($options)
     $comments = $comment_handler->getObjects($criteria, true);
     $member_handler = $xoops->getHandlerMember();
     $module_handler = $xoops->getHandlerModule();
-    $modules = $module_handler->getObjectsArray(new Criteria('dirname', "('" . implode("','", array_keys($available_modules)) ."')", 'IN'), true);
-    $comment_config = array();
+    $modules = $module_handler->getObjectsArray(new Criteria('dirname', "('" . implode("','", array_keys($available_modules)) . "')", 'IN'), true);
+    $comment_config = [];
     foreach (array_keys($comments) as $i) {
         $mid = $comments[$i]->getVar('modid');
         $com['module'] = '<a href="' . \XoopsBaseConfig::get('url') . '/modules/' . $modules[$mid]->getVar('dirname') . '/">' . $modules[$mid]->getVar('name') . '</a>';
@@ -66,7 +66,7 @@ function b_comments_show($options)
         $com['id'] = $i;
         $com['title'] = '<a href="' . \XoopsBaseConfig::get('url') . '/modules/' . $modules[$mid]->getVar('dirname') . '/' . $comment_config[$mid]->pageName() . '?' . $comment_config[$mid]->itemName() . '=' . $comments[$i]->getVar('itemid') . '&amp;com_id=' . $i . '&amp;com_rootid=' . $comments[$i]->getVar('rootid') . '&amp;' . htmlspecialchars($comments[$i]->getVar('exparams')) . '#comment' . $i . '">' . $comments[$i]->getVar('title') . '</a>';
         $com['icon'] = htmlspecialchars($comments[$i]->getVar('icon'), ENT_QUOTES);
-        $com['icon'] = ($com['icon'] != '') ? $com['icon'] : 'icon1.gif';
+        $com['icon'] = ('' != $com['icon']) ? $com['icon'] : 'icon1.gif';
         $com['time'] = XoopsLocale::formatTimestamp($comments[$i]->getVar('created'), 'm');
         if ($comments[$i]->getVar('uid') > 0) {
             $poster = $member_handler->getUser($comments[$i]->getVar('uid'));
@@ -81,6 +81,7 @@ function b_comments_show($options)
         $block['comments'][] = $com;
         unset($com);
     }
+
     return $block;
 }
 
@@ -88,5 +89,6 @@ function b_comments_edit($options)
 {
     $block_form = new Xoops\Form\BlockForm();
     $block_form->addElement(new Xoops\Form\Text(_MB_SYSTEM_DISPLAYC, 'options[0]', 1, 3, $options[0]), true);
+
     return $block_form->render();
 }

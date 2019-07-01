@@ -11,9 +11,8 @@
 
 namespace Xmf\Jwt;
 
-use Xmf\Request;
-use Xmf\Jwt\KeyFactory;
 use Xmf\Key\KeyAbstract;
+use Xmf\Request;
 
 /**
  * Validate and get payload from a token string
@@ -34,14 +33,14 @@ class TokenReader
      * @param string             $token        the token string to validate and decode
      * @param array|\Traversable $assertClaims traversable set of claims, claim => value, to assert
      *
-     * @return \stdClass|false payload as stdClass, or false if token was invalid
-     *
      * @throws \InvalidArgumentException on unusable key name
+     * @return \stdClass|false payload as stdClass, or false if token was invalid
      */
-    public static function fromString($key, $token, $assertClaims = array())
+    public static function fromString($key, $token, $assertClaims = [])
     {
         $key = ($key instanceof KeyAbstract) ? $key : KeyFactory::build($key);
         $jwt = new JsonWebToken($key);
+
         return $jwt->decode($token, $assertClaims);
     }
 
@@ -52,16 +51,16 @@ class TokenReader
      * @param string             $cookieName   name of cookie that sources the token
      * @param array|\Traversable $assertClaims traversable set of claims, claim => value, to assert
      *
-     * @return \stdClass|false payload as stdClass, or false if token was invalid
-     *
      * @throws \InvalidArgumentException on unusable key name
+     * @return \stdClass|false payload as stdClass, or false if token was invalid
      */
-    public static function fromCookie($key, $cookieName, $assertClaims = array())
+    public static function fromCookie($key, $cookieName, $assertClaims = [])
     {
         $token = Request::getString($cookieName, '', 'COOKIE');
         if (empty($token)) {
             return false;
         }
+
         return static::fromString($key, $token, $assertClaims);
     }
 
@@ -72,16 +71,16 @@ class TokenReader
      * @param string             $attributeName name of cookie that sources the token
      * @param array|\Traversable $assertClaims  traversable set of claims, claim => value, to assert
      *
-     * @return \stdClass|false payload as stdClass, or false if token was invalid
-     *
      * @throws \InvalidArgumentException on unusable key name
+     * @return \stdClass|false payload as stdClass, or false if token was invalid
      */
-    public static function fromRequest($key, $attributeName, $assertClaims = array())
+    public static function fromRequest($key, $attributeName, $assertClaims = [])
     {
         $token = Request::getString($attributeName, '');
         if (empty($token)) {
             return false;
         }
+
         return static::fromString($key, $token, $assertClaims);
     }
 
@@ -92,22 +91,22 @@ class TokenReader
      * @param array|\Traversable $assertClaims traversable set of claims, claim => value, to assert
      * @param string             $headerName   name of header that sources the token
      *
-     * @return \stdClass|false payload as stdClass, or false if token was invalid
-     *
      * @throws \InvalidArgumentException on unusable key name
+     * @return \stdClass|false payload as stdClass, or false if token was invalid
      */
-    public static function fromHeader($key, $assertClaims = array(), $headerName = 'Authorization')
+    public static function fromHeader($key, $assertClaims = [], $headerName = 'Authorization')
     {
         $header = Request::getHeader($headerName, '');
         if (empty($header)) {
             return false;
         }
         $header = trim($header);
-        $space = strpos($header, ' '); // expecting "Bearer base64-token-string"
+        $space = mb_strpos($header, ' '); // expecting "Bearer base64-token-string"
         if (false !== $space) {
-            $header = substr($header, $space);
+            $header = mb_substr($header, $space);
         }
         $token = trim($header);
+
         return static::fromString($key, $token, $assertClaims);
     }
 }

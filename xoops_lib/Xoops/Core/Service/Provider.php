@@ -59,7 +59,7 @@ class Provider
     protected $service = null;
 
     /** @var AbstractContract[] $providers */
-    protected $providers = array();
+    protected $providers = [];
 
     /**
      * __construct
@@ -82,13 +82,14 @@ class Provider
     {
         static $ret = null;
 
-        if ($ret===null) {
+        if (null === $ret) {
             if (count($this->providers)) {
                 $ret = reset($this->providers)->getMode();
             } else {
                 return Manager::MODE_EXCLUSIVE;
             }
         }
+
         return $ret;
     }
 
@@ -132,9 +133,9 @@ class Provider
         usort($sortable, function (AbstractContract $a, AbstractContract $b) {
             if ($a->getPriority() != $b->getPriority()) {
                 return ($a->getPriority() > $b->getPriority()) ? 1 : -1;
-            } else {
-                return 0;
             }
+
+            return 0;
         });
         $this->providers = $sortable;
     }
@@ -146,7 +147,7 @@ class Provider
      * program. In some cases, the availability of a provider may need to be reflected in
      * the caller, i.e. adding a UI button or menu item.
      *
-     * @return boolean true if actual provider is available, otherwise false
+     * @return bool true if actual provider is available, otherwise false
      */
     public function isAvailable()
     {
@@ -167,7 +168,7 @@ class Provider
 
         // for right now only one provider will be called, and it should be at the top
         $object = reset($this->providers);
-        $method = array($object, $name);
+        $method = [$object, $name];
         $response = new Response();
         if (is_callable($method)) {
             try {
@@ -181,6 +182,7 @@ class Provider
         } else {
             $response->setSuccess(false)->addErrorMessage(sprintf('No method %s', $name));
         }
+
         return $response;
     }
 

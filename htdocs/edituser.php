@@ -17,7 +17,6 @@
  * @package         core
  * @since           2.0.0
  */
-
 use Xmf\Request;
 
 include __DIR__ . '/mainfile.php';
@@ -36,12 +35,12 @@ if (!$xoops->isUser()) {
 $op = Request::getCmd('op', 'editprofile');
 
 $myts = \Xoops\Core\Text\Sanitizer::getInstance();
-if ($op === 'saveuser') {
+if ('saveuser' === $op) {
     if (!$xoops->security()->check()) {
         $xoops->redirect(
             'index.php',
             3,
-            XoopsLocale::E_NO_ACTION_PERMISSION . "<br />" . implode('<br />', $xoops->security()->getErrors())
+            XoopsLocale::E_NO_ACTION_PERMISSION . '<br />' . implode('<br />', $xoops->security()->getErrors())
         );
         exit();
     }
@@ -50,16 +49,16 @@ if ($op === 'saveuser') {
         $xoops->redirect('index.php', 3, XoopsLocale::E_NO_ACTION_PERMISSION);
         exit();
     }
-    $errors = array();
-    $email='';
-    if ($xoops->getConfig('allow_chgmail') == 1) {
+    $errors = [];
+    $email = '';
+    if (1 == $xoops->getConfig('allow_chgmail')) {
         $email = Request::getString('email', '');
-        if ($email == '' || ! $xoops->checkEmail($email)) {
+        if ('' == $email || !$xoops->checkEmail($email)) {
             $errors[] = XoopsLocale::E_INVALID_EMAIL;
         }
     }
     $password = Request::getString('password', '');
-    if ($password != '') {
+    if ('' != $password) {
         if (mb_strlen($password) < $xoops->getConfig('minpass')) {
             $errors[] = sprintf(XoopsLocale::EF_PASSWORD_MUST_BE_GREATER_THAN, $xoops->getConfig('minpass'));
         }
@@ -80,10 +79,10 @@ if ($op === 'saveuser') {
         $member_handler = $xoops->getHandlerMember();
         $edituser = $member_handler->getUser($uid);
         $edituser->setVar('name', Request::getString('name', ''));
-        if ($xoops->getConfig('allow_chgmail') == 1) {
+        if (1 == $xoops->getConfig('allow_chgmail')) {
             $edituser->setVar('email', $email);
         }
-        if ($password != '') {
+        if ('' != $password) {
             $edituser->setVar('pass', password_hash($password, PASSWORD_DEFAULT));
             $edituser->setVar('last_pass_change', time());
         }
@@ -105,7 +104,7 @@ if ($op === 'saveuser') {
         $edituser->setVar('user_occ', Request::getString('user_occ', ''));
         $edituser->setVar('user_intrest', Request::getString('user_intrest', ''));
         $edituser->setVar('user_mailok', Request::getBool('user_mailok', 0));
-        if (! $member_handler->insertUser($edituser)) {
+        if (!$member_handler->insertUser($edituser)) {
             $xoops->header();
             echo $edituser->getHtmlErrors();
             $xoops->footer();
@@ -116,9 +115,9 @@ if ($op === 'saveuser') {
     }
 }
 
-if ($op === 'editprofile') {
+if ('editprofile' === $op) {
     $xoops->header('module:system/system_edituser.tpl');
-    $xoops->tpl()->assign('uid', $xoops->user->getVar("uid"));
+    $xoops->tpl()->assign('uid', $xoops->user->getVar('uid'));
     $xoops->tpl()->assign('editprofile', true);
     $form = new Xoops\Form\ThemeForm(XoopsLocale::EDIT_PROFILE, 'userinfo', 'edituser.php', 'post', true);
     $uname_label = new Xoops\Form\Label(XoopsLocale::USERNAME, $xoops->user->getVar('uname'));
@@ -126,12 +125,12 @@ if ($op === 'editprofile') {
     $name_text = new Xoops\Form\Text(XoopsLocale::REAL_NAME, 'name', 30, 60, $xoops->user->getVar('name', 'E'));
     $form->addElement($name_text);
     $email_tray = new Xoops\Form\ElementTray(XoopsLocale::EMAIL, '<br />');
-    if ($xoops->getConfig('allow_chgmail') == 1) {
+    if (1 == $xoops->getConfig('allow_chgmail')) {
         $email_text = new Xoops\Form\Text('', 'email', 30, 60, $xoops->user->getVar('email'));
     } else {
         $email_text = new Xoops\Form\Label('', $xoops->user->getVar('email'));
     }
-    $email_tray->addElement($email_text, ($xoops->getConfig('allow_chgmail') == 1));
+    $email_tray->addElement($email_text, (1 == $xoops->getConfig('allow_chgmail')));
     $email_cbox_value = $xoops->user->user_viewemail() ? 1 : 0;
     $email_cbox = new Xoops\Form\Checkbox('', 'user_viewemail', $email_cbox_value);
     $email_cbox->addOption(1, XoopsLocale::ALLOW_OTHER_USERS_TO_VIEW_EMAIL);

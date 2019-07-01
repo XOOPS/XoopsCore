@@ -16,14 +16,13 @@
  * @license         GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  * @author          trabis <lusopoemas@gmail.com>
  */
-
+use Doctrine\DBAL\FetchMode;
 use Xoops\Core\Database\Connection;
-use Xoops\Core\Kernel\XoopsObject;
-use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
-use Xoops\Core\Kernel\Dtype;
 use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\Kernel\CriteriaCompo;
-use Doctrine\DBAL\FetchMode;
+use Xoops\Core\Kernel\Dtype;
+use Xoops\Core\Kernel\XoopsObject;
+use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 
 class PluginsPlugin extends XoopsObject
 {
@@ -64,9 +63,9 @@ class PluginsPluginHandler extends XoopsPersistableObjectHandler
         //Expecting only one result;
         if ($objects = $this->getObjects($criteria)) {
             return $objects[0];
-        } else {
-            return false;
         }
+
+        return false;
     }
 
     /**
@@ -79,6 +78,7 @@ class PluginsPluginHandler extends XoopsPersistableObjectHandler
         $criteria->add(new Criteria('plugin_listener', (string)$listener));
         $criteria->setSort('plugin_status DESC, plugin_order');
         $criteria->setOrder('ASC');
+
         return $this->getObjects($criteria);
     }
 
@@ -92,9 +92,9 @@ class PluginsPluginHandler extends XoopsPersistableObjectHandler
         $criteria->add(new Criteria('plugin_caller', (string)$caller));
         $criteria->setSort('plugin_status DESC, plugin_order');
         $criteria->setOrder('ASC');
+
         return $this->getObjects($criteria);
     }
-
 
     /**
      * @return array Array of PluginsPlugin
@@ -104,6 +104,7 @@ class PluginsPluginHandler extends XoopsPersistableObjectHandler
         $criteria = new CriteriaCompo();
         $criteria->setSort('plugin_status DESC, plugin_order');
         $criteria->setOrder('ASC');
+
         return $this->getObjects($criteria);
     }
 
@@ -112,7 +113,7 @@ class PluginsPluginHandler extends XoopsPersistableObjectHandler
      */
     public function getListeners()
     {
-        $ret = array();
+        $ret = [];
         $qb = $this->db2->createXoopsQueryBuilder();
         $qb->select('plugin_listener')
             ->fromPrefix('plugins_plugin', '')
@@ -121,6 +122,7 @@ class PluginsPluginHandler extends XoopsPersistableObjectHandler
         while ($row = $result->fetch(FetchMode::ASSOCIATIVE)) {
             $ret[$row['plugin_listener']] = $this->getModuleName($row['plugin_listener']);
         }
+
         return $ret;
     }
 
@@ -129,7 +131,7 @@ class PluginsPluginHandler extends XoopsPersistableObjectHandler
      */
     public function getCallers()
     {
-        $ret = array();
+        $ret = [];
         $qb = $this->db2->createXoopsQueryBuilder();
         $qb->select('plugin_caller')
             ->fromPrefix('plugins_plugin', '')
@@ -138,6 +140,7 @@ class PluginsPluginHandler extends XoopsPersistableObjectHandler
         while ($row = $result->fetch(FetchMode::ASSOCIATIVE)) {
             $ret[$row['plugin_caller']] = $this->getModuleName($row['plugin_caller']);
         }
+
         return $ret;
     }
 
@@ -145,16 +148,15 @@ class PluginsPluginHandler extends XoopsPersistableObjectHandler
      * Gets the module name but checks if it is active or not
      * There is a preload that calls this method before deleting deactivated module entries
      *
-     * @param string $dirname
      * @return mixed
      */
     public function getModuleName(string $dirname)
     {
-         if ($module = \Xoops::getInstance()->getModuleByDirname((string)$dirname)) {
-             return $module->getVar('name');
-         } else {
-             return $dirname;
-         }
+        if ($module = \Xoops::getInstance()->getModuleByDirname((string)$dirname)) {
+            return $module->getVar('name');
+        }
+
+        return $dirname;
     }
 
     /**
@@ -172,14 +174,12 @@ class PluginsPluginHandler extends XoopsPersistableObjectHandler
         $object->setVar('plugin_caller', $caller);
         $object->setVar('plugin_status', $status);
         $object->setVar('plugin_order', $order);
+
         return $this->insert($object, true);
     }
 
     /**
      * Updates the order value after a post request
-     *
-     * @param int $id
-     * @param int $order
      */
     public function updateOrder(int $id, int $order)
     {
@@ -188,9 +188,6 @@ class PluginsPluginHandler extends XoopsPersistableObjectHandler
 
     /**
      * Updates the status value after a post request
-     *
-     * @param int $id
-     * @param int $status
      */
     public function updateStatus(int $id, int $status)
     {
@@ -201,13 +198,12 @@ class PluginsPluginHandler extends XoopsPersistableObjectHandler
      * Get Listeners By Caller
      * Check if the module is active in case it was deactivated
      *
-     * @param string $caller
      * @return array
      */
     public function getActiveListenersByCaller(string $caller)
     {
         $xoops = \Xoops::getInstance();
-        $ret = array();
+        $ret = [];
         $criteria = new CriteriaCompo();
         $criteria->add(new Criteria('plugin_caller', (string)$caller));
         $criteria->add(new Criteria('plugin_status', 1));
@@ -219,15 +215,14 @@ class PluginsPluginHandler extends XoopsPersistableObjectHandler
                 $ret[$plugin['plugin_listener']] = $plugin['plugin_listener'];
             }
         }
-        return $ret;
 
+        return $ret;
     }
 
     /**
      * Deletes all entries by name
      * Useful when a module is deleted
      *
-     * @param string $name
      * @return bool
      */
     public function deleteLC(string $name)
@@ -235,6 +230,7 @@ class PluginsPluginHandler extends XoopsPersistableObjectHandler
         $criteria = new CriteriaCompo();
         $criteria->add(new Criteria('plugin_caller', (string)$name));
         $criteria->add(new Criteria('plugin_listener', (string)$name), 'OR');
+
         return $this->deleteAll($criteria, true);
     }
 }

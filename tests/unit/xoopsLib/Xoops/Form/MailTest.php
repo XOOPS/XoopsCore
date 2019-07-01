@@ -1,7 +1,8 @@
 <?php
+
 namespace Xoops\Form;
 
-require_once(__DIR__.'/../../../init_new.php');
+require_once(__DIR__ . '/../../../init_new.php');
 
 class MailTest extends \PHPUnit\Framework\TestCase
 {
@@ -30,8 +31,8 @@ class MailTest extends \PHPUnit\Framework\TestCase
     public function testRender()
     {
         $value = $this->object->render();
-        $this->assertTrue(is_string($value));
-        $this->assertTrue(false !== strpos($value, '<input'));
-        $this->assertTrue(false !== strpos($value, 'type="email"'));
+        $this->assertInternalType('string', $value);
+        $this->assertTrue(false !== mb_strpos($value, '<input'));
+        $this->assertTrue(false !== mb_strpos($value, 'type="email"'));
     }
 }

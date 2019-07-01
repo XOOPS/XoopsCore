@@ -16,11 +16,10 @@
  * @author          Laurent JEN (Aka DuGris)
  * @version         $Id$
  */
-
 class XcaptchaRecaptchaForm extends Xoops\Form\ThemeForm
 {
     /**
-     * @param null $obj
+     * @param null|mixed $object
      */
     public function __construct($object = null)
     {

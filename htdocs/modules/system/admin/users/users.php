@@ -75,7 +75,6 @@ function synchronize($uid, $type)
             //    $xoops->redirect("admin.php?fct=users", 1, XoopsLocale::E_USER_NOT_UPDATED);
             //}
             break;
-
         case 'all users':
             $sql = $db->createXoopsQueryBuilder()
                 ->select('uid')
@@ -83,11 +82,11 @@ function synchronize($uid, $type)
 
             $result = $sql->execute();
             if (!$result) {
-                $xoops->redirect("admin.php?fct=users", 1, XoopsLocale::E_USER_ID_NOT_FETCHED);
+                $xoops->redirect('admin.php?fct=users', 1, XoopsLocale::E_USER_ID_NOT_FETCHED);
             }
             $rows = $result->fetchAll();
             foreach ($rows as $row) {
-                synchronize($row['uid'], "user");
+                synchronize($row['uid'], 'user');
             }
             break;
     }

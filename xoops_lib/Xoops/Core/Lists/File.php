@@ -33,7 +33,7 @@ class File extends ListAbstract
      */
     public static function getList($path = '', $prefix = '')
     {
-        $fileList = array();
+        $fileList = [];
         $path = rtrim($path, '/');
         if (is_dir($path) && $handle = opendir($path)) {
             while (false !== ($file = readdir($handle))) {

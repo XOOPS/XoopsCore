@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/../../init_new.php');
+require_once(__DIR__ . '/../../init_new.php');
 
 global $config;
 $config = null;
@@ -11,8 +11,8 @@ class ConfigImageTest extends \PHPUnit\Framework\TestCase
         global $config;
 
         $xoops_root_path = \XoopsBaseConfig::get('root-path');
-        require $xoops_root_path.'/class/captcha/config.image.php';
-        $this->assertTrue(is_array($config));
+        require $xoops_root_path . '/class/captcha/config.image.php';
+        $this->assertInternalType('array', $config);
         $this->assertTrue(isset($config['num_chars']));
         $this->assertTrue(isset($config['casesensitive']));
         $this->assertTrue(isset($config['fontsize_min']));

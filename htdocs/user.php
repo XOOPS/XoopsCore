@@ -24,7 +24,6 @@ use Xoops\Core\FixedGroups;
  * @since           2.0.0
  * @author          Kazumi Ono <webmaster@myweb.ne.jp>
  */
-
 include __DIR__ . '/mainfile.php';
 
 $xoops = Xoops::getInstance();
@@ -46,24 +45,24 @@ if ('POST' === Request::getMethod()) {
     $actKey = Request::getString('actkey', '', 'GET');
 }
 
-if ($op === 'login') {
+if ('login' === $op) {
     include_once $xoops->path('include/checklogin.php');
     exit();
 }
 
-if ($op === 'main') {
+if ('main' === $op) {
     if (!$xoops->isUser()) {
         $xoops->header('module:system/system_userform.tpl');
         $xoops->tpl()->assign('xoops_pagetitle', XoopsLocale::A_LOGIN);
         $xoops->theme()->addMeta(
             'meta',
             'keywords',
-            XoopsLocale::USERNAME . ", " . XoopsLocale::PASSWORD . ", " . XoopsLocale::Q_LOST_YOUR_PASSWORD
+            XoopsLocale::USERNAME . ', ' . XoopsLocale::PASSWORD . ', ' . XoopsLocale::Q_LOST_YOUR_PASSWORD
         );
         $xoops->theme()->addMeta(
             'meta',
             'description',
-            XoopsLocale::Q_LOST_YOUR_PASSWORD . " " . XoopsLocale::NO_PROBLEM_ENTER_EMAIL_WE_HAVE_ON_FILE
+            XoopsLocale::Q_LOST_YOUR_PASSWORD . ' ' . XoopsLocale::NO_PROBLEM_ENTER_EMAIL_WE_HAVE_ON_FILE
         );
         $xoops->tpl()->assign('lang_login', XoopsLocale::A_LOGIN);
         $xoops->tpl()->assign('lang_username', XoopsLocale::C_USERNAME);
@@ -84,9 +83,9 @@ if ($op === 'main') {
     if (!empty($xoops_redirect)) {
         $redirect = $xoops_redirect;
         $isExternal = false;
-        if ($pos = strpos($redirect, '://')) {
-            $xoopsLocation = substr($xoops_url, strpos($xoops_url, '://') + 3);
-            if (strcasecmp(substr($redirect, $pos + 3, strlen($xoopsLocation)), $xoopsLocation)) {
+        if ($pos = mb_strpos($redirect, '://')) {
+            $xoopsLocation = mb_substr($xoops_url, mb_strpos($xoops_url, '://') + 3);
+            if (strcasecmp(mb_substr($redirect, $pos + 3, mb_strlen($xoopsLocation)), $xoopsLocation)) {
                 $isExternal = true;
             }
         }
@@ -99,7 +98,7 @@ if ($op === 'main') {
     exit();
 }
 
-if ($op === 'logout') {
+if ('logout' === $op) {
     $message = '';
     $xoops->session()->user()->recordUserLogout();
     // clear entry from online users table
@@ -110,9 +109,9 @@ if ($op === 'logout') {
     $xoops->redirect($xoops_url . '/', 1, $message);
 }
 
-if ($op === 'delete') {
+if ('delete' === $op) {
     $xoopsConfigUser = $xoops->getConfigs();
-    if (!$xoops->isUser() || $xoopsConfigUser['self_delete'] != 1) {
+    if (!$xoops->isUser() || 1 != $xoopsConfigUser['self_delete']) {
         $xoops->redirect('index.php', 5, XoopsLocale::E_NO_ACTION_PERMISSION);
     } else {
         $groups = $xoops->user->getGroups();
@@ -123,13 +122,13 @@ if ($op === 'delete') {
         if (!(bool) $ok) {
             $xoops->header();
             echo $xoops->confirm(
-                array('op' => 'delete', 'ok' => 1),
+                ['op' => 'delete', 'ok' => 1],
                 'user.php',
                 XoopsLocale::Q_ARE_YOU_SURE_TO_DELETE_ACCOUNT . '<br/>' . XoopsLocale::THIS_WILL_REMOVE_ALL_YOUR_INFO
             );
             $xoops->footer();
         } else {
-            $del_uid = $xoops->user->getVar("uid");
+            $del_uid = $xoops->user->getVar('uid');
             $member_handler = $xoops->getHandlerMember();
             if (false != $member_handler->deleteUser($xoops->user)) {
                 $xoops->getHandlerOnline()->destroy($del_uid);

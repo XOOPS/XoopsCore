@@ -29,7 +29,7 @@ class SelectMatchOption extends Select
      * @param string|array $caption caption
      * @param string       $name    name
      * @param mixed        $value   Pre-selected value (or array of them).
-     * @param integer      $size    Number of rows. "1" makes a drop-down-list
+     * @param int      $size    Number of rows. "1" makes a drop-down-list
      */
     public function __construct($caption, $name = null, $value = null, $size = 1)
     {

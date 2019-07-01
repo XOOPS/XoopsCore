@@ -91,7 +91,7 @@ abstract class AuthAbstract
     {
         $xoops = \Xoops::getInstance();
         $ret = '<br />';
-        if ($xoops->getConfig('debug_mode') == 1 || $xoops->getConfig('debug_mode') == 2) {
+        if (1 == $xoops->getConfig('debug_mode') || 2 == $xoops->getConfig('debug_mode')) {
             if (!empty($this->errors)) {
                 foreach ($this->errors as $errstr) {
                     $ret .= $errstr . '<br/>';
@@ -103,6 +103,7 @@ abstract class AuthAbstract
         } else {
             $ret .= \XoopsLocale::E_INCORRECT_LOGIN;
         }
+
         return $ret;
     }
 }

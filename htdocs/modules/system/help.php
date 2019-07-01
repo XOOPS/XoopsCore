@@ -9,9 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
-use Xoops\Core\Kernel\Criteria;
-use Xoops\Core\Kernel\CriteriaCompo;
 use Xmf\Request;
+use Xoops\Core\Kernel\CriteriaCompo;
 
 /**
  * System help page
@@ -46,14 +45,12 @@ if ($mid > 0) {
     $system_breadcrumb->addLink(system_adminVersion($page, 'name'));
     $system_breadcrumb->render();
 
-    if ($module->getVar('dirname', 'e') === 'system') {
-
+    if ('system' === $module->getVar('dirname', 'e')) {
         $admin_dir = \XoopsBaseConfig::get('root-path') . '/modules/system/admin';
         $dirlist = XoopsLists::getDirListAsArray($admin_dir);
 
         foreach ($dirlist as $directory) {
             if (XoopsLoad::fileExists($file = $admin_dir . '/' . $directory . '/xoops_version.php')) {
-
                 require $file;
                 unset($file);
 
@@ -69,13 +66,13 @@ if ($mid > 0) {
         }
         unset($dirlist);
     } else {
-        $list_help = array();
+        $list_help = [];
         $listed_mods[0] = $module->toArray();
         $helplist = $module->getInfo('helpsection');
-        $j=0;
+        $j = 0;
         if (is_array($helplist)) {
             foreach ($helplist as $helpitem) {
-                if (($helpitem['name'] != '') && ($helpitem['link'] != '')) {
+                if (('' != $helpitem['name']) && ('' != $helpitem['link'])) {
                     $list_help[$j]['name'] = $helpitem['name'];
                     $list_help[$j]['link'] = 'help.php?mid=' . $mid . '&amp;' . $helpitem['link'];
                     ++$j;
@@ -84,8 +81,8 @@ if ($mid > 0) {
             $listed_mods[0]['help_page'] = $list_help;
             $xoopsTpl->assign('list_mods', $listed_mods);
         }
-        unset ($helplist);
-        if (( $module->getInfo('help') != '' ) && ($j == 0)) {
+        unset($helplist);
+        if (('' != $module->getInfo('help')) && (0 == $j)) {
             $help['name'] = $module->getInfo('name');
             $help['link'] = 'help.php?mid=' . $mid . '&amp;' . $module->getInfo('help');
             $xoopsTpl->appendByRef('help', $help);
@@ -98,7 +95,7 @@ if ($mid > 0) {
     $xoops->tpl()->assign('modname', $module->getVar('name'));
     $xoops->tpl()->assign('moddirname', $module->getVar('dirname', 'e'));
 
-    if ($page !== '') {
+    if ('' !== $page) {
         // Call template
         if ($helpfile = XoopsLoad::fileExists(\XoopsBaseConfig::get('root-path') . '/modules/' . $module->getVar('dirname', 'e') . '/locale/' . XoopsLocale::getLocale() . '/help/' . $page . '.tpl')) {
             $helpcontent = $xoops->tpl()->fetch(\XoopsBaseConfig::get('root-path') . '/modules/' . $module->getVar('dirname', 'e') . '/locale/' . XoopsLocale::getLocale() . '/help/' . $page . '.tpl');
@@ -120,7 +117,7 @@ if ($mid > 0) {
             $xoops->tpl()->assign('load_error', 1);
         }
 
-        if ($module->getVar('dirname', 'e') !== 'system') {
+        if ('system' !== $module->getVar('dirname', 'e')) {
             $xoops->tpl()->assign('help_module', true);
         }
         $xoops->tpl()->assign('helpcontent', $helpcontent);
@@ -152,12 +149,12 @@ if ($mid > 0) {
     $criteria->setOrder('weight');
     // Get all installed modules
     $installed_mods = $xoops->getHandlerModule()->getObjectsArray($criteria);
-    $listed_mods = array();
+    $listed_mods = [];
     $i = 0;
     $j = 0;
     foreach ($installed_mods as $module) {
         /* @var $module XoopsModule */
-        $list_help = array();
+        $list_help = [];
         $listed_mods[$i] = $module->getValues();
         $listed_mods[$i]['image'] = $module->getInfo('image');
         $listed_mods[$i]['adminindex'] = $module->getInfo('adminindex');
@@ -168,13 +165,12 @@ if ($mid > 0) {
         $listed_mods[$i]['license'] = $module->getInfo('license');
         $listed_mods[$i]['description'] = $module->getInfo('description');
 
-        if ($module->getVar('dirname', 'e') === 'system') {
+        if ('system' === $module->getVar('dirname', 'e')) {
             $admin_dir = \XoopsBaseConfig::get('root-path') . '/modules/system/admin';
             $dirlist = XoopsLists::getDirListAsArray($admin_dir);
 
             foreach ($dirlist as $directory) {
                 if (XoopsLoad::fileExists($file = $admin_dir . '/' . $directory . '/xoops_version.php')) {
-
                     require $file;
                     unset($file);
 
@@ -190,12 +186,12 @@ if ($mid > 0) {
             unset($dirlist);
         } else {
             $helplist = $module->getInfo('helpsection');
-            $k=0;
+            $k = 0;
 
             // Only build the list if one has been defined.
             if (is_array($helplist)) {
                 foreach ($helplist as $helpitem) {
-                    if (($helpitem['name'] != '') && ($helpitem['link'] != '')) {
+                    if (('' != $helpitem['name']) && ('' != $helpitem['link'])) {
                         $list_help[$j]['name'] = $helpitem['name'];
                         $list_help[$j]['link'] = 'help.php?mid=' . $module->getVar('mid', 'e')
                             . '&amp;' . $helpitem['link'];
@@ -207,14 +203,14 @@ if ($mid > 0) {
             unset($helplist);
 
             // If there is no help section ($k=0), and a lone help parameter has been defined.
-            if (( $module->getInfo('help') != '' ) && ($k == 0)) {
+            if (('' != $module->getInfo('help')) && (0 == $k)) {
                 $list_help[$j]['name'] = $module->getInfo('name');
                 $list_help[$j]['link'] = 'help.php?mid=' . $module->getVar('mid', 'e')
                     . '&amp;' . $module->getInfo('help');
             }
         }
         $listed_mods[$i]['help_page'] = $list_help;
-        if ($module->getInfo('help') == '') {
+        if ('' == $module->getInfo('help')) {
             unset($listed_mods[$i]);
         }
         unset($list_help);

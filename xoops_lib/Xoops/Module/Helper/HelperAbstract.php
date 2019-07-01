@@ -52,7 +52,7 @@ abstract class HelperAbstract
      */
     protected function setDirname($dirname)
     {
-        $this->dirname = strtolower($dirname);
+        $this->dirname = mb_strtolower($dirname);
     }
 
     /**
@@ -76,7 +76,7 @@ abstract class HelperAbstract
     {
         static $instance = false;
         $id = $className = get_called_class();
-        if ($className === 'Xoops\Module\Helper\Dummy') {
+        if ('Xoops\Module\Helper\Dummy' === $className) {
             $id = @\Xoops::getInstance()->registry()->get('module_helper_id');
         }
         if (!isset($instance[$id])) {
@@ -85,6 +85,7 @@ abstract class HelperAbstract
             $class->init();
             $instance[$id] = $class;
         }
+
         return $instance[$id];
     }
 
@@ -93,9 +94,10 @@ abstract class HelperAbstract
      */
     public function getModule()
     {
-        if ($this->module == null) {
+        if (null == $this->module) {
             $this->initModule();
         }
+
         return $this->module;
     }
 
@@ -122,12 +124,14 @@ abstract class HelperAbstract
     {
         $configs = $this->xoops()->getModuleConfigs($this->dirname);
         if (empty($name)) {
-            $this->addLog("Getting all config");
+            $this->addLog('Getting all config');
+
             return $configs;
         }
-        $name = strtolower($name);
+        $name = mb_strtolower($name);
         if (!isset($configs[$name])) {
             $this->addLog("ERROR :: Config '{$name}' does not exist");
+
             return $default;
         }
 
@@ -145,6 +149,7 @@ abstract class HelperAbstract
     {
         $result = $this->xoops()->getModuleConfigs($this->dirname);
         $this->addLog("Getting configs for {$this->dirname} module");
+
         return $result;
     }
 
@@ -157,8 +162,9 @@ abstract class HelperAbstract
      */
     public function getHandler($name)
     {
-        $name = strtolower($name);
+        $name = mb_strtolower($name);
         $this->addLog("Getting handler '{$name}'");
+
         return $this->xoops()->getModuleHandler($name, $this->dirname);
     }
 
@@ -171,11 +177,11 @@ abstract class HelperAbstract
     {
         $this->xoops()->appendConfig(
             'module_cache',
-            array($this->getModule()->getVar('mid') => 0),
+            [$this->getModule()->getVar('mid') => 0],
             true,
             $this->dirname
         );
-        $this->addLog("Disabling module cache");
+        $this->addLog('Disabling module cache');
     }
 
     /**
@@ -188,6 +194,7 @@ abstract class HelperAbstract
         if ($this->xoops()->moduleDirname == $this->dirname) {
             return true;
         }
+
         return false;
     }
 
@@ -201,6 +208,7 @@ abstract class HelperAbstract
         if ($this->xoops()->isUser()) {
             return $this->xoops()->user->isAdmin($this->getModule()->getVar('mid'));
         }
+
         return false;
     }
 
@@ -261,7 +269,7 @@ abstract class HelperAbstract
     public function loadLocale()
     {
         $this->xoops()->loadLocale($this->dirname);
-        $this->addLog("Loading locale");
+        $this->addLog('Loading locale');
     }
 
     /**
@@ -272,8 +280,9 @@ abstract class HelperAbstract
      */
     public function getForm($obj, $name)
     {
-        $name = strtolower($name);
+        $name = mb_strtolower($name);
         $this->addLog("Loading form '{$name}'");
+
         return $this->xoops()->getModuleForm($obj, $name, $this->dirname);
     }
 
@@ -305,10 +314,10 @@ abstract class HelperAbstract
     public function addLog($message)
     {
         if ($this->debug) {
-            $this->xoops()->events()->triggerEvent('core.module.addlog', array(
+            $this->xoops()->events()->triggerEvent('core.module.addlog', [
                 $this->getModule()->getVar('name'),
-                $message
-            ));
+                $message,
+            ]);
         }
     }
 }

@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/../../../init_new.php');
+require_once(__DIR__ . '/../../../init_new.php');
 
 use Xoops\Html\Button;
 
@@ -17,9 +17,9 @@ class ButtonTest extends \PHPUnit\Framework\TestCase
     protected function setUp()
     {
         $this->object = new Button([
-            'type'  => 'submit',
+            'type' => 'submit',
             'class' => 'button1',
-            'value' => 'sometext'
+            'value' => 'sometext',
         ]);
     }
 
@@ -33,7 +33,7 @@ class ButtonTest extends \PHPUnit\Framework\TestCase
 
     public function test__construct()
     {
-        $object = new Button(array('type' => 'button'));
+        $object = new Button(['type' => 'button']);
         $this->assertInstanceOf('\Xoops\Html\Attributes', $object);
         $this->assertEquals('button', $object->get('type'));
     }
@@ -43,8 +43,8 @@ class ButtonTest extends \PHPUnit\Framework\TestCase
         $output = $this->object->render();
         $this->assertStringStartsWith('<button ', $output);
         $this->assertStringEndsWith('</button>', $output);
-        $this->assertGreaterThanOrEqual(7, strpos($output, 'type="submit"'));
-        $this->assertGreaterThanOrEqual(7, strpos($output, 'class="button1"'));
-        $this->assertGreaterThanOrEqual(7, strpos($output, '>sometext<'));
+        $this->assertGreaterThanOrEqual(7, mb_strpos($output, 'type="submit"'));
+        $this->assertGreaterThanOrEqual(7, mb_strpos($output, 'class="button1"'));
+        $this->assertGreaterThanOrEqual(7, mb_strpos($output, '>sometext<'));
     }
 }

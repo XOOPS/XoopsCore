@@ -65,18 +65,20 @@ class Embed extends FilterAbstract
      *
      * @return string
      */
-    protected function decorateUrl($match) {
+    protected function decorateUrl($match)
+    {
         $url = $match[1];
         $decorated = null;
         $xoops = \Xoops::getInstance();
         $md5 = md5($url);
-        $crc = hash("crc32b", $url);
-        $key = implode('/', ['embed', substr($crc, -2), $md5]);
+        $crc = hash('crc32b', $url);
+        $key = implode('/', ['embed', mb_substr($crc, -2), $md5]);
         //$xoops->cache()->delete($key);
         $decorated = $xoops->cache()->cacheRead(
             $key,
             function ($url) {
                 $return = null;
+
                 try {
                     $info = \Embed\Embed::create($url);
                 } catch (\Exception $e) {
@@ -90,18 +92,20 @@ class Embed extends FilterAbstract
                     $height = $info->getHeight();
                     $width = $info->getWidth();
                     if ($this->enableResponsive($return) && !empty($height) && !empty($width)) {
-                        $ratio = (1.5 > ($width/$height)) ? '4by3' : '16by9';
+                        $ratio = (($width / $height) < 1.5) ? '4by3' : '16by9';
                         $return = '<div class="embed-responsive embed-responsive-' . $ratio . '">' . $return . '</div>';
                     }
                 }
                 if (empty($return)) {
                     $return = $url;
                 }
+
                 return $return;
             },
             $this->config['cache_time'],
             $url
         );
+
         return $decorated;
     }
 
@@ -119,10 +123,11 @@ class Embed extends FilterAbstract
 </div>
 EOT;
 
-        if(empty($imageSrc)) {
+        if (empty($imageSrc)) {
             $imageSrc = \Xoops::getInstance()->url('media/xoops/images/icons/link-ext.svg');
         }
         $box = sprintf($htmlTemplate, $link, $imageSrc, $title, $description);
+
         return $box;
     }
 
@@ -141,10 +146,11 @@ EOT;
         ];
 
         foreach ($excludeList as $test) {
-            if (false !== stripos($code, $test)) {
+            if (false !== mb_stripos($code, $test)) {
                 return false;
             }
         }
+
         return true;
     }
 }

@@ -57,7 +57,7 @@ class Censor extends FilterAbstract
         $censorReplace = $xoops->getConfig('censor_replace');
         $censorReplace = empty($censorReplace) ? $this->config['censor_replace'] : $censorReplace;
 
-        if ($enabled === false
+        if (false === $enabled
             || empty($censorWords)
             || ((false === $this->config['censor_admin']) && $xoops->userIsAdmin)
         ) {
@@ -70,11 +70,12 @@ class Censor extends FilterAbstract
         foreach ($censorWords as $bad) {
             $bad = trim($bad);
             if (!empty($bad)) {
-                if (false === stripos($text, $bad)) {
+                if (false === mb_stripos($text, $bad)) {
                     continue;
                 }
                 if ((bool) $this->config['censor_terminate']) {
-                    trigger_error("Censor words found", E_USER_ERROR);
+                    trigger_error('Censor words found', E_USER_ERROR);
+
                     return '';
                 }
                 $patterns[] = "/(^|[^0-9a-z_]){$bad}([^0-9a-z_]|$)/siU";

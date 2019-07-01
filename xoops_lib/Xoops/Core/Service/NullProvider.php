@@ -46,14 +46,14 @@ class NullProvider extends Provider
     public function __construct(Manager $manager, $service)
     {
         $this->response = new Response();
-        $this->response->setSuccess(false)->addErrorMessage(sprintf("No provider installed for %s", $service));
+        $this->response->setSuccess(false)->addErrorMessage(sprintf('No provider installed for %s', $service));
         parent::__construct($manager, $service);
     }
 
     /**
      * isAvailable - indicate the (lack of) availability of an actual provider
      *
-     * @return boolean false to indicate no provider is available
+     * @return bool false to indicate no provider is available
      */
     public function isAvailable()
     {
@@ -131,7 +131,8 @@ class NullProvider extends Provider
     public static function __callStatic($name, $arguments)
     {
         $response = new Response();
-        $response->setSuccess(false)->addErrorMessage(sprintf("No provider installed for %s", get_called_class()));
+        $response->setSuccess(false)->addErrorMessage(sprintf('No provider installed for %s', get_called_class()));
+
         return $response;
     }
 }

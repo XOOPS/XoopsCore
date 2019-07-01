@@ -1,9 +1,10 @@
 <?php
+
 namespace Xoops\Core\Text\Sanitizer\Extensions;
 
 use Xoops\Core\Text\Sanitizer;
 
-require_once __DIR__.'/../../../../../../init_new.php';
+require_once __DIR__ . '/../../../../../../init_new.php';
 
 class SyntaxHighlightTest extends \PHPUnit\Framework\TestCase
 {
@@ -46,9 +47,9 @@ class SyntaxHighlightTest extends \PHPUnit\Framework\TestCase
     {
         $this->sanitizer->enableComponentForTesting('syntaxhighlight');
 
-        $text = "some text";
+        $text = 'some text';
         $actual = $this->sanitizer->executeFilter('syntaxhighlight', $text);
-        $this->assertTrue(is_string($actual));
+        $this->assertInternalType('string', $actual);
     }
 
     public function testPhp()

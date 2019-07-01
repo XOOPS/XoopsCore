@@ -18,9 +18,8 @@
  * @since           2.6.0
  * @version         $Id$
  */
-
 include __DIR__ . '/mainfile.php';
 
 $xoops = \Xoops::getInstance();
 $xoops->events()->triggerEvent('core.imagemanager');
-$xoops->redirect("index.php", 2, XoopsLocale::E_NO_ACCESS_PERMISSION);
+$xoops->redirect('index.php', 2, XoopsLocale::E_NO_ACCESS_PERMISSION);

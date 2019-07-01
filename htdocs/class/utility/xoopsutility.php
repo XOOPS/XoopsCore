@@ -20,21 +20,23 @@
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
  * @version         $Id$
  */
-
 class XoopsUtility
 {
-
     /**
      * @static
      * @param mixed $handler
      * @param mixed $data
      * @return array|mixed
      */
-    static function recursive($handler, $data)
+    public static function recursive($handler, $data)
     {
         if (is_array($data)) {
-            $return = array_map(array('XoopsUtility', 'recursive'),
-				array_fill(0, count($data), $handler), $data);
+            $return = array_map(
+                ['XoopsUtility', 'recursive'],
+                array_fill(0, count($data), $handler),
+                $data
+            );
+
             return $return;
         }
         // single function
@@ -45,6 +47,7 @@ class XoopsUtility
         if (is_callable($handler)) {
             return call_user_func($handler, $data);
         }
+
         return $data;
     }
 }

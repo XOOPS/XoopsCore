@@ -28,7 +28,7 @@ class DateSelect extends Text
      *
      * @param string|array      $caption caption or array of all attributes
      * @param string            $name    name
-     * @param integer|\DateTime $value   unix timestamp or DateTime object
+     * @param int|\DateTime $value   unix timestamp or DateTime object
      */
     public function __construct($caption, $name = null, $value = null)
     {
@@ -77,7 +77,7 @@ class DateSelect extends Text
             ' }); }); '
         );
         $ret = '<div>';
-        $ret .= '<input ' . $attributes . ' value="' . $display_value . '" ' . $this->getExtra() .' >';
+        $ret .= '<input ' . $attributes . ' value="' . $display_value . '" ' . $this->getExtra() . ' >';
         $ret .= '<span>';
         $ret .= '<button type="button" ';
         $ret .= 'data-toggle="tooltip" data-placement="left" title="' . \XoopsLocale::A_SELECT . '" ';
@@ -86,6 +86,6 @@ class DateSelect extends Text
         $ret .= '</span></div>';
 
         return $ret;
-            //'<input ' . $attributes . 'value="' . $display_value . '" ' . $this->getExtra() .' >';
+        //'<input ' . $attributes . 'value="' . $display_value . '" ' . $this->getExtra() .' >';
     }
 }

@@ -35,7 +35,7 @@ if (!is_object($module) || !$module->getVar('isactive')) {
     $xoops->redirect($xoops->url('admin.php'), 1, XoopsLocale::E_NO_MODULE);
 }
 
-$msg = array();
+$msg = [];
 
 $member_handler = $xoops->getHandlerMember();
 $group_list = $member_handler->getGroupList();
@@ -48,17 +48,17 @@ if (is_array($_POST['perms']) && !empty($_POST['perms'])) {
         if (false == $gperm_handler->deleteByModule($modid, $perm_name)) {
             $msg[] = sprintf(SystemLocale::EF_COULD_NOT_RESET_GROUP_PERMISSION_FOR_MODULE, $module->getVar('name') . '(' . $perm_name . ')');
         }
-        if (!array_key_exists('groups', $perm_data)){
+        if (!array_key_exists('groups', $perm_data)) {
             $msg[] = sprintf(SystemLocale::SF_ADDED_PERMISSION_FOR_GROUP, $module->getVar('name'), $perm_name, ' /');
-        }else{
+        } else {
             foreach ($perm_data['groups'] as $group_id => $item_ids) {
                 foreach ($item_ids as $item_id => $selected) {
-                    if ($selected == 1) {
+                    if (1 == $selected) {
                         // make sure that all parent ids are selected as well
-                        if ($perm_data['parents'][$item_id] != '') {
+                        if ('' != $perm_data['parents'][$item_id]) {
                             $parent_ids = explode(':', $perm_data['parents'][$item_id]);
                             foreach ($parent_ids as $pid) {
-                                if ($pid != 0 && !in_array($pid, array_keys($item_ids))) {
+                                if (0 != $pid && !in_array($pid, array_keys($item_ids))) {
                                     // one of the parent items were not selected, so skip this item
                                     $msg[] = sprintf(SystemLocale::EF_COULD_NOT_ADD_PERMISSION_FOR_GROUP, '<strong>' . $perm_name . '</strong>', '<strong>' . $perm_data['itemname'][$item_id] . '</strong>', '<strong>' . $group_list[$group_id] . '</strong>') . ' (' . XoopsLocale::E_ALL_PARENT_ITEMS_MUST_BE_SELECTED . ')';
                                     continue 2;
@@ -82,7 +82,7 @@ if (is_array($_POST['perms']) && !empty($_POST['perms'])) {
         }
     }
 }
-$backlink = $xoops->getEnv("HTTP_REFERER");
+$backlink = $xoops->getEnv('HTTP_REFERER');
 if ($module->getVar('hasadmin')) {
     $adminindex = isset($_POST['redirect_url']) ? $_POST['redirect_url'] : $module->getInfo('adminindex');
     if ($adminindex) {
@@ -91,4 +91,4 @@ if ($module->getVar('hasadmin')) {
 }
 $backlink = ($backlink) ? $backlink : \XoopsBaseConfig::get('url') . '/admin.php';
 
-$xoops->redirect($backlink, 2, implode("<br />", $msg));
+$xoops->redirect($backlink, 2, implode('<br />', $msg));

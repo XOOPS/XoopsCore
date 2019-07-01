@@ -36,8 +36,6 @@ interface EmailInterface
      *
      * @param Response $response response object
      * @param Email    $email    email message to be sent
-     *
-     * @return void - response->success set true if sent, otherwise false
      */
     public function sendEmail(Response $response, Email $email);
 }

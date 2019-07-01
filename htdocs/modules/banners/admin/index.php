@@ -53,7 +53,7 @@ $admin_page->addInfoBoxLine(sprintf(_AM_BANNERS_INDEX_NBTOTAL, $banners_banner))
 $admin_page->addInfoBoxLine(sprintf(_AM_BANNERS_INDEX_NBCLIENT, '<span class="green">' . $banners_client . '</span>'));
 $admin_page->addInfoBoxLine(sprintf(_AM_BANNERS_INDEX_NBFINISH, '<span class="red">' . $banners_finish . '</span>'));
 $admin_page->addConfigBoxLine($folder_path, 'folder');
-$admin_page->addConfigBoxLine(array($folder_path, '777'), 'chmod');
+$admin_page->addConfigBoxLine([$folder_path, '777'], 'chmod');
 $admin_page->displayNavigation('index.php');
 $admin_page->displayIndex();
 $xoops->footer();

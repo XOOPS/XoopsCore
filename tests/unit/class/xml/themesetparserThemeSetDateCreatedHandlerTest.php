@@ -1,12 +1,12 @@
 <?php
-require_once(__DIR__.'/../../init_new.php');
+require_once(__DIR__ . '/../../init_new.php');
 
 class ThemeSetDateCreatedHandlerTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass = 'ThemeSetDateCreatedHandler';
     protected $object = null;
-    
-    public function setUp()
+
+    protected function setUp()
     {
         $input = 'input';
         $this->object = new $this->myclass($input);
@@ -21,27 +21,27 @@ class ThemeSetDateCreatedHandlerTest extends \PHPUnit\Framework\TestCase
     public function test_getName()
     {
         $instance = $this->object;
-        
+
         $name = $instance->getName();
         $this->assertSame('dateCreated', $name);
     }
-    
+
     public function test_handleCharacterData()
     {
         $instance = $this->object;
-        
+
         $input = 'input';
         $parser = new XoopsThemeSetParser($input);
-        $parser->tags = array('themeset','themeset');
+        $parser->tags = ['themeset', 'themeset'];
         $data = 'data';
         $instance->handleCharacterData($parser, $data);
         $this->assertSame($data, $parser->getThemeSetData('date'));
-        
+
         $input = 'input';
         $parser = new XoopsThemeSetParser($input);
-        $parser->tags = array('dummy','dummy');
+        $parser->tags = ['dummy', 'dummy'];
         $data = 'data';
         $instance->handleCharacterData($parser, $data);
-        $this->assertSame(false, $parser->getThemeSetData('date'));
+        $this->assertFalse($parser->getThemeSetData('date'));
     }
 }

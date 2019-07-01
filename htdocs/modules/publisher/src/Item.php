@@ -12,6 +12,7 @@ namespace XoopsModules\Publisher;
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+use Doctrine\DBAL\FetchMode;
 use Images;
 use Notifications;
 use Xmf\Highlighter;
@@ -26,7 +27,6 @@ use XoopsLoad;
 use XoopsLocale;
 use XoopsModules\Publisher;
 use XoopsUserUtility;
-use Doctrine\DBAL\FetchMode;
 
 /**
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/

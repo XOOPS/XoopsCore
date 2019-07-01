@@ -19,7 +19,6 @@ use Xmf\Request;
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
-
 include_once __DIR__ . '/header.php';
 
 $xoops = Xoops::getInstance();
@@ -37,7 +36,6 @@ $id = Request::getInt('id', 0);
 $pid = Request::getInt('pid', 0);
 $weight = Request::getInt('weight', 0);
 $visible = Request::getInt('visible', 0);
-
 
 $menus_handler = $helper->getHandlerMenus();
 $criteria = new CriteriaCompo();
@@ -75,7 +73,6 @@ switch ($op) {
         $form = $helper->getForm($obj, 'menus_menu');
         $xoops->tpl()->assign('form', $form->render());
         break;
-
     case 'edit':
         $admin_page->addItemButton(_AM_MENUS_LIST_MENUS, 'admin_menu.php', 'application-view-detail');
         $admin_page->renderButton();
@@ -85,7 +82,6 @@ switch ($op) {
         $form = $helper->getForm($obj, 'menus_menu');
         $xoops->tpl()->assign('form', $form->render());
         break;
-
     case 'save':
         if (!$xoops->security()->check()) {
             $xoops->redirect('admin_menu.php', 3, implode('<br />', $xoops->security()->getErrors()));
@@ -94,7 +90,7 @@ switch ($op) {
         $msg[] = _AM_MENUS_SAVE;
 
         $id = Request::getInt('id', 0);
-        if (isset($id) && $id !=0) {
+        if (isset($id) && 0 != $id) {
             $obj = $helper->getHandlerMenu()->get($id);
         } else {
             $obj = $helper->getHandlerMenu()->create();
@@ -112,7 +108,7 @@ switch ($op) {
         }
 
         if (!isset($_POST['hooks'])) {
-            $_POST['hooks'] = array();
+            $_POST['hooks'] = [];
         }
         $obj->setVars($_POST);
         $obj->setVar('weight', $weight);
@@ -125,12 +121,11 @@ switch ($op) {
         $form = $helper->getForm($obj, 'menus_menu');
         $xoops->tpl()->assign('form', $form->render());
         break;
-
     case 'del':
         $ok = Request::getInt('ok', 0);
         $obj = $helper->getHandlerMenu()->get($id);
 
-        if ($ok == 1) {
+        if (1 == $ok) {
             if (!$xoops->security()->check()) {
                 $xoops->redirect('admin_menu.php', 3, implode(',', $xoops->security()->getErrors()));
             }
@@ -141,13 +136,12 @@ switch ($op) {
             }
         } else {
             echo $xoops->confirm(
-                array('ok' => 1, 'id' => $id, 'op' => 'del', 'menu_id' => $menu_id),
+                ['ok' => 1, 'id' => $id, 'op' => 'del', 'menu_id' => $menu_id],
                 $helper->url('admin/admin_menu.php'),
                 _AM_MENUS_MSG_SUREDEL . '<br /><strong>' . $obj->getVar('title') . '</strong>'
             );
         }
         break;
-
     case 'move':
         $this_handler = Menus::getInstance()->getHandlerMenu();
         $obj = $this_handler->get($id);
@@ -156,16 +150,14 @@ switch ($op) {
         $this_handler->updateWeights($obj);
         $xoops->redirect('admin_menu.php?op=list&amp;menu_id=' . $obj->getVar('mid'), 2, _AM_MENUS_SAVE);
         break;
-
     case 'toggle':
-        $visible = ($visible == 1) ? 0 : 1;
+        $visible = (1 == $visible) ? 0 : 1;
         $this_handler = Menus::getInstance()->getHandlerMenu();
         $obj = $this_handler->get($id);
         $obj->setVar('visible', $visible);
         $this_handler->insert($obj);
         $xoops->redirect('admin_menu.php?op=list&amp;menu_id=' . $obj->getVar('mid'), 2, _AM_MENUS_SAVE);
         break;
-
     case 'list':
     default:
         $admin_page->addItemButton(_AM_MENUS_ADD_MENUS, 'admin_menu.php?op=add&amp;menu_id=' . $menu_id, 'add');
@@ -181,7 +173,7 @@ switch ($op) {
         $criteria->setOrder('ASC');
 
         if ($count > 0) {
-            $array = array();
+            $array = [];
             $menus = $this_handler->getObjects($criteria);
             /* @var $menu MenusMenu */
             foreach ($menus as $menu) {
@@ -191,7 +183,7 @@ switch ($op) {
             $menusArray = $builder->render();
             $xoops->tpl()->assign('menus', $menusArray);
         } else {
-             $xoops->tpl()->assign('error_message', _AM_MENUS_MSG_NOTFOUND);
+            $xoops->tpl()->assign('error_message', _AM_MENUS_MSG_NOTFOUND);
         }
         break;
 }

@@ -1,9 +1,8 @@
 <?php
-require_once(__DIR__.'/../../../../init_new.php');
+require_once(__DIR__ . '/../../../../init_new.php');
 
-use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
-use Xoops\Core\Kernel\XoopsModelAbstract;
 use Xoops\Core\Kernel\Handlers\XoopsBlockHandler;
+use Xoops\Core\Kernel\XoopsModelAbstract;
 
 class XoopsModelAbstractTestInstance extends XoopsModelAbstract
 {
@@ -30,14 +29,14 @@ class XoopsModelAbstractTest extends \PHPUnit\Framework\TestCase
 
     public function test_setVars()
     {
-        $vars = array('one'=>1, 'two'=>2);
+        $vars = ['one' => 1, 'two' => 2];
         $instance = new $this->myClass();
         $this->assertInstanceOf($this->myClass, $instance);
         $x = $instance->setVars($vars);
         $this->assertTrue($x);
         $this->assertTrue(!empty($instance->one));
-        $this->assertTrue($instance->one == 1);
+        $this->assertTrue(1 == $instance->one);
         $this->assertTrue(!empty($instance->two));
-        $this->assertTrue($instance->two == 2);
+        $this->assertTrue(2 == $instance->two);
     }
 }

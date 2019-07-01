@@ -14,6 +14,8 @@
  * @copyright 2014 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
+ * @param mixed $params
+ * @param mixed $smarty
  */
 
 /**
@@ -29,8 +31,8 @@
 function smarty_function_thumbnail($params, &$smarty)
 {
     $image = isset($params['image']) ? $params['image'] : '';
-    $w     = isset($params['w']) ? $params['w'] : 0;
-    $h     = isset($params['h']) ? $params['h'] : 0;
+    $w = isset($params['w']) ? $params['w'] : 0;
+    $h = isset($params['h']) ? $params['h'] : 0;
 
     return \Xoops::getInstance()->service('thumbnail')->getImgUrl($image, $w, $h)->getValue();
 }

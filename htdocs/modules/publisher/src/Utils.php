@@ -902,9 +902,9 @@ class Utils
         $tense = 1 == $count ? _MD_PUBLISHER_VOTE_lVOTE : _MD_PUBLISHER_VOTE_lVOTES; //plural form votes/vote
 
         // now draw the rating bar
-        $rating_width = @\number_format($count==0 ? 0 : ($current_rating / $count), 2) * $rating_unitwidth;
-        $rating1 = @\number_format($count==0 ? 0 : ($current_rating / $count), 1);
-        $rating2 = @\number_format($count==0 ? 0 : ($current_rating / $count), 2);
+        $rating_width = @\number_format(0 == $count ? 0 : ($current_rating / $count), 2) * $rating_unitwidth;
+        $rating1 = @\number_format(0 == $count ? 0 : ($current_rating / $count), 1);
+        $rating2 = @\number_format(0 == $count ? 0 : ($current_rating / $count), 2);
 
         $groups = $xoops->getUserGroups();
         $gpermHandler = $helper->getGrouppermHandler();

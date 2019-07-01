@@ -30,7 +30,7 @@ class Divider extends Item
      *
      * Expected attributes: none
      */
-    public function __construct($attributes = array())
+    public function __construct($attributes = [])
     {
         parent::__construct($attributes);
         $this->set('type', Item::TYPE_DIVIDER);

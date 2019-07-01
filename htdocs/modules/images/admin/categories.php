@@ -9,8 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
-use Xoops\Core\FixedGroups;
 use Xmf\Request;
+use Xoops\Core\FixedGroups;
 
 /**
  * images module
@@ -36,7 +36,7 @@ switch ($op) {
         }
 
         $imgcat_id = Request::getInt('imgcat_id', 0);
-        if (isset($imgcat_id) && $imgcat_id != 0) {
+        if (isset($imgcat_id) && 0 != $imgcat_id) {
             $obj = $helper->getHandlerCategories()->get($imgcat_id);
             $isnew = false;
         } else {
@@ -63,9 +63,9 @@ switch ($op) {
                 $xoops->getHandlerGroupPermission()->deleteAll($criteria);
             }
             // Save permissions
-            $permissions = array('readgroup' => 'imgcat_read', 'writegroup' => 'imgcat_write');
+            $permissions = ['readgroup' => 'imgcat_read', 'writegroup' => 'imgcat_write'];
             foreach ($permissions as $k => $permission) {
-                $groups = Request::getArray($k, array(FixedGroups::ADMIN));
+                $groups = Request::getArray($k, [FixedGroups::ADMIN]);
                 if (!in_array(FixedGroups::ADMIN, $groups)) {
                     array_push($groups, FixedGroups::ADMIN);
                 }
@@ -83,13 +83,11 @@ switch ($op) {
         }
         $xoops->redirect('categories.php', 2, _AM_IMAGES_CAT_NOTSAVE . '<br />' . implode('<br />', $obj->getHtmlErrors()));
         break;
-
     case 'add':
         $obj = $helper->getHandlerCategories()->create();
         $form = $helper->getForm($obj, 'category');
         $xoops->tpl()->assign('form', $form->render());
         break;
-
     case 'edit':
         $imgcat_id = Request::getInt('imgcat_id', 0);
         if ($imgcat_id > 0) {
@@ -98,14 +96,13 @@ switch ($op) {
             $xoops->tpl()->assign('form', $form->render());
         }
         break;
-
     case 'del':
         $imgcat_id = Request::getInt('imgcat_id', 0);
         if ($imgcat_id > 0) {
             $ok = Request::getInt('ok', 0);
             $obj = $helper->getHandlerCategories()->get($imgcat_id);
 
-            if ($ok == 1) {
+            if (1 == $ok) {
                 if (!$xoops->security()->check()) {
                     $xoops->redirect('categories.php', 3, implode(',', $xoops->security()->getErrors()));
                 }
@@ -114,7 +111,7 @@ switch ($op) {
                     $images = $helper->getHandlerImages()->getByCategory($obj->getVar('imgcat_id'));
                     foreach ($images as $image) {
                         if ($helper->getHandlerImages()->delete($image)) {
-                            if ($obj->getVar('imgcat_storetype') === 'db') {
+                            if ('db' === $obj->getVar('imgcat_storetype')) {
                                 $helper->getHandlerImagesBody()->delete($helper->getHandlerImagesBody()->get($image->getVar('image_id')));
                             } else {
                                 unlink(\XoopsBaseConfig::get('uploads-path') . '/' . $image->getVar('image_name'));
@@ -134,14 +131,13 @@ switch ($op) {
                 }
             } else {
                 echo $xoops->confirm(
-                    array('op' => 'del', 'ok' => 1, 'imgcat_id' => $imgcat_id),
+                    ['op' => 'del', 'ok' => 1, 'imgcat_id' => $imgcat_id],
                     XOOPS_URL . '/modules/images/admin/categories.php',
                     sprintf(_AM_IMAGES_CAT_DELETE, $obj->getVar('imgcat_name'))
                 );
             }
         }
         break;
-
     case 'display':
         $imgcat_id = Request::getInt('imgcat_id', 0);
         if ($imgcat_id > 0) {
@@ -153,7 +149,6 @@ switch ($op) {
             }
         }
         break;
-
     case 'list':
     default:
         $admin_page->addItemButton(_AM_IMAGES_CAT_ADD, 'categories.php?op=add', 'add');

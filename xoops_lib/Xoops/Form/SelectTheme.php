@@ -29,7 +29,7 @@ class SelectTheme extends Select
      * @param string  $caption caption
      * @param string  $name    name
      * @param mixed   $value   Pre-selected value (or array of them).
-     * @param integer $size    Number or rows. "1" makes a drop-down-list
+     * @param int $size    Number or rows. "1" makes a drop-down-list
      */
     public function __construct($caption, $name, $value = null, $size = 1)
     {

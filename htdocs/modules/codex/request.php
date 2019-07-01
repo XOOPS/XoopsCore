@@ -16,7 +16,6 @@ use Xmf\Request;
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author    trabis <lusopoemas@gmail.com>
  */
-
 include dirname(dirname(__DIR__)) . '/mainfile.php';
 
 $xoops = Xoops::getInstance();
@@ -38,7 +37,7 @@ $result['isget'] = 'GET' === Request::getMethod();
 $result['ispost'] = 'POST' === Request::getMethod();
 $result['ismobile'] = $request->is('mobile');
 $result['isrobot'] = $request->is('robot');
-$result['files'] = Request::getArray('file_identifier', array(), 'files');
+$result['files'] = Request::getArray('file_identifier', [], 'files');
 
 \Xoops\Utils::dumpVar($result);
 
@@ -52,7 +51,7 @@ $form->setExtra('enctype="multipart/form-data"');
 $code = new Xoops\Form\Text('String', 'string', 2, 25, '', 'string...');
 $code->setDescription('Description text');
 $code->setPattern('^.{3,}$', 'You need at least 3 characters');
-$code->setDatalist(array('list 1','list 2','list 3'));
+$code->setDatalist(['list 1', 'list 2', 'list 3']);
 $form->addElement($code, true);
 
 $select = new Xoops\Form\Select('Select', 'id', '', 1, false);

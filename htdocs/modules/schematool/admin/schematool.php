@@ -14,37 +14,36 @@
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          Richard Griffith <richard@geekwright.com>
  */
-
 require __DIR__ . '/admin_header.php';
 
 /* --------------------------------------------------------------- */
 
+use Doctrine\DBAL\Schema\Comparator;
+use Doctrine\DBAL\Schema\Schema;
+use Doctrine\DBAL\Schema\Synchronizer\SingleDatabaseSynchronizer;
 use Xmf\Debug;
 use Xmf\Request;
 use Xmf\Yaml;
 use Xoops\Core\Database\Schema\ExportVisitor;
 use Xoops\Core\Database\Schema\ImportSchema;
 use Xoops\Core\Database\Schema\RemovePrefixes;
-use Doctrine\DBAL\Schema\Schema;
-use Doctrine\DBAL\Schema\Comparator;
-use Doctrine\DBAL\Schema\Synchronizer\SingleDatabaseSynchronizer;
 
 // from $_POST we use keys: op, mod_dirname
 $op = Request::getCmd('op', 'selectmodule', 'POST');
 $mod_dirname = Request::getString('mod_dirname', '', 'POST');
-if ($op !== 'showschema' || empty($mod_dirname)) {
+if ('showschema' !== $op || empty($mod_dirname)) {
     $op = 'selectmodule';
 }
 
 $indexAdmin = new \Xoops\Module\Admin();
 $indexAdmin->displayNavigation('schematool.php');
 
-if ($op === 'showschema') {
+if ('showschema' === $op) {
     $helper = $xoops->getModuleHelper($mod_dirname);
     $mod_to_use = $helper->getModule();
     $mod_to_use->loadInfo($mod_dirname, false);
     $mod_ver = $mod_to_use->modinfo;
-    $table_list = array();
+    $table_list = [];
     if (isset($mod_ver['tables'])) {
         $table_list = $mod_ver['tables'];
     }
@@ -184,7 +183,7 @@ EOT2;
     $op = 'selectmodule';
 }
 
-if ($op == 'selectmodule') {
+if ('selectmodule' == $op) {
     $activeModules = $xoops->getActiveModules();
     natcasesort($activeModules);
 
@@ -202,8 +201,6 @@ if ($op == 'selectmodule') {
     $form->addElement(new Xoops\Form\Button('', 'button', XoopsLocale::A_SUBMIT, 'submit'));
     echo $form->render();
 }
-
-
 
 /*
     $importer = new ImportSchema;

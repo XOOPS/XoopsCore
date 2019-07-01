@@ -31,10 +31,10 @@ class MenusPreload extends PreloadItem
     public static function eventCoreIncludeCommonClassmaps($args)
     {
         $path = dirname(__DIR__);
-        XoopsLoad::addMap(array(
+        XoopsLoad::addMap([
             'menus' => $path . '/class/helper.php',
             'menusbuilder' => $path . '/class/builder.php',
             'menusdecorator' => $path . '/class/decorator.php',
-        ));
+        ]);
     }
 }

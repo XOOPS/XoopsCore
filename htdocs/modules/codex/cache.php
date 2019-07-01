@@ -16,7 +16,6 @@ use Xmf\Request;
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author    trabis <lusopoemas@gmail.com>
  */
-
 include dirname(dirname(__DIR__)) . '/mainfile.php';
 
 $xoops = Xoops::getInstance();
@@ -36,12 +35,12 @@ if (Request::getBool('delete', false, 'GET')) {
     $cache->delete('module/codex');
 }
 
-$keys = array(
+$keys = [
     'module/codex/firstkey',
     'module/codex/secondkey',
     'module/codex/alternate',
-    'module/codex/xmfdemo'
-);
+    'module/codex/xmfdemo',
+];
 
 echo '<h3>Current Cache State</h3>';
 echo '<dl>';
@@ -97,5 +96,6 @@ $xoops->footer();
 function getSomeContent()
 {
     $content = 'This is just some content for the cache demo.';
+
     return $content;
 }

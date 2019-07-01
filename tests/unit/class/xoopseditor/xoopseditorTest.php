@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/../../init_new.php');
+require_once(__DIR__ . '/../../init_new.php');
 
 class XoopsEditorTest extends \PHPUnit\Framework\TestCase
 {
@@ -12,7 +12,7 @@ class XoopsEditorTest extends \PHPUnit\Framework\TestCase
         $this->assertInstanceOf($class, $instance);
         $this->assertInstanceOf('\\Xoops\\Form\\TextArea', $instance);
 
-        $items = array('isEnabled', 'configs', 'rootPath');
+        $items = ['isEnabled', 'configs', 'rootPath'];
         foreach ($items as $item) {
             $reflection = new ReflectionProperty($this->myclass, $item);
             $this->assertTrue($reflection->isPublic());

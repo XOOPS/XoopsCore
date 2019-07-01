@@ -57,7 +57,7 @@ class Manager implements AttributeInterface
         $this->xoops = \Xoops::getInstance();
         $this->httpRequest = HttpRequest::getInstance();
         $this->sessionUser = new SessionUser($this);
-        $this->fingerprint = new Fingerprint;
+        $this->fingerprint = new Fingerprint();
     }
 
     /**
@@ -83,7 +83,7 @@ class Manager implements AttributeInterface
         $name = $this->xoops->getConfig('session_name');
         $name = (empty($name)) ? 'xoops_session' : $name;
         $expire = (int)($this->xoops->getConfig('session_expire'));
-        $expire = ($expire>0) ? $expire : 300;
+        $expire = ($expire > 0) ? $expire : 300;
 
         $path = \XoopsBaseConfig::get('cookie-path');
         $domain = \XoopsBaseConfig::get('cookie-domain');
@@ -93,11 +93,11 @@ class Manager implements AttributeInterface
 
         session_set_cookie_params(0, $path, $domain, $secure, true);
 
-        $sessionHandler = new Handler;
+        $sessionHandler = new Handler();
         session_set_save_handler($sessionHandler);
 
         //session_register_shutdown();
-        register_shutdown_function(array($this, 'sessionShutdown'));
+        register_shutdown_function([$this, 'sessionShutdown']);
 
         session_start();
 
@@ -109,6 +109,7 @@ class Manager implements AttributeInterface
         // Make sure the session hasn't expired, and destroy it if it has
         if (!$this->validateSession()) {
             $this->clearSession();
+
             return;
         }
 
@@ -124,7 +125,7 @@ class Manager implements AttributeInterface
 
         // Give a 5% chance of the session id changing on any authenticated request
         //if ($this->has('xoopsUserId') && (rand(1, 100) <= 5)) {
-        if ((rand(1, 100) <= 5)) {
+        if ((mt_rand(1, 100) <= 5)) {
             $this->expireSession();
         }
     }
@@ -188,7 +189,7 @@ class Manager implements AttributeInterface
     /**
      * Validate that the session has not expired.
      *
-     * @return boolean true is session is valid and not expired, otherwise false
+     * @return bool true is session is valid and not expired, otherwise false
      */
     protected function validateSession()
     {
@@ -198,7 +199,7 @@ class Manager implements AttributeInterface
         }
 
         // if we don't have the expires key, use a future value for test
-        if ($this->get('SESSION_MANAGER_EXPIRES', time()+10) < time()) {
+        if ($this->get('SESSION_MANAGER_EXPIRES', time() + 10) < time()) {
             return false;
         }
 
@@ -251,6 +252,7 @@ class Manager implements AttributeInterface
     public function set($name, $value)
     {
         $_SESSION[$name] = $value;
+
         return $this;
     }
 
@@ -259,7 +261,7 @@ class Manager implements AttributeInterface
      *
      * @param string $name An attribute name.
      *
-     * @return boolean TRUE if the given attribute exists, otherwise FALSE.
+     * @return bool TRUE if the given attribute exists, otherwise FALSE.
      */
     public function has($name)
     {
@@ -290,7 +292,8 @@ class Manager implements AttributeInterface
     public function clear()
     {
         $oldValues = $_SESSION;
-        $_SESSION = array();
+        $_SESSION = [];
+
         return $oldValues;
     }
 }

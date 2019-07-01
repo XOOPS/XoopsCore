@@ -21,7 +21,6 @@
  * @author      DuGris (aka L. JEN) <dugris@frxoops.org>
  * @version     $Id$
  */
-
 $xoopsOption['checkadmin'] = true;
 $xoopsOption['hascommon'] = true;
 
@@ -33,10 +32,10 @@ $xoops = Xoops::getInstance();
 $wizard = $_SESSION['wizard'];
 $config_handler = $xoops->getHandlerConfig();
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ('POST' === $_SERVER['REQUEST_METHOD']) {
     if (array_key_exists('conf_ids', $_REQUEST)) {
         foreach ($_REQUEST['conf_ids'] as $key => $conf_id) {
-            $config =& $config_handler->getConfig($conf_id);
+            $config = &$config_handler->getConfig($conf_id);
             $new_value = $_REQUEST[$config->getVar('conf_name')];
             $config->setConfValueForInput($new_value);
             $config_handler->insertConfig($config);

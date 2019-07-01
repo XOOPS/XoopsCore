@@ -23,22 +23,22 @@ class XoopsXmlRss2Parser extends SaxParser
     /**
      * @var array
      */
-    private $_tempArr = array();
+    private $_tempArr = [];
 
     /**
      * @var array
      */
-    private $_channelData = array();
+    private $_channelData = [];
 
     /**
      * @var array
      */
-    private $_imageData = array();
+    private $_imageData = [];
 
     /**
      * @var array
      */
-    private $_items = array();
+    private $_items = [];
 
     /**
      * XoopsXmlRss2Parser constructor.
@@ -97,8 +97,10 @@ class XoopsXmlRss2Parser extends SaxParser
             if (isset($this->_channelData[$name])) {
                 return $this->_channelData[$name];
             }
+
             return false;
         }
+
         return $this->_channelData;
     }
 
@@ -123,8 +125,10 @@ class XoopsXmlRss2Parser extends SaxParser
                 return $this->_imageData[$name];
             }
             $return = false;
+
             return $return;
         }
+
         return $this->_imageData;
     }
 
@@ -174,7 +178,7 @@ class XoopsXmlRss2Parser extends SaxParser
     public function resetTempArr()
     {
         unset($this->_tempArr);
-        $this->_tempArr = array();
+        $this->_tempArr = [];
     }
 }
 
@@ -308,7 +312,6 @@ class RssDescriptionHandler extends XmlTagHandler
  */
 class RssGeneratorHandler extends XmlTagHandler
 {
-
     /**
      * @return string
      */
@@ -399,7 +402,6 @@ class RssNameHandler extends XmlTagHandler
  */
 class RssManagingEditorHandler extends XmlTagHandler
 {
-
     /**
      * @return string
      */
@@ -430,7 +432,6 @@ class RssManagingEditorHandler extends XmlTagHandler
  */
 class RssLanguageHandler extends XmlTagHandler
 {
-
     /**
      * @return string
      */
@@ -643,7 +644,7 @@ class RssUrlHandler extends XmlTagHandler
      */
     public function handleCharacterData(SaxParser $parser, &$data)
     {
-        if ($parser->getParentTag() === 'image') {
+        if ('image' === $parser->getParentTag()) {
             $parser->setImageData('url', $data);
         }
     }
@@ -669,7 +670,7 @@ class RssWidthHandler extends XmlTagHandler
      */
     public function handleCharacterData(SaxParser $parser, &$data)
     {
-        if ($parser->getParentTag() === 'image') {
+        if ('image' === $parser->getParentTag()) {
             $parser->setImageData('width', $data);
         }
     }
@@ -695,7 +696,7 @@ class RssHeightHandler extends XmlTagHandler
      */
     public function handleCharacterData(SaxParser $parser, &$data)
     {
-        if ($parser->getParentTag() === 'image') {
+        if ('image' === $parser->getParentTag()) {
             $parser->setImageData('height', $data);
         }
     }
@@ -788,7 +789,7 @@ class RssCommentsHandler extends XmlTagHandler
      */
     public function handleCharacterData(SaxParser $parser, &$data)
     {
-        if ($parser->getParentTag() === 'item') {
+        if ('item' === $parser->getParentTag()) {
             $parser->setTempArr('comments', $data);
         }
     }
@@ -847,7 +848,7 @@ class RssGuidHandler extends XmlTagHandler
      */
     public function handleCharacterData(SaxParser $parser, &$data)
     {
-        if ($parser->getParentTag() === 'item') {
+        if ('item' === $parser->getParentTag()) {
             $parser->setTempArr('guid', $data);
         }
     }
@@ -873,7 +874,7 @@ class RssAuthorHandler extends XmlTagHandler
      */
     public function handleCharacterData(SaxParser $parser, &$data)
     {
-        if ($parser->getParentTag() === 'item') {
+        if ('item' === $parser->getParentTag()) {
             $parser->setTempArr('author', $data);
         }
     }
@@ -899,7 +900,7 @@ class RssSourceHandler extends XmlTagHandler
      */
     public function handleBeginElement(SaxParser $parser, &$attributes)
     {
-        if ($parser->getParentTag() === 'item') {
+        if ('item' === $parser->getParentTag()) {
             $parser->setTempArr('source_url', $attributes['url']);
         }
     }
@@ -911,7 +912,7 @@ class RssSourceHandler extends XmlTagHandler
      */
     public function handleCharacterData(SaxParser $parser, &$data)
     {
-        if ($parser->getParentTag() === 'item') {
+        if ('item' === $parser->getParentTag()) {
             $parser->setTempArr('source', $data);
         }
     }

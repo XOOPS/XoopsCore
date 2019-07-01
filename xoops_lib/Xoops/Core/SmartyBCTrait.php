@@ -1,4 +1,5 @@
 <?php
+
 namespace Xoops\Core;
 
 /**
@@ -28,7 +29,6 @@ namespace Xoops\Core;
  * @package   Smarty
  */
 
-
 /**
  * Smarty Backward Compatibility Wrapper Class as a trait, adapted from SmartyBC.class.php
  *
@@ -51,7 +51,7 @@ trait SmartyBCTrait
      *
      * @var array
      */
-    public $trusted_dir = array();
+    public $trusted_dir = [];
 
     /**
      * wrapper for assign_by_ref
@@ -70,7 +70,7 @@ trait SmartyBCTrait
      *
      * @param string  $tpl_var the template variable name
      * @param mixed   &$value  the referenced value to append
-     * @param boolean $merge   flag if array elements shall be merged
+     * @param bool $merge   flag if array elements shall be merged
      */
     public function append_by_ref($tpl_var, &$value, $merge = false)
     {
@@ -120,17 +120,17 @@ trait SmartyBCTrait
      * @param string  $object        name of template object
      * @param object  $object_impl   the referenced PHP object to register
      * @param array   $allowed       list of allowed methods (empty = all)
-     * @param boolean $smarty_args   smarty argument format, else traditional
+     * @param bool $smarty_args   smarty argument format, else traditional
      * @param array   $block_methods list of methods that are block format
      *
      * @throws \SmartyException
      * @internal param array $block_functs list of methods that are block format
      */
-    public function register_object($object, $object_impl, $allowed = array(), $smarty_args = true, $block_methods = array())
+    public function register_object($object, $object_impl, $allowed = [], $smarty_args = true, $block_methods = [])
     {
         $this->deprecated(__METHOD__, __FILE__, (__LINE__ + 1));
-        settype($allowed, 'array');
-        settype($smarty_args, 'boolean');
+        $allowed = (array) $allowed;
+        $smarty_args = (bool) $smarty_args;
         $this->registerObject($object, $object_impl, $allowed, $smarty_args, $block_methods);
     }
 
@@ -334,6 +334,7 @@ trait SmartyBCTrait
     public function clear_cache($tpl_file = null, $cache_id = null, $compile_id = null, $exp_time = null)
     {
         $this->deprecated(__METHOD__, __FILE__, (__LINE__ + 1));
+
         return $this->clearCache($tpl_file, $cache_id, $compile_id, $exp_time);
     }
 
@@ -347,6 +348,7 @@ trait SmartyBCTrait
     public function clear_all_cache($exp_time = null)
     {
         $this->deprecated(__METHOD__, __FILE__, (__LINE__ + 1));
+
         return $this->clearCache(null, null, null, $exp_time);
     }
 
@@ -362,6 +364,7 @@ trait SmartyBCTrait
     public function is_cached($tpl_file, $cache_id = null, $compile_id = null)
     {
         $this->deprecated(__METHOD__, __FILE__, (__LINE__ + 1));
+
         return $this->isCached($tpl_file, $cache_id, $compile_id);
     }
 
@@ -383,11 +386,12 @@ trait SmartyBCTrait
      * @param  string $compile_id
      * @param  string $exp_time
      *
-     * @return boolean results of {@link smarty_core_rm_auto()}
+     * @return bool results of {@link smarty_core_rm_auto()}
      */
     public function clear_compiled_tpl($tpl_file = null, $compile_id = null, $exp_time = null)
     {
         $this->deprecated(__METHOD__, __FILE__, (__LINE__ + 1));
+
         return $this->clearCompiledTemplate($tpl_file, $compile_id, $exp_time);
     }
 
@@ -401,6 +405,7 @@ trait SmartyBCTrait
     public function template_exists($tpl_file)
     {
         $this->deprecated(__METHOD__, __FILE__, (__LINE__ + 1));
+
         return $this->templateExists($tpl_file);
     }
 
@@ -414,6 +419,7 @@ trait SmartyBCTrait
     public function get_template_vars($name = null)
     {
         $this->deprecated(__METHOD__, __FILE__, (__LINE__ + 1));
+
         return $this->getTemplateVars($name);
     }
 
@@ -427,6 +433,7 @@ trait SmartyBCTrait
     public function get_config_vars($name = null)
     {
         $this->deprecated(__METHOD__, __FILE__, (__LINE__ + 1));
+
         return $this->getConfigVars($name);
     }
 
@@ -453,6 +460,7 @@ trait SmartyBCTrait
     public function get_registered_object($name)
     {
         $this->deprecated(__METHOD__, __FILE__, (__LINE__ + 1));
+
         return $this->getRegisteredObject($name);
     }
 
@@ -471,7 +479,7 @@ trait SmartyBCTrait
      * trigger Smarty error
      *
      * @param string  $error_msg
-     * @param integer $error_type
+     * @param int $error_type
      */
     public function trigger_error($error_msg, $error_type = E_USER_WARNING)
     {
@@ -487,6 +495,7 @@ trait SmartyBCTrait
             "{$function} is deprecated. Called from {$trace[1]['file']} line {$trace[1]['line']}."
             . " See how to replace it in file {$file} line {$line}"
         );
+
         return $xoops;
     }
 }

@@ -26,7 +26,6 @@ use Xoops\Core\Text\Sanitizer\ExtensionAbstract;
  */
 class Image extends ExtensionAbstract
 {
-
     protected static $jsLoaded;
 
     /**
@@ -57,7 +56,7 @@ class Image extends ExtensionAbstract
                     'id' => 0,
                     'url' => trim($content),
                     'align' => '',
-                    'width'  => $this->config['max_width'],
+                    'width' => $this->config['max_width'],
                 ];
                 $cleanAttributes = $this->shortcodes->shortcodeAttributes($defaults, $attributes);
                 if (0 !== $cleanAttributes['id']) {
@@ -72,7 +71,7 @@ class Image extends ExtensionAbstract
                     true
                 );
                 $class = '';
-                if ($cleanAttributes['align']!= '') {
+                if ('' != $cleanAttributes['align']) {
                     $class = ' class="' . $cleanAttributes['align'] . '"';
                 }
                 $width = $cleanAttributes['width'];
@@ -101,6 +100,7 @@ class Image extends ExtensionAbstract
                     $template = '<img src="%1$s" alt="%2$s"%3$s />';
                 }
                 $newContent = sprintf($template, $url, $alt, $class, $width);
+
                 return $newContent;
             }
         );

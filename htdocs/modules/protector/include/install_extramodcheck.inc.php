@@ -17,6 +17,8 @@
  * @package         protector
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
+ * @param mixed $xoops_root_path
+ * @param mixed $mytrustdirname
  */
 
 /**
@@ -27,5 +29,5 @@
  */
 function get_writeoks_from_protector($xoops_root_path, $mytrustdirname)
 {
-    return array(dirname(__DIR__) . '/configs');
+    return [dirname(__DIR__) . '/configs'];
 }

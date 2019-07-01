@@ -50,7 +50,7 @@ abstract class SanitizerComponent extends SanitizerConfigurable
     {
         $this->ts = $ts;
         $fullName = get_called_class();
-        $shortName = ($pos = strrpos($fullName, '\\')) ? substr($fullName, $pos + 1) : $fullName;
+        $shortName = ($pos = mb_strrpos($fullName, '\\')) ? mb_substr($fullName, $pos + 1) : $fullName;
         $this->config = $ts->getConfig($shortName);
         $this->shortcodes = $ts->getShortCodesInstance();
     }

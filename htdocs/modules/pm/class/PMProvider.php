@@ -10,11 +10,10 @@
 */
 
 use Xmf\Module\Helper;
-use Xoops\Core\Kernel\Handlers\XoopsUser;
 use Xoops\Core\Service\AbstractContract;
-use Xoops\Core\Service\Response;
 use Xoops\Core\Service\Contract\UserMessageInterface;
 use Xoops\Core\Service\Data\Message;
+use Xoops\Core\Service\Response;
 
 /**
  * PM provider for service manager
@@ -50,18 +49,13 @@ class PMProvider extends AbstractContract implements UserMessageInterface
         return 'Use PM for user messsages.';
     }
 
-    /**
-     * @param \Xoops\Core\Service\Response     $response
-     * @param \Xoops\Core\Service\Data\Message $message
-     *
-     * @return void - reports success or failure through $response->success
-     */
     public function sendMessage(Response $response, Message $message)
     {
         $pmHandler = Helper::getHelper('pm')->getHandler('message');
         /** @var \PmMessage */
         $pm = $pmHandler->create();
         $pm->setVar('msg_time', time());
+
         try {
             $pm->setVar('subject', $message->getSubject());
             $pm->setVar('msg_text', $message->getBody());
@@ -69,6 +63,7 @@ class PMProvider extends AbstractContract implements UserMessageInterface
             $pm->setVar('from_userid', $message->getFromId());
         } catch (\LogicException $e) {
             $response->setSuccess(false)->addErrorMessage($e->getMessage());
+
             return;
         }
         //PMs are by default not saved in outbox

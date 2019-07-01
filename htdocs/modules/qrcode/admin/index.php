@@ -39,7 +39,7 @@ $contrastStatus = 'accept';
 if ($bg < $fg) { // inverse (light cells on dark backgound) does not work on many readers
     $contrastMessage = _MI_QRCODE_CONTRAST_INVERSE;
     $contrastStatus = 'error';
-} elseif (($bg-$fg) < 100) {
+} elseif (($bg - $fg) < 100) {
     $contrastMessage = _MI_QRCODE_CONTRAST_ERROR;
     $contrastStatus = 'error';
 }
@@ -60,7 +60,8 @@ function getBrightness($color)
     $rgb = normalizeColor($color);
     //$brightness = ($rgb['r']*299 + $rgb['g']*587 + $rgb['b']*114) / 1000;
     // luminosity is L = 0.2126 * R + 0.7152 * G + 0.0722.
-    $brightness = ($rgb['r']*0.2126 + $rgb['g']*0.7152 + $rgb['b']*0.0722);
+    $brightness = ($rgb['r'] * 0.2126 + $rgb['g'] * 0.7152 + $rgb['b'] * 0.0722);
+
     return $brightness + 0.00001; // no zero
 }
 
@@ -74,11 +75,12 @@ function getBrightness($color)
 function normalizeColor($color)
 {
     $color = preg_replace('/[^a-fA-F0-9]+/', '', $color); // only hex digits
-    $color = substr('000000'.$color, -6); // only 6 digits, pad with leading zeros
-    $rgb = array(
-        'r' => hexdec(substr($color, 0, 2)),
-        'g' => hexdec(substr($color, 2, 2)),
-        'b' => hexdec(substr($color, 4, 2)),
-    );
+    $color = mb_substr('000000' . $color, -6); // only 6 digits, pad with leading zeros
+    $rgb = [
+        'r' => hexdec(mb_substr($color, 0, 2)),
+        'g' => hexdec(mb_substr($color, 2, 2)),
+        'b' => hexdec(mb_substr($color, 4, 2)),
+    ];
+
     return $rgb;
 }

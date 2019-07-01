@@ -14,7 +14,6 @@
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          Richard Griffith <richard@geekwright.com>
  */
-
 $modversion['dirname'] = basename(__DIR__);
 $modversion['name'] = _MI_SCHEMATOOL_NAME;
 $modversion['version'] = '1.0';
@@ -22,7 +21,7 @@ $modversion['description'] = _MI_SCHEMATOOL_DESC;
 $modversion['author'] = 'geekwright';
 $modversion['credits'] = '';
 $modversion['help'] = 'page=help';
-$modversion['license'] = "GNU GPL 2 or later";
+$modversion['license'] = 'GNU GPL 2 or later';
 $modversion['license_url'] = 'http://www.gnu.org/licenses/gpl-2.0.html';
 $modversion['official'] = 0;
 $modversion['image'] = 'icons/logo.png';
@@ -50,19 +49,18 @@ $modversion['extension'] = 1;
 $modversion['extension_module'][] = 'system';
 
 // Admin things
-$modversion['hasAdmin']   = 1;
+$modversion['hasAdmin'] = 1;
 $modversion['system_menu'] = 1;
 $modversion['adminindex'] = 'admin/index.php';
-$modversion['adminmenu']  = 'admin/menu.php';
+$modversion['adminmenu'] = 'admin/menu.php';
 
 // paypal
-$modversion['paypal'] = array(
-    'business'      => 'xoopsfoundation@gmail.com',
-    'item_name'     => 'Donation : ' . _MI_SCHEMATOOL_DESC,
-    'amount'        => 0,
+$modversion['paypal'] = [
+    'business' => 'xoopsfoundation@gmail.com',
+    'item_name' => 'Donation : ' . _MI_SCHEMATOOL_DESC,
+    'amount' => 0,
     'currency_code' => 'USD',
-);
-
+];
 
 /*
 // Preferences

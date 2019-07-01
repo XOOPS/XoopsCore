@@ -18,12 +18,12 @@
 
 namespace Xoops\Core\Kernel\Handlers;
 
+use Doctrine\DBAL\FetchMode;
+use Doctrine\DBAL\ParameterType;
 use Xoops\Core\Database\Connection;
 use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\Kernel\CriteriaElement;
 use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
-use Doctrine\DBAL\FetchMode;
-use Doctrine\DBAL\ParameterType;
 
 /**
  * XOOPS module handler class.
@@ -46,7 +46,7 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
      * @var array
      * @access private
      */
-    private $cachedModulesByMid = array();
+    private $cachedModulesByMid = [];
 
     /**
      * holds an array of cached module references, indexed by module dirname
@@ -54,7 +54,7 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
      * @var array
      * @access private
      */
-    private $cachedModulesByDirname = array();
+    private $cachedModulesByDirname = [];
 
     /**
      * Constructor
@@ -79,16 +79,17 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
         if ($id > 0) {
             if (!empty($this->cachedModulesByMid[$id])) {
                 return $this->cachedModulesByMid[$id];
-            } else {
-                $module = parent::get($id);
-                if (!is_object($module)) {
-                    return false;
-                }
-                $this->cachedModulesByMid[$id] = $module;
-                $this->cachedModulesByDirname[$module->getVar('dirname')] = $module;
-                return $module;
             }
+            $module = parent::get($id);
+            if (!is_object($module)) {
+                return false;
+            }
+            $this->cachedModulesByMid[$id] = $module;
+            $this->cachedModulesByDirname[$module->getVar('dirname')] = $module;
+
+            return $module;
         }
+
         return false;
     }
 
@@ -105,19 +106,19 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
 
         if (!empty($this->cachedModulesByDirname[$dirname])) {
             return $this->cachedModulesByDirname[$dirname];
-        } else {
-            $criteria = new Criteria('dirname', $dirname);
-            $modules = $this->getObjectsArray($criteria);
-            if (count($modules) == 1 && is_object($modules[0])) {
-                $module = $modules[0];
-            } else {
-                return false;
-            }
-            /* @var $module XoopsModule */
-            $this->cachedModulesByDirname[$dirname] = $module;
-            $this->cachedModulesByMid[$module->getVar('mid')] = $module;
-            return $module;
         }
+        $criteria = new Criteria('dirname', $dirname);
+        $modules = $this->getObjectsArray($criteria);
+        if (1 == count($modules) && is_object($modules[0])) {
+            $module = $modules[0];
+        } else {
+            return false;
+        }
+        /* @var $module XoopsModule */
+        $this->cachedModulesByDirname[$dirname] = $module;
+        $this->cachedModulesByMid[$module->getVar('mid')] = $module;
+
+        return $module;
     }
 
     /**
@@ -142,6 +143,7 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
         if (!empty($this->cachedModulesByMid[$mid])) {
             unset($this->cachedModulesByMid[$mid]);
         }
+
         return true;
     }
 
@@ -164,7 +166,7 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
         // delete admin and read permissions assigned for this module
         $qb = $this->db2->createXoopsQueryBuilder();
         $eb = $qb->expr();
-        $qb ->deletePrefix('system_permission')
+        $qb->deletePrefix('system_permission')
             ->where(
                 $eb->orX(
                     $eb->eq('gperm_name', $eb->literal('module_admin')),
@@ -176,19 +178,19 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
             ->execute();
 
         $qb->resetQueryParts(); // reset
-        $qb ->select('block_id')
+        $qb->select('block_id')
             ->fromPrefix('system_blockmodule', null)
             ->where($eb->eq('module_id', ':mid'))
             ->setParameter(':mid', $mid, ParameterType::INTEGER);
         $result = $qb->execute();
-        $block_id_arr = array();
+        $block_id_arr = [];
         while ($myrow = $result->fetch(FetchMode::ASSOCIATIVE)) {
             array_push($block_id_arr, $myrow['block_id']);
         }
 
         foreach ($block_id_arr as $i) {
             $qb->resetQueryParts(); // reset
-            $qb ->select('COUNT(*)')
+            $qb->select('COUNT(*)')
                 ->fromPrefix('system_blockmodule', null)
                 ->where($eb->neq('module_id', ':mid'))
                 ->setParameter(':mid', $mid, ParameterType::INTEGER)
@@ -200,7 +202,7 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
             if ($count > 0) {
                 // this block has other entries, so delete the entry for this module
                 $qb->resetQueryParts(); // reset
-                $qb ->deletePrefix('system_blockmodule')
+                $qb->deletePrefix('system_blockmodule')
                     ->where($eb->eq('module_id', ':mid'))
                     ->setParameter(':mid', $mid, ParameterType::INTEGER)
                     ->andWhere($eb->eq('block_id', ':bid'))
@@ -210,7 +212,7 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
                 // this block does not have other entries, so disable the block and let it show
                 // on top page only. otherwise, this block will not display anymore on block admin page!
                 $qb->resetQueryParts(); // reset
-                $qb ->updatePrefix('system_block')
+                $qb->updatePrefix('system_block')
                     ->set('visible', ':notvisible')
                     ->where($eb->eq('bid', ':bid'))
                     ->setParameter(':bid', $i, ParameterType::INTEGER)
@@ -218,7 +220,7 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
                     ->execute();
 
                 $qb->resetQueryParts(); // reset
-                $qb ->updatePrefix('system_blockmodule')
+                $qb->updatePrefix('system_blockmodule')
                     ->set('module_id', ':nomid')
                     ->where($eb->eq('module_id', ':mid'))
                     ->setParameter(':mid', $mid, ParameterType::INTEGER)
@@ -237,6 +239,7 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
         $cache->delete("system/module/id/{$mid}");
         $cache->delete("system/module/dirname/{$dirname}");
         $cache->delete("module/{$dirname}");
+
         return true;
     }
 
@@ -250,7 +253,7 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
      */
     public function getObjectsArray(CriteriaElement $criteria = null, $id_as_key = false)
     {
-        $ret = array();
+        $ret = [];
         $qb = $this->db2->createXoopsQueryBuilder();
         $qb->select('*')->fromPrefix('system_module', null);
         if (isset($criteria) && ($criteria instanceof CriteriaElement)) {
@@ -267,6 +270,7 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
         } catch (\Throwable $e) {
             /** should get specific exceptions */
             \Xoops::getInstance()->events()->triggerEvent('core.exception', $e);
+
             return $ret;
         }
         while ($myrow = $result->fetch(FetchMode::ASSOCIATIVE)) {
@@ -279,6 +283,7 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
             }
             unset($module);
         }
+
         return $ret;
     }
 
@@ -293,7 +298,7 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
      */
     public function getNameList(CriteriaElement $criteria = null, $dirname_as_key = false)
     {
-        $ret = array();
+        $ret = [];
         $modules = $this->getObjectsArray($criteria, true);
         foreach (array_keys($modules) as $i) {
             if (!$dirname_as_key) {
@@ -302,6 +307,7 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
                 $ret[$modules[$i]->getVar('dirname')] = $modules[$i]->getVar('name');
             }
         }
+
         return $ret;
     }
 }

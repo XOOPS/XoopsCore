@@ -32,7 +32,7 @@ class Response
     /** @var mixed $value - return value from Provider */
     protected $value = null;
 
-    /** @var boolean $success - success as determined by service manager or provider */
+    /** @var bool $success - success as determined by service manager or provider */
     protected $success = true;
 
     /** @var mixed $errorMessage - error description(s) as returned by service manager or provider */
@@ -42,14 +42,14 @@ class Response
      * __construct
      *
      * @param mixed   $value        - value returned by provider
-     * @param boolean $success      - true if service request was successful
+     * @param bool $success      - true if service request was successful
      * @param mixed   $errorMessage - string or array of strings of any errors to be reported
      */
     public function __construct($value = null, $success = true, $errorMessage = null)
     {
         $this->value = $value;
         $this->success = $success;
-        if ($errorMessage!==null) {
+        if (null !== $errorMessage) {
             $this->addErrorMessage($errorMessage);
         }
     }
@@ -101,7 +101,7 @@ class Response
     /**
      * setSuccess - record success of request
      *
-     * @param boolean $success - success of service request as determined by manager or provider
+     * @param bool $success - success of service request as determined by manager or provider
      *
      * @return Response object
      */
@@ -121,7 +121,7 @@ class Response
      */
     public function addErrorMessage($errorMessage)
     {
-        $ret = array();
+        $ret = [];
         if (is_array($this->errorMessage)) {
             $ret = $this->errorMessage;
         } elseif (is_scalar($this->errorMessage)) {

@@ -12,7 +12,6 @@
 namespace Xmf\Jwt;
 
 use Xmf\Key\KeyAbstract;
-use Xmf\Key\StorageInterface;
 
 /**
  * Build a token
@@ -34,16 +33,16 @@ class TokenFactory
      * @param int                $expirationOffset seconds from now that token will expire. If not specified,
      *                                             an "exp" claim will not be added or updated
      *
-     * @return string a token string returned from JsonWebToken::create()
-     *
      * @throws \DomainException
      * @throws \InvalidArgumentException
      * @throws \UnexpectedValueException
+     * @return string a token string returned from JsonWebToken::create()
      */
     public static function build($key, $payload, $expirationOffset = 0)
     {
         $key = ($key instanceof KeyAbstract) ? $key : KeyFactory::build($key);
         $token = new JsonWebToken($key);
+
         return $token->create($payload, $expirationOffset);
     }
 }

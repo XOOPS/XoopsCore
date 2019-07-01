@@ -1,7 +1,8 @@
 <?php
+
 namespace Xoops\Form;
 
-require_once(__DIR__.'/../../../init_new.php');
+require_once(__DIR__ . '/../../../init_new.php');
 
 class FileTest extends \PHPUnit\Framework\TestCase
 {
@@ -30,13 +31,13 @@ class FileTest extends \PHPUnit\Framework\TestCase
     public function testRender()
     {
         $value = $this->object->render();
-        $this->assertTrue(is_string($value));
+        $this->assertInternalType('string', $value);
     }
 
     public function test__construct()
     {
         $oldWay = new File('mycaption', 'myname');
-        $newWay = new File(['caption' => 'mycaption', 'name' => 'myname',]);
+        $newWay = new File(['caption' => 'mycaption', 'name' => 'myname']);
         $this->assertEquals($oldWay->render(), $newWay->render());
     }
 }

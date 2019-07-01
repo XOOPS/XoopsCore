@@ -67,7 +67,7 @@ $admin_page->addInfoBoxLine(sprintf(AvatarsLocale::NBDISPLAY_C, '<span class="gr
 $admin_page->addInfoBoxLine(sprintf(AvatarsLocale::NBNOTDISPLAY_C, '<span class="red">' . $avatars_notdisplay_c . '</span>'), 'avatar_custom');
 
 $admin_page->addConfigBoxLine($folder_path, 'folder');
-$admin_page->addConfigBoxLine(array($folder_path, '777'), 'chmod');
+$admin_page->addConfigBoxLine([$folder_path, '777'], 'chmod');
 $admin_page->addConfigBoxLine('thumbnail', 'service');
 
 $admin_page->displayIndex();

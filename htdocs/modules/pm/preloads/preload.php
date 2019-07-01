@@ -24,7 +24,6 @@ use Xoops\Core\Service\Provider;
  */
 class PmPreload extends PreloadItem
 {
-
     /**
      * core.pmlite.start
      *
@@ -34,7 +33,7 @@ class PmPreload extends PreloadItem
      */
     public static function eventCorePmliteStart($args)
     {
-        header("location: ./modules/pm/pmlite.php" . (empty($_SERVER['QUERY_STRING']) ? "" : "?" . $_SERVER['QUERY_STRING']));
+        header('location: ./modules/pm/pmlite.php' . (empty($_SERVER['QUERY_STRING']) ? '' : '?' . $_SERVER['QUERY_STRING']));
         exit();
     }
 
@@ -47,7 +46,7 @@ class PmPreload extends PreloadItem
      */
     public static function eventCoreReadpmsgStart($args)
     {
-        header("location: ./modules/pm/readpmsg.php" . (empty($_SERVER['QUERY_STRING']) ? "" : "?" . $_SERVER['QUERY_STRING']));
+        header('location: ./modules/pm/readpmsg.php' . (empty($_SERVER['QUERY_STRING']) ? '' : '?' . $_SERVER['QUERY_STRING']));
         exit();
     }
 
@@ -60,7 +59,7 @@ class PmPreload extends PreloadItem
      */
     public static function eventCoreViewpmsgStart($args)
     {
-        header("location: ./modules/pm/viewpmsg.php" . (empty($_SERVER['QUERY_STRING']) ? "" : "?" . $_SERVER['QUERY_STRING']));
+        header('location: ./modules/pm/viewpmsg.php' . (empty($_SERVER['QUERY_STRING']) ? '' : '?' . $_SERVER['QUERY_STRING']));
         exit();
     }
 

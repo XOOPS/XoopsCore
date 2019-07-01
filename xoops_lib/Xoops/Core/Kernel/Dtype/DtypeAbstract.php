@@ -57,6 +57,7 @@ abstract class DtypeAbstract
     public function cleanVar(XoopsObject $obj, $key)
     {
         $value = $obj->vars[$key]['value'];
+
         return $value;
     }
 
@@ -68,24 +69,25 @@ abstract class DtypeAbstract
      * @param string      $format Dtype::FORMAT_* constant indicating desired formatting
      *
      * @return mixed
-    */
+     */
     public function getVar(XoopsObject $obj, $key, $format)
     {
         $value = $obj->vars[$key]['value'];
-        if ($obj->vars[$key]['options'] != '' && $value != '') {
-            switch (strtolower($format)) {
+        if ('' != $obj->vars[$key]['options'] && '' != $value) {
+            switch (mb_strtolower($format)) {
                 case 's':
                 case Dtype::FORMAT_SHOW:
                     $selected = explode('|', $value);
                     $options = explode('|', $obj->vars[$key]['options']);
                     $i = 1;
-                    $ret = array();
+                    $ret = [];
                     foreach ($options as $op) {
                         if (in_array($i, $selected)) {
                             $ret[] = $op;
                         }
                         ++$i;
                     }
+
                     return implode(', ', $ret);
                 case 'e':
                 case Dtype::FORMAT_EDIT:
@@ -93,6 +95,7 @@ abstract class DtypeAbstract
                 default:
             }
         }
+
         return $value;
     }
 }

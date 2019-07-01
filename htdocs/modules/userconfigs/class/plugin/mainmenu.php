@@ -22,7 +22,7 @@ class UserconfigsMainmenuPlugin implements MainmenuPluginInterface
     public function mainmenu()
     {
         $helper = \Xoops::getModuleHelper(basename(dirname(dirname(__DIR__))));
-        $subMenu = array();
+        $subMenu = [];
         // Prevent wasting resources
         if ($helper->isCurrentModule()) {
             $xoops = \Xoops::getInstance();
@@ -31,7 +31,7 @@ class UserconfigsMainmenuPlugin implements MainmenuPluginInterface
                     $mHelper = $xoops->getModuleHelper($dirname);
                     $subMenu[] = [
                         'name' => $mHelper->getModule()->getVar('name'),
-                        'link' => $helper->url('index.php?op=showmod&mid=' . $mHelper->getModule()->getVar('mid'))
+                        'link' => $helper->url('index.php?op=showmod&mid=' . $mHelper->getModule()->getVar('mid')),
                     ];
                 }
             }
@@ -42,6 +42,7 @@ class UserconfigsMainmenuPlugin implements MainmenuPluginInterface
             'link' => $helper->url(),
             'subMenu' => $subMenu,
         ];
+
         return $ret;
     }
 }

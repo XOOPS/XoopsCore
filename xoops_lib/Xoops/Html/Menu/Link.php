@@ -34,7 +34,7 @@ class Link extends Item
      *   'icon'    - css classes for icon, i.e. "glyphicon glyphicon-ok"
      *   'image'   - image to represent link
      */
-    public function __construct($attributes = array())
+    public function __construct($attributes = [])
     {
         parent::__construct($attributes);
         $this->set('type', Item::TYPE_LINK);

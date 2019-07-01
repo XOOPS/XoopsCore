@@ -19,12 +19,12 @@
 
 namespace Xoops\Core\Kernel\Handlers;
 
+use Doctrine\DBAL\FetchMode;
 use Xoops\Core\Database\Connection;
 use Xoops\Core\FixedGroups;
 use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\Kernel\CriteriaCompo;
 use Xoops\Core\Kernel\CriteriaElement;
-use Doctrine\DBAL\FetchMode;
 
 /**
  * XOOPS member handler class.
@@ -40,7 +40,6 @@ use Doctrine\DBAL\FetchMode;
  */
 class XoopsMemberHandler
 {
-
     /**
      * @var XoopsGroupPermHandler group handler(DAO) class
      */
@@ -59,7 +58,7 @@ class XoopsMemberHandler
     /**
      * holds temporary user objects
      */
-    private $membersWorkingList = array();
+    private $membersWorkingList = [];
 
     /**
      * Constructor
@@ -81,6 +80,7 @@ class XoopsMemberHandler
     public function createGroup()
     {
         $inst = $this->groupHandler->create();
+
         return $inst;
     }
 
@@ -92,6 +92,7 @@ class XoopsMemberHandler
     public function createUser()
     {
         $inst = $this->userHandler->create();
+
         return $inst;
     }
 
@@ -119,6 +120,7 @@ class XoopsMemberHandler
         if (!isset($this->membersWorkingList[$id])) {
             $this->membersWorkingList[$id] = $this->userHandler->get($id);
         }
+
         return $this->membersWorkingList[$id];
     }
 
@@ -133,6 +135,7 @@ class XoopsMemberHandler
     {
         $ret = $this->groupHandler->delete($group);
         $this->membershipHandler->deleteAll(new Criteria('groupid', $group->getVar('groupid')));
+
         return $ret;
     }
 
@@ -147,6 +150,7 @@ class XoopsMemberHandler
     {
         $ret = $this->userHandler->delete($user);
         $this->membershipHandler->deleteAll(new Criteria('uid', $user->getVar('uid')));
+
         return $ret;
     }
 
@@ -213,10 +217,11 @@ class XoopsMemberHandler
         $realCriteria = new CriteriaCompo($criteria);
         $realCriteria->add(new Criteria('groupid', FixedGroups::REMOVED, '!='));
         $groups = $this->groupHandler->getObjects($realCriteria, true);
-        $ret = array();
+        $ret = [];
         foreach (array_keys($groups) as $i) {
             $ret[$i] = $groups[$i]->getVar('name');
         }
+
         return $ret;
     }
 
@@ -230,10 +235,11 @@ class XoopsMemberHandler
     public function getUserList(CriteriaElement $criteria = null)
     {
         $users = $this->userHandler->getObjects($criteria, true);
-        $ret = array();
+        $ret = [];
         foreach (array_keys($users) as $i) {
             $ret[$i] = $users[$i]->getVar('uname');
         }
+
         return $ret;
     }
 
@@ -250,6 +256,7 @@ class XoopsMemberHandler
         $mship = $this->membershipHandler->create();
         $mship->setVar('groupid', $group_id);
         $mship->setVar('uid', $user_id);
+
         return $this->membershipHandler->insert($mship);
     }
 
@@ -261,7 +268,7 @@ class XoopsMemberHandler
      *
      * @return bool success?
      */
-    public function removeUsersFromGroup($group_id, $user_ids = array())
+    public function removeUsersFromGroup($group_id, $user_ids = [])
     {
         $criteria = new CriteriaCompo();
         $criteria->add(new Criteria('groupid', $group_id));
@@ -270,6 +277,7 @@ class XoopsMemberHandler
             $criteria2->add(new Criteria('uid', $uid), 'OR');
         }
         $criteria->add($criteria2);
+
         return $this->membershipHandler->deleteAll($criteria);
     }
 
@@ -289,17 +297,17 @@ class XoopsMemberHandler
         $user_ids = $this->membershipHandler->getUsersByGroup($group_id, $limit, $start);
         if (!$asobject) {
             return $user_ids;
-        } else {
-            $ret = array();
-            foreach ($user_ids as $u_id) {
-                $user = $this->getUser($u_id);
-                if (is_object($user)) {
-                    $ret[] = $user;
-                }
-                unset($user);
-            }
-            return $ret;
         }
+        $ret = [];
+        foreach ($user_ids as $u_id) {
+            $user = $this->getUser($u_id);
+            if (is_object($user)) {
+                $ret[] = $user;
+            }
+            unset($user);
+        }
+
+        return $ret;
     }
 
     /**
@@ -312,16 +320,16 @@ class XoopsMemberHandler
      */
     public function getGroupsByUser($user_id, $asobject = false)
     {
-        $ret = array();
+        $ret = [];
         $group_ids = $this->membershipHandler->getGroupsByUser($user_id);
         if (!$asobject) {
             return $group_ids;
-        } else {
-            foreach ($group_ids as $g_id) {
-                $ret[] = $this->getGroup($g_id);
-            }
-            return $ret;
         }
+        foreach ($group_ids as $g_id) {
+            $ret[] = $this->getGroup($g_id);
+        }
+
+        return $ret;
     }
 
     /**
@@ -340,21 +348,21 @@ class XoopsMemberHandler
         $criteria = new Criteria('uname', $uname);
         //$criteria->add(new Criteria('pass', md5($pwd)));
         $user = $this->userHandler->getObjects($criteria, false);
-        if (!$user || count($user) != 1) {
+        if (!$user || 1 != count($user)) {
             return false;
         }
 
         $hash = $user[0]->pass();
-        $type = substr($user[0]->pass(), 0, 1);
+        $type = mb_substr($user[0]->pass(), 0, 1);
         // see if we have a crypt like signature, old md5 hash is just hex digits
-        if ($type==='$') {
+        if ('$' === $type) {
             if (!password_verify($pwd, $hash)) {
                 return false;
             }
             // check if hash uses the best algorithm (i.e. after a PHP upgrade)
             $rehash = password_needs_rehash($hash, PASSWORD_DEFAULT);
         } else {
-            if ($hash!=md5($pwd)) {
+            if ($hash != md5($pwd)) {
                 return false;
             }
             $rehash = true; // automatically update old style
@@ -364,6 +372,7 @@ class XoopsMemberHandler
             $user[0]->setVar('pass', password_hash($pwd, PASSWORD_DEFAULT));
             $this->userHandler->insert($user[0]);
         }
+
         return $user[0];
     }
 
@@ -403,6 +412,7 @@ class XoopsMemberHandler
     public function updateUserByField(XoopsUser $user, $fieldName, $fieldValue)
     {
         $user->setVar($fieldName, $fieldValue);
+
         return $this->insertUser($user);
     }
 
@@ -417,9 +427,10 @@ class XoopsMemberHandler
      */
     public function updateUsersByField($fieldName, $fieldValue, CriteriaElement $criteria = null)
     {
-        if (is_null($criteria)) {
+        if (null === $criteria) {
             $criteria = new Criteria(''); // empty criteria resolves to 'WHERE (1)'
         }
+
         return $this->userHandler->updateAll($fieldName, $fieldValue, $criteria);
     }
 
@@ -432,10 +443,11 @@ class XoopsMemberHandler
      */
     public function activateUser(XoopsUser $user)
     {
-        if ($user->getVar('level') != 0) {
+        if (0 != $user->getVar('level')) {
             return true;
         }
         $user->setVar('level', 1);
+
         return $this->userHandler->insert($user, true);
     }
 
@@ -457,11 +469,10 @@ class XoopsMemberHandler
         $asobject = false,
         $id_as_key = false
     ) {
-
         $qb = $this->userHandler->db2->createXoopsQueryBuilder();
         $eb = $qb->expr();
 
-        $qb ->select('DISTINCT ' . ($asobject ? 'u.*' : 'u.uid'))
+        $qb->select('DISTINCT ' . ($asobject ? 'u.*' : 'u.uid'))
             ->fromPrefix('system_user', 'u')
             ->leftJoinPrefix('u', 'system_usergroup', 'm', 'm.uid = u.uid');
 
@@ -475,7 +486,7 @@ class XoopsMemberHandler
             $sql[] = $criteria->renderQb($qb, $whereMode);
         }
 
-        $ret = array();
+        $ret = [];
 
         if (!$result = $qb->execute()) {
             return $ret;
@@ -495,6 +506,7 @@ class XoopsMemberHandler
                 $ret[] = $myrow['uid'];
             }
         }
+
         return $ret;
     }
 
@@ -512,7 +524,7 @@ class XoopsMemberHandler
         $qb = $this->userHandler->db2->createXoopsQueryBuilder();
         $eb = $qb->expr();
 
-        $qb ->select('COUNT(DISTINCT u.uid)')
+        $qb->select('COUNT(DISTINCT u.uid)')
             ->fromPrefix('system_user', 'u')
             ->leftJoinPrefix('u', 'system_usergroup', 'm', 'm.uid = u.uid');
 

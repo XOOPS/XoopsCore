@@ -9,18 +9,17 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-use Xoops\Core\Service\Data\Message;
-use Xoops\Form\ThemeForm;
-use Xoops\Form\TextArea;
-use Xoops\Form\Button;
 use Xmf\Request;
+use Xoops\Core\Service\Data\Message;
+use Xoops\Form\Button;
+use Xoops\Form\TextArea;
+use Xoops\Form\ThemeForm;
 
 /**
  * @copyright 2012-2016 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author    Laurent JEN - aka DuGris
  */
-
 include dirname(dirname(__DIR__)) . '/mainfile.php';
 
 $xoops = Xoops::getInstance();

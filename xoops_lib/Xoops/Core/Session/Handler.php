@@ -80,7 +80,7 @@ class Handler implements \SessionHandlerInterface
     {
         $qb = $this->db->createXoopsQueryBuilder();
         $eb = $qb->expr();
-        $qb ->select('s.session_data')
+        $qb->select('s.session_data')
             ->fromPrefix($this->sessionTable, 's')
             ->where($eb->eq('s.session_id', ':sessid'))
             ->andWhere($eb->gt('s.expires_at', ':expires'))
@@ -90,7 +90,7 @@ class Handler implements \SessionHandlerInterface
         $session_data = '';
         if ($result = $qb->execute()) {
             if ($row = $result->fetch(FetchMode::NUMERIC)) {
-                list ($session_data) = $row;
+                list($session_data) = $row;
             }
         }
 
@@ -112,7 +112,7 @@ class Handler implements \SessionHandlerInterface
      **/
     public function write($session_id, $session_data)
     {
-        $expires =  (isset($_SESSION['SESSION_MANAGER_EXPIRES']))
+        $expires = (isset($_SESSION['SESSION_MANAGER_EXPIRES']))
             ? (int)($_SESSION['SESSION_MANAGER_EXPIRES'])
             : time() + (session_cache_expire() * 60);
         //$oldIsolation = $this->db->getTransactionIsolation();
@@ -121,7 +121,7 @@ class Handler implements \SessionHandlerInterface
         //$readResult = $this->read($session_id);
         $qb = $this->db->createXoopsQueryBuilder();
         $eb = $qb->expr();
-        $qb ->updatePrefix($this->sessionTable)
+        $qb->updatePrefix($this->sessionTable)
             ->set('expires_at', ':expires')
             ->set('session_data', ':sessdata')
             ->where($eb->eq('session_id', ':sessid'))
@@ -130,14 +130,14 @@ class Handler implements \SessionHandlerInterface
             ->setParameter(':sessdata', $session_data, ParameterType::STRING);
         $this->db->setForce(true);
         $result = $qb->execute();
-        if ($result<=0) {
+        if ($result <= 0) {
             $qb = $this->db->createXoopsQueryBuilder();
-            $qb ->insertPrefix($this->sessionTable)
-                ->values(array(
-                    'session_id'   => ':sessid',
-                    'expires_at'   => ':expires',
+            $qb->insertPrefix($this->sessionTable)
+                ->values([
+                    'session_id' => ':sessid',
+                    'expires_at' => ':expires',
                     'session_data' => ':sessdata',
-                    ))
+                    ])
                 ->setParameter(':sessid', $session_id, ParameterType::STRING)
                 ->setParameter(':expires', $expires, ParameterType::INTEGER)
                 ->setParameter(':sessdata', $session_data, ParameterType::STRING);
@@ -147,7 +147,7 @@ class Handler implements \SessionHandlerInterface
         //$this->db->commit();
         //$this->db->setTransactionIsolation($oldIsolation);
 
-        return (boolean) ($result>0);
+        return (bool) ($result > 0);
     }
 
     /**
@@ -161,7 +161,7 @@ class Handler implements \SessionHandlerInterface
     {
         $qb = $this->db->createXoopsQueryBuilder();
         $eb = $qb->expr();
-        $qb ->deletePrefix($this->sessionTable)
+        $qb->deletePrefix($this->sessionTable)
             ->where($eb->eq('session_id', ':sessid'))
             ->setParameter(':sessid', $session_id, ParameterType::STRING);
         $this->db->setForce(true);
@@ -182,11 +182,12 @@ class Handler implements \SessionHandlerInterface
         $mintime = time();
         $qb = $this->db->createXoopsQueryBuilder();
         $eb = $qb->expr();
-        $qb ->deletePrefix($this->sessionTable)
+        $qb->deletePrefix($this->sessionTable)
             ->where($eb->lt('expires_at', ':expires'))
             ->setParameter(':expires', $mintime, ParameterType::INTEGER);
         $this->db->setForce(true);
         $result = $qb->execute();
-        return (boolean) ($result>0);
+
+        return (bool) ($result > 0);
     }
 }

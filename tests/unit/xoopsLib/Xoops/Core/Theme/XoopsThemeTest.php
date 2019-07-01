@@ -1,7 +1,8 @@
 <?php
+
 namespace Xoops\Core\Theme;
 
-require_once __DIR__.'/../../../../init_new.php';
+require_once __DIR__ . '/../../../../init_new.php';
 
 class XoopsThemeTest extends \PHPUnit\Framework\TestCase
 {
@@ -16,7 +17,7 @@ class XoopsThemeTest extends \PHPUnit\Framework\TestCase
      */
     protected function setUp()
     {
-        $this->object = new XoopsTheme;
+        $this->object = new XoopsTheme();
     }
 
     /**

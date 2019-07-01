@@ -15,16 +15,17 @@
  * @author          Laurent JEN (Aka DuGris)
  * @version         $Id$
  */
+use Xmf\Request;
 
 class Xcaptcha extends XoopsCaptcha
 {
     public $captchaHandler;
 
-    public $config = array();
+    public $config = [];
 
-    public $plugin_List = array();
+    public $plugin_List = [];
 
-    public $plugin_config = array();
+    public $plugin_config = [];
 
     public $xcaptcha_path_plugin;
 
@@ -37,13 +38,14 @@ class Xcaptcha extends XoopsCaptcha
         $this->xcaptcha_path_plugin = \XoopsBaseConfig::get('root-path') . '/modules/xcaptcha/plugins';
     }
 
-    static function getInstance()
+    public static function getInstance()
     {
         static $instance;
         if (!isset($instance)) {
             $class = __CLASS__;
             $instance = new $class();
         }
+
         return $instance;
     }
 
@@ -62,43 +64,46 @@ class Xcaptcha extends XoopsCaptcha
         return $this->captchaHandler->readConfig($file);
     }
 
-    public function writeConfig($file = 'config', $data)
+    public function writeConfig($file, $data)
     {
         return $this->captchaHandler->writeConfig($file, $data);
     }
 
     public function getPluginList()
     {
-        $ret = array();
+        $ret = [];
 
         foreach (glob($this->captchaHandler->path_basic . '/config.*.php') as $filename) {
             $plugin_List = preg_replace('/(config\.)(.*)(\.php)/', '$2', basename($filename));
             $ret[$plugin_List] = $plugin_List;
         }
+
         return $ret;
     }
 
     public function loadConfigPlugin()
     {
-        $config = array();
+        $config = [];
         foreach ($this->plugin_List as $key) {
             $config = $this->loadConfig($key);
         }
+
         return $config;
     }
 
     public function VerifyData()
     {
         $system = System::getInstance();
-        $config = array();
-        $_POST['disabled'] = $system->cleanVars($_POST, 'disabled', false, 'boolean');
-        $_POST['mode'] = $system->cleanVars($_POST, 'mode', 'image', 'string');
-        $_POST['name'] = $system->cleanVars($_POST, 'name', 'xoopscaptcha', 'string');
-        $_POST['skipmember'] = $system->cleanVars($_POST, 'skipmember', false, 'boolean');
-        $_POST['maxattempts'] = $system->cleanVars($_POST, 'maxattempts', 10, 'int');
+        $config = [];
+        $_POST['disabled'] = Request::getBool('disabled', false, 'POST');
+        $_POST['mode'] = Request::getString('mode', 'image', 'POST');
+        $_POST['name'] = Request::getString('name', 'xoopscaptcha', 'POST');
+        $_POST['skipmember'] = Request::getBool('skipmember', false, 'POST');
+        $_POST['maxattempts'] = Request::getInt('maxattempts', 10, 'POST');
         foreach (array_keys($this->config) as $key) {
             $config[$key] = $_POST[$key];
         }
+
         return $config;
     }
 
@@ -111,6 +116,7 @@ class Xcaptcha extends XoopsCaptcha
             require_once $file;
             $this->Pluginhandler = new $class($this);
         }
+
         return $this->Pluginhandler;
     }
 }

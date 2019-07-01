@@ -32,7 +32,7 @@ class SyntaxHighlight extends FilterAbstract
     protected static $defaultConfiguration = [
         'enabled' => false,
         'highlighter' => 'php', // Source code highlight: '' - disable; 'php' - php highlight; 'geshi' - geshi highlight
-        'language' => 'PHP'
+        'language' => 'PHP',
     ];
 
     /**
@@ -51,15 +51,16 @@ class SyntaxHighlight extends FilterAbstract
         }
         $source = $this->ts->undoHtmlSpecialChars($source);
         $source = stripslashes($source);
-        if ($config['highlighter'] === 'geshi') {
+        if ('geshi' === $config['highlighter']) {
             $language = str_replace('=', '', $language);
             $language = ($language) ? $language : $config['language'];
-            $language = strtolower($language);
-            if ($source2 = SyntaxHighlight::geshi($source, $language)) {
+            $language = mb_strtolower($language);
+            if ($source2 = self::geshi($source, $language)) {
                 return $source2;
             }
         }
-        $source = SyntaxHighlight::php($source);
+        $source = self::php($source);
+
         return $source;
     }
 
@@ -74,8 +75,8 @@ class SyntaxHighlight extends FilterAbstract
     {
         $text = trim($text);
         $addedOpenTag = false;
-        if (!strpos($text, "<?php") && (substr($text, 0, 5) !== "<?php")) {
-            $text = "<?php " . $text;
+        if (!mb_strpos($text, '<?php') && ('<?php' !== mb_substr($text, 0, 5))) {
+            $text = '<?php ' . $text;
             $addedOpenTag = true;
         }
 
@@ -83,25 +84,26 @@ class SyntaxHighlight extends FilterAbstract
 
         //There is a bug in the highlight function(php < 5.3) that it doesn't render
         //backslashes properly like in \s. So here we replace any backslashes
-        $text = str_replace("\\", "XxxX", $text);
+        $text = str_replace('\\', 'XxxX', $text);
 
         $buffer = highlight_string($text, true); // Require PHP 4.20+
 
         //Placing backspaces back again
-        $buffer = str_replace("XxxX", "\\", $buffer);
+        $buffer = str_replace('XxxX', '\\', $buffer);
 
         error_reporting($oldlevel);
         $pos_open = $pos_close = 0;
         if ($addedOpenTag) {
-            $pos_open = strpos($buffer, '&lt;?php&nbsp;');
+            $pos_open = mb_strpos($buffer, '&lt;?php&nbsp;');
         }
 
-        $str_open = ($addedOpenTag) ? substr($buffer, 0, $pos_open) : "";
+        $str_open = ($addedOpenTag) ? mb_substr($buffer, 0, $pos_open) : '';
 
         $length_open = ($addedOpenTag) ? $pos_open + 14 : 0;
-        $str_internal = substr($buffer, $length_open);
+        $str_internal = mb_substr($buffer, $length_open);
 
         $buffer = $str_open . $str_internal;
+
         return $buffer;
     }
 
@@ -115,7 +117,7 @@ class SyntaxHighlight extends FilterAbstract
      */
     public function geshi($source, $language)
     {
-        if (!@\XoopsLoad::load("geshi", "framework")) {
+        if (!@\XoopsLoad::load('geshi', 'framework')) {
             return false;
         }
 
@@ -129,7 +131,7 @@ class SyntaxHighlight extends FilterAbstract
         // Sets the proper encoding charset other than "ISO-8859-1"
         $geshi->set_encoding(\XoopsLocale::getCharset());
 
-        $geshi->set_link_target("_blank");
+        $geshi->set_link_target('_blank');
 
         // Parse the code
         $code = $geshi->parse_code();

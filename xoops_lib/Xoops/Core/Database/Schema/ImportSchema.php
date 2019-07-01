@@ -11,12 +11,12 @@
 
 namespace Xoops\Core\Database\Schema;
 
-use Doctrine\DBAL\Schema\Table;
-use Doctrine\DBAL\Schema\Schema;
 use Doctrine\DBAL\Schema\Column;
 use Doctrine\DBAL\Schema\ForeignKeyConstraint;
-use Doctrine\DBAL\Schema\Sequence;
 use Doctrine\DBAL\Schema\Index;
+use Doctrine\DBAL\Schema\Schema;
+use Doctrine\DBAL\Schema\Sequence;
+use Doctrine\DBAL\Schema\Table;
 
 /**
  * ImportSchema processes an array of schema information and creates
@@ -30,9 +30,8 @@ use Doctrine\DBAL\Schema\Index;
  */
 class ImportSchema
 {
-
     private $xPrefix;
-    private $schemaArray = array();
+    private $schemaArray = [];
 
     /**
      * Constructor
@@ -49,14 +48,13 @@ class ImportSchema
      *
      * @param array $schemaArray array version of a schema object
      *
-     * @return Schema object built from input array
-     *
      * @throws \Doctrine\DBAL\DBALException
+     * @return Schema object built from input array
      */
     public function importSchemaArray(array $schemaArray)
     {
-        $tables = array();
-        $sequences = array();
+        $tables = [];
+        $sequences = [];
         $this->schemaArray = $schemaArray;
         foreach ($schemaArray as $type => $entity) {
             switch ($type) {
@@ -68,6 +66,7 @@ class ImportSchema
                     break;
             }
         }
+
         return new Schema($tables, $sequences);
     }
 
@@ -76,19 +75,18 @@ class ImportSchema
      *
      * @param array $tableArray array of table definitions
      *
-     * @return array of Table objects
-     *
      * @throws \Doctrine\DBAL\DBALException
+     * @return array of Table objects
      */
     public function importTables(array $tableArray)
     {
-        $tables=array();
+        $tables = [];
         foreach ($tableArray as $name => $tabledef) {
             $tableName = $this->xPrefix . $name;
-            $columns = array();
-            $indexes = array();
-            $fkConstraints = array();
-            $options = array();
+            $columns = [];
+            $indexes = [];
+            $fkConstraints = [];
+            $options = [];
             $idGeneratorType = 0;
             foreach ($tabledef['columns'] as $colName => $colOptions) {
                 $colType = \Doctrine\DBAL\Types\Type::getType($colOptions['type']);
@@ -132,6 +130,7 @@ class ImportSchema
                 $options
             );
         }
+
         return $tables;
     }
 
@@ -144,7 +143,7 @@ class ImportSchema
      */
     public function importSequences(array $sequenceArray)
     {
-        $sequences = array();
+        $sequences = [];
 
         foreach ($sequenceArray as $name => $sequenceDef) {
             $sequences[] = new Sequence(
@@ -153,6 +152,7 @@ class ImportSchema
                 $sequenceDef['initialvalue']
             );
         }
+
         return $sequences;
     }
 }

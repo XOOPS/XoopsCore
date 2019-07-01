@@ -25,7 +25,7 @@ class ElementFactory
     const CLASS_KEY = ':class';
     const FORM_KEY = ':form';
 
-    /** @var ContainerInterface  */
+    /** @var ContainerInterface */
     protected $container = null;
 
     /**
@@ -33,13 +33,13 @@ class ElementFactory
      *
      * @param array $specification associative array of attributes and controls defining an Element
      *
-     * @return Element
-     *
      * @throws \DomainException
+     * @return Element
      */
     public function create($specification)
     {
         $this->validateSpec($specification);
+
         return new $specification[self::CLASS_KEY]($specification);
     }
 
@@ -48,9 +48,8 @@ class ElementFactory
      *
      * @param array $specification associative array of attributes and controls defining an Element
      *
-     * @return Element
-     *
      * @throws \DomainException
+     * @return Element
      */
     protected function validateSpec(&$specification)
     {
@@ -58,7 +57,7 @@ class ElementFactory
             throw new \DomainException('Specification CLASS_KEY required.');
         }
         $elementClass = $specification[self::CLASS_KEY];
-        if (false === strpos($elementClass, '\\')) {
+        if (false === mb_strpos($elementClass, '\\')) {
             $elementClass = '\Xoops\Form\\' . $elementClass;
         }
 

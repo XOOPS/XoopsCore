@@ -2,24 +2,25 @@
 
 namespace XoopsConsole\Commands;
 
-use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputOption;
 use Doctrine\DBAL\Types\Type;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class Utf8mb4ModuleCommand extends Command
 {
     protected function configure()
     {
-        $this->setName("utf8mb4-module")
+        $this->setName('utf8mb4-module')
             ->setDescription("Update a module's tables to utf8mb4")
-            ->setDefinition(array(
+            ->setDefinition([
                 new InputArgument('module', InputArgument::REQUIRED, 'Module directory name'),
-            ))
+            ])
             ->addOption('dry-run', null, InputOption::VALUE_NONE, 'Show but do not execute DDL.')
-            ->setHelp(<<<EOT
+            ->setHelp(
+                <<<EOT
 The <info>utf8mb4-module</info> command updates the tables that are owned by an installed module
 to use MySQL's <info>utf8mb4</info> character set, and <info>utf8mb4_unicode_ci</info> collation.
 EOT
@@ -41,11 +42,12 @@ EOT
         $module = $xoops->getModuleByDirname($dirname);
         if (false === $module) {
             $output->writeln(sprintf('<error>%s is not an installed module!</error>', $dirname));
+
             return;
         }
         $module->loadInfo($dirname, false);
         $modVersion = $module->modinfo;
-        $tableList =  isset($modVersion['tables']) ? $modVersion['tables'] : [];
+        $tableList = isset($modVersion['tables']) ? $modVersion['tables'] : [];
         //\Kint::dump($modVersion, $tableList);
         $sql = [];
 
@@ -54,6 +56,7 @@ EOT
 
         if ('mysql' !== $platform->getName()) {
             $output->writeln('<error>This command only works on a MySQL platform.</error>');
+
             return;
         }
 
@@ -67,7 +70,7 @@ EOT
             $columns = $manager->listTableColumns($table);
             foreach ($columns as $column) {
                 $type = $column->getType()->getName();
-                if ($type === Type::STRING || $type === Type::TEXT) {
+                if (Type::STRING === $type || Type::TEXT === $type) {
                     //$column->setPlatformOption('collation', 'utf8mb4_unicode_ci');
                     $sql[] = sprintf(
                         'ALTER TABLE %s MODIFY %s %s COLLATE utf8mb4_unicode_ci;',
@@ -83,7 +86,7 @@ EOT
             if (!$dryRun) {
                 $xoops->db()->setForce(true);
                 $result = $xoops->db()->query($alterSql);
-                if ($result === false) {
+                if (false === $result) {
                     $output->writeln(sprintf(
                         '<error>Execution failed: %d - %s</error>',
                         $xoops->db()->errorCode(),

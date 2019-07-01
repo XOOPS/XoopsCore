@@ -27,7 +27,7 @@ class XoopsModelFactory
     /**
      * static private
      */
-    static private $handlers = array();
+    private static $handlers = [];
 
     /**
      * Get singleton instance
@@ -42,6 +42,7 @@ class XoopsModelFactory
             $class = __CLASS__;
             $instance = new $class();
         }
+
         return $instance;
     }
 
@@ -62,6 +63,7 @@ class XoopsModelFactory
             @$handler = new $className();
             if (!is_object($handler)) {
                 trigger_error('Handler ' . $className . ' not found in file ' . __FILE__, E_USER_WARNING);
+
                 return null;
             }
             self::$handlers[$name] = $handler;
@@ -72,6 +74,7 @@ class XoopsModelFactory
         if (!empty($args) && is_array($args) && is_a($handler, 'Xoops\Core\Kernel\XoopsModelAbstract')) {
             $handler->setVars($args);
         }
+
         return $handler;
     }
 }

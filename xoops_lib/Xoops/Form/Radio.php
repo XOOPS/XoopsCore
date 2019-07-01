@@ -32,7 +32,7 @@ class Radio extends OptionElement
      *                              :inline true to render with inline style
      * @param string  $name    name attribute
      * @param string  $value   Pre-selected value
-     * @param boolean $inline  true to display inline
+     * @param bool $inline  true to display inline
      */
     public function __construct($caption, $name = null, $value = null, $inline = true)
     {
@@ -60,8 +60,8 @@ class Radio extends OptionElement
         $ele_options = $this->getOptions();
         $ele_value = $this->getValue();
         $ele_name = $this->getName();
-        $extra = ($this->getExtra() != '' ? " " . $this->getExtra() : '');
-        $ret = "";
+        $extra = ('' != $this->getExtra() ? ' ' . $this->getExtra() : '');
+        $ret = '';
         $inline = $this->has(':inline');
         if ($inline) {
             $ret .= '<div class="input-group">';
@@ -77,7 +77,7 @@ class Radio extends OptionElement
             $this->set('id', $ele_name . $id_ele);
             if ($inline) {
                 $ret .= '<label class="radio-inline">';
-                $ret .= '<input ' . $this->renderAttributeString() . $extra . ">" . $buttonCaption . "\n";
+                $ret .= '<input ' . $this->renderAttributeString() . $extra . '>' . $buttonCaption . "\n";
                 $ret .= "</label>\n";
             } else {
                 $ret .= "<div class=\"radio\">\n<label>";
@@ -89,6 +89,7 @@ class Radio extends OptionElement
         if ($inline) {
             $ret .= '</div>';
         }
+
         return $ret;
     }
 }

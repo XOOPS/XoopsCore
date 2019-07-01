@@ -31,7 +31,7 @@ class Fingerprint implements FingerprintInterface
      *
      * @var string
      */
-    protected $clientFingerprint = array();
+    protected $clientFingerprint = [];
 
     /**
      * grab things from the http request we need to use.
@@ -40,7 +40,7 @@ class Fingerprint implements FingerprintInterface
      */
     protected function takePrint()
     {
-        $clientFingerprint = array();
+        $clientFingerprint = [];
         $httpRequest = HttpRequest::getInstance();
         $clientFingerprint['clientIp'] = $httpRequest->getClientIp();
         $clientFingerprint['userAgent'] = $this->makeInert($httpRequest->getHeader('USER_AGENT'));
@@ -81,7 +81,7 @@ class Fingerprint implements FingerprintInterface
         $changes = 0; // number of changed fields
         $currentFingerprint = $this->takePrint();
         $savedFingerprint = unserialize($session->get('SESSION_FINGERPRINT'));
-        if ($savedFingerprint === false) {
+        if (false === $savedFingerprint) {
             $savedFingerprint = $currentFingerprint;
             $changes = empty($_SESSION) ? 0 : 3; // in a populated session - force fail;
         }
@@ -89,7 +89,7 @@ class Fingerprint implements FingerprintInterface
         foreach ($currentFingerprint as $key => $current) {
             $distance = levenshtein($current, $savedFingerprint[$key]);
             $score += $distance;
-            $changes += ($distance>0) ? 1 : 0;
+            $changes += ($distance > 0) ? 1 : 0;
         }
 
         $return = true;
@@ -100,6 +100,7 @@ class Fingerprint implements FingerprintInterface
             $return = false;
         }
         $session->set('SESSION_FINGERPRINT', serialize($currentFingerprint));
+
         return $return;
     }
 }

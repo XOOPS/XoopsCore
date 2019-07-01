@@ -9,8 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
-use Xmf\Request;
 use Xmf\Database\TableLoad;
+use Xmf\Request;
 use Xoops\Form\ElementFactory;
 use Xoops\Form\ThemeForm;
 
@@ -23,7 +23,6 @@ use Xoops\Form\ThemeForm;
  * @since           2.6.0
  * @author          Xoops Core Development Team - Mage Grégory (AKA Mage) - Laurent JEN (aka DuDris)
  */
-
 include __DIR__ . '/header.php';
 $xoops = Xoops::getInstance();
 $xoops->header();
@@ -37,7 +36,7 @@ switch ($op) {
         if (!$xoops->security()->check()) {
             $xoops->redirect(basename(__FILE__), 3, implode('<br />', $xoops->security()->getErrors()));
         }
-        $skipColumns = array('smiley_id');
+        $skipColumns = ['smiley_id'];
         $status = TableLoad::saveTableToYamlFile('smilies', '../sql/smiliesdata.yml', null, $skipColumns);
         echo $status ? 'Data saved.' : 'Failed';
         break;

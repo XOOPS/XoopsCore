@@ -48,15 +48,15 @@ class Manager
      * Service Mode constant - Multiple mode where all located services will be
      * dispatched in priority order.
      */
-    const MODE_MULTIPLE  = 8;
+    const MODE_MULTIPLE = 8;
 
     /**
      * Provider priorities
      */
     const PRIORITY_SELECTED = 0;
-    const PRIORITY_HIGH     = 1;
-    const PRIORITY_MEDIUM   = 5;
-    const PRIORITY_LOW      = 9;
+    const PRIORITY_HIGH = 1;
+    const PRIORITY_MEDIUM = 5;
+    const PRIORITY_LOW = 9;
 
     /**
      * Services registry - array keyed on service name, with provider object as value
@@ -101,7 +101,7 @@ class Manager
         static $instance = false;
 
         if (!$instance) {
-            $instance = new Manager();
+            $instance = new self();
         }
 
         return $instance;
@@ -130,6 +130,7 @@ class Manager
             $xoops->events()->triggerEvent('core.exception', $e);
             $preferences = [];
         }
+
         return $preferences;
     }
 
@@ -141,6 +142,7 @@ class Manager
     protected function readProviderPrefs()
     {
         $xoops = \Xoops::getInstance();
+
         return $xoops->cache()->cacheRead(
             $this->providerPrefsCacheKey,
             [$this, 'readYamlProviderPrefs']
@@ -159,6 +161,7 @@ class Manager
     {
         if (is_array($providerPrefs)) {
             $xoops = \Xoops::getInstance();
+
             try {
                 Yaml::save($providerPrefs, $xoops->path($this->providerPrefsFilename));
                 $xoops->cache()->write($this->providerPrefsCacheKey, $providerPrefs);
@@ -207,7 +210,7 @@ class Manager
         $provider = $this->locate($service);
         $providers = $provider->getRegistered();
         foreach ($providers as $p) {
-            $name = strtolower($p->getName());
+            $name = mb_strtolower($p->getName());
             if (isset($choices[$name])) {
                 $p->setPriority($choices[$name]);
             }
@@ -240,7 +243,7 @@ class Manager
      */
     public function locate($service)
     {
-        $service = strtolower($service);
+        $service = mb_strtolower($service);
         if (isset($this->services[$service])) {
             // service already located
             $provider = $this->services[$service];
@@ -252,11 +255,11 @@ class Manager
             // In response to trigger message, the contract implementor should register()
             $xoops->events()->triggerEvent($event, $provider);
             // get reference to the list of providers and prioritize it.
-            $registered=$provider->getRegistered();
+            $registered = $provider->getRegistered();
             if (count($registered)) {
                 $choices = $this->providerPrefs[$service] ?? [];
                 foreach ($registered as $p) {
-                    $name = strtolower($p->getName());
+                    $name = mb_strtolower($p->getName());
                     if (isset($choices[$name])) {
                         $p->setPriority($choices[$name]);
                     }

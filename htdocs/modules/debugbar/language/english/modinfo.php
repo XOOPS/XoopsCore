@@ -14,19 +14,18 @@
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author    Richard Griffith <richard@geekwright.com>
  */
+define('_MI_DEBUGBAR_NAME', 'DebugBar');
+define('_MI_DEBUGBAR_DSC', 'Error reporting and performance analysis');
 
-define('_MI_DEBUGBAR_NAME','DebugBar');
-define('_MI_DEBUGBAR_DSC','Error reporting and performance analysis');
+define('_MI_DEBUGBAR_ENABLE', 'Display DebugBar');
+define('_MI_DEBUGBAR_SMARTYDEBUG', 'Enable Smarty Debug');
 
-define('_MI_DEBUGBAR_ENABLE',"Display DebugBar");
-define('_MI_DEBUGBAR_SMARTYDEBUG',"Enable Smarty Debug");
+define('_MI_DEBUGBAR_UCONF_CAT_OPT', 'Options');
+define('_MI_DEBUGBAR_UCONF_CAT_OPT_DESC', 'DebugBar Options');
 
-define('_MI_DEBUGBAR_UCONF_CAT_OPT','Options');
-define('_MI_DEBUGBAR_UCONF_CAT_OPT_DESC','DebugBar Options');
+define('_MI_DEBUGBAR_UCONF_ENABLE_BAR', 'Display DebugBar');
+define('_MI_DEBUGBAR_UCONF_ENABLE_SMARTY', 'Enable Smarty Debug');
 
-define('_MI_DEBUGBAR_UCONF_ENABLE_BAR','Display DebugBar');
-define('_MI_DEBUGBAR_UCONF_ENABLE_SMARTY','Enable Smarty Debug');
-
-define('_MI_DEBUGBAR_ADMENU1','Home');
-define('_MI_DEBUGBAR_ADMENU2','About');
-define('_MI_DEBUGBAR_ADMENU3','Permissions');
+define('_MI_DEBUGBAR_ADMENU1', 'Home');
+define('_MI_DEBUGBAR_ADMENU2', 'About');
+define('_MI_DEBUGBAR_ADMENU3', 'Permissions');

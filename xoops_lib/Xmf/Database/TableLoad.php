@@ -28,7 +28,6 @@ use Xoops\Core\Kernel\CriteriaElement;
  */
 class TableLoad
 {
-
     /**
      * loadTableFromArray
      *
@@ -48,6 +47,7 @@ class TableLoad
             $count += $db->insertPrefix($table, $row);
         }
         $db->commit();
+
         return $count;
     }
 
@@ -106,6 +106,7 @@ class TableLoad
         }
         $result = $qb->execute();
         $count = $result->fetchColumn();
+
         return (int)$count;
     }
 
@@ -118,7 +119,7 @@ class TableLoad
      *
      * @return array of table rows
      */
-    public static function extractRows($table, CriteriaElement $criteria = null, $skipColumns = array())
+    public static function extractRows($table, CriteriaElement $criteria = null, $skipColumns = [])
     {
         $db = \Xoops::getInstance()->db();
         $qb = $db->createXoopsQueryBuilder();
@@ -150,7 +151,7 @@ class TableLoad
      *
      * @return bool true on success, false on error
      */
-    public static function saveTableToYamlFile($table, $yamlFile, $criteria = null, $skipColumns = array())
+    public static function saveTableToYamlFile($table, $yamlFile, $criteria = null, $skipColumns = [])
     {
         $rows = static::extractRows($table, $criteria, $skipColumns);
 

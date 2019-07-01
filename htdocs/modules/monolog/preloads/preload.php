@@ -26,7 +26,7 @@ use Xoops\Core\PreloadItem;
  */
 class MonologPreload extends PreloadItem
 {
-    private static $registry = array();
+    private static $registry = [];
 
     private static $configs = null;
 
@@ -39,7 +39,7 @@ class MonologPreload extends PreloadItem
     {
         $xoops = \Xoops::getInstance();
         if (array_key_exists('monolog_default_configs', self::$configs)
-            && self::$configs['monolog_default_configs'] == true) {
+            && true == self::$configs['monolog_default_configs']) {
             self::$configs = $xoops->getModuleConfigs('monolog');
         }
         /*
@@ -93,9 +93,9 @@ class MonologPreload extends PreloadItem
     public static function eventCoreIncludeCommonClassmaps($args)
     {
         $path = dirname(__DIR__);
-        XoopsLoad::addMap(array(
+        XoopsLoad::addMap([
             'monologlogger' => $path . '/class/monologlogger.php',
-        ));
+        ]);
     }
 
     /**
@@ -110,13 +110,13 @@ class MonologPreload extends PreloadItem
         $cache = \Xoops::getInstance()->cache();
         $key = 'system/module/configs/monolog';
 
-        self::$configs=array();
+        self::$configs = [];
         self::$configs['monolog_enable'] = false;
-        self::$configs['monolog_default_configs']=true;
+        self::$configs['monolog_default_configs'] = true;
 
         // we will not regenerate this on a miss - will wait until auth is complete
         $monolog_configs = $cache->read($key);
-        if ($monolog_configs!==false) {
+        if (false !== $monolog_configs) {
             self::$configs = $monolog_configs;
         }
         $logger = MonologLogger::getInstance();
@@ -149,7 +149,7 @@ class MonologPreload extends PreloadItem
         if (class_exists('MonologLogger')) {
             /* @var $db Xoops\Core\Database\Connection */
             $db = $args[0];
-            MonologLogger::getInstance()->log(LogLevel::ALERT, $db->error(), array('errno' => $db->errno()));
+            MonologLogger::getInstance()->log(LogLevel::ALERT, $db->error(), ['errno' => $db->errno()]);
         }
     }
 
@@ -165,7 +165,7 @@ class MonologPreload extends PreloadItem
         if (class_exists('MonologLogger')) {
             /* @var $db Xoops\Core\Database\Connection */
             $db = $args[0];
-            MonologLogger::getInstance()->log(LogLevel::ALERT, $db->error(), array('errno' => $db->errno()));
+            MonologLogger::getInstance()->log(LogLevel::ALERT, $db->error(), ['errno' => $db->errno()]);
         }
     }
 
@@ -180,12 +180,12 @@ class MonologPreload extends PreloadItem
     {
         if (class_exists('MonologLogger')) {
             $sql = $args['sql'];
-            $context = array(
+            $context = [
                 'channel' => 'Queries',
                 'query_time' => $args['executionMS'],
                 'params' => $args['params'],
                 'types' => $args['types'],
-            );
+            ];
             MonologLogger::getInstance()->log(LogLevel::INFO, $sql, $context);
         }
     }
@@ -309,10 +309,9 @@ class MonologPreload extends PreloadItem
     {
         /* @var $block XoopsBlock */
         $block = $args[0];
-        $isCached= $args[1];
-        $context = array('channel'=>'Blocks', 'cached'=>$isCached, 'cachetime'=>$block->getVar('bcachetime'));
+        $isCached = $args[1];
+        $context = ['channel' => 'Blocks', 'cached' => $isCached, 'cachetime' => $block->getVar('bcachetime')];
         MonologLogger::getInstance()->log(LogLevel::INFO, $block->getVar('name'), $context);
-
     }
 
     /**
@@ -325,7 +324,7 @@ class MonologPreload extends PreloadItem
     public static function eventCoreDeprecated($args)
     {
         $message = $args[0];
-        MonologLogger::getInstance()->log(LogLevel::WARNING, $message, array('channel'=>'Deprecated'));
+        MonologLogger::getInstance()->log(LogLevel::WARNING, $message, ['channel' => 'Deprecated']);
     }
 
     /**
@@ -383,8 +382,8 @@ class MonologPreload extends PreloadItem
             _MD_MONOLOG_MEMORY,
             sprintf(
                 _MD_MONOLOG_MEM_USAGE,
-                (float) memory_get_usage(true)/1000000,
-                (float) memory_get_peak_usage(true)/1000000
+                (float) memory_get_usage(true) / 1000000,
+                (float) memory_get_peak_usage(true) / 1000000
             )
         );
         $logger->addExtra(
@@ -420,7 +419,7 @@ class MonologPreload extends PreloadItem
         $logger = MonologLogger::getInstance();
         $logs = $args[0];
         foreach ($logs as $log) {
-            $context = array('channel'=>'Extra', 'name'=>$log[0]);
+            $context = ['channel' => 'Extra', 'name' => $log[0]];
             $logger->log(LogLevel::INFO, $log[1], $context);
         }
     }
@@ -434,9 +433,8 @@ class MonologPreload extends PreloadItem
      */
     public static function eventCoreModuleAddlog($args)
     {
-        $context = array('channel'=>'Extra', 'name'=>$args[0]);
+        $context = ['channel' => 'Extra', 'name' => $args[0]];
         MonologLogger::getInstance()->log(LogLevel::DEBUG, $args[1], $context);
-
     }
 
     /**
@@ -448,7 +446,7 @@ class MonologPreload extends PreloadItem
      */
     public static function eventSystemPreferencesSave($args)
     {
-        $configs = array();
+        $configs = [];
         $cache = \Xoops::getInstance()->cache();
         $key = 'system/module/configs/monolog';
 
@@ -468,6 +466,5 @@ class MonologPreload extends PreloadItem
 
             $cache->write($key, $configs);
         }
-
     }
 }

@@ -3,10 +3,9 @@
 namespace XoopsConsole\Commands;
 
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputOption;
 use Xoops\Core\XoopsTpl;
 
 class InstallModuleCommand extends Command
@@ -17,11 +16,12 @@ class InstallModuleCommand extends Command
      */
     protected function configure()
     {
-        $this->setName("install-module")
-            ->setDescription("Install a module")
-            ->setDefinition(array(
+        $this->setName('install-module')
+            ->setDescription('Install a module')
+            ->setDefinition([
                 new InputArgument('module', InputArgument::REQUIRED, 'Module directory name'),
-            ))->setHelp(<<<EOT
+            ])->setHelp(
+                <<<EOT
 The <info>install-module</info> command installs a module.
 EOT
              );
@@ -40,11 +40,13 @@ EOT
         $module = $input->getArgument('module');
         if (false === \XoopsLoad::fileExists($xoops->path("modules/$module/xoops_version.php"))) {
             $output->writeln(sprintf('<error>No module named %s found!</error>', $module));
+
             return;
         }
         $output->writeln(sprintf('Installing %s', $module));
         if (false !== $xoops->getModuleByDirname($module)) {
             $output->writeln(sprintf('<error>%s module is already installed!</error>', $module));
+
             return;
         }
         $xoops->setTpl(new XoopsTpl());
@@ -62,7 +64,7 @@ EOT
                 $output->writeln(strip_tags($message));
             }
         }
-        if ($result===false) {
+        if (false === $result) {
             $output->writeln(sprintf('<error>Install of %s failed!</error>', $module));
         } else {
             $output->writeln(sprintf('<info>Install of %s completed.</info>', $module));

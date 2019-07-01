@@ -1,4 +1,5 @@
 <?php
+
 namespace Xoops\Core\Exception;
 
 require_once __DIR__ . '/../../../../init_new.php';
@@ -16,7 +17,7 @@ class InvalidHandlerSpecExceptionTest extends \PHPUnit\Framework\TestCase
      */
     protected function setUp()
     {
-        $this->object = new InvalidHandlerSpecException;
+        $this->object = new InvalidHandlerSpecException();
     }
 
     /**

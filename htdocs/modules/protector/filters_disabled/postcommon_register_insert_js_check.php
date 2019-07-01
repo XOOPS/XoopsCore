@@ -18,12 +18,11 @@
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
-
 class protector_postcommon_register_insert_js_check extends ProtectorFilterAbstract
 {
-    function execute()
+    public function execute()
     {
-        ob_start(array($this, 'ob_filter'));
+        ob_start([$this, 'ob_filter']);
 
         if (!empty($_POST)) {
             if (!$this->checkValidate()) {
@@ -35,7 +34,7 @@ class protector_postcommon_register_insert_js_check extends ProtectorFilterAbstr
     }
 
     // insert javascript into the registering form
-    function ob_filter($s)
+    public function ob_filter($s)
     {
         $antispam_htmls = $this->getHtml4Assign();
 
@@ -45,26 +44,27 @@ class protector_postcommon_register_insert_js_check extends ProtectorFilterAbstr
     // import from D3forumAntispamDefault.clas.php
 
     /**
-     * @param integer $time
+     * @param int $time
      */
-    function getMd5($time = null)
+    public function getMd5($time = null)
     {
         if (empty($time)) {
             $time = time();
         }
+
         return md5(gmdate('YmdH', $time) . \XoopsBaseConfig::get('db-prefix') . \XoopsBaseConfig::get('db-name'));
     }
 
-    function getHtml4Assign()
+    public function getHtml4Assign()
     {
         $as_md5 = $this->getMd5();
         $as_md5array = preg_split('//', $as_md5, -1, PREG_SPLIT_NO_EMPTY);
-        $as_md5shuffle = array();
+        $as_md5shuffle = [];
         foreach ($as_md5array as $key => $val) {
-            $as_md5shuffle[] = array(
+            $as_md5shuffle[] = [
                 'key' => $key,
-                'val' => $val
-            );
+                'val' => $val,
+            ];
         }
         shuffle($as_md5shuffle);
         $js_in_validate_function = "antispam_md5s=new Array(32);\n";
@@ -81,21 +81,23 @@ class protector_postcommon_register_insert_js_check extends ProtectorFilterAbstr
             xoopsGetElementById('antispam_md5').value = antispam_md5 ;
         ";
 
-        return array(
+        return [
             'html_in_form' => '<input type="hidden" name="antispam_md5" id="antispam_md5" value="" />',
-            'js_global'    => '<script type="text/javascript"><!--//' . "\n" . $js_in_validate_function . "\n" . '//--></script><noscript><div class="errorMsg">' . _MD_PROTECTOR_TURNJAVASCRIPTON . '</div></noscript>',
-        );
+            'js_global' => '<script type="text/javascript"><!--//' . "\n" . $js_in_validate_function . "\n" . '//--></script><noscript><div class="errorMsg">' . _MD_PROTECTOR_TURNJAVASCRIPTON . '</div></noscript>',
+        ];
     }
 
-    function checkValidate()
+    public function checkValidate()
     {
         $user_md5 = trim(@$_POST['antispam_md5']);
 
         // 2-3 hour margin
         if ($user_md5 != $this->getMd5() && $user_md5 != $this->getMd5(time() - 3600) && $user_md5 != $this->getMd5(time() - 7200)) {
             $this->errors[] = _MD_PROTECTOR_TURNJAVASCRIPTON;
+
             return false;
         }
+
         return true;
     }
 }

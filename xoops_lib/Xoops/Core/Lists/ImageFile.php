@@ -33,7 +33,7 @@ class ImageFile extends ListAbstract
      */
     public static function getList($path = null, $prefix = '')
     {
-        $fileList = array();
+        $fileList = [];
         if (is_dir($path) && $handle = opendir($path)) {
             while (false !== ($file = readdir($handle))) {
                 if (preg_match('/\.(gif|jpg|jpeg|png|swf)$/i', $file)) {

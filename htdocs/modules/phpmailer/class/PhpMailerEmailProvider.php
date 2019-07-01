@@ -9,14 +9,13 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\PHPMailer;
 use Xmf\Module\Helper;
 use Xoops\Core\Service\AbstractContract;
 use Xoops\Core\Service\Contract\EmailInterface;
-use Xoops\Core\Service\Response;
 use Xoops\Core\Service\Data\Email;
-
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
+use Xoops\Core\Service\Response;
 
 /**
  * phpmailer module
@@ -50,10 +49,7 @@ class PhpMailerEmailProvider extends AbstractContract implements EmailInterface
     }
 
     /**
-     * @param \Xoops\Core\Service\Response     $response
      * @param \Xoops\Core\Service\Data\Message $email
-     *
-     * @return void - reports success or failure through $response->success
      */
     public function sendEmail(Response $response, Email $email)
     {
@@ -65,6 +61,7 @@ class PhpMailerEmailProvider extends AbstractContract implements EmailInterface
             $response->setSuccess(false)->addErrorMessage($e->getMessage());
         } catch (\Throwable $e) {
             $response->setSuccess(false)->addErrorMessage($e->getMessage());
+
             return;
         }
     }
@@ -129,11 +126,12 @@ class PhpMailerEmailProvider extends AbstractContract implements EmailInterface
             $mailer->Body = $email->getHtmlBody();
             $mailer->AltBody = $email->getBody();
             $mailer->isHTML(true);
+
             return $mailer;
         }
 
         $mailer->isHTML(false);
-        $mailer->Body= $email->getBody();
+        $mailer->Body = $email->getBody();
 
         return $mailer;
     }
@@ -142,7 +140,7 @@ class PhpMailerEmailProvider extends AbstractContract implements EmailInterface
      * Get a mailer instance with configured transport
      * @return \PHPMailer\PHPMailer\PHPMailer
      */
-    protected function setupMailer() : PHPMailer
+    protected function setupMailer(): PHPMailer
     {
         $mailer = new PHPMailer(true);
         $mailer->Debugoutput = \Xoops::getInstance()->logger();
@@ -160,6 +158,7 @@ class PhpMailerEmailProvider extends AbstractContract implements EmailInterface
                 $mailer->Username = $helper->getConfig('smtp_user', '');
                 $mailer->Password = $helper->getConfig('smtp_pass', '');
             // fallthrough
+            // no break
             case 'smtp':
                 $mailer->isSMTP();
                 $mailer->Host = $helper->getConfig('smtp_host', $mailer->Host);
@@ -171,6 +170,7 @@ class PhpMailerEmailProvider extends AbstractContract implements EmailInterface
                 $mailer->isMail();
                 break;
         }
+
         return $mailer;
     }
 }

@@ -1,7 +1,8 @@
 <?php
+
 namespace Xoops\Form;
 
-require_once(__DIR__.'/../../../init_new.php');
+require_once(__DIR__ . '/../../../init_new.php');
 
 class ButtonTest extends \PHPUnit\Framework\TestCase
 {
@@ -30,12 +31,12 @@ class ButtonTest extends \PHPUnit\Framework\TestCase
     public function testRender()
     {
         $value = $this->object->render();
-        $this->assertTrue(false !== strpos($value, '<input'));
-        $this->assertTrue(false !== strpos($value, 'type="button"'));
-        $this->assertTrue(false !== strpos($value, 'name="button_name"'));
-        $this->assertTrue(false !== strpos($value, 'id="button_name"'));
-        $this->assertTrue(false !== strpos($value, 'title="button_caption"'));
-        $this->assertTrue(false !== strpos($value, 'value="button_value"'));
+        $this->assertTrue(false !== mb_strpos($value, '<input'));
+        $this->assertTrue(false !== mb_strpos($value, 'type="button"'));
+        $this->assertTrue(false !== mb_strpos($value, 'name="button_name"'));
+        $this->assertTrue(false !== mb_strpos($value, 'id="button_name"'));
+        $this->assertTrue(false !== mb_strpos($value, 'title="button_caption"'));
+        $this->assertTrue(false !== mb_strpos($value, 'value="button_value"'));
     }
 
     public function test__construct()
@@ -45,7 +46,7 @@ class ButtonTest extends \PHPUnit\Framework\TestCase
             ['caption' => 'mycaption',
             'type' => 'button',
             'name' => 'myname',
-            'value' => 'myvalue',]
+            'value' => 'myvalue', ]
         );
         $this->assertEquals($oldWay->render(), $newWay->render());
         //$this->assertNotFalse($oldWay->hasClassLike('btn'));

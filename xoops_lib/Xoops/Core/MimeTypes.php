@@ -42,6 +42,7 @@ class MimeTypes
     public static function findExtensions($type)
     {
         $mt = new PhpRepository();
+
         return $mt->findExtensions($type);
     }
 
@@ -55,6 +56,7 @@ class MimeTypes
     public static function findType($extension)
     {
         $mt = new PhpRepository();
-        return $mt->findType(strtolower($extension));
+
+        return $mt->findType(mb_strtolower($extension));
     }
 }

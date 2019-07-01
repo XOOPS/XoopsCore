@@ -11,8 +11,8 @@
 
 namespace Xoops\Core\Service\Contract;
 
-use Xoops\Core\Service\Response;
 use Xoops\Core\Service\Manager;
+use Xoops\Core\Service\Response;
 
 /**
  * Emoji service interface
@@ -35,8 +35,6 @@ interface EmojiInterface
      *
      * @param Response $response \Xoops\Core\Service\Response object
      * @param string   $buffer   source text to be processed
-     *
-     * @return void - $response->value set to processed buffer
      */
     public function renderEmoji(Response $response, $buffer);
 
@@ -44,11 +42,6 @@ interface EmojiInterface
      * getEmojiList - return a list of available emoji
      *
      * @param Response  $response \Xoops\Core\Service\Response object
-     *
-     * @return void - $response->value set to array of emoji information
-     *                    'name'        => (string) code that represents the emoji, i.e. ":wink:"
-     *                    'description' => (string) description
-     *                    'rendered'    => (string) valid HTML to display a rendering of the emoji
      */
     public function getEmojiList(Response $response);
 
@@ -61,9 +54,6 @@ interface EmojiInterface
      *
      * @param Response $response   \Xoops\Core\Service\Response object
      * @param string   $identifier element identifier to receive emoji from selector
-     *
-     * @return void - $response->value (string) HTML code to launch the emoji selector, i.e. button
      */
     public function renderEmojiSelector(Response $response, $identifier);
-
 }

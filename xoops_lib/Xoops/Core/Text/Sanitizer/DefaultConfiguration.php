@@ -43,7 +43,7 @@ class DefaultConfiguration extends ConfigurationAbstract
         //\Xmf\Debug::startTimer('sanitizer-defaults');
         $sanitizerConfiguration = $xoops->cache()->cacheRead(
             $this->cacheKey,
-            array($this, 'buildDefaultConfiguration')
+            [$this, 'buildDefaultConfiguration']
         );
         parent::__construct($sanitizerConfiguration);
         //\Xmf\Debug::stopTimer('sanitizer-defaults');
@@ -59,8 +59,8 @@ class DefaultConfiguration extends ConfigurationAbstract
         $this->registerComponent(\Xoops\Core\Text\Sanitizer::getDefaultConfig());
         $extensions = File::getList(__DIR__ . '/Extensions');
         foreach ($extensions as $extensionFile) {
-            if (substr($extensionFile, -4) === '.php') {
-                $class =  __NAMESPACE__ . '\Extensions\\' . substr($extensionFile, 0, -4);
+            if ('.php' === mb_substr($extensionFile, -4)) {
+                $class = __NAMESPACE__ . '\Extensions\\' . mb_substr($extensionFile, 0, -4);
                 if (is_a($class, 'Xoops\Core\Text\Sanitizer\SanitizerConfigurable', true)) {
                     $this->registerComponent($class::getDefaultConfig());
                 }

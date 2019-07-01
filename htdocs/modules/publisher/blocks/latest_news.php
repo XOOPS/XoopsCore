@@ -411,12 +411,12 @@ function publisher_mk_chkbox($options, $number)
 {
     $chk = '';
     if (1 == $options[$number]) {
-        $chk = " checked";
+        $chk = ' checked';
     }
     $chkbox = "<input type='radio' name='options[{$number}]' value='1'" . $chk . '>&nbsp;' . XoopsLocale::YES . '&nbsp;&nbsp;';
     $chk = '';
     if (0 == $options[$number]) {
-        $chk = " checked";
+        $chk = ' checked';
     }
     $chkbox .= "<input type='radio' name='options[{$number}]' value='0'" . $chk . '>&nbsp;' . XoopsLocale::NO . '</td></tr>';
 
@@ -437,17 +437,17 @@ function publisher_mk_select($options, $number)
 {
     $slc = '';
     if (2 == $options[$number]) {
-        $slc = " checked";
+        $slc = ' checked';
     }
     $select = "<input type='radio' name='options[{$number}]' value='2'" . $slc . '>&nbsp;' . XoopsLocale::LEFT . '&nbsp;&nbsp;';
     $slc = '';
     if (1 == $options[$number]) {
-        $slc = " checked";
+        $slc = ' checked';
     }
     $select .= "<input type='radio' name='options[{$number}]' value='1'" . $slc . '>&nbsp;' . XoopsLocale::CENTER . '&nbsp;&nbsp;';
     $slc = '';
     if (0 == $options[$number]) {
-        $slc = " checked";
+        $slc = ' checked';
     }
     $select .= "<input type='radio' name='options[{$number}]' value='0'" . $slc . '>&nbsp;' . XoopsLocale::RIGHT . '</td></tr>';
 

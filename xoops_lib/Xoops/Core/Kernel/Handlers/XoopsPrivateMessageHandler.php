@@ -19,9 +19,9 @@
 
 namespace Xoops\Core\Kernel\Handlers;
 
+use Doctrine\DBAL\ParameterType;
 use Xoops\Core\Database\Connection;
 use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
-use Doctrine\DBAL\ParameterType;
 
 /**
  * XOOPS private message handler class.
@@ -73,6 +73,7 @@ class XoopsPrivateMessageHandler extends XoopsPersistableObjectHandler
         if (!$result) {
             return false;
         }
+
         return true;
     }
 }

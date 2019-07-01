@@ -1,12 +1,12 @@
 <?php
-require_once(__DIR__.'/../../init_new.php');
+require_once(__DIR__ . '/../../init_new.php');
 
 class ThemeSetModuleHandlerTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass = 'ThemeSetModuleHandler';
     protected $object = null;
 
-    public function setUp()
+    protected function setUp()
     {
         $input = 'input';
         $this->object = new $this->myclass($input);
@@ -32,24 +32,24 @@ class ThemeSetModuleHandlerTest extends \PHPUnit\Framework\TestCase
 
         $input = 'input';
         $parser = new XoopsThemeSetParser($input);
-        $parser->tags = array('template','template');
+        $parser->tags = ['template', 'template'];
         $data = 'data';
         $x = $instance->handleCharacterData($parser, $data);
-        $this->assertSame(null, $x);
+        $this->assertNull($x);
         $this->assertSame($data, $parser->getTempArr('module'));
 
         $input = 'input';
         $parser = new XoopsThemeSetParser($input);
-        $parser->tags = array('image','image');
+        $parser->tags = ['image', 'image'];
         $data = 'data';
         $instance->handleCharacterData($parser, $data);
         $this->assertSame($data, $parser->getTempArr('module'));
 
         $input = 'input';
         $parser = new XoopsThemeSetParser($input);
-        $parser->tags = array('dummy','dummy');
+        $parser->tags = ['dummy', 'dummy'];
         $data = 'data';
         $instance->handleCharacterData($parser, $data);
-        $this->assertSame(false, $parser->getTempArr('module'));
+        $this->assertFalse($parser->getTempArr('module'));
     }
 }

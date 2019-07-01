@@ -35,10 +35,11 @@ class MonologUserconfigsPlugin extends Xoops\Module\Plugin\PluginAbstract implem
      */
     public function categories()
     {
-        $categories['cat_options'] = array(
-            'name'  => _MI_MONOLOG_UCONF_CAT_OPT,
-            'title' => _MI_MONOLOG_UCONF_CAT_OPT_DESC
-        );
+        $categories['cat_options'] = [
+            'name' => _MI_MONOLOG_UCONF_CAT_OPT,
+            'title' => _MI_MONOLOG_UCONF_CAT_OPT_DESC,
+        ];
+
         return $categories;
     }
 
@@ -58,16 +59,16 @@ class MonologUserconfigsPlugin extends Xoops\Module\Plugin\PluginAbstract implem
      */
     public function configs()
     {
-        $config[]=array(
+        $config[] = [
             'name' => 'phpfire_enable',
             'title' => '_MI_MONOLOG_UCONF_ENABLE_PHPFIRE',
             'description' => '',
             'formtype' => 'yesno',
             'valuetype' => 'int',
             'default' => 0,
-            'options' => array(),
-            'category' => 'cat_options'
-        );
+            'options' => [],
+            'category' => 'cat_options',
+        ];
 
         return $config;
     }

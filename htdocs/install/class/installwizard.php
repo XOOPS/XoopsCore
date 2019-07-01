@@ -21,7 +21,6 @@
  * @author      DuGris (aka L. JEN) <dugris@frxoops.org>
  * @version     $Id$
  */
-
 class XoopsInstallWizard
 {
     /**
@@ -32,7 +31,7 @@ class XoopsInstallWizard
     /**
      * @var array
      */
-    public $pages = array();
+    public $pages = [];
 
     /**
      * @var string
@@ -47,7 +46,7 @@ class XoopsInstallWizard
     /**
      * @var array
      */
-    public $configs = array();
+    public $configs = [];
 
     /**
      * @var array of Xoops\Form\Form
@@ -63,12 +62,12 @@ class XoopsInstallWizard
         // Load the main language file
         $this->initLanguage(!empty($_COOKIE['xo_install_lang']) ? $_COOKIE['xo_install_lang'] : 'en_US');
         // Setup pages
-        $pages = array();
+        $pages = [];
         include_once dirname(__DIR__) . '/include/page.php';
         $this->pages = $pages;
 
         // Load default configs
-        $configs = array();
+        $configs = [];
         include_once dirname(__DIR__) . '/include/config.php';
         $this->configs = $configs;
 
@@ -76,12 +75,13 @@ class XoopsInstallWizard
             return false;
         }
 
-        $pagename = preg_replace('~(page_)(.*)~', '$2', basename($_SERVER['PHP_SELF'], ".php"));
+        $pagename = preg_replace('~(page_)(.*)~', '$2', basename($_SERVER['PHP_SELF'], '.php'));
         $this->setPage($pagename);
 
         // Prevent client caching
-        header("Cache-Control: no-store, no-cache, must-revalidate", false);
-        header("Pragma: no-cache");
+        header('Cache-Control: no-store, no-cache, must-revalidate', false);
+        header('Pragma: no-cache');
+
         return true;
     }
 
@@ -96,16 +96,19 @@ class XoopsInstallWizard
                 header('WWW-Authenticate: Basic realm="XOOPS Installer"');
                 header('HTTP/1.0 401 Unauthorized');
                 echo 'You can not access this XOOPS installer.';
+
                 return false;
             }
-            if (INSTALL_USER != '' && $_SERVER['PHP_AUTH_USER'] != INSTALL_USER) {
+            if (INSTALL_USER != '' && INSTALL_USER != $_SERVER['PHP_AUTH_USER']) {
                 header('HTTP/1.0 401 Unauthorized');
                 echo 'You can not access this XOOPS installer.';
+
                 return false;
             }
             if (INSTALL_PASSWORD != $_SERVER['PHP_AUTH_PW']) {
                 header('HTTP/1.0 401 Unauthorized');
                 echo 'You can not access this XOOPS installer.';
+
                 return false;
             }
         }
@@ -115,8 +118,8 @@ class XoopsInstallWizard
         }
 
         $xoops = Xoops::getInstance();
-        if (!$xoops->isUser() && !empty($_COOKIE["xo_install_user"])) {
-            install_acceptUser($_COOKIE["xo_install_user"]);
+        if (!$xoops->isUser() && !empty($_COOKIE['xo_install_user'])) {
+            install_acceptUser($_COOKIE['xo_install_user']);
         }
 
         if (!$xoops->isUser()) {
@@ -125,6 +128,7 @@ class XoopsInstallWizard
         if (!$xoops->isAdmin()) {
             return false;
         }
+
         return true;
     }
 
@@ -150,7 +154,7 @@ class XoopsInstallWizard
      */
     public function initLanguage($language)
     {
-        $language = preg_replace("/[^a-z0-9_\-]/i", "", $language);
+        $language = preg_replace("/[^a-z0-9_\-]/i", '', $language);
         if (!file_exists(XOOPS_INSTALL_PATH . "/locale/{$language}/install.php")) {
             $language = 'en_US';
         }
@@ -190,9 +194,10 @@ class XoopsInstallWizard
      */
     public function baseLocation()
     {
-        $proto = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? 'https' : 'http';
+        $proto = (isset($_SERVER['HTTPS']) && 'on' === $_SERVER['HTTPS']) ? 'https' : 'http';
         $host = $_SERVER['HTTP_HOST'];
-        $base = substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], '/'));
+        $base = mb_substr($_SERVER['PHP_SELF'], 0, mb_strrpos($_SERVER['PHP_SELF'], '/'));
+
         return $proto . '://' . $host . $base;
     }
 
@@ -205,25 +210,26 @@ class XoopsInstallWizard
     {
         $pages = array_keys($this->pages);
         $pageIndex = $this->pageIndex;
-        if (!(int)$page{0}) {
-            if ($page{0} == '+') {
-                $pageIndex += substr($page, 1);
+        if (!(int)$page[0]) {
+            if ('+' == $page[0]) {
+                $pageIndex += mb_substr($page, 1);
             } else {
-                if ($page{0} == '-') {
-                    $pageIndex -= substr($page, 1);
+                if ('-' == $page[0]) {
+                    $pageIndex -= mb_substr($page, 1);
                 } else {
                     $pageIndex = (int)array_search($page, $pages);
                 }
             }
         }
         if (!isset($pages[$pageIndex])) {
-            if (defined("XOOPS_URL")) {
+            if (defined('XOOPS_URL')) {
                 return XOOPS_URL . '/';
-            } else {
-                return $this->baseLocation();
             }
+
+            return $this->baseLocation();
         }
         $page = $pages[$pageIndex];
+
         return $this->baseLocation() . "/page_{$page}.php";
     }
 
@@ -253,19 +259,19 @@ class XoopsInstallWizard
 
         /* @var Xoops\Form\Form $form */
         foreach ($this->form as $form) {
-            $ret .= "<fieldset><legend>" . $form->getTitle() . "</legend>\n";
+            $ret .= '<fieldset><legend>' . $form->getTitle() . "</legend>\n";
 
             /* @var Xoops\Form\Element $ele */
             foreach ($form->getElements() as $ele) {
                 //todo, ain't this always a object on 2.6?
                 if ($ele instanceof Xoops\Form\Element) {
                     if (!$ele->isHidden()) {
-                        if (($caption = $ele->getCaption()) != '') {
-                            $ret .= "<label class='xolabel' for='" . $ele->getName() . "'>" . $caption . "</label>";
-                            if (($desc = $ele->getDescription()) != '') {
+                        if ('' != ($caption = $ele->getCaption())) {
+                            $ret .= "<label class='xolabel' for='" . $ele->getName() . "'>" . $caption . '</label>';
+                            if ('' != ($desc = $ele->getDescription())) {
                                 $ret .= "<div class='xoform-help'>";
                                 $ret .= $desc;
-                                $ret .= "</div>";
+                                $ret .= '</div>';
                             }
                         }
                         $ret .= $ele->render() . "\n";
@@ -276,45 +282,46 @@ class XoopsInstallWizard
             }
             $ret .= "</fieldset>\n" . $hidden . "\n" . $form->renderValidationJS(true);
         }
+
         return $ret;
     }
 
-    function cleanCache($cacheFolder) {
-        $cache = array(1,2,3);
+    public function cleanCache($cacheFolder)
+    {
+        $cache = [1, 2, 3];
         if (!empty($cache)) {
             for ($i = 0; $i < count($cache); ++$i) {
                 switch ($cache[$i]) {
                     case 1:
-                        $files = glob($cacheFolder. '/caches/smarty_cache/*.*');
+                        $files = glob($cacheFolder . '/caches/smarty_cache/*.*');
                         foreach ($files as $filename) {
-                            if (basename(strtolower($filename)) !== 'index.html') {
+                            if ('index.html' !== basename(mb_strtolower($filename))) {
                                 unlink($filename);
                             }
                         }
                         break;
-
                     case 2:
                         $files = glob($cacheFolder . '/caches/smarty_compile/*.*');
                         foreach ($files as $filename) {
-                            if (basename(strtolower($filename)) !== 'index.html') {
+                            if ('index.html' !== basename(mb_strtolower($filename))) {
                                 unlink($filename);
                             }
                         }
                         break;
-
                     case 3:
                         $files = glob($cacheFolder . '/caches/xoops_cache/*.*');
                         foreach ($files as $filename) {
-                            if (basename(strtolower($filename)) !== 'index.html') {
+                            if ('index.html' !== basename(mb_strtolower($filename))) {
                                 unlink($filename);
                             }
                         }
                         break;
                 }
             }
+
             return true;
-        } else {
-            return false;
         }
+
+        return false;
     }
 }

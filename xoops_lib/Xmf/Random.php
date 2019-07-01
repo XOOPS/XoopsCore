@@ -30,14 +30,15 @@ class Random
      * algorithm specified in $hash.
      *
      * @param string  $hash  hash function to use
-     * @param integer $bytes the number of random bit to generate
+     * @param int $bytes the number of random bit to generate
      *
-     * @return string hashed token
      * @throws \Exception on insufficient entropy
+     * @return string hashed token
      */
     public static function generateOneTimeToken($hash = 'sha512', $bytes = 64)
     {
         $token = hash($hash, random_bytes($bytes));
+
         return $token;
     }
 
@@ -48,14 +49,15 @@ class Random
      * algorithm specified in $hash.
      *
      * @param string  $hash  hash function to use
-     * @param integer $bytes the number of random bytes to generate
+     * @param int $bytes the number of random bytes to generate
      *
-     * @return string hashed token
      * @throws \Exception on insufficient entropy
+     * @return string hashed token
      */
     public static function generateKey($hash = 'sha512', $bytes = 128)
     {
         $token = hash($hash, random_bytes($bytes));
+
         return $token;
     }
 }

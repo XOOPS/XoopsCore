@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/../../../../init_new.php');
+require_once(__DIR__ . '/../../../../init_new.php');
 
 class Xoops_Module_Helper_AbstractTestInstance extends Xoops\Module\Helper\HelperAbstract
 {
@@ -36,7 +36,7 @@ class Xoops_Module_Helper_AbstractTest extends \PHPUnit\Framework\TestCase
     public function test___construct()
     {
         $xoops_root_path = \XoopsBaseConfig::get('root-path');
-        $dir = $xoops_root_path.'/modules/avatar';
+        $dir = $xoops_root_path . '/modules/avatar';
         $instance = new $this->myClass($dir);
         $this->assertInstanceOf($this->myClass, $instance);
     }
@@ -46,7 +46,7 @@ class Xoops_Module_Helper_AbstractTest extends \PHPUnit\Framework\TestCase
         $instance = new $this->myClass();
 
         $x = $instance->init();
-        $this->assertSame(null, $x);
+        $this->assertNull($x);
     }
 
     public function test_setDirname()
@@ -55,7 +55,7 @@ class Xoops_Module_Helper_AbstractTest extends \PHPUnit\Framework\TestCase
 
         $dir = 'dirname';
         $x = $instance->setDirname($dir);
-        $this->assertSame(null, $x);
+        $this->assertNull($x);
 
         $x = $instance->getDirname();
         $this->assertSame($dir, $x);
@@ -67,7 +67,7 @@ class Xoops_Module_Helper_AbstractTest extends \PHPUnit\Framework\TestCase
 
         $debug = true;
         $x = $instance->setDebug($debug);
-        $this->assertSame(null, $x);
+        $this->assertNull($x);
 
         $x = $instance->getDebug();
         $this->assertSame($debug, $x);
@@ -109,7 +109,7 @@ class Xoops_Module_Helper_AbstractTest extends \PHPUnit\Framework\TestCase
         $name = 'sitename';
         $instance->setDirname('system');
         $x = $instance->getConfig($name);
-        $this->assertTrue(is_string($x));
+        $this->assertInternalType('string', $x);
         $this->assertTrue(!empty($x));
     }
 
@@ -121,8 +121,8 @@ class Xoops_Module_Helper_AbstractTest extends \PHPUnit\Framework\TestCase
         $name = 'sitename';
         $instance->setDirname('system');
         $x = $instance->getConfigs();
-        $this->assertFalse(empty($x));
-        $this->assertTrue(is_array($x));
+        $this->assertNotEmpty($x);
+        $this->assertInternalType('array', $x);
         $this->assertArrayHasKey($name, $x);
     }
 
@@ -147,8 +147,7 @@ class Xoops_Module_Helper_AbstractTest extends \PHPUnit\Framework\TestCase
         $instance->disableCache();
 
         $x = $instance->xoops()->getModuleConfig('module_cache', 'avatars');
-        $this->assertSame(array($instance->getModule()->getVar('mid') => 0), $x);
-
+        $this->assertSame([$instance->getModule()->getVar('mid') => 0], $x);
     }
 
     public function test_isCurrentModule()
@@ -171,7 +170,6 @@ class Xoops_Module_Helper_AbstractTest extends \PHPUnit\Framework\TestCase
         $value = $instance->isCurrentModule();
         $instance->xoops()->moduleDirname = $save;
         $this->assertFalse($value);
-
     }
 
     public function test_isUserAdmin()

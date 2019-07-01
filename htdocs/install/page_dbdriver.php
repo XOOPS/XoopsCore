@@ -23,7 +23,6 @@
  * @author      DuGris (aka L. JEN) <dugris@frxoops.org>
  * @version     $Id$
  */
-
 require_once __DIR__ . '/include/common.inc.php';
 
 /* @var $wizard XoopsInstallWizard */
@@ -36,8 +35,8 @@ if (array_key_exists('DB_PARAMETERS', $settings)) {
     unset($settings['DB_PARAMETERS']);
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $params = array('DB_DRIVER', 'DB_PREFIX');
+if ('POST' === $_SERVER['REQUEST_METHOD']) {
+    $params = ['DB_DRIVER', 'DB_PREFIX'];
     foreach ($params as $name) {
         $settings[$name] = $_POST[$name];
     }
@@ -45,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $error = '';
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($settings['DB_DRIVER'])) {
+if ('POST' === $_SERVER['REQUEST_METHOD'] && !empty($settings['DB_DRIVER'])) {
     $_SESSION['settings'] = $settings;
     $wizard->redirectToPage('+1');
     exit();
@@ -55,10 +54,10 @@ if (@empty($settings['DB_DRIVER'])) {
     // Fill with default values
     $settings = array_merge(
         $settings,
-        array(
+        [
             'DB_DRIVER' => 'pdo_mysql',
-            'DB_PREFIX' => 'x' . substr(md5(time()), 0, 3),
-        )
+            'DB_PREFIX' => 'x' . mb_substr(md5(time()), 0, 3),
+        ]
     );
 }
 ob_start();

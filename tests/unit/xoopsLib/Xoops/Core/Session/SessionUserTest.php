@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__.'/../../../../init_new.php';
+require_once __DIR__ . '/../../../../init_new.php';
 
 use Xoops\Core\Session\Manager;
 use Xoops\Core\Session\SessionUser;
@@ -17,7 +17,7 @@ class SessionUserTest extends \PHPUnit\Framework\TestCase
      */
     protected function setUp()
     {
-        $session = new Manager;
+        $session = new Manager();
         $this->object = new SessionUser($session);
     }
 

@@ -22,21 +22,20 @@
 class WaitingLocaleEn_US
 {
     // Module
-    const MODULE_NAME = "Waiting Contents";
-    const MODULE_DESC = "Provides a block of waiting contents";
-    const DONATION_DESC = "Donation for module Waiting";
+    const MODULE_NAME = 'Waiting Contents';
+    const MODULE_DESC = 'Provides a block of waiting contents';
+    const DONATION_DESC = 'Donation for module Waiting';
 
-    const BLOCK_NAME = "Waiting";
-    const BLOCK_DESC = "Shows contents waiting for approval";
+    const BLOCK_NAME = 'Waiting';
+    const BLOCK_DESC = 'Shows contents waiting for approval';
 
     // Admin
-    const PLUGINS = "Plugins";
-    const NO_PLUGINS_FOUND = "No plugins were found!";
+    const PLUGINS = 'Plugins';
+    const NO_PLUGINS_FOUND = 'No plugins were found!';
 
     //Others
-    const PLUGIN_MODULE_NAME = "Module Name";
-    const PLUGIN_MODULE_DIR_NAME = "Directory Name";
-    const PLUGIN_WAITING_ITEMS = "Waiting Items";
-    const PLUGIN_NO_RESULTS = "No results!";
-
+    const PLUGIN_MODULE_NAME = 'Module Name';
+    const PLUGIN_MODULE_DIR_NAME = 'Directory Name';
+    const PLUGIN_WAITING_ITEMS = 'Waiting Items';
+    const PLUGIN_NO_RESULTS = 'No results!';
 }

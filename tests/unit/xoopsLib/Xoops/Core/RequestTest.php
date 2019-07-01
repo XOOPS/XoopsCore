@@ -29,7 +29,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase
     public function testGetMethod()
     {
         $method = Request::getMethod();
-        $this->assertTrue(in_array($method, array('GET', 'HEAD', 'POST', 'PUT')));
+        $this->assertTrue(in_array($method, ['GET', 'HEAD', 'POST', 'PUT']));
     }
 
     public function testGetVar()
@@ -39,7 +39,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase
         $_REQUEST[$varname] = $value;
 
         $this->assertEquals($value, Request::getVar($varname));
-        $this->assertNull(Request::getVar($varname.'no-such-key'));
+        $this->assertNull(Request::getVar($varname . 'no-such-key'));
     }
 
     public function testGetInt()
@@ -58,7 +58,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase
         $_REQUEST[$varname] = 'notanumber';
         $this->assertEquals(0, Request::getInt($varname));
 
-        $this->assertEquals(0, Request::getInt($varname.'no-such-key'));
+        $this->assertEquals(0, Request::getInt($varname . 'no-such-key'));
     }
 
     public function testGetFloat()
@@ -97,7 +97,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase
         $_REQUEST[$varname] = false;
         $this->assertFalse(Request::getBool($varname));
 
-        $this->assertFalse(Request::getBool($varname.'no-such-key'));
+        $this->assertFalse(Request::getBool($varname . 'no-such-key'));
     }
 
     public function testGetWord()
@@ -142,18 +142,18 @@ class RequestTest extends \PHPUnit\Framework\TestCase
     {
         $varname = 'RequestTest';
 
-        $testArray = array('one', 'two', 'three');
+        $testArray = ['one', 'two', 'three'];
         $_REQUEST[$varname] = $testArray;
 
         $get = Request::getArray($varname, null, 'request');
-        $this->assertTrue(is_array($get));
+        $this->assertInternalType('array', $get);
         $this->assertEquals($get, $testArray);
 
-        $testArray2 = array('one', 'two', '<script>three</script>');
+        $testArray2 = ['one', 'two', '<script>three</script>'];
         $_REQUEST[$varname] = $testArray2;
 
         $get = Request::getArray($varname, null, 'request');
-        $this->assertTrue(is_array($get));
+        $this->assertInternalType('array', $get);
         $this->assertEquals($get, $testArray);
     }
 
@@ -221,7 +221,6 @@ class RequestTest extends \PHPUnit\Framework\TestCase
         $_REQUEST[$varname] = '316.32.48.64';
         $default = '0.0.0.0';
         $this->assertEquals($default, Request::getIP($varname, $default));
-
     }
 
     public function testGetIPv6()
@@ -277,7 +276,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase
         $_REQUEST[$varname] = 'Lorem';
 
         $get = Request::get('request');
-        $this->assertTrue(is_array($get));
+        $this->assertInternalType('array', $get);
         $this->assertEquals('Lorem', $get[$varname]);
 
         unset($get);
@@ -289,7 +288,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase
     public function testSet()
     {
         $varname = 'RequestTest';
-        Request::set(array($varname => 'Pourquoi'), 'get');
+        Request::set([$varname => 'Pourquoi'], 'get');
         $this->assertEquals($_REQUEST[$varname], 'Pourquoi');
     }
 }

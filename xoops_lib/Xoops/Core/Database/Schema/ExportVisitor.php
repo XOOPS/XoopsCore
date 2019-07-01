@@ -11,12 +11,12 @@
 
 namespace Xoops\Core\Database\Schema;
 
-use Doctrine\DBAL\Schema\Table;
-use Doctrine\DBAL\Schema\Schema;
 use Doctrine\DBAL\Schema\Column;
 use Doctrine\DBAL\Schema\ForeignKeyConstraint;
-use Doctrine\DBAL\Schema\Sequence;
 use Doctrine\DBAL\Schema\Index;
+use Doctrine\DBAL\Schema\Schema;
+use Doctrine\DBAL\Schema\Sequence;
+use Doctrine\DBAL\Schema\Table;
 use Doctrine\DBAL\Schema\Visitor\Visitor;
 
 /**
@@ -31,7 +31,6 @@ use Doctrine\DBAL\Schema\Visitor\Visitor;
  */
 class ExportVisitor implements Visitor
 {
-
     protected $schemaArray;
 
     /**
@@ -101,15 +100,15 @@ class ExportVisitor implements Visitor
     public function acceptForeignKey(Table $localTable, ForeignKeyConstraint $fkConstraint)
     {
         if (!isset($this->schemaArray['tables'][$localTable->getName()]['constraint'])) {
-            $this->schemaArray['tables'][$localTable->getName()]['constraint']=array();
+            $this->schemaArray['tables'][$localTable->getName()]['constraint'] = [];
         }
-        $this->schemaArray['tables'][$localTable->getName()]['constraint'][] = array(
+        $this->schemaArray['tables'][$localTable->getName()]['constraint'][] = [
                 'name' => $fkConstraint->getName(),
                 'localcolumns' => $fkConstraint->getLocalColumns(),
                 'foreigntable' => $fkConstraint->getForeignTableName(),
                 'foreigncolumns' => $fkConstraint->getForeignColumns(),
-                'options' => $fkConstraint->getOptions()
-            );
+                'options' => $fkConstraint->getOptions(),
+            ];
     }
 
     /**
@@ -122,12 +121,12 @@ class ExportVisitor implements Visitor
      */
     public function acceptIndex(Table $table, Index $index)
     {
-        $this->schemaArray['tables'][$table->getName()]['indexes'][$index->getName()] = array(
+        $this->schemaArray['tables'][$table->getName()]['indexes'][$index->getName()] = [
                 'name' => $index->getName(),
                 'columns' => $index->getColumns(),
                 'unique' => $index->isUnique(),
-                'primary' => $index->isPrimary()
-            );
+                'primary' => $index->isPrimary(),
+            ];
     }
 
     /**
@@ -139,10 +138,10 @@ class ExportVisitor implements Visitor
      */
     public function acceptSequence(Sequence $sequence)
     {
-        $this->schemaArray['sequence'][$sequence->getName()] = array(
+        $this->schemaArray['sequence'][$sequence->getName()] = [
                 'name' => $sequence->getName(),
                 'allocationsize' => $sequence->getAllocationSize(),
-                'initialvalue' => $sequence->getInitialValue()
-            );
+                'initialvalue' => $sequence->getInitialValue(),
+            ];
     }
 }

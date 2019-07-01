@@ -21,7 +21,6 @@ class XmlTagHandler
 
     /**
      * @abstract
-     * @param SaxParser $parser
      * @param array     $attributes
      * @return void
      */
@@ -31,7 +30,6 @@ class XmlTagHandler
 
     /**
      * @abstract
-     * @param SaxParser $parser
      * @return void
      */
     public function handleEndElement(SaxParser $parser)
@@ -40,7 +38,6 @@ class XmlTagHandler
 
     /**
      * @abstract
-     * @param SaxParser $parser
      * @param string    $data
      * @return void
      */

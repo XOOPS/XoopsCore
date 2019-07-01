@@ -17,7 +17,6 @@
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
-
 use Xoops\Core\Database\Connection;
 use Xoops\Core\Kernel\XoopsObject;
 use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
@@ -28,14 +27,13 @@ use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
  */
 class UserconfigsItem extends XoopsObject
 {
-
     /**
      * Config options
      *
      * @var    array
      * @access    private
      */
-    private $_confOptions = array();
+    private $_confOptions = [];
 
     /**
      * Constructor
@@ -166,9 +164,11 @@ class UserconfigsItem extends XoopsObject
             break;
         case 'array':
             $value = @unserialize($this->getVar('conf_value', 'n'));
-            return $value ? $value : array();
+
+            return $value ? $value : [];
         case 'float':
             $value = $this->getVar('conf_value', 'n');
+
             return (float)$value;
             break;
         case 'textarea':
@@ -238,7 +238,7 @@ class UserconfigsItem extends XoopsObject
      **/
     public function clearConfOptions()
     {
-        $this->_confOptions = array();
+        $this->_confOptions = [];
     }
 }
 

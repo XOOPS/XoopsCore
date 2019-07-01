@@ -33,7 +33,7 @@ class HtmlFile extends ListAbstract
      */
     public static function getList($path = '', $prefix = '')
     {
-        $fileList = array();
+        $fileList = [];
         if (is_dir($path) && $handle = opendir($path)) {
             while (false !== ($file = readdir($handle))) {
                 if ((preg_match('/\.(htm|html|xhtml)$/i', $file) && !is_dir($file))) {

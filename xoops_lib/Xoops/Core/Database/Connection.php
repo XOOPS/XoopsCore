@@ -11,10 +11,10 @@
 
 namespace Xoops\Core\Database;
 
+use Doctrine\Common\EventManager;
+use Doctrine\DBAL\Cache\QueryCacheProfile;
 use Doctrine\DBAL\Configuration;
 use Doctrine\DBAL\Driver;
-use Doctrine\DBAL\Cache\QueryCacheProfile;
-use Doctrine\Common\EventManager;
 
 /**
  * Connection wrapper for Doctrine DBAL Connection
@@ -37,7 +37,6 @@ class Connection extends \Doctrine\DBAL\Connection
      */
     protected $safe;
 
-
     /**
      * @var bool $force true means force writing to database even if safe is not true.
      */
@@ -47,7 +46,6 @@ class Connection extends \Doctrine\DBAL\Connection
      * @var bool $transactionActive true means a transaction is in process.
      */
     protected $transactionActive;
-
 
     /**
      * this is a public setter for the safe variable
@@ -119,7 +117,7 @@ class Connection extends \Doctrine\DBAL\Connection
             // We are dead in the water. This exception may contain very sensitive
             // information and cannot be allowed to be displayed as is.
             //\Xoops::getInstance()->events()->triggerEvent('core.exception', $e);
-            trigger_error("Cannot get database connection", E_USER_ERROR);
+            trigger_error('Cannot get database connection', E_USER_ERROR);
         }
     }
 
@@ -134,11 +132,11 @@ class Connection extends \Doctrine\DBAL\Connection
     public function prefix($tablename = '')
     {
         $prefix = \XoopsBaseConfig::get('db-prefix');
-        if ($tablename != '') {
+        if ('' != $tablename) {
             return $prefix . '_' . $tablename;
-        } else {
-            return $prefix;
         }
+
+        return $prefix;
     }
 
     /**
@@ -150,14 +148,14 @@ class Connection extends \Doctrine\DBAL\Connection
      * @param array  $data      An associative array containing column-value pairs.
      * @param array  $types     Types of the inserted data.
      *
-     * @return integer The number of affected rows.
+     * @return int The number of affected rows.
      */
-    public function insertPrefix($tableName, array $data, array $types = array())
+    public function insertPrefix($tableName, array $data, array $types = [])
     {
         $tableName = $this->prefix($tableName);
+
         return $this->insert($tableName, $data, $types);
     }
-
 
     /**
      * Executes an SQL UPDATE statement on a table.
@@ -171,11 +169,12 @@ class Connection extends \Doctrine\DBAL\Connection
      * @param array  $types      Types of the merged $data and
      * $identifier arrays in that order.
      *
-     * @return integer The number of affected rows.
+     * @return int The number of affected rows.
      */
-    public function updatePrefix($tableName, array $data, array $identifier, array $types = array())
+    public function updatePrefix($tableName, array $data, array $identifier, array $types = [])
     {
         $tableName = $this->prefix($tableName);
+
         return $this->update($tableName, $data, $identifier, $types);
     }
 
@@ -188,12 +187,12 @@ class Connection extends \Doctrine\DBAL\Connection
      * @param array  $identifier The deletion criteria.
      * An associative array containing column-value pairs.
      *
-     * @return integer The number of affected rows.
-     *
+     * @return int The number of affected rows.
      */
     public function deletePrefix($tableName, array $identifier)
     {
         $tableName = $this->prefix($tableName);
+
         return $this->delete($tableName, $identifier);
     }
 
@@ -214,8 +213,8 @@ class Connection extends \Doctrine\DBAL\Connection
      */
     public function executeQuery(
         $query,
-        array $params = array(),
-        $types = array(),
+        array $params = [],
+        $types = [],
         QueryCacheProfile $qcp = null
     ) {
         return parent::executeQuery($query, $params, $types, $qcp);
@@ -234,20 +233,21 @@ class Connection extends \Doctrine\DBAL\Connection
      * @param array  $params The query parameters.
      * @param array  $types  The parameter types.
      *
-     * @return integer The number of affected rows.
+     * @return int The number of affected rows.
      *
      * @internal PERF: Directly prepares a driver statement, not a wrapper.
      *
      * @todo build a better exception catching system.
      */
-    public function executeUpdate($query, array $params = array(), array $types = array())
+    public function executeUpdate($query, array $params = [], array $types = [])
     {
         $events = \Xoops::getInstance()->events();
         if ($this->safe || $this->force) {
             if (!$this->transactionActive) {
                 $this->force = false;
-            };
+            }
             $events->triggerEvent('core.database.query.start');
+
             try {
                 $result = parent::executeUpdate($query, $params, $types);
             } catch (\Exception $e) {
@@ -259,13 +259,12 @@ class Connection extends \Doctrine\DBAL\Connection
             //$events->triggerEvent('core.database.query.failure', (array('Not safe:')));
             return (int) 0;
         }
-        if ($result != 0) {
+        if (0 != $result) {
             //$events->triggerEvent('core.database.query.success', (array($query)));
             return (int) $result;
-        } else {
-            //$events->triggerEvent('core.database.query.failure', (array($query)));
-            return (int) 0;
         }
+        //$events->triggerEvent('core.database.query.failure', (array($query)));
+        return (int) 0;
     }
 
     /**
@@ -313,34 +312,33 @@ class Connection extends \Doctrine\DBAL\Connection
      * @todo need to check if doctrine allows more than one query to be sent.
      * This code assumes only one query is sent and anything else sent is not
      * a query. This will have to be readdressed if this is wrong.
-     *
      */
     public function query()
     {
         $events = \Xoops::getInstance()->events();
         if (!$this->safe && !$this->force) {
             $sql = ltrim(func_get_arg(0));
-            if (!$this->safe && strtolower(substr($sql, 0, 6)) !== 'select') {
+            if (!$this->safe && 'select' !== mb_strtolower(mb_substr($sql, 0, 6))) {
                 // $events->triggerEvent('core.database.query.failure', (array('Not safe:')));
                 return null;
             }
         }
         $this->force = false; // resets $force back to false
         $events->triggerEvent('core.database.query.start');
+
         try {
-            $result = call_user_func_array(array('parent', 'query'), func_get_args());
+            $result = call_user_func_array(['parent', 'query'], func_get_args());
         } catch (\Exception $e) {
             $events->triggerEvent('core.exception', $e);
-            $result=null;
+            $result = null;
         }
         $events->triggerEvent('core.database.query.end');
         if ($result) {
             //$events->triggerEvent('core.database.query.success', (array('')));
             return $result;
-        } else {
-            //$events->triggerEvent('core.database.query.failure', (array('')));
-            return null;
         }
+        //$events->triggerEvent('core.database.query.failure', (array('')));
+        return null;
     }
 
     /**
@@ -353,17 +351,19 @@ class Connection extends \Doctrine\DBAL\Connection
      */
     public function queryFromFile($file)
     {
-        if (false !== ($fp = fopen($file, 'r'))) {
+        if (false !== ($fp = fopen($file, 'rb'))) {
             $sql_queries = trim(fread($fp, filesize($file)));
             \SqlUtility::splitMySqlFile($pieces, $sql_queries);
             foreach ($pieces as $query) {
                 $prefixed_query = \SqlUtility::prefixQuery(trim($query), $this->prefix());
-                if ($prefixed_query != false) {
+                if (false != $prefixed_query) {
                     $this->query($prefixed_query[0]);
                 }
             }
+
             return true;
         }
+
         return false;
     }
 

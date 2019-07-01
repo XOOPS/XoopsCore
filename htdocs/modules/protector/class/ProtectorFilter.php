@@ -22,71 +22,72 @@
 // Abstract of each filter classes
 class ProtectorFilterAbstract
 {
-    var $protector = null;
+    public $protector = null;
 
-    var $errors = array();
+    public $errors = [];
 
-    function ProtectorFilterAbstract()
+    public function ProtectorFilterAbstract()
     {
         $xoops = Xoops::getInstance();
         $language = $xoops->getConfig('language');
         $this->protector = Protector::getInstance();
-        $lang = !$language  ? @$this->protector->_conf['default_lang'] : $language;
+        $lang = !$language ? @$this->protector->_conf['default_lang'] : $language;
         @include_once dirname(__DIR__) . '/language/' . $lang . '/main.php';
         if (!defined('_MD_PROTECTOR_YOUAREBADIP')) {
             include_once dirname(__DIR__) . '/language/english/main.php';
         }
     }
 
-    function isMobile()
+    public function isMobile()
     {
         if (class_exists('Wizin_User')) {
             // WizMobile (gusagi)
             $user = Wizin_User::getSingleton();
+
             return $user->bIsMobile;
-        } else {
-            if (defined('HYP_K_TAI_RENDER') && HYP_K_TAI_RENDER) {
-                // hyp_common ktai-renderer (nao-pon)
-                return true;
-            } else {
-                return false;
-            }
         }
+        if (defined('HYP_K_TAI_RENDER') && HYP_K_TAI_RENDER) {
+            // hyp_common ktai-renderer (nao-pon)
+            return true;
+        }
+
+        return false;
     }
 }
 
 // Filter Handler class (singleton)
 class ProtectorFilterHandler
 {
-    var $protector = null;
+    public $protector = null;
 
-    var $filters_base = '';
+    public $filters_base = '';
 
-    function ProtectorFilterHandler()
+    public function ProtectorFilterHandler()
     {
         $this->protector = Protector::getInstance();
         $this->filters_base = dirname(__DIR__) . '/filters_enabled';
     }
 
-    static function getInstance()
+    public static function getInstance()
     {
         static $instance;
         if (!isset($instance)) {
-            $instance = new ProtectorFilterHandler();
+            $instance = new self();
         }
+
         return $instance;
     }
 
     // return: false : execute default action
-    function execute($type)
+    public function execute($type)
     {
         $ret = 0;
 
         $dh = opendir($this->filters_base);
-        while (($file = readdir($dh)) !== false) {
-            if (strncmp($file, $type . '_', strlen($type) + 1) === 0) {
+        while (false !== ($file = readdir($dh))) {
+            if (0 === strncmp($file, $type . '_', mb_strlen($type) + 1)) {
                 include_once $this->filters_base . '/' . $file;
-                $plugin_name = 'protector_' . substr($file, 0, -4);
+                $plugin_name = 'protector_' . mb_substr($file, 0, -4);
                 if (function_exists($plugin_name)) {
                     // old way
                     $ret |= call_user_func($plugin_name);

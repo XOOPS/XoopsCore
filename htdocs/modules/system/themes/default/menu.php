@@ -29,7 +29,7 @@ use Xoops\Core\FixedGroups;
  */
 
 $xoops = Xoops::getInstance();
-$groups = array();
+$groups = [];
 if (is_object($xoops->user)) {
     $groups = $xoops->user->getGroups();
 }

@@ -19,10 +19,10 @@
 
 namespace Xoops\Core\Kernel\Handlers;
 
+use Doctrine\DBAL\ParameterType;
 use Xoops\Core\Database\Connection;
 use Xoops\Core\Kernel\CriteriaElement;
 use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
-use Doctrine\DBAL\ParameterType;
 
 /**
  * XOOPS tplset handler class.
@@ -37,7 +37,6 @@ use Doctrine\DBAL\ParameterType;
  */
 class XoopsTplSetHandler extends XoopsPersistableObjectHandler
 {
-
     /**
      * Constructor
      *
@@ -68,7 +67,7 @@ class XoopsTplSetHandler extends XoopsPersistableObjectHandler
 
         $tplset = false;
         $tplset_name = trim($tplset_name);
-        if ($tplset_name != '') {
+        if ('' != $tplset_name) {
             $qb->select('*')
                 ->fromPrefix('system_tplset', null)
                 ->where($eb->eq('tplset_name', ':tplsetname'))
@@ -78,11 +77,12 @@ class XoopsTplSetHandler extends XoopsPersistableObjectHandler
                 return false;
             }
             $allrows = $result->fetchAll();
-            if (count($allrows) == 1) {
+            if (1 == count($allrows)) {
                 $tplset = new XoopsTplSet();
                 $tplset->assignVars(reset($allrows));
             }
         }
+
         return $tplset;
     }
 
@@ -95,11 +95,12 @@ class XoopsTplSetHandler extends XoopsPersistableObjectHandler
      **/
     public function getNameList(CriteriaElement $criteria = null)
     {
-        $ret = array();
+        $ret = [];
         $tplsets = $this->getObjects($criteria, true);
         foreach (array_keys($tplsets) as $i) {
             $ret[$tplsets[$i]->getVar('tplset_name')] = $tplsets[$i]->getVar('tplset_name');
         }
+
         return $ret;
     }
 }

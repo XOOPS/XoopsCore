@@ -1,4 +1,5 @@
 <?php
+
 namespace Xoops\Core\Lists;
 
 require_once __DIR__ . '/../../../../init_new.php';
@@ -21,7 +22,7 @@ class MonthTest extends \PHPUnit\Framework\TestCase
      */
     protected function setUp()
     {
-        $this->object = new Month;
+        $this->object = new Month();
     }
 
     /**

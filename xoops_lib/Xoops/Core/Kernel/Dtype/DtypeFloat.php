@@ -11,7 +11,6 @@
 
 namespace Xoops\Core\Kernel\Dtype;
 
-use Xoops\Core\Kernel\Dtype;
 use Xoops\Core\Kernel\XoopsObject;
 
 /**
@@ -38,6 +37,7 @@ class DtypeFloat extends DtypeAbstract
     {
         $value = $obj->vars[$key]['value'];
         $value = (float)($value);
+
         return $value;
     }
 }

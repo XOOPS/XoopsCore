@@ -61,7 +61,6 @@ abstract class CriteriaElement
      */
     protected $groupBy = '';
 
-
     /**
      * Render the criteria element
      *
@@ -140,8 +139,8 @@ abstract class CriteriaElement
     public function setOrder($order)
     {
         if (is_string($order)) {
-            $order = strtoupper($order);
-            if (in_array($order, array('ASC', 'DESC'))) {
+            $order = mb_strtoupper($order);
+            if (in_array($order, ['ASC', 'DESC'])) {
                 $this->order = $order;
             }
         }
@@ -220,6 +219,6 @@ abstract class CriteriaElement
      */
     public function getGroupBy()
     {
-        return isset($this->groupBy) ? $this->groupBy : "";
+        return isset($this->groupBy) ? $this->groupBy : '';
     }
 }

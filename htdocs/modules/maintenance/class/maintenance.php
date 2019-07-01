@@ -35,8 +35,8 @@ class Maintenance
      */
     public function __construct()
     {
-        $db           = \XoopsDatabaseFactory::getDatabaseConnection();
-        $this->db     = $db;
+        $db = \XoopsDatabaseFactory::getDatabaseConnection();
+        $this->db = $db;
         $this->prefix = $this->db->prefix . '_';
     }
 
@@ -49,18 +49,18 @@ class Maintenance
      */
     public function displayTables($array = true)
     {
-        $tables = array();
+        $tables = [];
         $result = $this->db->queryF('SHOW TABLES');
         while (false !== ($myrow = $this->db->fetchArray($result))) {
             $value = array_values($myrow);
-            $value = substr($value[0], strlen($this->prefix));
+            $value = mb_substr($value[0], mb_strlen($this->prefix));
             $tables[$value] = $value;
         }
         if ($array) {
             return $tables;
-        } else {
-            return implode(',', $tables);
         }
+
+        return implode(',', $tables);
     }
 
     /**
@@ -78,9 +78,9 @@ class Maintenance
         $result = $this->db->queryF('SHOW create table `' . $table . '`;');
         if ($result) {
             if ($row = $this->db->fetchArray($result)) {
-                $sql_text .= "# Table structure for table `" . $table . "` \n\n";
-                if ($drop == 1) {
-                    $sql_text .= "DROP TABLE IF EXISTS `" . $table . "`;\n\n";
+                $sql_text .= '# Table structure for table `' . $table . "` \n\n";
+                if (1 == $drop) {
+                    $sql_text .= 'DROP TABLE IF EXISTS `' . $table . "`;\n\n";
                 }
                 $verif = true;
                 $sql_text .= $row['Create Table'] . ";\n\n";
@@ -89,6 +89,7 @@ class Maintenance
         $this->db->freeRecordSet($result);
         $ret['sql_text'] = $sql_text;
         $ret['structure'] = $verif;
+
         return $ret;
     }
 
@@ -109,21 +110,21 @@ class Maintenance
             $num_fields = $this->db->getFieldsNum($result);
 
             if ($num_rows > 0) {
-                $field_type = array();
+                $field_type = [];
                 $i = 0;
                 while ($i < $num_fields) {
                     $field_type[] = $this->db->getFieldType($result, $i);
                     ++$i;
                 }
 
-                $sql_text .= "INSERT INTO `" . $table . "` values\n";
+                $sql_text .= 'INSERT INTO `' . $table . "` values\n";
                 $index = 0;
                 while ($row = $this->db->fetchRow($result)) {
                     ++$count;
-                    $sql_text .= "(";
+                    $sql_text .= '(';
                     for ($i = 0; $i < $num_fields; ++$i) {
-                        if (is_null($row[$i])) {
-                            $sql_text .= "null";
+                        if (null === $row[$i]) {
+                            $sql_text .= 'null';
                         } else {
                             switch ($field_type[$i]) {
                                 case 'int':
@@ -134,15 +135,15 @@ class Maintenance
                             }
                         }
                         if ($i < $num_fields - 1) {
-                            $sql_text .= ",";
+                            $sql_text .= ',';
                         }
                     }
-                    $sql_text .= ")";
+                    $sql_text .= ')';
 
                     if ($index < $num_rows - 1) {
-                        $sql_text .= ",";
+                        $sql_text .= ',';
                     } else {
-                        $sql_text .= ";";
+                        $sql_text .= ';';
                     }
                     $sql_text .= "\n";
                     ++$index;
@@ -152,6 +153,7 @@ class Maintenance
         $this->db->freeRecordSet($result);
         $ret['sql_text'] = $sql_text . "\n\n";
         $ret['records'] = $count;
+
         return $ret;
     }
 
@@ -164,8 +166,8 @@ class Maintenance
      */
     public function dump_write($sql_text)
     {
-        $file_name = "dump_" . date("Y.m.d") . "_" . date("H.i.s") . ".sql";
-        $path_file = "../dump/" . $file_name;
+        $file_name = 'dump_' . date('Y.m.d') . '_' . date('H.i.s') . '.sql';
+        $path_file = '../dump/' . $file_name;
         if (file_put_contents($path_file, $sql_text)) {
             $write = true;
         } else {
@@ -173,6 +175,7 @@ class Maintenance
         }
         $ret['file_name'] = $file_name;
         $ret['write'] = $write;
+
         return $ret;
     }
 }

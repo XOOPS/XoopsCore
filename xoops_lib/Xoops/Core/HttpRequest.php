@@ -23,7 +23,6 @@ namespace Xoops\Core;
  * (anticipating an official PSR-7 implementation.)
  *
  * For now, this is a reduced version of a Cake derivative.
- *
  */
 
 /**
@@ -57,20 +56,20 @@ class HttpRequest
      *
      * @var array
      */
-    protected $detectors = array(
-        'get'       => array('env' => 'REQUEST_METHOD', 'value' => 'GET'),
-        'post'      => array('env' => 'REQUEST_METHOD', 'value' => 'POST'),
-        'put'       => array('env' => 'REQUEST_METHOD', 'value' => 'PUT'),
-        'delete'    => array('env' => 'REQUEST_METHOD', 'value' => 'DELETE'),
-        'head'      => array('env' => 'REQUEST_METHOD', 'value' => 'HEAD'),
-        'options'   => array('env' => 'REQUEST_METHOD', 'value' => 'OPTIONS'),
-        'safemethod'=> array('env' => 'REQUEST_METHOD', 'options' => array('GET', 'HEAD')),
-        'ssl'       => array('env' => 'HTTPS', 'value' => 1),
-        'ajax'      => array('env' => 'HTTP_X_REQUESTED_WITH', 'value' => 'XMLHttpRequest'),
-        'flash'     => array('env' => 'HTTP_USER_AGENT', 'pattern' => '/^(Shockwave|Adobe) Flash/'),
-        'mobile'    => array(
-            'env'     => 'HTTP_USER_AGENT',
-            'options' => array(
+    protected $detectors = [
+        'get' => ['env' => 'REQUEST_METHOD', 'value' => 'GET'],
+        'post' => ['env' => 'REQUEST_METHOD', 'value' => 'POST'],
+        'put' => ['env' => 'REQUEST_METHOD', 'value' => 'PUT'],
+        'delete' => ['env' => 'REQUEST_METHOD', 'value' => 'DELETE'],
+        'head' => ['env' => 'REQUEST_METHOD', 'value' => 'HEAD'],
+        'options' => ['env' => 'REQUEST_METHOD', 'value' => 'OPTIONS'],
+        'safemethod' => ['env' => 'REQUEST_METHOD', 'options' => ['GET', 'HEAD']],
+        'ssl' => ['env' => 'HTTPS', 'value' => 1],
+        'ajax' => ['env' => 'HTTP_X_REQUESTED_WITH', 'value' => 'XMLHttpRequest'],
+        'flash' => ['env' => 'HTTP_USER_AGENT', 'pattern' => '/^(Shockwave|Adobe) Flash/'],
+        'mobile' => [
+            'env' => 'HTTP_USER_AGENT',
+            'options' => [
                 'Android',
                 'AvantGo',
                 'BlackBerry',
@@ -96,12 +95,12 @@ class HttpRequest
                 'webOS',
                 'Windows CE',
                 'Windows Phone OS',
-                'Xiino'
-            )
-        ),
-        'robot'     => array(
-            'env'     => 'HTTP_USER_AGENT',
-            'options' => array(
+                'Xiino',
+            ],
+        ],
+        'robot' => [
+            'env' => 'HTTP_USER_AGENT',
+            'options' => [
                 /* The most common ones. */
                 'Googlebot',
                 'msnbot',
@@ -149,16 +148,16 @@ class HttpRequest
                 'webbandit',
                 'www\\.almaden\\.ibm\\.com\\/cs\\/crawler',
                 'ZyBorg',
-            )
-        ),
-    );
+            ],
+        ],
+    ];
 
     /**
      * __construct
      */
     private function __construct()
     {
-        switch (strtolower($this->getEnv('REQUEST_METHOD'))) {
+        switch (mb_strtolower($this->getEnv('REQUEST_METHOD'))) {
             case 'get':
                 $params = $_GET;
                 break;
@@ -182,6 +181,7 @@ class HttpRequest
         if (null === static::$instance) {
             static::$instance = new static();
         }
+
         return static::$instance;
     }
 
@@ -194,12 +194,12 @@ class HttpRequest
      */
     public function getHeader($name = null)
     {
-        if ($name === null) {
+        if (null === $name) {
             return $name;
         }
 
         // Try to get it from the $_SERVER array first
-        if ($res = $this->getEnv('HTTP_' . strtoupper(str_replace('-', '_', $name)))) {
+        if ($res = $this->getEnv('HTTP_' . mb_strtoupper(str_replace('-', '_', $name)))) {
             return $res;
         }
 
@@ -211,6 +211,7 @@ class HttpRequest
                 return $headers[$name];
             }
         }
+
         return null;
     }
 
@@ -247,8 +248,10 @@ class HttpRequest
             if (!empty($_SERVER['QUERY_STRING'])) {
                 $_SERVER['REQUEST_URI'] .= '?' . $_SERVER['QUERY_STRING'];
             }
+
             return $_SERVER['REQUEST_URI'];
         }
+
         return isset($_SERVER['ORIG_REQUEST_URI']) ? $_SERVER['ORIG_REQUEST_URI'] : $_SERVER['REQUEST_URI'];
     }
 
@@ -282,8 +285,9 @@ class HttpRequest
     public function getDomain()
     {
         $host = $this->getHost();
-        $domain =  \Xoops::getInstance()->getBaseDomain($host);
-        return is_null($domain) ? $host : $domain;
+        $domain = \Xoops::getInstance()->getBaseDomain($host);
+
+        return null === $domain ? $host : $domain;
     }
 
     /**
@@ -294,7 +298,7 @@ class HttpRequest
     public function getSubdomains()
     {
         $host = $this->getHost();
-        $regDom  = \Xoops::getInstance()->getBaseDomain($host);
+        $regDom = \Xoops::getInstance()->getBaseDomain($host);
         $fullDom = \Xoops::getInstance()->getBaseDomain($host, true);
         if (empty($regDom) || empty($fullDom)) {
             return '';
@@ -302,6 +306,7 @@ class HttpRequest
         $regPattern = '/' . $regDom . '$/';
         $subdomain = preg_replace($regPattern, '', $fullDom);
         $subdomain = preg_replace('/\.$/', '', $subdomain);
+
         return empty($subdomain) ? '' : $subdomain;
     }
 
@@ -309,7 +314,7 @@ class HttpRequest
      * Get the Client IP address, optionally attempting to peek behind any proxies
      * to get a real routable address.
      *
-     * @param boolean $considerProxy true to enable proxy tests
+     * @param bool $considerProxy true to enable proxy tests
      *
      * @return string
      */
@@ -321,16 +326,16 @@ class HttpRequest
             return $default;
         }
 
-        $keys = array(
+        $keys = [
             'HTTP_CLIENT_IP',
             'HTTP_X_FORWARDED_FOR',
             'HTTP_X_FORWARDED',
             'HTTP_X_CLUSTER_CLIENT_IP',
             'HTTP_FORWARDED_FOR',
             'HTTP_FORWARDED',
-        );
+        ];
         foreach ($keys as $key) {
-            if (array_key_exists($key, $_SERVER) === true) {
+            if (true === array_key_exists($key, $_SERVER)) {
                 foreach (explode(',', $_SERVER[$key]) as $ip) {
                     $ip = trim($ip);
                     if (false !== filter_var(
@@ -354,11 +359,12 @@ class HttpRequest
      */
     public function getUrl()
     {
-        $url = $this->getScheme() . "://" . $this->getHost();
+        $url = $this->getScheme() . '://' . $this->getHost();
         $port = $this->getEnv('SERVER_PORT');
         if (80 != $port) {
             $url .= ":{$port}";
         }
+
         return $url . $this->getUri();
     }
 
@@ -372,29 +378,30 @@ class HttpRequest
      * @param string $name    Environment variable name.
      * @param mixed  $default default value
      *
-     * @return string|boolean Environment variable setting.
+     * @return string|bool Environment variable setting.
      * @link http://book.cakephp.org/2.0/en/core-libraries/global-constants-and-functions.html#env
      *
      * @todo this methods and Xoops::getEnv() need to be unified
      */
     public function getEnv($name, $default = null)
     {
-        if ($name === 'HTTPS') {
+        if ('HTTPS' === $name) {
             if (isset($_SERVER['HTTPS'])) {
-                return (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off');
+                return (!empty($_SERVER['HTTPS']) && 'off' !== $_SERVER['HTTPS']);
             }
-            return (strpos($this->getEnv('SCRIPT_URI'), 'https://') === 0);
+
+            return (0 === mb_strpos($this->getEnv('SCRIPT_URI'), 'https://'));
         }
 
-        if ($name === 'SCRIPT_NAME' && !isset($_SERVER[$name])) {
+        if ('SCRIPT_NAME' === $name && !isset($_SERVER[$name])) {
             if ($this->getEnv('CGI_MODE') && isset($_ENV['SCRIPT_URL'])) {
                 return $_ENV['SCRIPT_URL'];
             }
         }
 
-        if ($name === 'REMOTE_ADDR' && !isset($_SERVER[$name])) {
+        if ('REMOTE_ADDR' === $name && !isset($_SERVER[$name])) {
             $address = $this->getEnv('HTTP_PC_REMOTE_ADDR');
-            if ($address !== null) {
+            if (null !== $address) {
                 return $address;
             }
         }
@@ -406,23 +413,25 @@ class HttpRequest
             $val = $_ENV[$name];
         }
 
-        if ($val !== null) {
+        if (null !== $val) {
             return $val;
         }
 
         switch ($name) {
             case 'SCRIPT_FILENAME':
                 $val = preg_replace('#//+#', '/', $this->getEnv('PATH_TRANSLATED'));
+
                 return preg_replace('#\\\\+#', '\\', $val);
                 break;
             case 'DOCUMENT_ROOT':
                 $name = $this->getEnv('SCRIPT_NAME');
                 $filename = $this->getEnv('SCRIPT_FILENAME');
                 $offset = 0;
-                if (!strpos($name, '.php')) {
+                if (!mb_strpos($name, '.php')) {
                     $offset = 4;
                 }
-                return substr($filename, 0, -(strlen($name) + $offset));
+
+                return mb_substr($filename, 0, -(mb_strlen($name) + $offset));
                 break;
             case 'PHP_SELF':
                 return str_replace($this->getEnv('DOCUMENT_ROOT'), '', $this->getEnv('SCRIPT_FILENAME'));
@@ -433,13 +442,14 @@ class HttpRequest
             case 'HTTP_BASE':
                 $host = $this->getEnv('HTTP_HOST');
                 $val = \Xoops::getInstance()->getBaseDomain($host);
-                if (is_null($val)) {
+                if (null === $val) {
                     return $default;
-                } else {
-                    return '.' . $val;
                 }
+
+                    return '.' . $val;
                 break;
         }
+
         return $default;
     }
 
@@ -453,22 +463,22 @@ class HttpRequest
     public static function getFiles($name)
     {
         if (empty($_FILES)) {
-            return array();
+            return [];
         }
 
         if (isset($_FILES[$name])) {
             return $_FILES[$name];
         }
 
-        if (false === $pos = strpos($name, '[')) {
-            return array();
+        if (false === $pos = mb_strpos($name, '[')) {
+            return [];
         }
 
-        $base = substr($name, 0, $pos);
-        $key = str_replace(array(']', '['), array('', '"]["'), substr($name, $pos + 1, -1));
-        $code = array(sprintf('if (!isset($_FILES["%s"]["name"]["%s"])) return array();', $base, $key));
+        $base = mb_substr($name, 0, $pos);
+        $key = str_replace([']', '['], ['', '"]["'], mb_substr($name, $pos + 1, -1));
+        $code = [sprintf('if (!isset($_FILES["%s"]["name"]["%s"])) return array();', $base, $key)];
         $code[] = '$file = array();';
-        foreach (array('name', 'type', 'size', 'tmp_name', 'error') as $property) {
+        foreach (['name', 'type', 'size', 'tmp_name', 'error'] as $property) {
             $code[] = sprintf('$file["%1$s"] = $_FILES["%2$s"]["%1$s"]["%3$s"];', $property, $base, $key);
         }
         $code[] = 'return $file;';
@@ -483,11 +493,11 @@ class HttpRequest
      *
      * @param string $type The type of request you want to check.
      *
-     * @return boolean Whether or not the request is the type you are checking.
+     * @return bool Whether or not the request is the type you are checking.
      */
     public function is($type)
     {
-        $type = strtolower($type);
+        $type = mb_strtolower($type);
         if (!isset($this->detectors[$type])) {
             return false;
         }
@@ -499,6 +509,7 @@ class HttpRequest
         } elseif (isset($detect['callback']) && is_callable($detect['callback'])) {
             return call_user_func($detect['callback'], $this);
         }
+
         return false;
     }
 
@@ -507,7 +518,7 @@ class HttpRequest
      *
      * @param array $detect a detectors array entry to test against
      *
-     * @return boolean true if detect is matched, false if not
+     * @return bool true if detect is matched, false if not
      */
     protected function detectByEnv($detect)
     {
@@ -517,8 +528,10 @@ class HttpRequest
             return (bool) preg_match($detect['pattern'], $this->getEnv($detect['env']));
         } elseif (isset($detect['options'])) {
             $pattern = '/' . implode('|', $detect['options']) . '/i';
+
             return (bool) preg_match($pattern, $this->getEnv($detect['env']));
         }
+
         return false; // can't match a broken rule
     }
 
@@ -531,12 +544,13 @@ class HttpRequest
      * @param array $detect a detectors array entry to test against. Param entries are
      *                      of the form array('param' => name, 'value' => value)
      *
-     * @return boolean true if detect is matched, false if not
+     * @return bool true if detect is matched, false if not
      */
     protected function detectByParam($detect)
     {
         $name = $detect['param'];
         $value = $detect['value'];
+
         return isset($this->params[$name]) ? $this->params[$name] == $value : false;
     }
 
@@ -569,7 +583,7 @@ class HttpRequest
      */
     public function addDetector($name, $options)
     {
-        $name = strtolower($name);
+        $name = mb_strtolower($name);
         if (isset($this->detectors[$name]) && isset($options['options'])) {
             $options = \Xoops\Utils::arrayRecursiveMerge($this->detectors[$name], $options);
         }
@@ -581,7 +595,7 @@ class HttpRequest
      *
      * @param string $mediaType The content type to check for.
      *
-     * @return boolean true if client accepts the media type, otherwise false
+     * @return bool true if client accepts the media type, otherwise false
      */
     public function clientAcceptsType($mediaType)
     {
@@ -592,7 +606,7 @@ class HttpRequest
             return true;
         }
         list($type) = explode('/', $mediaType);
-        if (isset($accepts[$type.'/*'])) {
+        if (isset($accepts[$type . '/*'])) {
             return true;
         }
 
@@ -608,7 +622,7 @@ class HttpRequest
      */
     public function getAcceptMediaTypes()
     {
-        $types = array();
+        $types = [];
         $accept = $this->getHeader('ACCEPT');
 
         if (!empty($accept)) {
@@ -637,7 +651,7 @@ class HttpRequest
      */
     public function getAcceptedLanguages()
     {
-        $languages = array();
+        $languages = [];
         $accept = $this->getHeader('ACCEPT_LANGUAGE');
 
         if (!empty($accept)) {

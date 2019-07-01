@@ -1,4 +1,5 @@
 <?php
+
 namespace Xoops\Core\Handler;
 
 require_once __DIR__ . '/../../../../init_new.php';
@@ -61,7 +62,7 @@ class FactorySpecTest extends \PHPUnit\Framework\TestCase
     {
         $instance = $this->object->optional(true);
         $this->assertInstanceOf('\Xoops\Core\Handler\FactorySpec', $instance);
-        $this->assertEquals(true, $this->object->getOptional());
+        $this->assertTrue($this->object->getOptional());
     }
 
     public function testFqn()

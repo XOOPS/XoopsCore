@@ -1,7 +1,8 @@
 <?php
+
 namespace Xoops\Core\Text\Sanitizer;
 
-require_once __DIR__.'/../../../../../init_new.php';
+require_once __DIR__ . '/../../../../../init_new.php';
 
 class SanitizerConfigurableTest extends \PHPUnit\Framework\TestCase
 {
@@ -43,6 +44,6 @@ class SanitizerConfigurableTest extends \PHPUnit\Framework\TestCase
     public function testGetDefaultConfig()
     {
         $defaults = $this->object->getDefaultConfig();
-        $this->assertTrue(is_array($defaults));
+        $this->assertInternalType('array', $defaults);
     }
 }

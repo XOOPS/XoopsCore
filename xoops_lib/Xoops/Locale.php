@@ -13,8 +13,8 @@ namespace Xoops;
 
 use Punic\Data;
 use Punic\Exception\InvalidLocale;
-use Xoops\Core\HttpRequest;
 use Xmf\Request;
+use Xoops\Core\HttpRequest;
 use Xoops\Core\Theme\XoopsTheme;
 use Xoops\Locale\MessageFormatter;
 
@@ -33,7 +33,7 @@ class Locale
     protected static $currentTimeZone = null;
     protected static $defaultTimeZone = null;
     protected static $systemTimeZone = null;
-    protected static $userLocales = array();
+    protected static $userLocales = [];
 
     /**
      * get the current active locale
@@ -47,6 +47,7 @@ class Locale
             $localeArray = static::getUserLocales();
             static::$currentLocale = reset($localeArray);
         }
+
         return static::$currentLocale;
     }
 
@@ -55,9 +56,8 @@ class Locale
      *
      * @param string $locale local code
      *
-     * @return void
-     *
      * @throws InvalidLocale
+     * @return void
      */
     public static function setCurrent($locale)
     {
@@ -84,13 +84,13 @@ class Locale
                 }
             }
         }
+
         return static::$currentTimeZone;
     }
 
     /**
      * Set the current timezone
      *
-     * @param \DateTimeZone $timeZone
      *
      * @return void
      */
@@ -131,6 +131,7 @@ class Locale
             }
             static::$defaultTimeZone = static::newDateTimeZone($tz);
         }
+
         return static::$defaultTimeZone;
     }
 
@@ -148,6 +149,7 @@ class Locale
             }
             static::$systemTimeZone = static::newDateTimeZone($tz);
         }
+
         return static::$systemTimeZone;
     }
 
@@ -178,6 +180,7 @@ class Locale
             $fullPath2 = $xoops->path("{$path}/language/english/{$name}.php");
             $ret = \XoopsLoad::loadFile($fullPath2);
         }
+
         return $ret;
     }
 
@@ -191,7 +194,7 @@ class Locale
     {
         $xoops = \Xoops::getInstance();
         // expanded domain to multiple categories, e.g. module:system, framework:filter, etc.
-        if ($domain === null) {
+        if (null === $domain) {
             $path = '';
             $domain = 'xoops';
         } else {
@@ -208,6 +211,7 @@ class Locale
         } else {
             $locales = self::getUserLocales();
             $locale = reset($locales);
+
             try {
                 Data::setDefaultLocale($locale);
             } catch (InvalidLocale $e) {
@@ -221,20 +225,21 @@ class Locale
             $fullPath = $xoops->path("{$path}/locale/{$locale}/locale.php");
             $fullPath2 = $xoops->path("{$path}/locale/{$locale}/{$locale}.php");
             if (\XoopsLoad::fileExists($fullPath)) {
-                \XoopsLoad::addMap(array($domain . 'locale' => $fullPath));
+                \XoopsLoad::addMap([$domain . 'locale' => $fullPath]);
                 if (\XoopsLoad::fileExists($fullPath2)) {
-                    \XoopsLoad::addMap(array(strtolower($domain . "locale{$locale}") => $fullPath2));
+                    \XoopsLoad::addMap([mb_strtolower($domain . "locale{$locale}") => $fullPath2]);
                 }
+
                 return true;
             }
         }
+
         return false;
     }
 
     /**
      * load locale for theme
      *
-     * @param XoopsTheme $theme
      *
      * @return bool
      */
@@ -246,13 +251,15 @@ class Locale
             $fullPath = $xoops->path($theme->resourcePath("locale/{$locale}/locale.php"));
             $fullPath2 = $xoops->path($theme->resourcePath("locale/{$locale}/{$locale}.php"));
             if (\XoopsLoad::fileExists($fullPath)) {
-                \XoopsLoad::addMap(array(strtolower($theme->folderName . 'ThemeLocale') => $fullPath));
+                \XoopsLoad::addMap([mb_strtolower($theme->folderName . 'ThemeLocale') => $fullPath]);
                 if (\XoopsLoad::fileExists($fullPath2)) {
-                    \XoopsLoad::addMap(array(strtolower($theme->folderName . "ThemeLocale{$locale}") => $fullPath2));
+                    \XoopsLoad::addMap([mb_strtolower($theme->folderName . "ThemeLocale{$locale}") => $fullPath2]);
                 }
+
                 return true;
             }
         }
+
         return false;
     }
 
@@ -266,10 +273,12 @@ class Locale
         foreach ($locales as $locale) {
             $fullPath = $xoops->path("locale/{$locale}/mailer.php");
             if (\XoopsLoad::fileExists($fullPath)) {
-                \XoopsLoad::addMap(array(strtolower('XoopsMailerLocale') => $fullPath));
+                \XoopsLoad::addMap([mb_strtolower('XoopsMailerLocale') => $fullPath]);
+
                 return true;
             }
         }
+
         return false;
     }
 
@@ -283,6 +292,7 @@ class Locale
     {
         $class = self::getClassFromDirname($dirname);
         $message = self::getMessage($class, $key);
+
         return self::format($message, $params, self::getCurrent());
     }
 
@@ -296,6 +306,7 @@ class Locale
     {
         $class = self::getThemeClassFromDirname($dirname);
         $message = self::getMessage($class, $key);
+
         return self::format($message, $params, self::getCurrent());
     }
 
@@ -306,12 +317,14 @@ class Locale
      * @param string $key
      * @return string
      */
-    private static function getMessage($class, $key) {
+    private static function getMessage($class, $key)
+    {
         if (defined("$class::$key")) {
             return constant("$class::$key");
         } elseif (defined($key)) {
             return constant($key);
         }
+
         return $key;
     }
 
@@ -335,13 +348,14 @@ class Locale
         if (preg_match('~{\s*[\d\w]+\s*,~u', $message)) {
             $formatter = self::getMessageFormatter();
             $result = $formatter->format($message, $params, $language);
-            if ($result === false) {
+            if (false === $result) {
                 $errorMessage = $formatter->getErrorMessage();
                 \Xoops::getInstance()->logger()->warning("Formatting message for language '$language' failed with error: $errorMessage. The message being formatted was: $message.", [__METHOD__]);
+
                 return $message;
-            } else {
-                return $result;
             }
+
+            return $result;
         }
 
         $p = [];
@@ -359,9 +373,10 @@ class Locale
     private static function getMessageFormatter()
     {
         static $messageFormatter = null;
-        if ($messageFormatter === null) {
+        if (null === $messageFormatter) {
             $messageFormatter = new MessageFormatter();
         }
+
         return $messageFormatter;
     }
 
@@ -385,6 +400,7 @@ class Locale
         if (!$dirname) {
             $dirname = \Xoops::getInstance()->theme()->folderName;
         }
+
         return ucfirst($dirname) . 'ThemeLocale';
     }
 
@@ -405,7 +421,7 @@ class Locale
     {
         if (empty(self::$userLocales)) {
             // reset user_lang array
-            $userLocales = array();
+            $userLocales = [];
 
             // Highest priority: forced language
             //if ($this->forcedLang != NULL) {
@@ -440,6 +456,7 @@ class Locale
 
             static::$userLocales = array_unique($userLocales);
         }
+
         return static::$userLocales;
     }
 
@@ -459,10 +476,10 @@ class Locale
     {
         try {
             $keys = Data::explodeLocale($locale);
-            $key = strtolower($keys['language']);
+            $key = mb_strtolower($keys['language']);
             $key .= (empty($keys['script']) || false === $withScript) ?
-                '' : $separator . ucfirst(strtolower($keys['script']));
-            $key .= empty($keys['territory']) ? '' : $separator . strtoupper($keys['territory']);
+                '' : $separator . ucfirst(mb_strtolower($keys['script']));
+            $key .= empty($keys['territory']) ? '' : $separator . mb_strtoupper($keys['territory']);
         } catch (InvalidLocale $e) {
             $key = '';
         }
@@ -479,6 +496,6 @@ class Locale
      */
     public static function normalizeDomain($domain)
     {
-        return strtolower($domain);
+        return mb_strtolower($domain);
     }
 }

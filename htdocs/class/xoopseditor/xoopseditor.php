@@ -65,12 +65,12 @@ class XoopsEditor extends Xoops\Form\TextArea
         $this->set('cols', 50);
 
         $args = func_get_args();
-        $configs = array();
+        $configs = [];
         // For backward compatibility
         if (!empty($args)) {
             if (!is_array($args[0])) {
                 $i = 0;
-                foreach (array('caption', 'name', 'value', 'rows', 'cols', 'hiddentext') as $key) {
+                foreach (['caption', 'name', 'value', 'rows', 'cols', 'hiddentext'] as $key) {
                     if (isset($args[$i])) {
                         $configs[$key] = $args[$i];
                     }
@@ -84,7 +84,7 @@ class XoopsEditor extends Xoops\Form\TextArea
         // TODO: switch to property_exists() as of PHP 5.1.0
         $vars = get_class_vars(__CLASS__);
         foreach ($configs as $key => $val) {
-            $method = "set" . ucfirst($key);
+            $method = 'set' . ucfirst($key);
             if (method_exists($this, $method)) {
                 $this->$method($val);
             } else {
@@ -108,6 +108,7 @@ class XoopsEditor extends Xoops\Form\TextArea
     public function isActive()
     {
         $this->isEnabled = true;
+
         return $this->isEnabled;
     }
 
@@ -137,7 +138,7 @@ class XoopsEditorHandler
     /**
      * @var string
      */
-    public $root_path = "";
+    public $root_path = '';
 
     /**
      * @var bool
@@ -147,7 +148,7 @@ class XoopsEditorHandler
     /**
      * @var array
      */
-    public $allowed_editors = array();
+    public $allowed_editors = [];
 
     /**
      * Constructor
@@ -164,13 +165,14 @@ class XoopsEditorHandler
      * @static
      * @staticvar XoopsEditorHandler
      */
-    static function getInstance()
+    public static function getInstance()
     {
         static $instance;
         if (!isset($instance)) {
             $class = __CLASS__;
             $instance = new $class();
         }
+
         return $instance;
     }
 
@@ -193,18 +195,17 @@ class XoopsEditorHandler
             $OnFailure = $list[0];
         }
         $editor = $this->_loadEditor($OnFailure, $options);
+
         return $editor;
     }
 
-
     /**
-     * @param bool $noHtml
      * @return array
      */
     public function buildEditorList()
     {
-        $list = array();
-        $order = array();
+        $list = [];
+        $order = [];
         $fileList = XoopsLists::getDirListAsArray($this->root_path . '/');
 
         foreach ($fileList as $item) {
@@ -221,10 +222,11 @@ class XoopsEditorHandler
                     continue;
                 }
                 $order[] = $config['order'];
-                $list[$item] = array('title' => $config['title'], 'nohtml' => $config['nohtml']);
+                $list[$item] = ['title' => $config['title'], 'nohtml' => $config['nohtml']];
             }
         }
         array_multisort($order, $list);
+
         return $list;
     }
 
@@ -237,28 +239,28 @@ class XoopsEditorHandler
         $xoops = Xoops::getInstance();
         $list = $xoops->cache()->cacheRead(
             XoopsEditor::CACHE_KEY_EDITOR_LIST,
-            array($this, 'buildEditorList')
+            [$this, 'buildEditorList']
         );
         $editors = array_keys($list);
         if (!empty($this->allowed_editors)) {
             $editors = array_intersect($editors, $this->allowed_editors);
         }
-        $returnList = array();
+        $returnList = [];
         foreach ($editors as $name) {
             if (!empty($noHtml) && empty($list[$name]['nohtml'])) {
                 continue;
             }
             $returnList[$name] = $list[$name]['title'];
         }
+
         return $returnList;
     }
 
     /**
-     * @param XoopsEditor $editor
      * @param array $options
      * @return void
      */
-    function setConfig(XoopsEditor $editor, $options)
+    public function setConfig(XoopsEditor $editor, $options)
     {
         $editor->setConfig($options);
     }
@@ -295,6 +297,7 @@ class XoopsEditorHandler
         }
         include_once $config['file'];
         $editor = new $config['class']($options);
+
         return $editor;
     }
 }

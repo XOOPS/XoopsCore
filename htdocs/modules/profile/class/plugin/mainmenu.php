@@ -22,7 +22,7 @@ class ProfileMainmenuPlugin implements MainmenuPluginInterface
     public function mainmenu()
     {
         $helper = \Xoops::getModuleHelper(basename(dirname(dirname(__DIR__))));
-        $subMenu = array();
+        $subMenu = [];
         // Prevent wasting resources
         if ($helper->isCurrentModule()) {
             $helper->loadLanguage('modinfo');
@@ -50,6 +50,7 @@ class ProfileMainmenuPlugin implements MainmenuPluginInterface
             'link' => $helper->url(),
             'subMenu' => $subMenu,
         ];
+
         return $ret;
     }
 }

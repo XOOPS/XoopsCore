@@ -14,7 +14,6 @@ use Xoops\Core\FixedGroups;
 use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\Kernel\CriteriaCompo;
 
-
 /**
  * Extended User Profile
  *
@@ -31,7 +30,7 @@ $xoops = Xoops::getInstance();
 
 //there is no way to override current tabs when using system menu
 //this dirty hack will have to do it
-$_SERVER['REQUEST_URI'] = "admin/permissions.php";
+$_SERVER['REQUEST_URI'] = 'admin/permissions.php';
 
 // Get Action type
 $op = Request::getString('op', 'visibility');
@@ -52,18 +51,18 @@ if (isset($_REQUEST['submit'])) {
     $visibility->setVar('user_group', $_REQUEST['ug']);
     $visibility->setVar('profile_group', $_REQUEST['pg']);
     $visibility_handler->insert($visibility, true);
-    $xoops->redirect("visibility.php", 2, sprintf(_PROFILE_AM_SAVEDSUCCESS, _PROFILE_AM_PROF_VISIBLE));
+    $xoops->redirect('visibility.php', 2, sprintf(_PROFILE_AM_SAVEDSUCCESS, _PROFILE_AM_PROF_VISIBLE));
 }
-if ($op === "del") {
+if ('del' === $op) {
     $criteria = new CriteriaCompo(new Criteria('field_id', (int)($_REQUEST['field_id'])));
     $criteria->add(new Criteria('user_group', (int)($_REQUEST['ug'])));
     $criteria->add(new Criteria('profile_group', (int)($_REQUEST['pg'])));
     $visibility_handler->deleteAll($criteria, true);
-    $xoops->redirect("visibility.php", 2, sprintf(_PROFILE_AM_DELETEDSUCCESS, _PROFILE_AM_PROF_VISIBLE));
+    $xoops->redirect('visibility.php', 2, sprintf(_PROFILE_AM_DELETEDSUCCESS, _PROFILE_AM_PROF_VISIBLE));
 }
 
-$opform = new Xoops\Form\SimpleForm('', 'opform', 'permissions.php', "get");
-$op_select = new Xoops\Form\Select("", 'op', $op);
+$opform = new Xoops\Form\SimpleForm('', 'opform', 'permissions.php', 'get');
+$op_select = new Xoops\Form\Select('', 'op', $op);
 $op_select->setExtra('onchange="document.forms.opform.submit()"');
 $op_select->addOption('visibility', _PROFILE_AM_PROF_VISIBLE);
 $op_select->addOption('edit', _PROFILE_AM_PROF_EDITABLE);
@@ -106,6 +105,6 @@ $add_form->addElement($sel_pg);
 $add_form->addElement(new Xoops\Form\Button('', 'submit', XoopsLocale::A_ADD, 'submit'));
 $add_form->assign($xoops->tpl());
 
-$xoops->tpl()->display("admin:profile/visibility.tpl");
+$xoops->tpl()->display('admin:profile/visibility.tpl');
 
 $xoops->footer();

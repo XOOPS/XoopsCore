@@ -9,10 +9,10 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
-use Xoops\Module\Plugin\PluginAbstract;
-use Xmf\Metagen;
 use Doctrine\DBAL\FetchMode;
 use Doctrine\DBAL\ParameterType;
+use Xmf\Metagen;
+use Xoops\Module\Plugin\PluginAbstract;
 
 /**
  * page module
@@ -29,9 +29,9 @@ class PageSearchPlugin extends PluginAbstract implements SearchPluginInterface
      *
      * @param string[] $queryArray search terms
      * @param string   $andor      and/or how to treat search terms
-     * @param integer  $limit      max number to return
-     * @param integer  $offset     offset of first row to return
-     * @param integer  $userid     a specific user id to limit the query
+     * @param int  $limit      max number to return
+     * @param int  $offset     offset of first row to return
+     * @param int  $userid     a specific user id to limit the query
      *
      * @return array of result items
      *           'title' => the item title
@@ -40,35 +40,34 @@ class PageSearchPlugin extends PluginAbstract implements SearchPluginInterface
      *           'time' => time modified (unix timestamp)
      *           'uid' => author uid
      *           'image' => icon for search display
-     *
      */
     public function search($queryArray, $andor, $limit, $offset, $userid)
     {
-        $andor = strtolower($andor)==='and' ? 'and' : 'or';
+        $andor = 'and' === mb_strtolower($andor) ? 'and' : 'or';
 
         $qb = \Xoops::getInstance()->db()->createXoopsQueryBuilder();
         $eb = $qb->expr();
-        $qb ->select('DISTINCT *')
+        $qb->select('DISTINCT *')
             ->fromPrefix('page_content')
             ->where($eb->neq('content_status', '0'))
             ->orderBy('content_create', 'DESC')
             ->setFirstResult($offset)
             ->setMaxResults($limit);
         if (is_array($queryArray) && !empty($queryArray)) {
-            $queryParts = array();
+            $queryParts = [];
             foreach ($queryArray as $i => $q) {
                 $qterm = ':qterm' . $i;
                 $qb->setParameter($qterm, '%' . $q . '%', ParameterType::STRING);
-                $queryParts[] = $eb -> orX(
+                $queryParts[] = $eb->orX(
                     $eb->like('content_title', $qterm),
                     $eb->like('content_text', $qterm),
                     $eb->like('content_shorttext', $qterm)
                 );
             }
-            if ($andor === 'and') {
-                $qb->andWhere(call_user_func_array(array($eb, "andX"), $queryParts));
+            if ('and' === $andor) {
+                $qb->andWhere(call_user_func_array([$eb, 'andX'], $queryParts));
             } else {
-                $qb->andWhere(call_user_func_array(array($eb, "orX"), $queryParts));
+                $qb->andWhere(call_user_func_array([$eb, 'orX'], $queryParts));
             }
         } else {
             $qb->setParameter(':uid', (int) $userid, ParameterType::INTEGER);
@@ -76,20 +75,21 @@ class PageSearchPlugin extends PluginAbstract implements SearchPluginInterface
         }
 
         $myts = \Xoops\Core\Text\Sanitizer::getInstance();
-        $items = array();
+        $items = [];
         $result = $qb->execute();
         while ($myrow = $result->fetch(FetchMode::ASSOCIATIVE)) {
-            $content = $myrow["content_shorttext"] . "<br /><br />" . $myrow["content_text"];
+            $content = $myrow['content_shorttext'] . '<br /><br />' . $myrow['content_text'];
             $content = $myts->displayTarea($content);
-            $items[] = array(
+            $items[] = [
                 'title' => $myrow['content_title'],
                 'content' => Metagen::getSearchSummary($content, $queryArray),
-                'link' => "viewpage.php?id=" . $myrow["content_id"],
+                'link' => 'viewpage.php?id=' . $myrow['content_id'],
                 'time' => $myrow['content_create'],
                 'uid' => $myrow['content_author'],
                 'image' => 'images/logo_small.png',
-            );
+            ];
         }
+
         return $items;
     }
 }

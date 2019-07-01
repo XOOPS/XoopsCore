@@ -27,7 +27,7 @@ interface ContainerInterface
      * Add an element to the group
      *
      * @param Element $formElement Element to add
-     * @param boolean $required    true = entry required
+     * @param bool $required    true = entry required
      *
      * @return void
      */
@@ -43,7 +43,7 @@ interface ContainerInterface
     /**
      * getElements - get an array of forms elements
      *
-     * @param boolean $recurse true to get elements recursively
+     * @param bool $recurse true to get elements recursively
      *
      * @return array of Xoops\Form\Element
      */

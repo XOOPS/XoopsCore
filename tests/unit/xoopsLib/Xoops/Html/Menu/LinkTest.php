@@ -1,7 +1,8 @@
 <?php
+
 namespace Xoops\Html\Menu;
 
-require_once(__DIR__.'/../../../../init_new.php');
+require_once(__DIR__ . '/../../../../init_new.php');
 
 class LinkTest extends \PHPUnit\Framework\TestCase
 {
@@ -16,7 +17,7 @@ class LinkTest extends \PHPUnit\Framework\TestCase
      */
     protected function setUp()
     {
-        $this->object = new Link;
+        $this->object = new Link();
     }
 
     /**

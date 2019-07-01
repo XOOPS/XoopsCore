@@ -14,7 +14,6 @@
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author    Richard Griffith <richard@geekwright.com>
  */
-
 require dirname(dirname(__DIR__)) . '/mainfile.php';
 
 $xoops = Xoops::getInstance();
@@ -25,7 +24,7 @@ $xoops->theme()->setNamedAsset('testscss', 'modules/codex/assets/scss/test.scss'
 $xoops->theme()->setNamedAsset('testless', 'modules/codex/assets/less/test.less', 'lessphp');
 
 // add custom filtered assets just like any other assets
-$xoops->theme()->addStylesheetAssets(array('@testscss', '@testless'));
+$xoops->theme()->addStylesheetAssets(['@testscss', '@testless']);
 
 echo <<<EOT
     <p class="scss-example">This is an example of new asset managment capabilities

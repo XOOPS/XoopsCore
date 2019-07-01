@@ -50,20 +50,21 @@ class Basic extends KeyAbstract
     /**
      * create the key and store it for use
      *
-     * @return boolean true if key was created and stored, otherwise false
+     * @return bool true if key was created and stored, otherwise false
      */
     public function create()
     {
         if (!$this->storage->exists($this->name)) {
             return $this->storage->save($this->name, Random::generateKey());
         }
+
         return false;
     }
 
     /**
      * delete the key
      *
-     * @return boolean true if key was deleted, otherwise false
+     * @return bool true if key was deleted, otherwise false
      */
     public function kill()
     {

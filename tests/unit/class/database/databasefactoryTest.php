@@ -1,11 +1,11 @@
 <?php
-require_once(__DIR__.'/../../init_new.php');
+require_once(__DIR__ . '/../../init_new.php');
 
 class XoopsDatabaseFactoryTest extends \PHPUnit\Framework\TestCase
 {
     protected $myClass = 'XoopsDatabaseFactory';
 
-    public function setUp()
+    protected function setUp()
     {
     }
 
@@ -21,7 +21,7 @@ class XoopsDatabaseFactoryTest extends \PHPUnit\Framework\TestCase
         $driver = $instance->conn->getDriver();
         //$driver_conn = $driver->connect(array()); // not always possible
         $this->assertInstanceOf('\\Doctrine\\DBAL\\Driver', $driver);
-        $this->assertSame(\XoopsBaseConfig::get('db-prefix').'_test', $instance->prefix('test'));
+        $this->assertSame(\XoopsBaseConfig::get('db-prefix') . '_test', $instance->prefix('test'));
         $this->assertSame(\XoopsBaseConfig::get('db-prefix'), $instance->prefix());
     }
 }

@@ -21,7 +21,6 @@ use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
-
 class MenusMenus extends XoopsObject
 {
     /**
@@ -29,7 +28,7 @@ class MenusMenus extends XoopsObject
      */
     public function __construct()
     {
-        $this->initVar("id", XOBJ_DTYPE_INT);
+        $this->initVar('id', XOBJ_DTYPE_INT);
         $this->initVar('title', XOBJ_DTYPE_TXTBOX);
     }
 }

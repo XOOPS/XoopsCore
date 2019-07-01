@@ -1,4 +1,5 @@
 <?php
+
 namespace Xmf\Test\Key;
 
 use Xmf\Key\ArrayStorage;
@@ -24,7 +25,7 @@ class KeyAbstractTest extends \PHPUnit\Framework\TestCase
     protected function setUp()
     {
         $this->storage = new ArrayStorage();
-        $this->object = $this->getMockForAbstractClass('Xmf\Key\KeyAbstract', array($this->storage, 'test'));
+        $this->object = $this->getMockForAbstractClass('Xmf\Key\KeyAbstract', [$this->storage, 'test']);
     }
 
     /**

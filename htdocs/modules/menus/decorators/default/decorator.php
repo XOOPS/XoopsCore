@@ -29,7 +29,7 @@ class MenusDefaultDecorator extends MenusDecoratorAbstract implements MenusDecor
 
     protected $get_uid;
 
-    function start()
+    public function start()
     {
         $xoops = Xoops::getInstance();
         $member_handler = $xoops->getHandlerMember();
@@ -58,7 +58,7 @@ class MenusDefaultDecorator extends MenusDecoratorAbstract implements MenusDecor
         $this->get_uid = isset($_GET['uid']) ? (int)($_GET['uid']) : 0;
     }
 
-    function accessFilter(&$access_filter)
+    public function accessFilter(&$access_filter)
     {
         $access_filter['is_owner']['name'] = _PL_MENUS_MENUS_ISOWNER;
         $access_filter['is_owner']['method'] = 'isOwner';
@@ -66,15 +66,15 @@ class MenusDefaultDecorator extends MenusDecoratorAbstract implements MenusDecor
         $access_filter['is_not_owner']['method'] = 'isNotOwner';
     }
 
-    function decorateMenu(&$menu)
+    public function decorateMenu(&$menu)
     {
-        $decorations = array('link', 'title', 'alt_title');
+        $decorations = ['link', 'title', 'alt_title'];
         foreach ($decorations as $decoration) {
-            if ($decoration === 'alt_title' && empty($menu['alt_title'])) {
+            if ('alt_title' === $decoration && empty($menu['alt_title'])) {
                 $menu['alt_title'] = $menu['title'];
             }
             $menu[$decoration] = self::_doDecoration($menu[$decoration]);
-            if ($decoration === 'link') {
+            if ('link' === $decoration) {
                 if (!preg_match('/mailto:/i', $menu['link']) && !preg_match('#://#i', $menu['link'])) {
                     $menu['link'] = \XoopsBaseConfig::get('url') . '/' . $menu['link']; //Do not do this in other decorators
                 }
@@ -82,16 +82,17 @@ class MenusDefaultDecorator extends MenusDecoratorAbstract implements MenusDecor
         }
     }
 
-    function end(&$menus)
+    public function end(&$menus)
     {
         // TODO: Implement end() method.
     }
 
-    function hasAccess($menu, &$hasAccess)
+    public function hasAccess($menu, &$hasAccess)
     {
         $groups = $this->user_groups;
-        if ($menu['visible'] == 0 || !array_intersect($menu['groups'], $groups)) {
+        if (0 == $menu['visible'] || !array_intersect($menu['groups'], $groups)) {
             $hasAccess = false;
+
             return;
         }
 
@@ -100,12 +101,13 @@ class MenusDefaultDecorator extends MenusDecoratorAbstract implements MenusDecor
         foreach ($hooks as $method) {
             if (!self::$method()) {
                 $hasAccess = false;
+
                 return;
             }
         }
     }
 
-    function _doDecoration($string)
+    public function _doDecoration($string)
     {
         if (!preg_match('/{(.*\|.*)}/i', $string, $reg)) {
             return $string;
@@ -115,21 +117,21 @@ class MenusDefaultDecorator extends MenusDecoratorAbstract implements MenusDecor
         list($validator, $value) = array_map('strtolower', explode('|', $reg[1]));
 
         //just to prevent any bad admin to get easy passwords
-        if ($value === 'pass') {
+        if ('pass' === $value) {
             return $string;
         }
 
-        if ($validator === 'user') {
+        if ('user' === $validator) {
             $value = isset($this->user[$value]) ? $this->user[$value] : self::getExtraValue('user', $value);
             $string = str_replace($expression, $value, $string);
         }
 
-        if ($validator === 'uri') {
+        if ('uri' === $validator) {
             $value = isset($_GET[$value]) ? $_GET[$value] : 0;
             $string = str_replace($expression, $value, $string);
         }
 
-        if ($validator === 'owner') {
+        if ('owner' === $validator) {
             $value = isset($this->owner[$value]) ? $this->owner[$value] : self::getExtraValue('owner', $value);
             $string = str_replace($expression, $value, $string);
         }
@@ -137,21 +139,21 @@ class MenusDefaultDecorator extends MenusDecoratorAbstract implements MenusDecor
         return $string;
     }
 
-    function isOwner()
+    public function isOwner()
     {
-        return ($this->user_uid != 0 && ($this->user_uid == $this->get_uid)) ? true : false;
+        return (0 != $this->user_uid && ($this->user_uid == $this->get_uid)) ? true : false;
     }
 
-    function isNotOwner()
+    public function isNotOwner()
     {
         return !self::isOwner();
     }
 
-    function getExtraValue($type = 'user', $value)
+    public function getExtraValue($type, $value)
     {
         $xoops = Xoops::getInstance();
         $ret = 0;
-        $values = array('pm_new', 'pm_readed', 'pm_total');
+        $values = ['pm_new', 'pm_readed', 'pm_total'];
         if (!in_array($value, $values)) {
             return $ret;
         }
@@ -164,17 +166,17 @@ class MenusDefaultDecorator extends MenusDecoratorAbstract implements MenusDecor
         $pm_handler = $xoops->getHandlerPrivateMessage();
 
         $criteria = new CriteriaCompo();
-        if ($value === 'pm_new') {
+        if ('pm_new' === $value) {
             $criteria->add(new Criteria('read_msg', 0));
             $criteria->add(new Criteria('to_userid', $entry['uid']));
         }
 
-        if ($value === 'pm_readed') {
+        if ('pm_readed' === $value) {
             $criteria->add(new Criteria('read_msg', 1));
             $criteria->add(new Criteria('to_userid', $entry['uid']));
         }
 
-        if ($value === 'pm_total') {
+        if ('pm_total' === $value) {
             $criteria->add(new Criteria('to_userid', $entry['uid']));
         }
 

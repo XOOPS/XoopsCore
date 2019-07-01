@@ -1,12 +1,13 @@
 <?php
+
 namespace Xoops\Core\Kernel\Dtype;
 
 require_once __DIR__ . '/../../../../../init_new.php';
 
+use Money\Currency;
+use Money\Money;
 use Xoops\Core\Kernel\Dtype;
 use Xoops\Core\Kernel\XoopsObject;
-use Money\Money;
-use Money\Currency;
 
 /**
  * Test XoopsObject with a Dtype::TYPE_MONEY var
@@ -82,9 +83,9 @@ class DtypeMoneyTest extends \PHPUnit\Framework\TestCase
         $this->xObject[$key] = $testValue;
         $this->xObject->cleanVars();
         $value = $this->xObject->cleanVars[$key];
-        $this->assertTrue(is_string($value));
+        $this->assertInternalType('string', $value);
         $decode = json_decode($value, true, 2, JSON_BIGINT_AS_STRING);
-        $this->assertTrue(is_array($decode));
+        $this->assertInternalType('array', $decode);
         $this->assertSame((string) $decode['amount'], '30000');
         $this->assertSame($decode['currency'], 'EUR');
     }

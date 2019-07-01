@@ -11,7 +11,7 @@
 
 namespace Xoops\Core\Kernel\Dtype;
 
-use \DateTime;
+use DateTime;
 use Xoops\Core\Kernel\Dtype;
 use Xoops\Core\Kernel\XoopsObject;
 use Xoops\Core\Locale\Time;
@@ -42,7 +42,7 @@ class DtypeDateTime extends DtypeAbstract
     public function getVar(XoopsObject $obj, $key, $format)
     {
         $storedValue = $obj->vars[$key]['value'];
-        switch (strtolower($format)) {
+        switch (mb_strtolower($format)) {
             case Dtype::FORMAT_NONE:
             case 'n':
                 $value = $storedValue;
@@ -51,6 +51,7 @@ class DtypeDateTime extends DtypeAbstract
                 $value = Time::cleanTime($storedValue);
                 break;
         }
+
         return $value;
     }
 
@@ -72,6 +73,7 @@ class DtypeDateTime extends DtypeAbstract
         } else {
             $cleanValue = (int) $value;
         }
+
         return $cleanValue;
     }
 }

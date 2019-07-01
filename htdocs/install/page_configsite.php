@@ -24,7 +24,6 @@ use Xoops\Core\Kernel\CriteriaCompo;
  * @author      DuGris (aka L. JEN) <dugris@frxoops.org>
  * @version     $Id$
  */
-
 $xoopsOption['checkadmin'] = true;
 $xoopsOption['hascommon'] = true;
 
@@ -38,7 +37,7 @@ $GLOBALS['xoopsDB'] = \XoopsDatabaseFactory::getDatabaseConnection(true);
 /* @var $wizard XoopsInstallWizard */
 $wizard = $_SESSION['wizard'];
 $xoops->loadLocale('system');
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ('POST' === $_SERVER['REQUEST_METHOD']) {
     $config_handler = $xoops->getHandlerConfig();
     if (array_key_exists('conf_ids', $_REQUEST)) {
         foreach ($_REQUEST['conf_ids'] as $key => $conf_id) {

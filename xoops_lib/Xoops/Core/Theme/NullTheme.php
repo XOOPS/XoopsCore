@@ -36,9 +36,13 @@ class NullTheme extends XoopsTheme
     /**
      * Render the page
      *
+     * @param null|mixed $canvasTpl
+     * @param null|mixed $pageTpl
+     * @param null|mixed $contentTpl
+     * @param mixed $vars
      * @return bool
      */
-    public function render($canvasTpl = null, $pageTpl = null, $contentTpl = null, $vars = array())
+    public function render($canvasTpl = null, $pageTpl = null, $contentTpl = null, $vars = [])
     {
         return true;
     }
@@ -46,15 +50,21 @@ class NullTheme extends XoopsTheme
     /**
      * Add StyleSheet or CSS code to the document head
      *
+     * @param mixed $src
+     * @param mixed $attributes
+     * @param mixed $content
      * @return void
      */
-    public function addStylesheet($src = '', $attributes = array(), $content = '')
+    public function addStylesheet($src = '', $attributes = [], $content = '')
     {
     }
 
     /**
      * addScriptAssets - add a list of scripts to the page
      *
+     * @param mixed $assets
+     * @param mixed $filters
+     * @param null|mixed $target
      * @return void
      */
     public function addScriptAssets($assets, $filters = 'default', $target = null)
@@ -64,6 +74,9 @@ class NullTheme extends XoopsTheme
     /**
      * addStylesheetAssets - add a list of stylesheets to the page
      *
+     * @param mixed $assets
+     * @param mixed $filters
+     * @param null|mixed $target
      * @return void
      */
     public function addStylesheetAssets($assets, $filters = 'default', $target = null)
@@ -74,6 +87,8 @@ class NullTheme extends XoopsTheme
      * addBaseAssets - add a list of assets to the page, these will all
      * be combined into a single asset file at render time
      *
+     * @param mixed $type
+     * @param mixed $assets
      * @return void
      */
     public function addBaseAssets($type, $assets)
@@ -83,6 +98,7 @@ class NullTheme extends XoopsTheme
     /**
      * addBaseScriptAssets - add a list of scripts to the page
      *
+     * @param mixed $assets
      * @return void
      */
     public function addBaseScriptAssets($assets)
@@ -92,6 +108,7 @@ class NullTheme extends XoopsTheme
     /**
      * addBaseStylesheetAssets - add a list of stylesheets to the page
      *
+     * @param mixed $assets
      * @return void
      */
     public function addBaseStylesheetAssets($assets)
@@ -101,7 +118,10 @@ class NullTheme extends XoopsTheme
     /**
      * setNamedAsset - Add an asset reference to the asset manager.
      *
-     * @return boolean true if asset registers, false on error
+     * @param mixed $name
+     * @param mixed $assets
+     * @param null|mixed $filters
+     * @return bool true if asset registers, false on error
      */
     public function setNamedAsset($name, $assets, $filters = null)
     {

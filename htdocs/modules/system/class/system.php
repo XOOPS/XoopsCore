@@ -19,7 +19,6 @@
  */
 class System
 {
-
     /**
      * @var null|SystemModule
      */
@@ -50,6 +49,7 @@ class System
             $class = __CLASS__;
             $instance = new $class();
         }
+
         return $instance;
     }
 
@@ -66,6 +66,7 @@ class System
         } else {
             return false;
         }
+
         return true;
     }
 
@@ -82,7 +83,7 @@ class System
     {
         $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 1);
         @trigger_error(
-            "System::cleanVars() is deprecated, please use \\Xmf\\Request, " .
+            'System::cleanVars() is deprecated, please use \\Xmf\\Request, ' .
             "accessed from {$trace[0]['file']} line {$trace[0]['line']},",
             E_USER_DEPRECATED
         );
@@ -102,9 +103,10 @@ class System
                 $ret = (isset($global[$key])) ? filter_var($global[$key], FILTER_SANITIZE_NUMBER_INT) : $default;
                 break;
         }
-        if ($ret === false) {
+        if (false === $ret) {
             return $default;
         }
+
         return $ret;
     }
 
@@ -118,7 +120,6 @@ class System
      *                         be loaded if not specified
      * @return  boolean
      * @todo    expand domain to multiple categories, e.g. module:system, framework:filter, etc.
-     *
      */
     public function loadLanguage($name, $domain = '', $language = null)
     {
@@ -136,6 +137,7 @@ class System
         } else {
             $ret = include_once $xoops->path($path . 'english/admin/' . $name . '.php');
         }
+
         return $ret;
     }
 
@@ -146,26 +148,28 @@ class System
      */
     public function adminVersion($version, $value = '')
     {
-        static $tblVersion = array();
+        static $tblVersion = [];
         if (is_array($tblVersion) && array_key_exists($version . '.' . $value, $tblVersion)) {
             return $tblVersion[$version . '.' . $value];
         }
         $xoops = Xoops::getInstance();
         $path = $xoops->path('modules/system/admin/' . $version . '/xoops_version.php');
         if (XoopsLoad::fileExists($path)) {
-            $modversion = array();
+            $modversion = [];
             include $path;
             $retvalue = $modversion[$value];
             $tblVersion[$version . '.' . $value] = $retvalue;
+
             return $retvalue;
         }
+
         return '';
     }
 
     /**
      * System Clean cache 'xoops_data/caches/'
      *
-     * @param integer[] $cache cache caches to be cleaned
+     * @param int[] $cache cache caches to be cleaned
      *                                - 1 = Smarty cache
      *                                - 2 = Smarty compile
      *                                - 3 = cache
@@ -193,24 +197,22 @@ class System
                         $files = glob($cachePath . 'smarty_cache/*.*');
                         $total_smarty_cache = 0;
                         foreach ($files as $filename) {
-                            if (basename(strtolower($filename)) !== 'index.html') {
+                            if ('index.html' !== basename(mb_strtolower($filename))) {
                                 unlink($filename);
                                 ++$total_smarty_cache;
                             }
                         }
                         break;
-
                     case 2:
                         $files = glob($cachePath . 'smarty_compile/*.*');
                         $total_smarty_compile = 0;
                         foreach ($files as $filename) {
-                            if (basename(strtolower($filename)) !== 'index.html') {
+                            if ('index.html' !== basename(mb_strtolower($filename))) {
                                 unlink($filename);
                                 ++$total_smarty_compile;
                             }
                         }
                         break;
-
                     case 3:
                         // ask the cache to clear itself
                         $status = Xoops::getInstance()->cache()->delete('system');
@@ -218,21 +220,22 @@ class System
                         $files = glob($cachePath . 'xoops_cache/*.*');
                         $total_xoops_cache = 0;
                         foreach ($files as $filename) {
-                            if (basename(strtolower($filename)) != 'index.html') {
+                            if ('index.html' != basename(mb_strtolower($filename))) {
                                 unlink($filename);
                                 ++$total_xoops_cache;
                             }
                         }
-                        $total_xoops_cache = $status || ($total_xoops_cache>0);
+                        $total_xoops_cache = $status || ($total_xoops_cache > 0);
                         break;
                 }
             }
             $ret['smarty_cache'] = $total_smarty_cache;
             $ret['smarty_compile'] = $total_smarty_compile;
             $ret['xoops_cache'] = $total_xoops_cache;
+
             return $ret;
-        } else {
-            return false;
         }
+
+        return false;
     }
 }

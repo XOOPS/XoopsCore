@@ -19,18 +19,17 @@
  * @author          Cointin Maxime (AKA Kraven30)
  * @version         $Id$
  */
-
 $pathIcon32 = '../../media/xoops/images/icons/32/';
 
-$adminmenu = array();
+$adminmenu = [];
 
 $i = 1;
 $adminmenu[$i]['title'] = _USERRANK_MI_INDEX;
-$adminmenu[$i]['link'] = "admin/index.php";
+$adminmenu[$i]['link'] = 'admin/index.php';
 $adminmenu[$i]['icon'] = 'home.png';
 ++$i;
 $adminmenu[$i]['title'] = _USERRANK_MI_USERRANK;
-$adminmenu[$i]['link'] = "admin/userrank.php";
+$adminmenu[$i]['link'] = 'admin/userrank.php';
 $adminmenu[$i]['icon'] = 'user-icon.png';
 ++$i;
 $adminmenu[$i]['title'] = _USERRANK_MI_ABOUT;

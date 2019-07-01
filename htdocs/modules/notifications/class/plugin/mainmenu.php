@@ -16,7 +16,6 @@
  */
 class NotificationsMainmenuPlugin implements MainmenuPluginInterface
 {
-
     /**
      * @return array
      */
@@ -25,8 +24,9 @@ class NotificationsMainmenuPlugin implements MainmenuPluginInterface
         $helper = \Xoops::getModuleHelper(basename(dirname(dirname(__DIR__))));
         $ret[] = [
             'name' => $helper->getModule()->getVar('name'),
-            'link' => $helper->url()
+            'link' => $helper->url(),
         ];
+
         return $ret;
     }
 }

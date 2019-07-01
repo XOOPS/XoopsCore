@@ -52,7 +52,7 @@ class Xoops extends AuthAbstract
         $user = false;
         if ($member_handler) {
             $user = $member_handler->loginUser($uname, $pwd);
-            if ($user == false) {
+            if (false == $user) {
                 $this->setErrors(1, \XoopsLocale::E_INCORRECT_LOGIN);
             }
         }

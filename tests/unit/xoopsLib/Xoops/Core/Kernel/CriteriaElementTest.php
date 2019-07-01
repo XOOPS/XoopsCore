@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/../../../../init_new.php');
+require_once(__DIR__ . '/../../../../init_new.php');
 
 use Doctrine\DBAL\Query\QueryBuilder;
 
@@ -8,15 +8,19 @@ class Kernel_CriteriaElementTestInstance extends Xoops\Core\Kernel\CriteriaEleme
     public function render()
     {
     }
+
     public function renderWhere()
     {
     }
+
     public function renderLdap()
     {
     }
+
     public function renderQb(QueryBuilder $qb = null, $whereMode = '')
     {
     }
+
     public function buildExpressionQb(QueryBuilder $qb)
     {
     }
@@ -53,12 +57,12 @@ class Kernel_CriteriaElementTest extends \PHPUnit\Framework\TestCase
         $save = $instance->getOrder();
         $order = 'asc';
         $instance->setOrder($order);
-        $this->assertSame(strtoupper($order), $instance->getOrder());
+        $this->assertSame(mb_strtoupper($order), $instance->getOrder());
 
         $save = $instance->getOrder();
         $order = 'desc';
         $instance->setOrder($order);
-        $this->assertSame(strtoupper($order), $instance->getOrder());
+        $this->assertSame(mb_strtoupper($order), $instance->getOrder());
 
         $save = $instance->getOrder();
         $order = 'dummy';

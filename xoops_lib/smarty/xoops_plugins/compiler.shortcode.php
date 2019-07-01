@@ -13,6 +13,7 @@
  * @copyright   XOOPS Project (http://xoops.org)
  * @license     GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author      trabis <lusopoemas@gmail.com>
+ * @param mixed $args
  */
 
 /**
@@ -22,7 +23,6 @@
  * Output example: <b>Hello World<b>
  *
  * @param array $args
- * @param Smarty $smarty
  * @return string
  */
 function smarty_compiler_shortcode($args, Smarty $smarty)
@@ -30,6 +30,7 @@ function smarty_compiler_shortcode($args, Smarty $smarty)
     if ($string = reset($args)) {
         $string = trim($string, " '\"\t\n\r\0\x0B");
         $shortCodes = \Xoops\Core\Text\Sanitizer::getInstance()->getShortCodes();
+
         return $shortCodes->process($string);
     }
 }

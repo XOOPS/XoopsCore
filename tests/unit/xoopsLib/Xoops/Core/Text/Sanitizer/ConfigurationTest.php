@@ -1,7 +1,8 @@
 <?php
+
 namespace Xoops\Core\Text\Sanitizer;
 
-require_once __DIR__.'/../../../../../init_new.php';
+require_once __DIR__ . '/../../../../../init_new.php';
 
 class ConfigurationTest extends \PHPUnit\Framework\TestCase
 {
@@ -16,7 +17,7 @@ class ConfigurationTest extends \PHPUnit\Framework\TestCase
      */
     protected function setUp()
     {
-        $this->object = new Configuration;
+        $this->object = new Configuration();
     }
 
     /**
@@ -34,7 +35,8 @@ class ConfigurationTest extends \PHPUnit\Framework\TestCase
         $this->assertInstanceOf('\ArrayObject', $this->object);
     }
 
-    public function test__construct(){
+    public function test__construct()
+    {
         $config = new Configuration();
         $this->assertInstanceOf('\Xoops\Core\Text\Sanitizer\ConfigurationAbstract', $config);
         $this->assertTrue($config->has('sanitizer'));

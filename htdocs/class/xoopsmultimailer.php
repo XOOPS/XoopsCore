@@ -88,7 +88,7 @@ class XoopsMultiMailer extends PHPMailer
     /**
      * Does your SMTP host require SMTPAuth authentication?
      *
-     * @var boolean authorized?
+     * @var bool authorized?
      */
     public $SMTPAuth = false;
 
@@ -118,7 +118,7 @@ class XoopsMultiMailer extends PHPMailer
         parent::__construct();
         $xoops = Xoops::getInstance();
         $this->From = $xoops->getConfig('from');
-        if ($this->From == '') {
+        if ('' == $this->From) {
             $this->From = $xoops->getConfig('adminmail');
         }
         $this->Sender = $this->From;

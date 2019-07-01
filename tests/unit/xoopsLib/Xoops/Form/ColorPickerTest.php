@@ -1,7 +1,8 @@
 <?php
+
 namespace Xoops\Form;
 
-require_once(__DIR__.'/../../../init_new.php');
+require_once(__DIR__ . '/../../../init_new.php');
 
 class ColorPickerTest extends \PHPUnit\Framework\TestCase
 {
@@ -17,7 +18,7 @@ class ColorPickerTest extends \PHPUnit\Framework\TestCase
     protected function setUp()
     {
         $this->object = new ColorPicker('Caption', 'name');
-        \Xoops::getInstance()->setTheme(new \Xoops\Core\Theme\NullTheme);
+        \Xoops::getInstance()->setTheme(new \Xoops\Core\Theme\NullTheme());
         //$this->markTestSkipped('side effects');
     }
 
@@ -33,23 +34,25 @@ class ColorPickerTest extends \PHPUnit\Framework\TestCase
     {
         $level = ob_get_level();
         $value = $this->object->render();
-        while (ob_get_level() > $level) ob_end_flush();
-        $this->assertTrue(is_string($value));
+        while (ob_get_level() > $level) {
+            ob_end_flush();
+        }
+        $this->assertInternalType('string', $value);
     }
 
     public function testRenderValidationJS()
     {
         $value = $this->object->renderValidationJS();
-        $this->assertTrue(is_string($value));
+        $this->assertInternalType('string', $value);
     }
 
     public function test__construct()
     {
         $oldWay = new ColorPicker('mycaption', 'myname');
-        $newWay = new ColorPicker(['caption' => 'mycaption', 'type' => 'text', 'name' => 'myname',]);
+        $newWay = new ColorPicker(['caption' => 'mycaption', 'type' => 'text', 'name' => 'myname']);
 
-        $this->assertEquals(substr($oldWay->render(),0,18), substr($newWay->render(),0,18));
-        $this->assertEquals(substr($oldWay->render(),-40), substr($newWay->render(),-40));
-        $this->assertEquals(strlen($oldWay->render()), strlen($newWay->render()));
+        $this->assertEquals(mb_substr($oldWay->render(), 0, 18), mb_substr($newWay->render(), 0, 18));
+        $this->assertEquals(mb_substr($oldWay->render(), -40), mb_substr($newWay->render(), -40));
+        $this->assertEquals(mb_strlen($oldWay->render()), mb_strlen($newWay->render()));
     }
 }

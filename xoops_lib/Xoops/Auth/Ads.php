@@ -54,6 +54,7 @@ class Ads extends Ldap
         $authenticated = false;
         if (!extension_loaded('ldap')) {
             $this->setErrors(0, \XoopsLocale::E_EXTENSION_PHP_LDAP_NOT_LOADED);
+
             return $authenticated;
         }
         $this->ds = ldap_connect($this->ldap_server, $this->ldap_port);
@@ -66,8 +67,8 @@ class Ads extends Ldap
                 }
             }
             // remove the domain name prefix from the username
-            $uname = explode("\\", $uname);
-            $uname = (sizeof($uname) > 0) ? $uname[sizeof($uname) - 1] : $uname = $uname[0];
+            $uname = explode('\\', $uname);
+            $uname = (count($uname) > 0) ? $uname[count($uname) - 1] : $uname = $uname[0];
             // If the uid is not in the DN we proceed to a search
             // The uid is not always in the dn
             $userUPN = $this->getUPN($uname);
@@ -81,16 +82,16 @@ class Ads extends Ldap
                 $dn = $this->getUserDN($uname);
                 if ($dn) {
                     return $this->loadXoopsUser($dn, $uname, $pwd);
-                } else {
-                    return false;
                 }
-            } else {
-                $this->setErrors(ldap_errno($this->ds), ldap_err2str(ldap_errno($this->ds)) . '(' . $userUPN . ')');
+
+                return false;
             }
+            $this->setErrors(ldap_errno($this->ds), ldap_err2str(ldap_errno($this->ds)) . '(' . $userUPN . ')');
         } else {
             $this->setErrors(0, \XoopsLocale::E_CANNOT_CONNECT_TO_SERVER);
         }
         @ldap_close($this->ds);
+
         return $authenticated;
     }
 
@@ -107,6 +108,7 @@ class Ads extends Ldap
     public function getUPN($uname)
     {
         $userDN = $uname . '@' . $this->ldap_domain_name;
+
         return $userDN;
     }
 }

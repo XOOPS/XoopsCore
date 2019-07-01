@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/../../../init_new.php');
+require_once(__DIR__ . '/../../../init_new.php');
 
 class AuthAbstractTestInstance extends Xoops\Auth\AuthAbstract
 {
@@ -29,8 +29,8 @@ class AuthAbstractTest extends \PHPUnit\Framework\TestCase
         $error = 'error';
         $instance->setErrors($errno, $error);
         $x = $instance->getErrors();
-        $this->assertTrue(is_array($x));
-        $this->assertTrue($x[$errno]==$error);
+        $this->assertInternalType('array', $x);
+        $this->assertTrue($x[$errno] == $error);
     }
 
     public function test_getHtmlErrors()
@@ -41,6 +41,6 @@ class AuthAbstractTest extends \PHPUnit\Framework\TestCase
         $error = 'error';
         $instance->setErrors($errno, $error);
         $x = $instance->getHtmlErrors();
-        $this->assertTrue(is_string($x));
+        $this->assertInternalType('string', $x);
     }
 }

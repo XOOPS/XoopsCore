@@ -16,11 +16,10 @@
  * @author          Laurent JEN (Aka DuGris)
  * @version         $Id$
  */
-
 class XcaptchaCaptchaForm extends Xoops\Form\ThemeForm
 {
     /**
-     * @param null $obj
+     * @param null|mixed $object
      */
     public function __construct($object = null)
     {
@@ -47,7 +46,7 @@ class XcaptchaCaptchaForm extends Xoops\Form\ThemeForm
         $skipmember->addOption(0, _AM_XCAPTCHA_DISABLE);
         $this->addElement($skipmember, false);
 
-        $this->addElement(new Xoops\Form\Text(_AM_XCAPTCHA_MAXATTEMPTS, 'maxattempts', 2, 2, $this->config['maxattempts'] ), true);
+        $this->addElement(new Xoops\Form\Text(_AM_XCAPTCHA_MAXATTEMPTS, 'maxattempts', 2, 2, $this->config['maxattempts']), true);
 
         $this->addElement(new Xoops\Form\Hidden('type', 'config'));
 

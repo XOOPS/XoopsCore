@@ -11,8 +11,8 @@
 
 namespace Xoops\Core\Service\Contract;
 
-use Xoops\Core\Service\Response;
 use Xoops\Core\Service\Manager;
+use Xoops\Core\Service\Response;
 
 /**
  * UserRank service interface
@@ -39,10 +39,6 @@ interface UserRankInterface
      *                               'uid'   => (int) id of system user
      *                               'posts' => (int) contribution count associated with the user
      *                               'rank'  => (int) id of manually assigned rank, 0 if none assigned
-     *
-     * @return void - $response->value set to array of rank information
-     *                    'title' => string that describes the rank
-     *                    'image' => url of image associated with the rank
      */
     public function getUserRank(Response $response, $userinfo);
 
@@ -50,9 +46,6 @@ interface UserRankInterface
      * getAssignableUserRankList - return a list of ranks that can be assigned
      *
      * @param Response $response \Xoops\Core\Service\Response object
-     *
-     * @return void - response->value set to array of (int) id => (string) rank title
-     *                 entries of assignable ranks
      */
     public function getAssignableUserRankList(Response $response);
 }

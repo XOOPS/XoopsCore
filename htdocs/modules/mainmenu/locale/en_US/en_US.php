@@ -22,10 +22,10 @@
 class MainmenuLocaleEn_US
 {
     // Module
-    const MODULE_NAME = "Main Menu";
-    const MODULE_DESC = "Provides an extensible Main Menu block";
-    const DONATION_DESC = "Donation for module Main Menu";
+    const MODULE_NAME = 'Main Menu';
+    const MODULE_DESC = 'Provides an extensible Main Menu block';
+    const DONATION_DESC = 'Donation for module Main Menu';
 
-    const BLOCK_NAME = "Main menu";
-    const BLOCK_DESC = "Shows a Main Menu Block";
+    const BLOCK_NAME = 'Main menu';
+    const BLOCK_DESC = 'Shows a Main Menu Block';
 }

@@ -19,19 +19,18 @@
  * @author          Mage Grégory (AKA Mage), Cointin Maxime (AKA Kraven30)
  * @version         $Id$
  */
-
-$adminmenu = array();
+$adminmenu = [];
 $i = 1;
 $adminmenu[$i]['title'] = _MI_MAINTENANCE_INDEX;
-$adminmenu[$i]['link'] = "admin/index.php";
+$adminmenu[$i]['link'] = 'admin/index.php';
 $adminmenu[$i]['icon'] = 'home.png';
 ++$i;
 $adminmenu[$i]['title'] = _MI_MAINTENANCE_CENTER;
-$adminmenu[$i]['link'] = "admin/center.php";
+$adminmenu[$i]['link'] = 'admin/center.php';
 $adminmenu[$i]['icon'] = 'maintenance.png';
 ++$i;
 $adminmenu[$i]['title'] = _MI_MAINTENANCE_DUMP;
-$adminmenu[$i]['link'] = "admin/dump.php";
+$adminmenu[$i]['link'] = 'admin/dump.php';
 $adminmenu[$i]['icon'] = 'dump.png';
 ++$i;
 $adminmenu[$i]['title'] = _MI_MAINTENANCE_ABOUT;

@@ -28,8 +28,8 @@ class Mail extends Text
      *
      * @param string  $caption     Caption
      * @param string  $name        name attribute
-     * @param integer $size        Size
-     * @param integer $maxlength   Maximum length of text
+     * @param int $size        Size
+     * @param int $maxlength   Maximum length of text
      * @param string  $value       Initial text
      * @param string  $placeholder placeholder for this element.
      */

@@ -19,19 +19,18 @@
  * @author          Mage Grégory (AKA Mage)
  * @version         $Id$
  */
-
-$adminmenu = array();
+$adminmenu = [];
 $i = 1;
 $adminmenu[$i]['title'] = XoopsLocale::HOME;
-$adminmenu[$i]['link'] = "admin/index.php";
+$adminmenu[$i]['link'] = 'admin/index.php';
 $adminmenu[$i]['icon'] = 'home.png';
 ++$i;
 $adminmenu[$i]['title'] = AvatarsLocale::SYSTEM;
-$adminmenu[$i]['link'] = "admin/avatar_system.php";
+$adminmenu[$i]['link'] = 'admin/avatar_system.php';
 $adminmenu[$i]['icon'] = 'avatar_system.png';
 ++$i;
 $adminmenu[$i]['title'] = AvatarsLocale::CUSTOM;
-$adminmenu[$i]['link'] = "admin/avatar_custom.php";
+$adminmenu[$i]['link'] = 'admin/avatar_custom.php';
 $adminmenu[$i]['icon'] = 'avatar_custom.png';
 ++$i;
 $adminmenu[$i]['title'] = XoopsLocale::ABOUT;

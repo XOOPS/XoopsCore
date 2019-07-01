@@ -1,4 +1,5 @@
 <?php
+
 namespace Xoops\Core\Kernel\Dtype;
 
 require_once __DIR__ . '/../../../../../init_new.php';
@@ -57,6 +58,7 @@ class DtypeSimpleTimeTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @dataProvider provider
+     * @param mixed $objectKey
      */
     public function testCleanVar($objectKey)
     {

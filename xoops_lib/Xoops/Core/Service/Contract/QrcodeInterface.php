@@ -34,8 +34,6 @@ interface QrcodeInterface
      *
      * @param Response $response \Xoops\Core\Service\Response object
      * @param string   $qrText   text to encode in QR Code
-     *
-     * @return void  - response->value set to URL string
      */
     public function getImgUrl(Response $response, $qrText);
 
@@ -45,8 +43,6 @@ interface QrcodeInterface
      * @param Response $response   \Xoops\Core\Service\Response object
      * @param string   $qrText     text to encode in QR Code
      * @param array    $attributes array of attribute name => value pairs for img tag
-     *
-     * @return void  - response->value set to URL string
      */
-    public function getImgTag(Response $response, $qrText, $attributes = array());
+    public function getImgTag(Response $response, $qrText, $attributes = []);
 }

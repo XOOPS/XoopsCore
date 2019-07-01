@@ -7,9 +7,11 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
+
 namespace Xoops\Form\Renderer;
 
 use Xoops\Form\RendererInterface;
+
 /**
  * Bootstrap3Renderer style form renderer
  *
@@ -20,12 +22,13 @@ use Xoops\Form\RendererInterface;
  */
 class Bootstrap3Renderer implements RendererInterface
 {
-    public function render(\Xoops\Form\Element $element):string
+    public function render(\Xoops\Form\Element $element): string
     {
-        $methodName = 'render' . str_replace('\\' , '', get_class($element));
+        $methodName = 'render' . str_replace('\\', '', get_class($element));
         if (true === method_exists($this, $methodName)) {
             return $this->$methodName($element);
         }
+
         return $element->defaultRender();
     }
 
@@ -41,35 +44,36 @@ class Bootstrap3Renderer implements RendererInterface
     protected function renderXoopsFormButton(\Xoops\Form\Button $element):string
     {
         // do the rendering and return a string
-		return '';
+        return '';
     }*/
 
-	/**
+    /**
      * Render support for XoopsFormButton
      *
      * @param XoopsFormButton $element form element
      *
      * @return string rendered form element
      */
-	protected function renderXoopsFormButton(\Xoops\Form\Button $element):string
+    protected function renderXoopsFormButton(\Xoops\Form\Button $element): string
     {
-		if (false == $element->hasClassLike('btn')) {
-			$element->add('class', 'btn btn-default');
-		}
-		$attributes = $element->renderAttributeString();
-        return '<input ' . $attributes . $element->getExtra() .' >';
-	}
+        if (false == $element->hasClassLike('btn')) {
+            $element->add('class', 'btn btn-default');
+        }
+        $attributes = $element->renderAttributeString();
 
-	/**
+        return '<input ' . $attributes . $element->getExtra() . ' >';
+    }
+
+    /**
      * Render support for XoopsFormButtonTray
      *
      * @param XoopsFormButtonTray $element form element
      *
      * @return string rendered form element
      */
-	protected function renderXoopsFormButtonTray(\Xoops\Form\ButtonTray $element):string
+    protected function renderXoopsFormButtonTray(\Xoops\Form\ButtonTray $element): string
     {
-		$ret = '';
+        $ret = '';
         $element->add('class', 'btn');
         $class = 'class="' . $element->getClass() . '"';
 
@@ -83,17 +87,18 @@ class Bootstrap3Renderer implements RendererInterface
             . '" onclick="history.go(-1);return true;" />'
             . ' <input type="reset"' . $class . ' name="reset"  id="reset" value="' . \XoopsLocale::A_RESET . '" />'
             . ' <input ' . $attributes . $element->getExtra() . ' />';
-        return $ret;
-	}
 
-	/**
+        return $ret;
+    }
+
+    /**
      * Render support for XoopsFormColorPicker
      *
      * @param XoopsFormColorPicker $element form element
      *
      * @return string rendered form element
      */
-	protected function renderXoopsFormColorPicker(\Xoops\Form\ColorPicker $element):string
+    protected function renderXoopsFormColorPicker(\Xoops\Form\ColorPicker $element): string
     {
         $xoops = \Xoops::getInstance();
         if ($xoops->theme()) {
@@ -108,7 +113,7 @@ class Bootstrap3Renderer implements RendererInterface
         $element->set('class', 'form-control');
         $ret = '<div class="input-group">';
         $attributes = $element->renderAttributeString();
-        $ret .= '<input ' . $attributes . ' ' . $element->getExtra() .' >';
+        $ret .= '<input ' . $attributes . ' ' . $element->getExtra() . ' >';
         $ret .= '<span class="input-group-btn">';
         $ret .= '<button class="btn btn-default" type="button" ';
         $ret .= 'data-toggle="tooltip" data-placement="left" title="' . \XoopsLocale::A_SELECT . '" ';
@@ -118,16 +123,16 @@ class Bootstrap3Renderer implements RendererInterface
         $ret .= '</span></div>';
 
         return $ret;
-	}
+    }
 
-	/**
+    /**
      * Render support for XoopsFormDateSelect
      *
      * @param XoopsFormDateSelect $element form element
      *
      * @return string rendered form element
      */
-	protected function renderXoopsFormDateSelect(\Xoops\Form\DateSelect $element):string
+    protected function renderXoopsFormDateSelect(\Xoops\Form\DateSelect $element): string
     {
         $xoops = \Xoops::getInstance();
 
@@ -138,7 +143,7 @@ class Bootstrap3Renderer implements RendererInterface
             $element->add('list', 'list_' . $element->getName());
         }
 
-		$element->add('class', 'form-control');
+        $element->add('class', 'form-control');
         $element->suppressRender(['value']);
         $attributes = $element->renderAttributeString();
 
@@ -155,7 +160,7 @@ class Bootstrap3Renderer implements RendererInterface
         );
 
         $ret = '<div class="input-group">';
-        $ret .= '<input ' . $attributes . ' value="' . $display_value . '" ' . $element->getExtra() .' >';
+        $ret .= '<input ' . $attributes . ' value="' . $display_value . '" ' . $element->getExtra() . ' >';
         $ret .= '<span class="input-group-btn">';
         $ret .= '<button class="btn btn-default" type="button" ';
         $ret .= 'data-toggle="tooltip" data-placement="left" title="' . \XoopsLocale::A_SELECT . '" ';
@@ -164,16 +169,16 @@ class Bootstrap3Renderer implements RendererInterface
         $ret .= '</span></div>';
 
         return $ret;
-	}
+    }
 
-	/**
+    /**
      * Render support for XoopsFormDhtmlTextArea
      *
      * @param XoopsFormDhtmlTextArea $element form element
      *
      * @return string rendered form element
      */
-	protected function renderXoopsFormDhtmlTextArea(\Xoops\Form\DhtmlTextArea $element):string
+    protected function renderXoopsFormDhtmlTextArea(\Xoops\Form\DhtmlTextArea $element): string
     {
         if ($element->htmlEditor && is_object($element->htmlEditor)) {
             if (!isset($element->htmlEditor->isEnabled) || $element->htmlEditor->isEnabled) {
@@ -184,8 +189,8 @@ class Bootstrap3Renderer implements RendererInterface
 
         $xoops = \Xoops::getInstance();
 
-        $extra = ($element->getExtra() != '' ? " " . $element->getExtra() : '');
-        $ret = "";
+        $extra = ('' != $element->getExtra() ? ' ' . $element->getExtra() : '');
+        $ret = '';
         // actions
         $ret .= $element->xoopsCodeControls() . "<br />\n";
         // fonts
@@ -193,19 +198,19 @@ class Bootstrap3Renderer implements RendererInterface
 
         // the textarea box
         $element->suppressRender(['value']);
-		$element->set('class', 'form-control');
+        $element->set('class', 'form-control');
         $attributes = $element->renderAttributeString();
 
         $ret .= '<textarea ' . $attributes . $extra . '>' . $element->getValue() . "</textarea>\n";
 
         if (empty($element->skipPreview)) {
             if (!$xoops->theme()) {
-                $element->js .= implode("", file($xoops->path('media/xoops/image.js')));
+                $element->js .= implode('', file($xoops->path('media/xoops/image.js')));
             } else {
-                $xoops->theme()->addScript('media/xoops/image.js', array('type' => 'text/javascript'));
+                $xoops->theme()->addScript('media/xoops/image.js', ['type' => 'text/javascript']);
             }
-            $button = "<input id='" . $element->getName() . "_preview_button' " . "type='button' " . "class='btn btn-sm btn-default' value='" . \XoopsLocale::A_PREVIEW . "' " . "onclick=\"form_instantPreview('" . XOOPS_URL . "', '" . $element->getName() . "','" . XOOPS_URL . "/images', " . (int)($element->doHtml) . ", '" . $xoops->security()->createToken() . "')\"" . " />";
-            $ret .= "<br />" . "<div id='" . $element->getName() . "_hidden' style='display: block;'> " . "<fieldset>" . "<legend>" . $button . "</legend>" . "<div id='" . $element->getName() . "_hidden_data'>" . \XoopsLocale::CLICK_PREVIEW_TO_SEE_CONTENT . "</div>" . "</fieldset>" . "</div>";
+            $button = "<input id='" . $element->getName() . "_preview_button' " . "type='button' " . "class='btn btn-sm btn-default' value='" . \XoopsLocale::A_PREVIEW . "' " . "onclick=\"form_instantPreview('" . XOOPS_URL . "', '" . $element->getName() . "','" . XOOPS_URL . "/images', " . (int)($element->doHtml) . ", '" . $xoops->security()->createToken() . "')\"" . ' />';
+            $ret .= '<br />' . "<div id='" . $element->getName() . "_hidden' style='display: block;'> " . '<fieldset>' . '<legend>' . $button . '</legend>' . "<div id='" . $element->getName() . "_hidden_data'>" . \XoopsLocale::CLICK_PREVIEW_TO_SEE_CONTENT . '</div>' . '</fieldset>' . '</div>';
         }
         // Load javascript
         if (empty($js_loaded)) {
@@ -215,40 +220,42 @@ class Bootstrap3Renderer implements RendererInterface
             $ret = $javascript . $ret;
             $js_loaded = true;
         }
-        return $ret;
-	}
 
-	/**
+        return $ret;
+    }
+
+    /**
      * Render support for XoopsFormPassword
      *
      * @param XoopsFormPassword $element form element
      *
      * @return string rendered form element
      */
-	protected function renderXoopsFormPassword(\Xoops\Form\Password $element):string
+    protected function renderXoopsFormPassword(\Xoops\Form\Password $element): string
     {
         $element->add('class', 'form-control');
-		$attributes = $element->renderAttributeString();
-        return '<input ' . $attributes . $element->getExtra() .' >';
-	}
+        $attributes = $element->renderAttributeString();
 
-	/**
+        return '<input ' . $attributes . $element->getExtra() . ' >';
+    }
+
+    /**
      * Render support for XoopsFormSelect
      *
      * @param XoopsFormSelect $element form element
      *
      * @return string rendered form element
      */
-	protected function renderXoopsFormSelect(\Xoops\Form\Select $element):string
+    protected function renderXoopsFormSelect(\Xoops\Form\Select $element): string
     {
         $selected = (array) $element->getValue();
 
         $ele_options = $element->getOptions();
 
-        $extra = ($element->getExtra() != '' ? " " . $element->getExtra() : '');
+        $extra = ('' != $element->getExtra() ? ' ' . $element->getExtra() : '');
         $element->add('class', 'form-control');
         $attributes = $element->renderAttributeString();
-        $ret = '<select ' . $attributes . $extra .' >' . "\n";
+        $ret = '<select ' . $attributes . $extra . ' >' . "\n";
 
         if (empty($ele_optgroup)) {
             foreach ($ele_options as $value => $display) {
@@ -265,16 +272,16 @@ class Bootstrap3Renderer implements RendererInterface
         $ret .= '</select>' . "\n";
 
         return $ret;
-	}
+    }
 
-	/**
+    /**
      * Render support for XoopsFormText
      *
      * @param XoopsFormText $element form element
      *
      * @return string rendered form element
      */
-	protected function renderXoopsFormText(\Xoops\Form\Text $element):string
+    protected function renderXoopsFormText(\Xoops\Form\Text $element): string
     {
         $element->add('class', 'form-control');
         $dataList = $element->isDatalist();
@@ -283,22 +290,24 @@ class Bootstrap3Renderer implements RendererInterface
         }
 
         $attributes = $element->renderAttributeString();
-        return '<input ' . $attributes . ' ' . $element->getExtra() .' >';
-	}
 
-	/**
+        return '<input ' . $attributes . ' ' . $element->getExtra() . ' >';
+    }
+
+    /**
      * Render support for XoopsFormTextArea
      *
      * @param XoopsFormTextArea $element form element
      *
      * @return string rendered form element
      */
-	protected function renderXoopsFormTextArea(\Xoops\Form\TextArea $element):string
+    protected function renderXoopsFormTextArea(\Xoops\Form\TextArea $element): string
     {
         $element->suppressRender(['value']);
-		$element->add('class', 'form-control');
+        $element->add('class', 'form-control');
         $attributes = $element->renderAttributeString();
-        return '<textarea ' . $attributes . ' ' . $element->getExtra() .' >'
+
+        return '<textarea ' . $attributes . ' ' . $element->getExtra() . ' >'
             . $element->getValue() . '</textarea>';
-	}
+    }
 }

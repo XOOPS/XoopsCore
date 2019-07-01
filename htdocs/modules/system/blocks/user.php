@@ -21,7 +21,6 @@ use Xoops\Core\Kernel\CriteriaCompo;
  * @package     system
  * @version     $Id$
  */
-
 function b_system_user_show()
 {
     $xoops = Xoops::getInstance();
@@ -29,8 +28,8 @@ function b_system_user_show()
         return false;
     }
 
-    $block = array();
-    $block['modules'] = array();
+    $block = [];
+    $block['modules'] = [];
 
     $plugins = \Xoops\Module\Plugin::getPlugins('system');
     $i = 0;
@@ -51,51 +50,50 @@ function b_system_user_show()
                 if (method_exists($plugin, 'subMenus')) {
                     $sublinks = $plugin->subMenus();
                     foreach ($sublinks as $sublink) {
-                        $block['modules'][$i]['sublinks'][] = array(
+                        $block['modules'][$i]['sublinks'][] = [
                             'name' => $sublink['name'],
                             'title' => $sublink['name'],
-                            'url'  => $xoops->url('modules/' . $dirname . '/' . $sublink['url'])
-                        );
+                            'url' => $xoops->url('modules/' . $dirname . '/' . $sublink['url']),
+                        ];
                     }
                 }
             }
             ++$i;
         }
-
     }
 
     // View Account
-    array_unshift($block['modules'], array(
+    array_unshift($block['modules'], [
         'name' => XoopsLocale::VIEW_ACCOUNT,
         'link' => $xoops->url('userinfo.php?uid=' . $xoops->user->getVar('uid')),
         'icon' => 'glyphicon glyphicon-user',
         'title' => XoopsLocale::VIEW_ACCOUNT,
-    ));
+    ]);
 
     // Edit Account
-    array_unshift($block['modules'], array(
+    array_unshift($block['modules'], [
         'name' => XoopsLocale::EDIT_ACCOUNT,
         'link' => $xoops->url('edituser.php'),
         'icon' => 'glyphicon glyphicon-pencil',
         'title' => XoopsLocale::EDIT_ACCOUNT,
-    ));
+    ]);
 
     // Administration Menu
     if ($xoops->isAdmin()) {
-        array_unshift($block['modules'], array(
+        array_unshift($block['modules'], [
             'name' => SystemLocale::ADMINISTRATION_MENU,
             'link' => $xoops->url('admin.php'),
             //'rel'  => 'external',
             'icon' => 'glyphicon glyphicon-wrench',
             'title' => SystemLocale::ADMINISTRATION_MENU,
-        ));
+        ]);
     }
 
     // Inbox
     $criteria = new CriteriaCompo(new Criteria('read_msg', 0));
     $criteria->add(new Criteria('to_userid', $xoops->user->getVar('uid')));
     $pm_handler = $xoops->getHandlerPrivateMessage();
-    $xoops->events()->triggerEvent('system.blocks.system_blocks.usershow', array(&$pm_handler));
+    $xoops->events()->triggerEvent('system.blocks.system_blocks.usershow', [&$pm_handler]);
 
     $name = XoopsLocale::INBOX;
     $class = '';
@@ -104,22 +102,23 @@ function b_system_user_show()
         //$class = 'text-info';
     }
 
-    array_push($block['modules'], array(
-        'name'  => $name,
-        'link'  => $xoops->url('viewpmsg.php'),
-        'icon'  => 'glyphicon glyphicon-envelope',
+    array_push($block['modules'], [
+        'name' => $name,
+        'link' => $xoops->url('viewpmsg.php'),
+        'icon' => 'glyphicon glyphicon-envelope',
         'class' => $class,
         'title' => XoopsLocale::INBOX,
-    ));
+    ]);
 
     // Logout
-    array_push($block['modules'], array(
+    array_push($block['modules'], [
         'name' => XoopsLocale::A_LOGOUT,
         'link' => $xoops->url('user.php?op=logout'),
         'icon' => 'glyphicon glyphicon-log-out',
         'title' => XoopsLocale::A_LOGOUT,
-    ));
+    ]);
 
     $block['active_url'] = \Xoops\Core\HttpRequest::getInstance()->getUrl();
+
     return $block;
 }

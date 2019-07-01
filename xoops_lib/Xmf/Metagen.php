@@ -24,7 +24,6 @@ namespace Xmf;
  */
 class Metagen
 {
-
     /**
      * mbstring encoding
      */
@@ -34,7 +33,7 @@ class Metagen
      * horizontal ellipsis
      * This will be used to replace omitted text.
      */
-    const ELLIPSIS = "…"; // unicode horizontal ellipsis U+2026
+    const ELLIPSIS = '…'; // unicode horizontal ellipsis U+2026
 
     /**
      * assignTitle set the page title
@@ -116,8 +115,8 @@ class Metagen
      * generateKeywords builds a set of keywords from text body
      *
      * @param string        $body      text to extract keywords from
-     * @param integer       $count     number of keywords to use
-     * @param integer       $minLength minimum length of word to consider as a keyword
+     * @param int       $count     number of keywords to use
+     * @param int       $minLength minimum length of word to consider as a keyword
      * @param string[]|null $forceKeys array of keywords to force use, or null for none
      *
      * @return array of keywords
@@ -128,16 +127,16 @@ class Metagen
         $minLength = 4,
         $forceKeys = null
     ) {
-        $keyCount = array();
+        $keyCount = [];
         if (!is_array($forceKeys)) {
-            $forceKeys = array();
+            $forceKeys = [];
         }
 
         $text = static::asPlainText($body);
         if (function_exists('mb_strtolower')) {
             $text = mb_strtolower($text, static::ENCODING);
         } else {
-            $text = strtolower($text);
+            $text = mb_strtolower($text);
         }
 
         $originalKeywords = preg_split(
@@ -152,7 +151,7 @@ class Metagen
                 $secondRoundKeywords = explode("'", $originalKeyword);
                 foreach ($secondRoundKeywords as $secondRoundKeyword) {
                     if (static::stopWordsObject()->check($secondRoundKeyword)
-                        && strlen($secondRoundKeyword) >= $minLength
+                        && mb_strlen($secondRoundKeyword) >= $minLength
                     ) {
                         $keyCount[$secondRoundKeyword] =
                             empty($keyCount[$secondRoundKeyword]) ? 1 : $keyCount[$secondRoundKeyword] + 1;
@@ -162,7 +161,7 @@ class Metagen
         }
 
         while (!empty($forceKeys)) {
-            $tempKey = strtolower(array_pop($forceKeys));
+            $tempKey = mb_strtolower(array_pop($forceKeys));
             $keyCount[$tempKey] = 999999;
         }
 
@@ -177,7 +176,7 @@ class Metagen
      * generateDescription - generate a short description from a body of text
      *
      * @param string  $body      body text
-     * @param integer $wordCount maximum word count for description
+     * @param int $wordCount maximum word count for description
      *
      * @return string
      */
@@ -185,10 +184,10 @@ class Metagen
     {
         $text = static::asPlainText($body);
 
-        $words = explode(" ", $text);
+        $words = explode(' ', $text);
 
         // Only keep $maxWords words
-        $newWords = array();
+        $newWords = [];
         $i = 0;
         while ($i < $wordCount - 1 && $i < count($words)) {
             $newWords[] = $words[$i];
@@ -198,16 +197,16 @@ class Metagen
         if (function_exists('mb_strlen')) {
             $len = mb_strlen($ret, static::ENCODING);
             $lastPeriod = mb_strrpos($ret, '.', 0, static::ENCODING);
-            $ret .= ($lastPeriod === false) ? static::ELLIPSIS : '';
+            $ret .= (false === $lastPeriod) ? static::ELLIPSIS : '';
             if ($len > 100 && ($len - $lastPeriod) < 30) {
                 $ret = mb_substr($ret, 0, $lastPeriod + 1, static::ENCODING);
             }
         } else {
-            $len = strlen($ret);
-            $lastPeriod = strrpos($ret, '.');
-            $ret .= ($lastPeriod === false) ? static::ELLIPSIS : '';
+            $len = mb_strlen($ret);
+            $lastPeriod = mb_strrpos($ret, '.');
+            $ret .= (false === $lastPeriod) ? static::ELLIPSIS : '';
             if ($len > 100 && ($len - $lastPeriod) < 30) {
-                $ret = substr($ret, 0, $lastPeriod + 1);
+                $ret = mb_substr($ret, 0, $lastPeriod + 1);
             }
         }
 
@@ -253,7 +252,7 @@ class Metagen
      */
     protected static function nonEmptyString($var)
     {
-        return (strlen($var) > 0);
+        return (mb_strlen($var) > 0);
     }
 
     /**
@@ -268,15 +267,16 @@ class Metagen
      */
     public static function generateSeoTitle($title = '', $extension = '')
     {
-        $title = preg_replace("/[^\p{N}\p{L}]/u", "-", $title);
+        $title = preg_replace("/[^\p{N}\p{L}]/u", '-', $title);
         $title = \Normalizer::normalize($title, \Normalizer::FORM_C);
 
-        $tableau = explode("-", $title);
+        $tableau = explode('-', $title);
         $tableau = array_filter($tableau, 'static::nonEmptyString');
-        $tableau = array_filter($tableau, array(static::stopWordsObject(), 'check'));
-        $title = implode("-", $tableau);
+        $tableau = array_filter($tableau, [static::stopWordsObject(), 'check']);
+        $title = implode('-', $tableau);
 
         $title = (empty($title)) ? '' : $title . $extension;
+
         return $title;
     }
 
@@ -309,7 +309,7 @@ class Metagen
             if ($pre) {
                 // we are not at the beginning so find first blank
                 $temp = mb_strpos($haystack, ' ', $start, static::ENCODING);
-                $start = ($temp === false) ? $start : $temp;
+                $start = (false === $temp) ? $start : $temp;
                 $haystack = mb_substr($haystack, $start, mb_strlen($haystack), static::ENCODING);
             }
 
@@ -324,21 +324,22 @@ class Metagen
         } else {
             if ($pre) {
                 // we are not at the beginning so find first blank
-                $temp = strpos($haystack, ' ', $start);
-                $start = ($temp === false) ? $start : $temp;
-                $haystack = substr($haystack, $start);
+                $temp = mb_strpos($haystack, ' ', $start);
+                $start = (false === $temp) ? $start : $temp;
+                $haystack = mb_substr($haystack, $start);
             }
 
-            $post = !(strlen($haystack) < $length); // need an ellipsis in back?
+            $post = !(mb_strlen($haystack) < $length); // need an ellipsis in back?
             if ($post) {
-                $haystack = substr($haystack, 0, $length);
-                $end = strrpos($haystack, ' ', 0);
+                $haystack = mb_substr($haystack, 0, $length);
+                $end = mb_strrpos($haystack, ' ', 0);
                 if ($end) {
-                    $haystack = substr($haystack, 0, $end);
+                    $haystack = mb_substr($haystack, 0, $end);
                 }
             }
         }
         $haystack = ($pre ? static::ELLIPSIS : '') . trim($haystack) . ($post ? static::ELLIPSIS : '');
+
         return $haystack;
     }
 
@@ -356,7 +357,7 @@ class Metagen
         $text = static::html2text($text);
         $text = static::purifyText($text);
 
-        $text = str_replace(array("\n", "\r"), ' ', $text);
+        $text = str_replace(["\n", "\r"], ' ', $text);
         $text = preg_replace('/[ ]* [ ]*/', ' ', $text);
 
         return trim($text);
@@ -370,22 +371,23 @@ class Metagen
      * @param string $haystack the string to summarize
      * @param mixed  $needles  search term, array of search terms, or null
      *
-     * @return integer[] array of initial positions of substring of haystack
+     * @return int[] array of initial positions of substring of haystack
      */
     protected static function getNeedlePositions($haystack, $needles)
     {
-        $pos = array();
-        $needles = empty($needles) ? array() : (array) $needles;
+        $pos = [];
+        $needles = empty($needles) ? [] : (array) $needles;
         foreach ($needles as $needle) {
             if (function_exists('mb_stripos')) {
                 $i = mb_stripos($haystack, $needle, 0, static::ENCODING);
             } else {
-                $i = stripos($haystack, $needle, 0);
+                $i = mb_stripos($haystack, $needle, 0);
             }
-            if ($i !== false) {
+            if (false !== $i) {
                 $pos[] = $i; // only store matches
             }
         }
+
         return $pos;
     }
 
@@ -393,7 +395,7 @@ class Metagen
      * purifyText
      *
      * @param string  $text    text to clean
-     * @param boolean $keyword replace some punctuation with white space
+     * @param bool $keyword replace some punctuation with white space
      *
      * @return string cleaned text
      */
@@ -440,7 +442,7 @@ class Metagen
      */
     protected static function html2text($document)
     {
-        $search = array(
+        $search = [
             "'<script[^>]*?>.*?</script>'si", // Strip out javascript
             "'<img.*?/>'si",                  // Strip out img tags
             "'<[\/\!]*?[^<>]*?>'si",          // Strip out HTML tags
@@ -453,24 +455,24 @@ class Metagen
             "'&(iexcl|#161);'i",
             "'&(cent|#162);'i",
             "'&(pound|#163);'i",
-            "'&(copy|#169);'i"
-        );
+            "'&(copy|#169);'i",
+        ];
 
-        $replace = array(
-            "",
-            "",
-            "",
-            "\\1",
-            "\"",
-            "&",
-            "<",
-            ">",
-            " ",
+        $replace = [
+            '',
+            '',
+            '',
+            '\\1',
+            '"',
+            '&',
+            '<',
+            '>',
+            ' ',
             chr(161),
             chr(162),
             chr(163),
-            chr(169)
-        );
+            chr(169),
+        ];
 
         $text = preg_replace($search, $replace, $document);
 
@@ -510,6 +512,7 @@ class Metagen
         if (null === $object) {
             $object = new StopWords();
         }
+
         return $object;
     }
 }

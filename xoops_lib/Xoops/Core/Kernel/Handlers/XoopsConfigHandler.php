@@ -60,7 +60,7 @@ class XoopsConfigHandler extends XoopsObjectHandler
      *
      * @var     array
      */
-    private $cachedConfigs = array();
+    private $cachedConfigs = [];
 
     /**
      * Constructor
@@ -79,6 +79,7 @@ class XoopsConfigHandler extends XoopsObjectHandler
     public function createConfig()
     {
         $instance = $this->itemHandler->create();
+
         return $instance;
     }
 
@@ -94,9 +95,10 @@ class XoopsConfigHandler extends XoopsObjectHandler
     {
         /* @var $config XoopsConfigItem */
         $config = $this->itemHandler->get($id);
-        if ($withoptions == true) {
+        if (true == $withoptions) {
             $config->setConfOptions($this->getConfigOptions(new Criteria('conf_id', $id)));
         }
+
         return $config;
     }
 
@@ -126,6 +128,7 @@ class XoopsConfigHandler extends XoopsObjectHandler
         if (!empty($this->cachedConfigs[$config->getVar('conf_modid')][$config->getVar('conf_catid')])) {
             unset($this->cachedConfigs[$config->getVar('conf_modid')][$config->getVar('conf_catid')]);
         }
+
         return true;
     }
 
@@ -143,7 +146,7 @@ class XoopsConfigHandler extends XoopsObjectHandler
         }
         $options = $config->getConfOptions();
         $count = count($options);
-        if ($count == 0) {
+        if (0 == $count) {
             $options = $this->getConfigOptions(new Criteria('conf_id', $config->getVar('conf_id')));
             $count = count($options);
         }
@@ -155,6 +158,7 @@ class XoopsConfigHandler extends XoopsObjectHandler
         if (!empty($this->cachedConfigs[$config->getVar('conf_modid')][$config->getVar('conf_catid')])) {
             unset($this->cachedConfigs[$config->getVar('conf_modid')][$config->getVar('conf_catid')]);
         }
+
         return true;
     }
 
@@ -179,6 +183,7 @@ class XoopsConfigHandler extends XoopsObjectHandler
             $criteria2->setSort('conf_order');
             $criteria2->setOrder('ASC');
         }
+
         return $this->itemHandler->getObjects($criteria2, $id_as_key);
     }
 
@@ -203,7 +208,7 @@ class XoopsConfigHandler extends XoopsObjectHandler
      */
     public function getConfigsByModule($module = 0)
     {
-        $ret = array();
+        $ret = [];
         $criteria = new Criteria('conf_modid', (int)($module));
         $configs = $this->getConfigs($criteria, true);
         if (is_array($configs)) {
@@ -211,6 +216,7 @@ class XoopsConfigHandler extends XoopsObjectHandler
                 $ret[$configs[$i]->getVar('conf_name')] = $configs[$i]->getConfValueForOutput();
             }
         }
+
         return $ret;
     }
 
@@ -229,21 +235,21 @@ class XoopsConfigHandler extends XoopsObjectHandler
         static $_cachedConfigs;
         if (!empty($_cachedConfigs[$module][$category])) {
             return $_cachedConfigs[$module][$category];
-        } else {
-            $ret = array();
-            $criteria = new CriteriaCompo(new Criteria('conf_modid', (int)($module)));
-            if (!empty($category)) {
-                $criteria->add(new Criteria('conf_catid', (int)($category)));
-            }
-            $configs = $this->getConfigs($criteria, true);
-            if (is_array($configs)) {
-                foreach (array_keys($configs) as $i) {
-                    $ret[$configs[$i]->getVar('conf_name')] = $configs[$i]->getConfValueForOutput();
-                }
-            }
-            $_cachedConfigs[$module][$category] = $ret;
-            return $_cachedConfigs[$module][$category];
         }
+        $ret = [];
+        $criteria = new CriteriaCompo(new Criteria('conf_modid', (int)($module)));
+        if (!empty($category)) {
+            $criteria->add(new Criteria('conf_catid', (int)($category)));
+        }
+        $configs = $this->getConfigs($criteria, true);
+        if (is_array($configs)) {
+            foreach (array_keys($configs) as $i) {
+                $ret[$configs[$i]->getVar('conf_name')] = $configs[$i]->getConfValueForOutput();
+            }
+        }
+        $_cachedConfigs[$module][$category] = $ret;
+
+        return $_cachedConfigs[$module][$category];
     }
 
     /**
@@ -254,6 +260,7 @@ class XoopsConfigHandler extends XoopsObjectHandler
     public function createConfigOption()
     {
         $inst = $this->optionHandler->create();
+
         return $inst;
     }
 
@@ -267,6 +274,7 @@ class XoopsConfigHandler extends XoopsObjectHandler
     public function getConfigOption($id)
     {
         $inst = $this->optionHandler->get($id);
+
         return $inst;
     }
 
@@ -307,21 +315,21 @@ class XoopsConfigHandler extends XoopsObjectHandler
     {
         if (!empty($this->cachedConfigs[$conf_modid][$conf_catid])) {
             return $this->cachedConfigs[$conf_modid][$conf_catid];
-        } else {
-            $criteria = new CriteriaCompo(new Criteria('conf_modid', $conf_modid));
-            if (empty($conf_catid)) {
-                $criteria->add(new Criteria('conf_catid', $conf_catid));
-            }
-            $criteria->setSort('conf_order');
-            $criteria->setOrder('ASC');
-            $configs = $this->itemHandler->getObjects($criteria);
-            $confcount = count($configs);
-            $ret = array();
-            for ($i = 0; $i < $confcount; ++$i) {
-                $ret[$configs[$i]->getVar('conf_name')] = $configs[$i]->getConfValueForOutput();
-            }
-            $this->cachedConfigs[$conf_modid][$conf_catid] = $ret;
-            return $ret;
         }
+        $criteria = new CriteriaCompo(new Criteria('conf_modid', $conf_modid));
+        if (empty($conf_catid)) {
+            $criteria->add(new Criteria('conf_catid', $conf_catid));
+        }
+        $criteria->setSort('conf_order');
+        $criteria->setOrder('ASC');
+        $configs = $this->itemHandler->getObjects($criteria);
+        $confcount = count($configs);
+        $ret = [];
+        for ($i = 0; $i < $confcount; ++$i) {
+            $ret[$configs[$i]->getVar('conf_name')] = $configs[$i]->getConfValueForOutput();
+        }
+        $this->cachedConfigs[$conf_modid][$conf_catid] = $ret;
+
+        return $ret;
     }
 }

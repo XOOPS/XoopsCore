@@ -38,7 +38,7 @@ class Helper extends GenericHelper
      */
     public static function getHelper($dirname = 'system')
     {
-        static $instance = array();
+        static $instance = [];
 
         if (!isset($instance[$dirname])) {
             $instance[$dirname] = false;

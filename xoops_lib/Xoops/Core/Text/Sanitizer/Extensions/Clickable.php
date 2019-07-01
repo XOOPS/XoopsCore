@@ -48,50 +48,49 @@ class Clickable extends FilterAbstract
         }
 
         $valid_chars = "a-z0-9\/\-_+=.~!%@?#&;:$\|";
-        $end_chars   = "a-z0-9\/\-_+=~!%@?#&;:$\|";
+        $end_chars = "a-z0-9\/\-_+=~!%@?#&;:$\|";
 
-        $pattern     = "/(^|[^]_a-z0-9-=\"'\/])([a-z]+?):\/\/([{$valid_chars}]+[{$end_chars}])/i";
+        $pattern = "/(^|[^]_a-z0-9-=\"'\/])([a-z]+?):\/\/([{$valid_chars}]+[{$end_chars}])/i";
         $text = preg_replace_callback(
             $pattern,
             function ($match) {
                 return $match[1] . "<a href=\"$match[2]://$match[3]\" title=\"$match[2]://$match[3]\""
-                . "rel=\"external\">$match[2]://".$this->truncate($match[3]).'</a>';
+                . "rel=\"external\">$match[2]://" . $this->truncate($match[3]) . '</a>';
             },
             $text
         );
 
-        $pattern     = "/(^|[^]_a-z0-9-=\"'\/:\.])www\.((([a-zA-Z0-9\-]*\.){1,}){1}([a-zA-Z]{2,6}){1})((\/([a-zA-Z0-9\-\._\?\,\'\/\\+&%\$#\=~])*)*)/i";
+        $pattern = "/(^|[^]_a-z0-9-=\"'\/:\.])www\.((([a-zA-Z0-9\-]*\.){1,}){1}([a-zA-Z]{2,6}){1})((\/([a-zA-Z0-9\-\._\?\,\'\/\\+&%\$#\=~])*)*)/i";
         $text = preg_replace_callback(
             $pattern,
             function ($match) {
-                return $match[1] ."<a href=\"http://www.$match[2]$match[6]\" "
+                return $match[1] . "<a href=\"http://www.$match[2]$match[6]\" "
                 . "title=\"www.$match[2]$match[6]\" rel=\"external\">" .
-                $this->truncate('www.'.$match[2].$match[6]) .'</a>';
+                $this->truncate('www.' . $match[2] . $match[6]) . '</a>';
             },
             $text
         );
 
-        $pattern     = "/(^|[^]_a-z0-9-=\"'\/])ftp\.([a-z0-9\-]+)\.([{$valid_chars}]+[{$end_chars}])/i";
+        $pattern = "/(^|[^]_a-z0-9-=\"'\/])ftp\.([a-z0-9\-]+)\.([{$valid_chars}]+[{$end_chars}])/i";
         $text = preg_replace_callback(
             $pattern,
             function ($match) {
-                return $match[1]."<a href=\"ftp://ftp.$match[2].$match[3]\" "
+                return $match[1] . "<a href=\"ftp://ftp.$match[2].$match[3]\" "
                 . "title=\"ftp.$match[2].$match[3]\" rel=\"external\">"
-                . $this->truncate('ftp.'.$match[2].$match[3]) .'</a>';
+                . $this->truncate('ftp.' . $match[2] . $match[3]) . '</a>';
             },
             $text
         );
 
-        $pattern     = "/(^|[^]_a-z0-9-=\"'\/:\.])([-_a-z0-9\'+*$^&%=~!?{}]++(?:\.[-_a-z0-9\'+*$^&%=~!?{}]+)*+)@((?:(?![-.])[-a-z0-9.]+(?<![-.])\.[a-z]{2,6}|\d{1,3}(?:\.\d{1,3}){3})(?::\d++)?)/i";
+        $pattern = "/(^|[^]_a-z0-9-=\"'\/:\.])([-_a-z0-9\'+*$^&%=~!?{}]++(?:\.[-_a-z0-9\'+*$^&%=~!?{}]+)*+)@((?:(?![-.])[-a-z0-9.]+(?<![-.])\.[a-z]{2,6}|\d{1,3}(?:\.\d{1,3}){3})(?::\d++)?)/i";
         $text = preg_replace_callback(
             $pattern,
             function ($match) {
-                return $match[1]. "<a href=\"mailto:$match[2]@$match[3]\" title=\"$match[2]@$match[3]\">"
-                . $this->truncate($match[2] . "@" . $match[3]) . '</a>';
+                return $match[1] . "<a href=\"mailto:$match[2]@$match[3]\" title=\"$match[2]@$match[3]\">"
+                . $this->truncate($match[2] . '@' . $match[3]) . '</a>';
             },
             $text
         );
-
 
         return $text;
     }
@@ -115,6 +114,7 @@ class Clickable extends FilterAbstract
         } else {
             $ret = mb_substr($text, 0, $config['truncate_length']);
         }
+
         return $ret;
     }
 }

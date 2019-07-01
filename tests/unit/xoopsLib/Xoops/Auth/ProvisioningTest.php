@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/../../../init_new.php');
+require_once(__DIR__ . '/../../../init_new.php');
 
 use Xoops\Auth\AuthAbstract;
 use Xoops\Auth\Provisioning;
@@ -7,14 +7,16 @@ use Xoops\Core\Database\Factory;
 
 class Xoops_Auth_ProvisioningTest_AuthAbstractInstance extends AuthAbstract
 {
-    function authenticate($uname, $pwd = null) {}
+    public function authenticate($uname, $pwd = null)
+    {
+    }
 }
 
 class Xoops_Auth_ProvisioningTest extends \PHPUnit\Framework\TestCase
 {
     protected $object = null;
 
-    public function setUp()
+    protected function setUp()
     {
         $conn = Factory::getConnection();
         $auth = new Xoops_Auth_ProvisioningTest_AuthAbstractInstance($conn);
@@ -29,8 +31,8 @@ class Xoops_Auth_ProvisioningTest extends \PHPUnit\Framework\TestCase
 
     public function test___publicProperties()
     {
-        $items = array('ldap_provisioning', 'ldap_provisioning_upd','ldap_field_mapping',
-            'ldap_provisioning_group');
+        $items = ['ldap_provisioning', 'ldap_provisioning_upd', 'ldap_field_mapping',
+            'ldap_provisioning_group', ];
         foreach ($items as $item) {
             $prop = new ReflectionProperty($this->object, $item);
             $this->assertTrue($prop->isPublic());
@@ -65,14 +67,14 @@ class Xoops_Auth_ProvisioningTest extends \PHPUnit\Framework\TestCase
     {
         $instance = $this->object;
 
-        $value = $instance->sync(array(), 'not_a_user');
+        $value = $instance->sync([], 'not_a_user');
         $this->assertFalse($value);
 
         $memberHandler = \Xoops::getInstance()->getHandlerMember();
         $userObject = $memberHandler->getUser(1);
         $userName = $userObject->getVar('uname');
 
-        $value = $instance->sync(array(), $userName);
+        $value = $instance->sync([], $userName);
         $this->assertInstanceOf('\Xoops\Core\Kernel\Handlers\XoopsUser', $value);
     }
 

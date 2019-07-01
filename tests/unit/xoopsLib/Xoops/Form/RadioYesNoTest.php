@@ -1,7 +1,8 @@
 <?php
+
 namespace Xoops\Form;
 
-require_once(__DIR__.'/../../../init_new.php');
+require_once(__DIR__ . '/../../../init_new.php');
 
 class RadioYesNoTest extends \PHPUnit\Framework\TestCase
 {
@@ -30,11 +31,11 @@ class RadioYesNoTest extends \PHPUnit\Framework\TestCase
     public function testRender()
     {
         $value = $this->object->render();
-        $this->assertTrue(is_string($value));
-        $this->assertTrue(false !== strpos($value, '<label class="radio'));
-        $this->assertTrue(false !== strpos($value, '<input'));
-        $this->assertTrue(false !== strpos($value, 'type="radio"'));
-        $this->assertTrue(false !== strpos($value, 'value="1"'));
-        $this->assertTrue(false !== strpos($value, 'value="0"'));
+        $this->assertInternalType('string', $value);
+        $this->assertTrue(false !== mb_strpos($value, '<label class="radio'));
+        $this->assertTrue(false !== mb_strpos($value, '<input'));
+        $this->assertTrue(false !== mb_strpos($value, 'type="radio"'));
+        $this->assertTrue(false !== mb_strpos($value, 'value="1"'));
+        $this->assertTrue(false !== mb_strpos($value, 'value="0"'));
     }
 }

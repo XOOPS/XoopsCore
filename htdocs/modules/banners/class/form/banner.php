@@ -34,12 +34,12 @@ class BannersBannerForm extends Xoops\Form\ThemeForm
             $blank_img = 'blank.gif';
             $html_banner = 0;
         } else {
-            if (substr_count($obj->getVar('banner_imageurl'), $xoops_upload_url . '/banners/') == 0) {
+            if (0 == mb_substr_count($obj->getVar('banner_imageurl'), $xoops_upload_url . '/banners/')) {
                 $blank_img = 'blank.gif';
             } else {
                 $namefile =
-                    substr_replace($obj->getVar('banner_imageurl'), '', 0, strlen($xoops_upload_url . '/banners/'));
-                $pathfile =  $xoops->path('uploads/banners/') . $namefile;
+                    substr_replace($obj->getVar('banner_imageurl'), '', 0, mb_strlen($xoops_upload_url . '/banners/'));
+                $pathfile = $xoops->path('uploads/banners/') . $namefile;
                 if (is_file($pathfile)) {
                     $blank_img = str_replace($xoops_upload_url . '/banners/', '', $obj->getVar('banner_imageurl', 'e'));
                 } else {
@@ -79,7 +79,7 @@ class BannersBannerForm extends Xoops\Form\ThemeForm
         $imgtray_img->addElement(
             new Xoops\Form\Label(
                 '',
-                "<br /><img src='" . $xoops_upload_url . "/banners/" . $blank_img
+                "<br /><img src='" . $xoops_upload_url . '/banners/' . $blank_img
                 . "' name='image_img' id='xo-banners-img' alt='' />"
             )
         );

@@ -13,7 +13,6 @@
  * @author          Cointin Maxime (AKA Kraven30)
  * @author          Andricq Nicolas (AKA MusS)
  */
-
 use Xoops\Core\PreloadItem;
 use Xoops\Core\Service\Provider;
 
@@ -23,7 +22,7 @@ class SystemPreload extends PreloadItem
     {
         $xoops = Xoops::getInstance();
         $url = $args[0];
-        if (preg_match("/[\\0-\\31]|about:|script:/i", $url)) {
+        if (preg_match('/[\\0-\\31]|about:|script:/i', $url)) {
             if (!preg_match('/^\b(java)?script:([\s]*)history\.go\(-[0-9]*\)([\s]*[;]*[\s]*)$/si', $url)) {
                 $url = \XoopsBaseConfig::get('url');
             }
@@ -32,7 +31,7 @@ class SystemPreload extends PreloadItem
             && $xoops->getConfig('redirect_message_ajax')
         ) {
             $_SESSION['redirect_message'] = $args[2];
-            header("Location: " . preg_replace("/[&]amp;/i", '&', $url));
+            header('Location: ' . preg_replace('/[&]amp;/i', '&', $url));
             exit();
         }
     }
@@ -54,7 +53,7 @@ class SystemPreload extends PreloadItem
             $xoops->theme()->addBaseStylesheetAssets('@fontawesome');
             $xoops->theme()->addBaseScriptAssets('@jquery');
             $xoops->theme()->addBaseScriptAssets('@jgrowl');
-            $xoops->theme()->addScript('', array('type' => 'text/javascript'), '
+            $xoops->theme()->addScript('', ['type' => 'text/javascript'], '
             (function($){
                 $(document).ready(function(){
                 $.jGrowl("' . $_SESSION['redirect_message'] . '", {  life:3000 , position: "center", speed: "slow" });
@@ -72,7 +71,7 @@ class SystemPreload extends PreloadItem
             $xoops->theme()->addBaseStylesheetAssets('@fontawesome');
             $xoops->theme()->addBaseScriptAssets('@jquery');
             $xoops->theme()->addBaseScriptAssets('@jgrowl');
-            $xoops->theme()->addScript('', array('type' => 'text/javascript'), '
+            $xoops->theme()->addScript('', ['type' => 'text/javascript'], '
             (function($){
             $(document).ready(function(){
                 $.jGrowl("' . $_SESSION['redirect_message'] . '", {  life:3000 , position: "center", speed: "slow" });

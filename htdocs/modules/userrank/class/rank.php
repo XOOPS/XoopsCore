@@ -126,10 +126,6 @@ class UserrankRank extends XoopsObject
 
 class UserrankRankHandler extends XoopsPersistableObjectHandler
 {
-
-    /**
-     * @param Connection $db
-     */
     public function __construct(Connection $db)
     {
         parent::__construct($db, 'userrank_rank', 'UserrankRank', 'rank_id', 'rank_title');

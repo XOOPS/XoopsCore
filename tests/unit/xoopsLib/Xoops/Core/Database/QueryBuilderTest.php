@@ -1,12 +1,12 @@
 <?php
-require_once(__DIR__.'/../../../../init_new.php');
+require_once(__DIR__ . '/../../../../init_new.php');
 
 class QueryBuilderTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass = '\Xoops\Core\Database\QueryBuilder';
     protected $conn = null;
 
-    public function setUp()
+    protected function setUp()
     {
         if (empty($this->conn)) {
             $this->conn = Xoops::getInstance()->db();

@@ -15,14 +15,15 @@
  * @license     GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author      Andricq Nicolas (AKA MusS)
  * @since       2.5
+ * @param mixed $argStr
+ * @param mixed $smarty
  */
-
 function smarty_compiler_xoAdminNav($argStr, &$smarty)
 {
     $xoops = Xoops::getInstance();
 
     $icons = $xoops->getModuleConfig('typebreadcrumb', 'system');
-    if ($icons == '') {
+    if ('' == $icons) {
         $icons = 'default';
     }
 
@@ -34,5 +35,6 @@ function smarty_compiler_xoAdminNav($argStr, &$smarty)
             $url = $xoops->url('modules/system/images/icons/default/' . $argStr);
         }
     }
+
     return "\necho '" . addslashes($url) . "';";
 }

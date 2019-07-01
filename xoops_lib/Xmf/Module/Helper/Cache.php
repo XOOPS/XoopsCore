@@ -57,7 +57,7 @@ class Cache extends AbstractHelper
      */
     protected function prefix($name)
     {
-        return $this->prefix . '/'. $name;
+        return $this->prefix . '/' . $name;
     }
 
     /**
@@ -87,6 +87,7 @@ class Cache extends AbstractHelper
     public function read($key, $default = false)
     {
         $value = $this->cache->read($this->prefix($key));
+
         return (false !== $value) ? $value : $default;
     }
 
@@ -127,7 +128,7 @@ class Cache extends AbstractHelper
      * clear all keys and data from the module's cache. This will do a hierarchical
      * delete on our module specific prefix.
      *
-     * @return boolean True if the cache was successfully cleared, false otherwise
+     * @return bool True if the cache was successfully cleared, false otherwise
      */
     public function clear()
     {

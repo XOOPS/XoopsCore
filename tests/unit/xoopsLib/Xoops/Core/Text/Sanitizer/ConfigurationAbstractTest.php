@@ -1,7 +1,8 @@
 <?php
+
 namespace Xoops\Core\Text\Sanitizer;
 
-require_once __DIR__.'/../../../../../init_new.php';
+require_once __DIR__ . '/../../../../../init_new.php';
 
 class ConfigurationAbstractTest extends \PHPUnit\Framework\TestCase
 {
@@ -77,7 +78,7 @@ class ConfigurationAbstractTest extends \PHPUnit\Framework\TestCase
         $this->object->set('test1', 'OK1');
         $this->object->set('test2', 'OK2');
         $all = $this->object->getNames();
-        $this->assertEquals(array('test1', 'test2'), $all);
+        $this->assertEquals(['test1', 'test2'], $all);
     }
 
     public function testHas()
@@ -117,10 +118,10 @@ class ConfigurationAbstractTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue($this->object->has('test1'));
         $this->assertTrue($this->object->has('test2'));
 
-        $replacements = array(
+        $replacements = [
             'test3' => 'OK3',
             'test4' => 'OK4',
-        );
+        ];
         $oldValues = $this->object->setAll($replacements);
         $this->assertArrayHasKey('test1', $oldValues);
         $this->assertArrayHasKey('test2', $oldValues);
@@ -142,10 +143,10 @@ class ConfigurationAbstractTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue($this->object->has('test1'));
         $this->assertTrue($this->object->has('test2'));
 
-        $replacements = array(
+        $replacements = [
             'test2' => 'OK2new',
             'test3' => 'OK3',
-        );
+        ];
         $this->object->setMerge($replacements);
 
         $this->assertTrue($this->object->has('test1'));
@@ -162,20 +163,20 @@ class ConfigurationAbstractTest extends \PHPUnit\Framework\TestCase
         $this->object->setArrayItem('test', 'a', 'OK1');
         $this->object->setArrayItem('test', 'b', 'OK2');
 
-        $expected = array(
+        $expected = [
             'a' => 'OK1',
             'b' => 'OK2',
-        );
+        ];
         $this->assertEquals($expected, $this->object->get('test'));
 
         $this->object->set('test', 'NOTOK1');
         $this->object->setArrayItem('test', null, 'OK1');
         $this->object->setArrayItem('test', null, 'OK2');
 
-        $expected = array(
+        $expected = [
             0 => 'OK1',
             1 => 'OK2',
-        );
+        ];
         $actual = $this->object->get('test');
         $this->assertEquals($expected, $actual);
     }
@@ -219,7 +220,7 @@ class ConfigurationAbstractTest extends \PHPUnit\Framework\TestCase
 
         $this->assertSame('OK1', $this->object->get('test1'));
         $this->assertSame('OK2', $this->object['test2']);
-        $this->assertEquals(2, count($this->object));
+        $this->assertCount(2, $this->object);
         $i = 0;
         foreach ($this->object as $v) {
             ++$i;

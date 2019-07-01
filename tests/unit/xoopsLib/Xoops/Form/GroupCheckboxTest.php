@@ -1,7 +1,8 @@
 <?php
+
 namespace Xoops\Form;
 
-require_once(__DIR__.'/../../../init_new.php');
+require_once(__DIR__ . '/../../../init_new.php');
 
 class GroupCheckboxTest extends \PHPUnit\Framework\TestCase
 {
@@ -30,6 +31,6 @@ class GroupCheckboxTest extends \PHPUnit\Framework\TestCase
     public function testRender()
     {
         $value = $this->object->render();
-        $this->assertTrue(is_string($value));
+        $this->assertInternalType('string', $value);
     }
 }

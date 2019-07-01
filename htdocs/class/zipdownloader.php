@@ -38,7 +38,6 @@ class XoopsZipDownloader extends XoopsDownloader
      *
      * @return XoopsZipDownloader
      */
-
     public function __construct($ext = '.zip', $mimyType = 'application/x-zip')
     {
         $this->archiver = new zipfile();
@@ -57,14 +56,15 @@ class XoopsZipDownloader extends XoopsDownloader
     public function addFile($filepath, $newfilename = null)
     {
         // Read in the file's contents
-        $fp = @fopen($filepath, "r");
-        if ($fp === false) {
+        $fp = @fopen($filepath, 'rb');
+        if (false === $fp) {
             return false;
         }
         $data = fread($fp, filesize($filepath));
         fclose($fp);
-        $filename = (isset($newfilename) && trim($newfilename) != '') ? trim($newfilename) : $filepath;
+        $filename = (isset($newfilename) && '' != trim($newfilename)) ? trim($newfilename) : $filepath;
         $result = $this->archiver->addFile($data, $filename, filemtime($filename));
+
         return $result;
     }
 
@@ -79,14 +79,15 @@ class XoopsZipDownloader extends XoopsDownloader
     public function addBinaryFile($filepath, $newfilename = null)
     {
         // Read in the file's contents
-        $fp = @fopen($filepath, "rb");
-        if ($fp === false) {
+        $fp = @fopen($filepath, 'rb');
+        if (false === $fp) {
             return false;
         }
         $data = fread($fp, filesize($filepath));
         fclose($fp);
-        $filename = (isset($newfilename) && trim($newfilename) != '') ? trim($newfilename) : $filepath;
+        $filename = (isset($newfilename) && '' != trim($newfilename)) ? trim($newfilename) : $filepath;
         $result = $this->archiver->addFile($data, $filename, filemtime($filename));
+
         return $result;
     }
 
@@ -102,6 +103,7 @@ class XoopsZipDownloader extends XoopsDownloader
     public function addFileData(&$data, $filename, $time = 0)
     {
         $result = $this->archiver->addFile($data, $filename, $time);
+
         return $result;
     }
 
@@ -117,6 +119,7 @@ class XoopsZipDownloader extends XoopsDownloader
     public function addBinaryFileData(&$data, $filename, $time = 0)
     {
         $result = $this->addFileData($data, $filename, $time);
+
         return $result;
     }
 
@@ -132,7 +135,7 @@ class XoopsZipDownloader extends XoopsDownloader
     {
         $this->_header($name . $this->ext);
         $result = $this->archiver->file();
-        if ($result !== false) {
+        if (false !== $result) {
             echo $result;
         }
     }

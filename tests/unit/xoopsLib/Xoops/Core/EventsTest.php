@@ -1,7 +1,5 @@
 <?php
-require_once(__DIR__.'/../../../init_new.php');
-
-use Xoops\Core\Events;
+require_once(__DIR__ . '/../../../init_new.php');
 
 class EventsTest extends \PHPUnit\Framework\TestCase
 {
@@ -46,7 +44,7 @@ class EventsTest extends \PHPUnit\Framework\TestCase
         $instance = $this->object;
 
         $result = $instance->getEvents();
-        $this->assertTrue(is_array($result));
+        $this->assertInternalType('array', $result);
     }
 
     public function dummy_callback($arg)
@@ -58,12 +56,12 @@ class EventsTest extends \PHPUnit\Framework\TestCase
     {
         $instance = $this->object;
 
-        $callback = array($this,'dummy_callback');
+        $callback = [$this, 'dummy_callback'];
         $name = 'dummy.listener';
         $instance->addListener($name, $callback);
 
-        $instance->triggerEvent('dummy.listener', array(1,2));
-        $this->assertSame(array(1,2), $this->dummy_result);
+        $instance->triggerEvent('dummy.listener', [1, 2]);
+        $this->assertSame([1, 2], $this->dummy_result);
     }
 
     public function test_hasListeners()

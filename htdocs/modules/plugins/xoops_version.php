@@ -19,36 +19,35 @@
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
-
 use PluginsLocale as t;
 
-$modversion = array();
-$modversion['name']           = t::MODULE_NAME;
-$modversion['description']    = t::MODULE_DESC;
-$modversion['version']        = 0.1;
-$modversion['author']         = 'Ricardo Costa';
-$modversion['nickname']       = 'trabis';
-$modversion['credits']        = 'The XOOPS Project';
-$modversion['license']        = 'GNU GPL 2.0';
-$modversion['license_url']    = 'http://www.gnu.org/licenses/gpl-2.0.html';
-$modversion['official']       = 1;
-$modversion['help']           = 'page=help';
-$modversion['image']          = 'images/logo.png';
-$modversion['dirname']        = basename(__DIR__);
+$modversion = [];
+$modversion['name'] = t::MODULE_NAME;
+$modversion['description'] = t::MODULE_DESC;
+$modversion['version'] = 0.1;
+$modversion['author'] = 'Ricardo Costa';
+$modversion['nickname'] = 'trabis';
+$modversion['credits'] = 'The XOOPS Project';
+$modversion['license'] = 'GNU GPL 2.0';
+$modversion['license_url'] = 'http://www.gnu.org/licenses/gpl-2.0.html';
+$modversion['official'] = 1;
+$modversion['help'] = 'page=help';
+$modversion['image'] = 'images/logo.png';
+$modversion['dirname'] = basename(__DIR__);
 
 //about
-$modversion['release_date']        = '2017/02/27';
-$modversion['module_website_url']  = 'http://www.xoops.org/';
+$modversion['release_date'] = '2017/02/27';
+$modversion['module_website_url'] = 'http://www.xoops.org/';
 $modversion['module_website_name'] = 'XOOPS';
-$modversion['module_status']       = 'ALPHA';
-$modversion['min_php']             = '5.3.7';
-$modversion['min_xoops']           = '2.6.0';
+$modversion['module_status'] = 'ALPHA';
+$modversion['min_php'] = '5.3.7';
+$modversion['min_xoops'] = '2.6.0';
 
 // paypal
-$modversion['paypal']                  = array();
-$modversion['paypal']['business']      = 'xoopsfoundation@gmail.com';
-$modversion['paypal']['item_name']     = t::DONATION_DESC;
-$modversion['paypal']['amount']        = 0;
+$modversion['paypal'] = [];
+$modversion['paypal']['business'] = 'xoopsfoundation@gmail.com';
+$modversion['paypal']['item_name'] = t::DONATION_DESC;
+$modversion['paypal']['amount'] = 0;
 $modversion['paypal']['currency_code'] = 'USD';
 
 // Admin menu
@@ -56,15 +55,15 @@ $modversion['paypal']['currency_code'] = 'USD';
 $modversion['system_menu'] = 1;
 
 // Admin things
-$modversion['hasAdmin']   = 1;
+$modversion['hasAdmin'] = 1;
 $modversion['adminindex'] = 'admin/index.php';
-$modversion['adminmenu']  = 'admin/menu.php';
+$modversion['adminmenu'] = 'admin/menu.php';
 
 // table definitions
 $modversion['schema'] = 'sql/schema.yml';
 $modversion['sqlfile']['mysql'] = 'sql/mysql.sql';
 
 // Tables created by sql file or schema (without prefix!)
-$modversion['tables'] = array(
+$modversion['tables'] = [
     'plugins_plugin',
-);
+];

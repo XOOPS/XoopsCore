@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/../../../../init_new.php');
+require_once(__DIR__ . '/../../../../init_new.php');
 
 use Xoops\Core\Kernel\Handlers\XoopsGroup;
 
@@ -37,13 +37,12 @@ class XoopsObjectTest extends \PHPUnit\Framework\TestCase
 
     public function test___publicProperties()
     {
-        $items = array('vars', 'cleanVars','plugin_path');
+        $items = ['vars', 'cleanVars', 'plugin_path'];
         foreach ($items as $item) {
             $prop = new ReflectionProperty($this->myClass, $item);
             $this->assertTrue($prop->isPublic());
         }
     }
-
 
     public function test_setNew()
     {
@@ -83,24 +82,24 @@ class XoopsObjectTest extends \PHPUnit\Framework\TestCase
         $instance->initVar($key, $data_type, $value, $required, $maxlength, $options);
         $vars = $instance->vars;
 
-        $this->assertTrue(is_array($vars));
+        $this->assertInternalType('array', $vars);
         $this->assertTrue($vars[$key]['value'] == $value);
         $this->assertTrue($vars[$key]['data_type'] == $data_type);
         $this->assertTrue($vars[$key]['required'] == $required);
         $this->assertTrue($vars[$key]['maxlength'] == $maxlength);
         $this->assertTrue($vars[$key]['options'] == $options);
-        $this->assertTrue($vars[$key]['changed'] == false);
+        $this->assertTrue(false == $vars[$key]['changed']);
 
         $instance->initVar($key, $data_type);
         $vars = $instance->vars;
 
-        $this->assertTrue(is_array($vars));
-        $this->assertTrue($vars[$key]['value'] == null);
+        $this->assertInternalType('array', $vars);
+        $this->assertTrue(null == $vars[$key]['value']);
         $this->assertTrue($vars[$key]['data_type'] == $data_type);
-        $this->assertTrue($vars[$key]['required'] == false);
-        $this->assertTrue($vars[$key]['maxlength'] == null);
-        $this->assertTrue($vars[$key]['options'] == '');
-        $this->assertTrue($vars[$key]['changed'] == false);
+        $this->assertTrue(false == $vars[$key]['required']);
+        $this->assertTrue(null == $vars[$key]['maxlength']);
+        $this->assertTrue('' == $vars[$key]['options']);
+        $this->assertTrue(false == $vars[$key]['changed']);
     }
 
     public function test_assignVar()
@@ -112,13 +111,13 @@ class XoopsObjectTest extends \PHPUnit\Framework\TestCase
         $data_type = XOBJ_DTYPE_TXTBOX;
         $instance->initVar($key, $data_type);
         $vars = $instance->vars;
-        $this->assertTrue(is_array($vars));
-        $this->assertTrue($vars[$key]['value'] == null);
+        $this->assertInternalType('array', $vars);
+        $this->assertTrue(null == $vars[$key]['value']);
 
         $value = 'value';
         $instance->assignVar($key, $value);
         $vars = $instance->vars;
-        $this->assertTrue(is_array($vars));
+        $this->assertInternalType('array', $vars);
         $this->assertTrue($vars[$key]['value'] == $value);
     }
 
@@ -131,20 +130,20 @@ class XoopsObjectTest extends \PHPUnit\Framework\TestCase
         $data_type = XOBJ_DTYPE_TXTBOX;
         $instance->initVar($key, $data_type);
         $vars = $instance->vars;
-        $this->assertTrue(is_array($vars));
-        $this->assertTrue($vars[$key]['value'] == null);
+        $this->assertInternalType('array', $vars);
+        $this->assertTrue(null == $vars[$key]['value']);
 
         $key = 'key2';
         $data_type = XOBJ_DTYPE_TXTBOX;
         $instance->initVar($key, $data_type);
         $vars = $instance->vars;
-        $this->assertTrue(is_array($vars));
-        $this->assertTrue($vars[$key]['value'] == null);
+        $this->assertInternalType('array', $vars);
+        $this->assertTrue(null == $vars[$key]['value']);
 
-        $arrVars = array('key1' => 'value1', 'key2' => 'value2');
+        $arrVars = ['key1' => 'value1', 'key2' => 'value2'];
         $instance->assignVars($arrVars);
         $vars = $instance->vars;
-        $this->assertTrue(is_array($vars));
+        $this->assertInternalType('array', $vars);
         foreach ($arrVars as $k => $v) {
             $this->assertTrue($vars[$k]['value'] == $v);
         }
@@ -175,11 +174,11 @@ class XoopsObjectTest extends \PHPUnit\Framework\TestCase
         $instance->initVar('dummyVar2', XOBJ_DTYPE_INT, 0);
         $instance->initVar('dummyVar3', XOBJ_DTYPE_INT, 0);
 
-        $instance->setVars(array(
+        $instance->setVars([
             'dummyVar1' => 1,
             'dummyVar2' => 2,
-            'dummyVar3' => 3
-        ));
+            'dummyVar3' => 3,
+        ]);
 
         $this->assertSame(1, $instance->vars['dummyVar1']['value']);
         $this->assertSame(2, $instance->vars['dummyVar2']['value']);
@@ -190,7 +189,7 @@ class XoopsObjectTest extends \PHPUnit\Framework\TestCase
     {
         $instance = new $this->myClass();
         $x = $instance->destroyVars(null);
-        $this->assertSame(true, $x);
+        $this->assertTrue($x);
     }
 
     public function test_setFormVars()
@@ -200,7 +199,7 @@ class XoopsObjectTest extends \PHPUnit\Framework\TestCase
         $instance->initVar('dummyVar2', XOBJ_DTYPE_INT, 0);
         $instance->initVar('dummyVar3', XOBJ_DTYPE_INT, 0);
 
-        $params = array('xo_dummyVar1' => 1, 'xo_dummyVar2' => 2, 'xo_dummyVar3' => 3);
+        $params = ['xo_dummyVar1' => 1, 'xo_dummyVar2' => 2, 'xo_dummyVar3' => 3];
         $instance->setFormVars($params);
 
         $x = $instance->getVar('dummyVar1');
@@ -230,7 +229,7 @@ class XoopsObjectTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue(isset($x['dummyVar1']));
         $this->assertTrue(isset($x['dummyVar2']));
 
-        $x = $instance->getValues(array('dummyVar1', 'dummyVar2'));
+        $x = $instance->getValues(['dummyVar1', 'dummyVar2']);
         $this->assertTrue(isset($x['dummyVar1']));
         $this->assertTrue(isset($x['dummyVar2']));
     }
@@ -241,7 +240,7 @@ class XoopsObjectTest extends \PHPUnit\Framework\TestCase
         $instance->initVar('dummyVar1', XOBJ_DTYPE_INT, 0);
         $instance->initVar('dummyVar2', XOBJ_DTYPE_INT, 0);
         $x = $instance->getVar('NOT_EXISTS');
-        $this->assertSame(null, $x);
+        $this->assertNull($x);
         $x = $instance->getVar('dummyVar1');
         $this->assertSame('0', $x);
     }
@@ -254,9 +253,9 @@ class XoopsObjectTest extends \PHPUnit\Framework\TestCase
         $instance->setVar('dummyVar1', 1);
         $instance->setVar('dummyVar2', 2);
         $x = $instance->cleanVars();
-        $this->assertSame(true, $x);
+        $this->assertTrue($x);
         $cleanVars = $instance->cleanVars;
-        $this->assertTrue(is_array($cleanVars));
+        $this->assertInternalType('array', $cleanVars);
         $this->assertSame(1, $cleanVars['dummyVar1']);
         $this->assertSame(2, $cleanVars['dummyVar2']);
     }
@@ -289,11 +288,11 @@ class XoopsObjectTest extends \PHPUnit\Framework\TestCase
         $msg = 'error message';
         $instance->setErrors($msg);
         $x = $instance->getErrors();
-        $this->assertTrue(is_array($x));
+        $this->assertInternalType('array', $x);
         $this->assertSame($msg, $x[0]);
-        $instance->setErrors(array($msg, $msg));
+        $instance->setErrors([$msg, $msg]);
         $x = $instance->getErrors();
-        $this->assertTrue(is_array($x));
+        $this->assertInternalType('array', $x);
         $this->assertSame($msg, $x[0]);
         $this->assertSame($msg, $x[1]);
         $this->assertSame($msg, $x[2]);
@@ -306,7 +305,7 @@ class XoopsObjectTest extends \PHPUnit\Framework\TestCase
         $instance->setErrors($msg);
         $instance->setErrors($msg);
         $x = $instance->getHtmlErrors();
-        $this->assertSame('<h4>Errors</h4>'.$msg.'<br />'.$msg.'<br />', $x);
+        $this->assertSame('<h4>Errors</h4>' . $msg . '<br />' . $msg . '<br />', $x);
     }
 
     public function test_toArray()

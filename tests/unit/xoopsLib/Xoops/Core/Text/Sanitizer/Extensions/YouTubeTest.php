@@ -1,9 +1,10 @@
 <?php
+
 namespace Xoops\Core\Text\Sanitizer\Extensions;
 
 use Xoops\Core\Text\Sanitizer;
 
-require_once __DIR__.'/../../../../../../init_new.php';
+require_once __DIR__ . '/../../../../../../init_new.php';
 
 class YouTubeTest extends \PHPUnit\Framework\TestCase
 {
@@ -46,8 +47,8 @@ class YouTubeTest extends \PHPUnit\Framework\TestCase
     {
         $support = $this->object->getDhtmlEditorSupport('testeditorarea');
         $this->assertTrue(2 == count($support));
-        $this->assertTrue(is_string($support[0]));
-        $this->assertTrue(is_string($support[1]));
+        $this->assertInternalType('string', $support[0]);
+        $this->assertInternalType('string', $support[1]);
     }
 
     public function testRegisterExtensionProcessing()

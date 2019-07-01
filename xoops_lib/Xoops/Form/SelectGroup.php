@@ -11,8 +11,8 @@
 
 namespace Xoops\Form;
 
-use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\FixedGroups;
+use Xoops\Core\Kernel\Criteria;
 
 /**
  * SelectGroup - a select field with a choice of available groups
@@ -33,10 +33,10 @@ class SelectGroup extends Select
      *                                    Control attributes:
      *                                        :include_anon true to include anonymous groups
      * @param string       $name         element name
-     * @param boolean      $include_anon Include group "anonymous"?
+     * @param bool      $include_anon Include group "anonymous"?
      * @param mixed        $value        Pre-selected value (or array of them).
-     * @param integer      $size         Number or rows. "1" makes a drop-down-list.
-     * @param boolean      $multiple     Allow multiple selections?
+     * @param int      $size         Number or rows. "1" makes a drop-down-list.
+     * @param bool      $multiple     Allow multiple selections?
      */
     public function __construct($caption, $name = null, $include_anon = false, $value = null, $size = 1, $multiple = false)
     {

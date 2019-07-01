@@ -47,13 +47,13 @@ class MyTextSanitizer extends Xoops\Core\Text\Sanitizer
      *
      * @param string $text text to not process
      *
-     * @return string
-     *
      * @throws LogicException
+     * @return string
      */
     public function addSlashes($text)
     {
         throw new LogicException('GPC is dead. Please stop.');
+
         return $text;
     }
 
@@ -62,13 +62,13 @@ class MyTextSanitizer extends Xoops\Core\Text\Sanitizer
      *
      * @param string $text text to not process
      *
-     * @return string
-     *
      * @throws LogicException
+     * @return string
      */
     public function stripSlashesGPC($text)
     {
         throw new LogicException('GPC is dead. Please stop.');
+
         return $text;
     }
 

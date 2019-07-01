@@ -1,4 +1,5 @@
 <?php
+
 namespace Xoops\Core\Handler\Scheme;
 
 use Xoops\Core\Handler\Factory;
@@ -28,7 +29,7 @@ class SchemeInterfaceTest extends \PHPUnit\Framework\TestCase
             $this->object->method('build')
                 ->willReturn(null);
         } else { // need phpunit 4.8 for PHP 5.5
-            $this->object = $this->getMock('\Xoops\Core\Handler\Scheme\SchemeInterface');
+            $this->object = $this->createMock('\Xoops\Core\Handler\Scheme\SchemeInterface');
         }
     }
 

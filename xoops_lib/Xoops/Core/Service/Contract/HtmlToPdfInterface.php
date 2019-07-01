@@ -75,8 +75,6 @@ interface HtmlToPdfInterface
      * @param float    $topMargin    top margin in base units
      * @param float    $rightMargin  right margin in base units
      * @param float    $bottomMargin bottom margin in base units
-     *
-     * @return void - response->value set to absolute URL to avatar image
      */
     public function setMargins($response, $leftMargin, $topMargin, $rightMargin, $bottomMargin);
 
@@ -177,8 +175,6 @@ interface HtmlToPdfInterface
      * fetchPdf - fetch rendered document as a string
      *
      * @param Response $response \Xoops\Core\Service\Response object
-     *
-     * @return void - response->value set to string containing document
      */
     public function fetchPdf($response);
 }

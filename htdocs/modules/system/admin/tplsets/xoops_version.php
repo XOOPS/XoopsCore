@@ -18,17 +18,16 @@
  * @package     system
  * @version     $Id$
  */
-
-$modversion['name']        = XoopsLocale::TEMPLATES;
-$modversion['version']     = '1.0';
+$modversion['name'] = XoopsLocale::TEMPLATES;
+$modversion['version'] = '1.0';
 $modversion['description'] = SystemLocale::TEMPLATES_DESC;
-$modversion['author']      = '';
-$modversion['credits']     = 'The XOOPS Project; Maxime Cointin (AKA Kraven30)';
-$modversion['help']        = 'page=tplsets';
-$modversion['license']     = "GPL see LICENSE";
-$modversion['official']    = 1;
-$modversion['image']       = 'tpls.png';
+$modversion['author'] = '';
+$modversion['credits'] = 'The XOOPS Project; Maxime Cointin (AKA Kraven30)';
+$modversion['help'] = 'page=tplsets';
+$modversion['license'] = 'GPL see LICENSE';
+$modversion['official'] = 1;
+$modversion['image'] = 'tpls.png';
 
-$modversion['hasAdmin']    = 1;
-$modversion['adminpath']   = 'admin.php?fct=tplsets';
-$modversion['category']    = XOOPS_SYSTEM_TPLSET;
+$modversion['hasAdmin'] = 1;
+$modversion['adminpath'] = 'admin.php?fct=tplsets';
+$modversion['category'] = XOOPS_SYSTEM_TPLSET;

@@ -34,8 +34,8 @@ class Request
     /**
      * Available masks for cleaning variables
      */
-    const MASK_NO_TRIM    = 1;
-    const MASK_ALLOW_RAW  = 2;
+    const MASK_NO_TRIM = 1;
+    const MASK_ALLOW_RAW = 2;
     const MASK_ALLOW_HTML = 4;
 
     /**
@@ -45,7 +45,7 @@ class Request
      */
     public static function getMethod()
     {
-        $method = strtoupper($_SERVER['REQUEST_METHOD']);
+        $method = mb_strtoupper($_SERVER['REQUEST_METHOD']);
 
         return $method;
     }
@@ -82,11 +82,11 @@ class Request
     public static function getVar($name, $default = null, $hash = 'default', $type = 'none', $mask = 0)
     {
         // Ensure hash and type are uppercase
-        $hash = strtoupper($hash);
-        if ($hash === 'METHOD') {
+        $hash = mb_strtoupper($hash);
+        if ('METHOD' === $hash) {
             $hash = static::getMethod();
         }
-        $type = strtoupper($type);
+        $type = mb_strtoupper($type);
 
         // Get the input hash
         switch ($hash) {
@@ -113,11 +113,11 @@ class Request
                 break;
         }
 
-        if (isset($input[$name]) && $input[$name] !== null) {
+        if (isset($input[$name]) && null !== $input[$name]) {
             // Get the variable from the input hash and clean it
             $var = static::cleanVar($input[$name], $mask, $type);
         } else {
-            if ($default !== null) {
+            if (null !== $default) {
                 // Clean the default value
                 $var = static::cleanVar($default, $mask, $type);
             } else {
@@ -246,7 +246,7 @@ class Request
      *
      * @return array
      */
-    public static function getArray($name, $default = array(), $hash = 'default')
+    public static function getArray($name, $default = [], $hash = 'default')
     {
         return static::getVar($name, $default, $hash, 'array');
     }
@@ -305,6 +305,7 @@ class Request
     public static function getEmail($name, $default = '', $hash = 'default')
     {
         $ret = (string) static::getVar($name, $default, $hash, 'email');
+
         return empty($ret) ? $default : $ret;
     }
 
@@ -320,6 +321,7 @@ class Request
     public static function getIP($name, $default = '', $hash = 'default')
     {
         $ret = (string) static::getVar($name, $default, $hash, 'ip');
+
         return empty($ret) ? $default : $ret;
     }
 
@@ -336,7 +338,7 @@ class Request
     {
         $values = self::getVar($name, [], $hash, 'array');
         $count = count($values);
-        if ($count === 1) {
+        if (1 === $count) {
             $date = reset($values);
             $ret = (empty($date)) ? $default : Time::inputToDateTime($date);
         } elseif (isset($values['date']) && isset($values['time'])) {
@@ -344,6 +346,7 @@ class Request
         } else {
             $ret = $default;
         }
+
         return $ret;
     }
 
@@ -360,27 +363,28 @@ class Request
         static $headers = null;
 
         if (null === $headers) {
-            $headers = array();
+            $headers = [];
             if (function_exists('apache_request_headers')) {
                 $rawHeaders = apache_request_headers();
                 foreach ($rawHeaders as $name => $value) {
-                    $headers[strtolower($name)] = $value;
+                    $headers[mb_strtolower($name)] = $value;
                 }
             } else {
                 // From joyview - http://php.net/manual/en/function.getallheaders.php
                 foreach ($_SERVER as $name => $value) {
-                    if (substr($name, 0, 5) === 'HTTP_') {
-                        $translatedName = str_replace(' ', '-', strtolower(str_replace('_', ' ', substr($name, 5))));
+                    if ('HTTP_' === mb_substr($name, 0, 5)) {
+                        $translatedName = str_replace(' ', '-', mb_strtolower(str_replace('_', ' ', mb_substr($name, 5))));
                         $headers[$translatedName] = $value;
                     }
                 }
             }
         }
 
-        $name = strtolower($headerName);
+        $name = mb_strtolower($headerName);
         if (isset($headers[$name])) {
             return static::cleanVar($headers[$name]);
         }
+
         return $default;
     }
 
@@ -390,13 +394,13 @@ class Request
      * @param string $name variable to look for
      * @param string $hash hash to check
      *
-     * @return boolean True if hash has an element 'name', otherwise false
+     * @return bool True if hash has an element 'name', otherwise false
      */
     public static function hasVar($name, $hash = 'default')
     {
-        $hash = strtoupper($hash);
-        if ($hash === 'METHOD') {
-            $hash = strtoupper($_SERVER['REQUEST_METHOD']);
+        $hash = mb_strtoupper($hash);
+        if ('METHOD' === $hash) {
+            $hash = mb_strtoupper($_SERVER['REQUEST_METHOD']);
         }
 
         // Get the requested hash and determine existing value
@@ -404,6 +408,7 @@ class Request
         if (isset($original[$name])) {
             return true;
         }
+
         return false;
     }
 
@@ -413,15 +418,15 @@ class Request
      * @param string  $name      Name
      * @param string  $value     Value
      * @param string  $hash      Hash
-     * @param boolean $overwrite Boolean
+     * @param bool $overwrite Boolean
      *
      * @return string Previous value
      */
     public static function setVar($name, $value = null, $hash = 'method', $overwrite = true)
     {
-        $hash = strtoupper($hash);
-        if ($hash === 'METHOD') {
-            $hash = strtoupper($_SERVER['REQUEST_METHOD']);
+        $hash = mb_strtoupper($hash);
+        if ('METHOD' === $hash) {
+            $hash = mb_strtoupper($_SERVER['REQUEST_METHOD']);
         }
 
         // Get the requested hash and determine existing value
@@ -492,10 +497,10 @@ class Request
      */
     public static function get($hash = 'default', $mask = 0)
     {
-        $hash = strtoupper($hash);
+        $hash = mb_strtoupper($hash);
 
-        if ($hash === 'METHOD') {
-            $hash = strtoupper($_SERVER['REQUEST_METHOD']);
+        if ('METHOD' === $hash) {
+            $hash = mb_strtoupper($_SERVER['REQUEST_METHOD']);
         }
 
         switch ($hash) {
@@ -532,7 +537,7 @@ class Request
      *
      * @param array   $array     An associative array of key-value pairs
      * @param string  $hash      The request variable to set (POST, GET, FILES, METHOD)
-     * @param boolean $overwrite If true and an existing key is found, the value is overwritten,
+     * @param bool $overwrite If true and an existing key is found, the value is overwritten,
      *                            otherwise it is ignored
      *
      * @return void
@@ -566,8 +571,8 @@ class Request
         static $safeHtmlFilter = null;
 
         // convert $var in array if $type is ARRAY
-        if (strtolower($type) === 'array' && !is_array($var)) {
-            $var = array($var);
+        if ('array' === mb_strtolower($type) && !is_array($var)) {
+            $var = [$var];
         }
 
         // If the no trim flag is not set, trim the variable
@@ -581,7 +586,7 @@ class Request
             if ($mask & static::MASK_ALLOW_HTML) {
                 // If the allow html flag is set, apply a safe html filter to the variable
                 if (null === $safeHtmlFilter) {
-                    $safeHtmlFilter = FilterInput::getInstance(array(), array(), 1, 1);
+                    $safeHtmlFilter = FilterInput::getInstance([], [], 1, 1);
                 }
                 $var = $safeHtmlFilter->cleanVar($var, $type);
             } else {

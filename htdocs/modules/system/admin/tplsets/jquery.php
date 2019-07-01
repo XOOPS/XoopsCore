@@ -19,7 +19,6 @@ use Xmf\Request;
  * @author      Maxime Cointin (AKA Kraven30)
  * @package     system
  */
-
 include dirname(dirname(__DIR__)) . '/header.php';
 
 $xoops = Xoops::getInstance();
@@ -29,7 +28,7 @@ if (!$xoops->isUser() || !$xoops->isModule() || !$xoops->user->isAdmin($xoops->m
     exit(XoopsLocale::E_NO_ACCESS_PERMISSION);
 }
 
-if (isset($_REQUEST['dir']) && strpos($_REQUEST['dir'],'..') !== false || isset($_REQUEST['path_file']) && strpos($_REQUEST['path_file'],'..') !== false) {
+if (isset($_REQUEST['dir']) && false !== mb_strpos($_REQUEST['dir'], '..') || isset($_REQUEST['path_file']) && false !== mb_strpos($_REQUEST['path_file'], '..')) {
     exit(XoopsLocale::E_NO_ACCESS_PERMISSION);
 }
 
@@ -39,42 +38,40 @@ $xoops->loadLocale('system');
 $op = Request::getCmd('op', 'default');
 switch ($op) {
     // Display tree folder
-    case "tpls_display_folder":
+    case 'tpls_display_folder':
         $_REQUEST['dir'] = urldecode($_REQUEST['dir']);
         $root = \XoopsBaseConfig::get('themes-path');
         if (XoopsLoad::fileExists($root . $_REQUEST['dir'])) {
             $files = scandir($root . $_REQUEST['dir']);
             natcasesort($files);
             if (count($files) > 2) { /* The 2 accounts for . and .. */
-                echo "<ul class=\"jqueryFileTree\" style=\"display: none;\">";
+                echo '<ul class="jqueryFileTree" style="display: none;">';
                 // All dirs
                 foreach ($files as $file) {
-
-                    if (XoopsLoad::fileExists($root . $_REQUEST['dir'] . $file) && $file !== '.' && $file !== '..' && is_dir($root . $_REQUEST['dir'] . $file)) {
+                    if (XoopsLoad::fileExists($root . $_REQUEST['dir'] . $file) && '.' !== $file && '..' !== $file && is_dir($root . $_REQUEST['dir'] . $file)) {
                         //retirer .svn
-                        $file_no_valid = array('.svn', 'icons', 'img', 'images', 'language', 'locale');
+                        $file_no_valid = ['.svn', 'icons', 'img', 'images', 'language', 'locale'];
 
                         if (!in_array($file, $file_no_valid)) {
-                            echo "<li class=\"directory collapsed\"><a href=\"#\" rel=\"" . htmlentities($_REQUEST['dir'] . $file) . "/\">" . htmlentities($file) . "</a></li>";
+                            echo '<li class="directory collapsed"><a href="#" rel="' . htmlentities($_REQUEST['dir'] . $file) . '/">' . htmlentities($file) . '</a></li>';
                         }
                     }
                 }
                 // All files
                 foreach ($files as $file) {
-                    if (XoopsLoad::fileExists($root . $_REQUEST['dir'] . $file) && $file !== '.' && $file !== '..' && !is_dir($root . $_REQUEST['dir'] . $file) && $file !== 'index.html') {
+                    if (XoopsLoad::fileExists($root . $_REQUEST['dir'] . $file) && '.' !== $file && '..' !== $file && !is_dir($root . $_REQUEST['dir'] . $file) && 'index.html' !== $file) {
                         $ext = preg_replace('/^.*\./', '', $file);
 
-                        $extensions = array('.tpl', '.html', '.htm', '.css');
-                        $extension_verif = strrchr($file, '.');
+                        $extensions = ['.tpl', '.html', '.htm', '.css'];
+                        $extension_verif = mb_strrchr($file, '.');
 
                         if (in_array($extension_verif, $extensions)) {
-                            echo "<li class=\"file ext_$ext\"><a href=\"#\" onclick=\"tpls_edit_file('" . htmlentities($_REQUEST['dir'] . $file) . "', '" . htmlentities($_REQUEST['dir']) . "', '" . htmlentities($file) . "', '" . $ext . "');\" rel=\"tpls_edit_file('" . htmlentities($_REQUEST['dir'] . $file) . "', '" . htmlentities($_REQUEST['dir']) . "', '" . htmlentities($file) . "', '" . $ext . "');\">" . htmlentities($file) . "</a></li>";
-                        } else {
-                            //echo "<li class=\"file ext_$ext\">" . htmlentities($file) . "</li>";
+                            echo "<li class=\"file ext_$ext\"><a href=\"#\" onclick=\"tpls_edit_file('" . htmlentities($_REQUEST['dir'] . $file) . "', '" . htmlentities($_REQUEST['dir']) . "', '" . htmlentities($file) . "', '" . $ext . "');\" rel=\"tpls_edit_file('" . htmlentities($_REQUEST['dir'] . $file) . "', '" . htmlentities($_REQUEST['dir']) . "', '" . htmlentities($file) . "', '" . $ext . "');\">" . htmlentities($file) . '</a></li>';
                         }
+                        //echo "<li class=\"file ext_$ext\">" . htmlentities($file) . "</li>";
                     }
                 }
-                echo "</ul>";
+                echo '</ul>';
             }
         }
         break;
@@ -82,8 +79,8 @@ switch ($op) {
     case 'tpls_edit_file':
         $clean_file = Request::getString('file', '');
         $clean_path_file = Request::getString('path_file', '');
-        $path_file = realpath(XOOPS_ROOT_PATH.'/themes'.trim($clean_path_file));
-        $path_file = str_replace('\\','/',$path_file);
+        $path_file = realpath(XOOPS_ROOT_PATH . '/themes' . trim($clean_path_file));
+        $path_file = str_replace('\\', '/', $path_file);
 
         //Button restore
         if (XoopsLoad::fileExists($path_file . '.back')) {
@@ -125,20 +122,19 @@ switch ($op) {
               </table>';
         $xoopsToken = new \Xoops\Form\Token();
         echo $xoopsToken->render();
-        echo '<input type="hidden" name="path_file" value="'.$clean_path_file.'"><input type="hidden" name="file" value="'.trim($clean_file).'"><input type="hidden" name="ext" value="'.$ext.'"></form>';
+        echo '<input type="hidden" name="path_file" value="' . $clean_path_file . '"><input type="hidden" name="file" value="' . trim($clean_file) . '"><input type="hidden" name="ext" value="' . $ext . '"></form>';
         break;
-
     // Restore backup file
     case 'tpls_restore':
-        $extensions = array('.tpl', '.html', '.htm', '.css');
+        $extensions = ['.tpl', '.html', '.htm', '.css'];
 
         //check if the file is inside themes directory
-        $valid_dir = stristr(realpath($_REQUEST['path_file']), realpath(\XoopsBaseConfig::get('root-path') . '/themes'));
+        $valid_dir = mb_stristr(realpath($_REQUEST['path_file']), realpath(\XoopsBaseConfig::get('root-path') . '/themes'));
 
         $old_file = $_REQUEST['path_file'] . '.back';
         $new_file = $_REQUEST['path_file'];
 
-        $extension_verif = strrchr($new_file, '.');
+        $extension_verif = mb_strrchr($new_file, '.');
         if ($valid_dir && in_array($extension_verif, $extensions) && XoopsLoad::fileExists($old_file) && XoopsLoad::fileExists($new_file)) {
             if (unlink($new_file)) {
                 if (rename($old_file, $new_file)) {

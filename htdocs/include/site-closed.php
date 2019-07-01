@@ -18,7 +18,6 @@
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
  * @version         $Id$
  */
-
 use Xoops\Core\FixedGroups;
 
 $xoops = Xoops::getInstance();
@@ -43,11 +42,11 @@ if (!$allowed) {
     $xoopsThemeFactory = new \Xoops\Core\Theme\Factory();
     $xoopsThemeFactory->allowedThemes = $xoops->getConfig('theme_set_allowed');
     $xoopsThemeFactory->defaultTheme = $xoops->getConfig('theme_set');
-    $xoops->setTheme($xoopsThemeFactory->createInstance(array('plugins' => array())));
+    $xoops->setTheme($xoopsThemeFactory->createInstance(['plugins' => []]));
     unset($xoopsThemeFactory);
-    $xoops->theme()->addScript('/include/xoops.js', array('type' => 'text/javascript'));
+    $xoops->theme()->addScript('/include/xoops.js', ['type' => 'text/javascript']);
     $xoops->setTpl($xoops->theme()->template);
-    $xoops->tpl()->assign(array(
+    $xoops->tpl()->assign([
                            'xoops_theme' => $xoops->getConfig('theme_set'),
                            'xoops_imageurl' => \XoopsBaseConfig::get('themes-url') . '/' . $xoops->getConfig('theme_set') . '/',
                            'xoops_themecss' => $xoops->getCss($xoops->getConfig('theme_set')),
@@ -58,8 +57,8 @@ if (!$allowed) {
                            'xoops_banner' => $xoops->getConfig('banners') ? $xoops->getBanner() : '&nbsp;',
                            'xoops_pagetitle' => $xoops->isModule() ? $xoops->module->getVar('name') : htmlspecialchars($xoops->getConfig('slogan'), ENT_QUOTES),
                            'lang_login' => XoopsLocale::A_LOGIN, 'lang_username' => XoopsLocale::C_USERNAME, 'lang_password' => XoopsLocale::C_PASSWORD,
-                           'lang_siteclosemsg' => $xoops->getConfig('closesite_text')
-                      ));
+                           'lang_siteclosemsg' => $xoops->getConfig('closesite_text'),
+                      ]);
     //todo check if we can use $xoops->getConfig() instead
     $config_handler = $xoops->getHandlerConfig();
     $criteria = new CriteriaCompo(new Criteria('conf_modid', 1));
@@ -68,7 +67,7 @@ if (!$allowed) {
     foreach (array_keys($config) as $i) {
         $name = $config[$i]->getVar('conf_name', 'n');
         $value = $config[$i]->getVar('conf_value', 'n');
-        if (substr($name, 0, 5) == 'meta_') {
+        if ('meta_' == mb_substr($name, 0, 5)) {
             $xoops->tpl()->assign("xoops_$name", htmlspecialchars($value, ENT_QUOTES));
         } else {
             // prefix each tag with 'xoops_'

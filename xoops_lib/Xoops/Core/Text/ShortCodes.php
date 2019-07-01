@@ -38,7 +38,7 @@ class ShortCodes
      *
      * @var array
      */
-    private $shortcodes = array();
+    private $shortcodes = [];
 
     /**
      * add a shortcode to the active set
@@ -46,14 +46,13 @@ class ShortCodes
      * @param string   $tag      shortcode name
      * @param callable $function shortcode processor
      *
-     * @return void
-     *
      * @throws \ErrorException
+     * @return void
      */
     public function addShortcode($tag, $function)
     {
         if (!is_callable($function)) {
-            throw new \ErrorException("Function must be callable");
+            throw new \ErrorException('Function must be callable');
         }
 
         $this->shortcodes[$tag] = $function;
@@ -141,7 +140,7 @@ class ShortCodes
             return $content;
         }
 
-        return preg_replace_callback($this->shortcodeRegex(), array($this, 'processTag'), $content);
+        return preg_replace_callback($this->shortcodeRegex(), [$this, 'processTag'], $content);
     }
 
     /**
@@ -157,7 +156,7 @@ class ShortCodes
             return $content;
         }
 
-        return preg_replace_callback($this->shortcodeRegex(), array($this, 'stripShortcodeTag'), $content);
+        return preg_replace_callback($this->shortcodeRegex(), [$this, 'stripShortcodeTag'], $content);
     }
 
     /**
@@ -172,9 +171,9 @@ class ShortCodes
     private function processTag(array $tag)
     {
         // allow [[foo]] syntax for escaping a tag
-        if ($tag[1] === '[' && $tag[6] === ']') {
+        if ('[' === $tag[1] && ']' === $tag[6]) {
             //return substr($tag[0], 1, -1);
-            return '&#91;' . substr($tag[0], 2, -2) . '&#93';
+            return '&#91;' . mb_substr($tag[0], 2, -2) . '&#93';
         }
 
         $tagName = $tag[2];
@@ -183,10 +182,9 @@ class ShortCodes
         if (isset($tag[5])) {
             // enclosing tag - extra parameter
             return $tag[1] . call_user_func($this->shortcodes[$tagName], $attr, $tag[5], $tagName) . $tag[6];
-        } else {
-            // self-closing tag
-            return $tag[1] . call_user_func($this->shortcodes[$tagName], $attr, null, $tagName) . $tag[6];
         }
+        // self-closing tag
+        return $tag[1] . call_user_func($this->shortcodes[$tagName], $attr, null, $tagName) . $tag[6];
     }
 
     /**
@@ -207,7 +205,7 @@ class ShortCodes
     public function shortcodeAttributes($defaults, $attributes)
     {
         $attributes = (array)$attributes;
-        $out = array();
+        $out = [];
         foreach ($defaults as $name => $default) {
             if (array_key_exists($name, $attributes)) {
                 $out[$name] = $attributes[$name];
@@ -218,7 +216,6 @@ class ShortCodes
 
         return $out;
     }
-
 
     /**
      * Retrieve all attributes from the shortcodes tag.
@@ -233,22 +230,22 @@ class ShortCodes
      */
     private function parseAttributes($text)
     {
-        $text = preg_replace("/[\x{00a0}\x{200b}]+/u", " ", $text);
+        $text = preg_replace("/[\x{00a0}\x{200b}]+/u", ' ', $text);
 
         if (!preg_match_all($this->attrPattern, $text, $matches, PREG_SET_ORDER)) {
-            return array(ltrim($text));
+            return [ltrim($text)];
         }
 
-        $attr = array();
+        $attr = [];
 
         foreach ($matches as $match) {
             if (!empty($match[1])) {
-                $attr[strtolower($match[1])] = stripcslashes($match[2]);
+                $attr[mb_strtolower($match[1])] = stripcslashes($match[2]);
             } elseif (!empty($match[3])) {
-                $attr[strtolower($match[3])] = stripcslashes($match[4]);
+                $attr[mb_strtolower($match[3])] = stripcslashes($match[4]);
             } elseif (!empty($match[5])) {
-                $attr[strtolower($match[5])] = stripcslashes($match[6]);
-            } elseif (isset($match[7]) && strlen($match[7])) {
+                $attr[mb_strtolower($match[5])] = stripcslashes($match[6]);
+            } elseif (isset($match[7]) && mb_strlen($match[7])) {
                 $attr[] = stripcslashes($match[7]);
             } elseif (isset($match[8])) {
                 $attr[] = stripcslashes($match[8]);
@@ -267,8 +264,8 @@ class ShortCodes
      */
     private function stripShortcodeTag($tag)
     {
-        if ($tag[1] === '[' && $tag[6] === ']') {
-            return substr($tag[0], 1, -1);
+        if ('[' === $tag[1] && ']' === $tag[6]) {
+            return mb_substr($tag[0], 1, -1);
         }
 
         return $tag[1] . $tag[6];
@@ -293,7 +290,7 @@ class ShortCodes
      */
     private function shortcodeRegex()
     {
-        $tagRegex = join('|', array_map('preg_quote', array_keys($this->shortcodes)));
+        $tagRegex = implode('|', array_map('preg_quote', array_keys($this->shortcodes)));
 
         return
             '/'
@@ -302,27 +299,27 @@ class ShortCodes
             . "($tagRegex)"                      // 2: Shortcode name
             . '(?![\\w-])'                       // Not followed by word character or hyphen
             . '('                                // 3: Unroll the loop: Inside the opening shortcode tag
-            .     '[^\\]\\/]*'                   // Not a closing bracket or forward slash
-            .     '(?:'
-            .         '\\/(?!\\])'               // A forward slash not followed by a closing bracket
-            .         '[^\\]\\/]*'               // Not a closing bracket or forward slash
-            .     ')*?'
+            . '[^\\]\\/]*'                   // Not a closing bracket or forward slash
+            . '(?:'
+            . '\\/(?!\\])'               // A forward slash not followed by a closing bracket
+            . '[^\\]\\/]*'               // Not a closing bracket or forward slash
+            . ')*?'
             . ')'
             . '(?:'
-            .     '(\\/)'                        // 4: Self closing tag ...
-            .     '\\]'                          // ... and closing bracket
+            . '(\\/)'                        // 4: Self closing tag ...
+            . '\\]'                          // ... and closing bracket
             . '|'
-            .     '\\]'                          // Closing bracket
-            .     '(?:'
-            .         '('                        // 5: Unroll the loop: Optionally, anything between the opening and closing shortcode tags
-            .             '[^\\[]*+'             // Not an opening bracket
-            .             '(?:'
-            .                 '\\[(?!\\/\\2\\])' // An opening bracket not followed by the closing shortcode tag
-            .                 '[^\\[]*+'         // Not an opening bracket
-            .             ')*+'
-            .         ')'
-            .         '\\[\\/\\2\\]'             // Closing shortcode tag
-            .     ')?'
+            . '\\]'                          // Closing bracket
+            . '(?:'
+            . '('                        // 5: Unroll the loop: Optionally, anything between the opening and closing shortcode tags
+            . '[^\\[]*+'             // Not an opening bracket
+            . '(?:'
+            . '\\[(?!\\/\\2\\])' // An opening bracket not followed by the closing shortcode tag
+            . '[^\\[]*+'         // Not an opening bracket
+            . ')*+'
+            . ')'
+            . '\\[\\/\\2\\]'             // Closing shortcode tag
+            . ')?'
             . ')'
             . '(\\]?)'                           // 6: Optional second closing bracket for escaping shortcodes: [[tag]]
             . '/s';

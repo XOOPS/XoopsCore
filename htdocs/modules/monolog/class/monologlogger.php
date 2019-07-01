@@ -11,9 +11,10 @@
 
 use Monolog\Logger as MLogger;
 use Monolog\Formatter\LineFormatter;
-//use Monolog\Handler\FirePHPHandler;
 use Monolog\Handler\RotatingFileHandler;
+//use Monolog\Handler\FirePHPHandler;
 use Monolog\Handler\StreamHandler;
+use Monolog\Logger as MLogger;
 use Monolog\Processor\WebProcessor;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
@@ -33,7 +34,7 @@ use Xoops\Core\Logger;
  * @link      http://xoops.org
  * @since     1.0
  */
-class MonologLogger implements LoggerInterface
+class monologlogger implements LoggerInterface
 {
     /**
      * @var object
@@ -48,7 +49,7 @@ class MonologLogger implements LoggerInterface
     /**
      * @var array named start times
      */
-    private $starttimes = array();
+    private $starttimes = [];
 
     /**
      * @var array named start times
@@ -106,26 +107,26 @@ class MonologLogger implements LoggerInterface
             $this->monolog = new \Monolog\Logger('app');
             $proc = new WebProcessor();
             $this->monolog->pushProcessor($proc);
-            $this->monolog->pushProcessor(array($this,'xoopsDataProcessor'));
+            $this->monolog->pushProcessor([$this, 'xoopsDataProcessor']);
 
             $formatter = new LineFormatter();
             //$formatter = new LogstashFormatter;
             switch ($this->configs['logging_threshold']) {
                 case 'error':
-                    $threshold=MLogger::ERROR;
+                    $threshold = MLogger::ERROR;
                     break;
                 case 'warning':
-                    $threshold=MLogger::WARNING;
+                    $threshold = MLogger::WARNING;
                     break;
                 case 'info':
-                    $threshold=MLogger::INFO;
+                    $threshold = MLogger::INFO;
                     break;
                 case 'debug':
                 default:
-                    $threshold=MLogger::DEBUG;
+                    $threshold = MLogger::DEBUG;
                     break;
             }
-            if ((int)($this->configs['max_versions']) == 0) {
+            if (0 == (int)($this->configs['max_versions'])) {
                 $stream = new StreamHandler($this->configs['log_file_path'], $threshold);
             } else {
                 $stream = new RotatingFileHandler(
@@ -155,6 +156,7 @@ class MonologLogger implements LoggerInterface
         $xoops = \Xoops::getInstance();
         $record['extra']['user'] = '?';
         @$record['extra']['user'] = $xoops->isUser() ? $xoops->user->getVar('uname') : 'n/a';
+
         return $record;
     }
 
@@ -167,7 +169,7 @@ class MonologLogger implements LoggerInterface
      */
     public function setConfigs($configs)
     {
-        $this->configs=$configs;
+        $this->configs = $configs;
     }
 
     /**
@@ -215,9 +217,9 @@ class MonologLogger implements LoggerInterface
             if (array_key_exists($name, $this->starttimes)) {
                 $elapsed = microtime(true) - $this->starttimes[$name];
                 $msg = sprintf(_MD_MONOLOG_TIMETOLOAD, htmlspecialchars($name), $elapsed);
-                $context = array(
-                    'channel'=>'Timers',
-                );
+                $context = [
+                    'channel' => 'Timers',
+                ];
                 $this->log(LogLevel::INFO, $msg, $context);
             }
         }
@@ -240,12 +242,12 @@ class MonologLogger implements LoggerInterface
             if (!empty($error)) {
                 $level = LogLevel::ERROR;
             }
-            $context = array(
-                'channel'=>'Queries',
-                'error'=>$error,
-                'errno'=>$errno,
-                'query_time'=>$query_time
-            );
+            $context = [
+                'channel' => 'Queries',
+                'error' => $error,
+                'errno' => $errno,
+                'query_time' => $query_time,
+            ];
             $this->log($level, $sql, $context);
         }
     }
@@ -262,7 +264,7 @@ class MonologLogger implements LoggerInterface
     public function addBlock($name, $cached = false, $cachetime = 0)
     {
         if ($this->activated) {
-            $context = array('channel'=>'Blocks', 'cached'=>$cached, 'cachetime'=>$cachetime);
+            $context = ['channel' => 'Blocks', 'cached' => $cached, 'cachetime' => $cachetime];
             $this->log(LogLevel::INFO, $name, $context);
         }
     }
@@ -278,7 +280,7 @@ class MonologLogger implements LoggerInterface
     public function addExtra($name, $msg)
     {
         if ($this->activated) {
-            $context = array('channel'=>'Extra', 'name'=>$name);
+            $context = ['channel' => 'Extra', 'name' => $name];
             $this->log(LogLevel::INFO, $msg, $context);
         }
     }
@@ -293,7 +295,7 @@ class MonologLogger implements LoggerInterface
     public function addDeprecated($msg)
     {
         if ($this->activated) {
-            $this->log(LogLevel::WARNING, $msg, array('channel'=>'Deprecated'));
+            $this->log(LogLevel::WARNING, $msg, ['channel' => 'Deprecated']);
         }
     }
 
@@ -314,7 +316,7 @@ class MonologLogger implements LoggerInterface
                     $this->sanitizePath($e->getFile()),
                     $e->getLine()
                 ),
-                array('exception' => $e)
+                ['exception' => $e]
             );
         }
     }
@@ -329,10 +331,11 @@ class MonologLogger implements LoggerInterface
     public function sanitizePath($path)
     {
         $path = str_replace(
-            array('\\', \XoopsBaseConfig::get('root-path'), str_replace('\\', '/', realpath(\XoopsBaseConfig::get('root-path')))),
-            array('/', '', ''),
+            ['\\', \XoopsBaseConfig::get('root-path'), str_replace('\\', '/', realpath(\XoopsBaseConfig::get('root-path')))],
+            ['/', '', ''],
             $path
         );
+
         return $path;
     }
 
@@ -344,7 +347,7 @@ class MonologLogger implements LoggerInterface
      *
      * @return null
      */
-    public function emergency($message, array $context = array())
+    public function emergency($message, array $context = [])
     {
         if ($this->activated) {
             $this->log(LogLevel::EMERGENCY, $message, $context);
@@ -362,7 +365,7 @@ class MonologLogger implements LoggerInterface
      *
      * @return null
      */
-    public function alert($message, array $context = array())
+    public function alert($message, array $context = [])
     {
         if ($this->activated) {
             $this->log(LogLevel::ALERT, $message, $context);
@@ -379,7 +382,7 @@ class MonologLogger implements LoggerInterface
      *
      * @return null
      */
-    public function critical($message, array $context = array())
+    public function critical($message, array $context = [])
     {
         if ($this->activated) {
             $this->log(LogLevel::CRITICAL, $message, $context);
@@ -395,7 +398,7 @@ class MonologLogger implements LoggerInterface
      *
      * @return null
      */
-    public function error($message, array $context = array())
+    public function error($message, array $context = [])
     {
         if ($this->activated) {
             $this->log(LogLevel::ERROR, $message, $context);
@@ -413,7 +416,7 @@ class MonologLogger implements LoggerInterface
      *
      * @return null
      */
-    public function warning($message, array $context = array())
+    public function warning($message, array $context = [])
     {
         if ($this->activated) {
             $this->log(LogLevel::WARNING, $message, $context);
@@ -428,7 +431,7 @@ class MonologLogger implements LoggerInterface
      *
      * @return null
      */
-    public function notice($message, array $context = array())
+    public function notice($message, array $context = [])
     {
         if ($this->activated) {
             $this->log(LogLevel::NOTICE, $message, $context);
@@ -445,7 +448,7 @@ class MonologLogger implements LoggerInterface
      *
      * @return null
      */
-    public function info($message, array $context = array())
+    public function info($message, array $context = [])
     {
         if ($this->activated) {
             $this->log(LogLevel::INFO, $message, $context);
@@ -460,7 +463,7 @@ class MonologLogger implements LoggerInterface
      *
      * @return null
      */
-    public function debug($message, array $context = array())
+    public function debug($message, array $context = [])
     {
         if ($this->activated) {
             $this->log(LogLevel::DEBUG, $message, $context);
@@ -491,7 +494,7 @@ class MonologLogger implements LoggerInterface
      *
      * @return null
      */
-    public function log($level, $message, array $context = array())
+    public function log($level, $message, array $context = [])
     {
         if (!$this->activated) {
             return;
@@ -505,7 +508,7 @@ class MonologLogger implements LoggerInterface
          * approriatly using context values.
          */
         if (isset($context['channel'])) {
-            $chan = strtolower($context['channel']);
+            $chan = mb_strtolower($context['channel']);
             switch ($chan) {
                 case 'blocks':
                     if (!$this->configs['include_blocks']) {
@@ -542,14 +545,14 @@ class MonologLogger implements LoggerInterface
                     $msg = $message;
                     $qt = empty($context['query_time']) ?
                         '' : sprintf('%0.6f - ', $context['query_time']);
-                    if ($level == LogLevel::ERROR) {
+                    if (LogLevel::ERROR == $level) {
                         //if (!is_scalar($context['errno']) ||  !is_scalar($context['errno'])) {
                         //    \Xmf\Debug::dump($context);
                         //}
                         $msg .= ' -- Error number: '
-                            . (is_scalar($context['errno']) ?  $context['errno'] : '?')
+                            . (is_scalar($context['errno']) ? $context['errno'] : '?')
                             . ' Error message: '
-                            . (is_scalar($context['error']) ?  $context['error'] : '?');
+                            . (is_scalar($context['error']) ? $context['error'] : '?');
                     }
                     $msg = $this->messageTag('_MD_MONOLOG_QUERIES', 'Queries*') . ' : ' . $qt . $msg;
                     break;

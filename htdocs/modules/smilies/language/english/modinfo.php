@@ -20,11 +20,11 @@
  * @version         $Id$
  */
 // Info module
-define("_MI_SMILIES_NAME", "Smilies");
-define("_MI_SMILIES_DESC", "Module for managing smilies");
+define('_MI_SMILIES_NAME', 'Smilies');
+define('_MI_SMILIES_DESC', 'Module for managing smilies');
 // Menu
-define("_MI_SMILIES_INDEX", "Home");
-define("_MI_SMILIES_SMILIES", "Smilies manager");
-define("_MI_SMILIES_ABOUT", "About");
+define('_MI_SMILIES_INDEX', 'Home');
+define('_MI_SMILIES_SMILIES', 'Smilies manager');
+define('_MI_SMILIES_ABOUT', 'About');
 // Preferences
-define("_MI_SMILIES_PREFERENCE_PAGER", "Number of smilies to display per page");
+define('_MI_SMILIES_PREFERENCE_PAGER', 'Number of smilies to display per page');

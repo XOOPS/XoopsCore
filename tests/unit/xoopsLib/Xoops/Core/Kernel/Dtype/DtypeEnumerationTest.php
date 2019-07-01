@@ -1,10 +1,8 @@
 <?php
+
 namespace Xoops\Core\Kernel\Dtype;
 
 require_once __DIR__ . '/../../../../../init_new.php';
-
-use Xoops\Core\Kernel\Dtype;
-use Xoops\Core\Kernel\XoopsObject;
 
 class DtypeEnumerationTest extends \PHPUnit\Framework\TestCase
 {

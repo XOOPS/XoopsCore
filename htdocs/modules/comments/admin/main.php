@@ -12,9 +12,9 @@
 use Xmf\Jwt\TokenFactory;
 use Xmf\Jwt\TokenReader;
 use Xmf\Request;
-use Xoops\Core\Locale\Time;
 use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\Kernel\CriteriaCompo;
+use Xoops\Core\Locale\Time;
 
 /**
  * Comments Manager
@@ -24,7 +24,6 @@ use Xoops\Core\Kernel\CriteriaCompo;
  * @author          Kazumi Ono (AKA onokazu)
  * @package         comments
  */
-
 include __DIR__ . '/header.php';
 
 // Get main instance
@@ -42,14 +41,14 @@ $xoops->header('admin:comments/comments.tpl');
 $admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('main.php');
 
-$limit_array = array(20, 50, 100);
+$limit_array = [20, 50, 100];
 $status_array =
-    array(Comments::STATUS_PENDING => _MD_COMMENTS_PENDING, Comments::STATUS_ACTIVE => _MD_COMMENTS_ACTIVE, Comments::STATUS_HIDDEN => _MD_COMMENTS_HIDDEN);
-$status_array2 = array(
+    [Comments::STATUS_PENDING => _MD_COMMENTS_PENDING, Comments::STATUS_ACTIVE => _MD_COMMENTS_ACTIVE, Comments::STATUS_HIDDEN => _MD_COMMENTS_HIDDEN];
+$status_array2 = [
     Comments::STATUS_PENDING => '<span style="text-decoration: none; font-weight: bold; color: #008000;">' . _MD_COMMENTS_PENDING . '</span>',
     Comments::STATUS_ACTIVE => '<span style="text-decoration: none; font-weight: bold; color: #ff0000;">' . _MD_COMMENTS_ACTIVE . '</span>',
-    Comments::STATUS_HIDDEN => '<span style="text-decoration: none; font-weight: bold; color: #0000ff;">' . _MD_COMMENTS_HIDDEN . '</span>'
-);
+    Comments::STATUS_HIDDEN => '<span style="text-decoration: none; font-weight: bold; color: #0000ff;">' . _MD_COMMENTS_HIDDEN . '</span>',
+];
 $start = 0;
 $status_array[0] = _AM_COMMENTS_FORM_ALL_STATUS;
 
@@ -59,11 +58,11 @@ $status = (!isset($_REQUEST['status']) || !in_array((int)($_REQUEST['status']), 
 
 $module = Request::getInt('module', 0);
 
-$modules_array = array();
+$modules_array = [];
 $module_handler = $xoops->getHandlerModule();
 $available_plugins = \Xoops\Module\Plugin::getPlugins('comments');
 if (!empty($available_plugins)) {
-    $criteria = new Criteria('dirname', "('" . implode("','", array_keys($available_plugins)).  "')", 'IN');
+    $criteria = new Criteria('dirname', "('" . implode("','", array_keys($available_plugins)) . "')", 'IN');
     $module_array = $module_handler->getNameList($criteria);
 }
 
@@ -72,7 +71,6 @@ $module_array[0] = _AM_COMMENTS_FORM_ALL_MODS;
 $comment_handler = $helper->getHandlerComment();
 
 switch ($op) {
-
     case 'comments_jump':
         $id = Request::getInt('item_id', 0, 'get');
         if ($id > 0) {
@@ -87,7 +85,6 @@ switch ($op) {
         }
         $helper->redirect('admin/main.php', 1, _AM_COMMENTS_NO_COMMENTS);
         break;
-
     case 'comments_form_purge':
         //Affichage du formulaire de purge
         $form_purge = new Xoops\Form\ThemeForm(_AM_COMMENTS_FORM_PURGE, 'form', $helper->url('admin/main.php'), 'post', true);
@@ -96,28 +93,27 @@ switch ($op) {
         $form_purge->addElement(new Xoops\Form\DateSelect(_AM_COMMENTS_FORM_PURGE_DATE_BEFORE, 'comments_before'));
 
         //user
-        $form_purge->addElement(new Xoops\Form\SelectUser(_AM_COMMENTS_FORM_PURGE_USER, "comments_userid", false, @$_REQUEST['comments_userid'], 5, true));
+        $form_purge->addElement(new Xoops\Form\SelectUser(_AM_COMMENTS_FORM_PURGE_USER, 'comments_userid', false, @$_REQUEST['comments_userid'], 5, true));
 
         //groups
-        $groupe_select = new Xoops\Form\SelectGroup(_AM_COMMENTS_FORM_PURGE_GROUPS, "comments_groupe", false, '', 5, true);
+        $groupe_select = new Xoops\Form\SelectGroup(_AM_COMMENTS_FORM_PURGE_GROUPS, 'comments_groupe', false, '', 5, true);
         $form_purge->addElement($groupe_select);
 
         //Status
-        $status = new Xoops\Form\Select(_AM_COMMENTS_FORM_PURGE_STATUS, "comments_status", '');
+        $status = new Xoops\Form\Select(_AM_COMMENTS_FORM_PURGE_STATUS, 'comments_status', '');
         $options = $status_array;
         $status->addOptionArray($options);
         $form_purge->addElement($status, true);
 
         //Modules
-        $modules = new Xoops\Form\Select(_AM_COMMENTS_FORM_PURGE_MODULES, "comments_modules", '');
+        $modules = new Xoops\Form\Select(_AM_COMMENTS_FORM_PURGE_MODULES, 'comments_modules', '');
         $options = $module_array;
         $modules->addOptionArray($options);
         $form_purge->addElement($modules, true);
-        $form_purge->addElement(new Xoops\Form\Hidden("op", "comments_purge"));
-        $form_purge->addElement(new Xoops\Form\Button("", "submit", XoopsLocale::A_SUBMIT, "submit"));
+        $form_purge->addElement(new Xoops\Form\Hidden('op', 'comments_purge'));
+        $form_purge->addElement(new Xoops\Form\Button('', 'submit', XoopsLocale::A_SUBMIT, 'submit'));
         $xoops->tpl()->assign('form', $form_purge->render());
         break;
-
     case 'comments_purge':
         $criteria = new CriteriaCompo();
         $verif = false;
@@ -127,10 +123,10 @@ switch ($op) {
                 $after = Request::getDateTime('comments_after', null, 'post');
                 $before = Request::getDateTime('comments_before', null, 'post');
                 if (null !== $after) {
-                    $criteria->add(new Criteria('created', $after->getTimestamp(), ">"));
+                    $criteria->add(new Criteria('created', $after->getTimestamp(), '>'));
                 }
                 if (null !== $before) {
-                    $criteria->add(new Criteria('created', $before->getTimestamp(), "<"));
+                    $criteria->add(new Criteria('created', $before->getTimestamp(), '<'));
                 }
                 $verif = true;
             }
@@ -177,11 +173,11 @@ switch ($op) {
             }
             $verif = true;
         }
-        if ($verif == true) {
+        if (true == $verif) {
             $toBeDeleted = $comment_handler->getCount($criteria);
             $serialized = serialize($criteria);
             if ($toBeDeleted) {
-                $claims = array_merge($assertPurgeClaims, array('criteria' => $serialized));
+                $claims = array_merge($assertPurgeClaims, ['criteria' => $serialized]);
                 $token = TokenFactory::build('comments', $claims, 120);
 
                 $confirmForm = $xoops->confirm(
@@ -194,14 +190,13 @@ switch ($op) {
                 $xoops->tpl()->assign('form', $confirmForm);
             }
         } else {
-            $helper->redirect("admin/main.php", 3, 'Nothing to purge.');
+            $helper->redirect('admin/main.php', 3, 'Nothing to purge.');
         }
         break;
-
     case 'confirm_purge':
         $token = TokenReader::fromRequest('comments', 'jwt', $assertPurgeClaims);
         if (false === $token) {
-            $helper->redirect("admin/main.php", 3, 'Not authorized');
+            $helper->redirect('admin/main.php', 3, 'Not authorized');
         }
 
         $criteria = unserialize(
@@ -210,9 +205,8 @@ switch ($op) {
         );
         $comment_handler->deleteAll($criteria);
 
-        $helper->redirect("admin/main.php", 3, XoopsLocale::S_DATABASE_UPDATED);
+        $helper->redirect('admin/main.php', 3, XoopsLocale::S_DATABASE_UPDATED);
         break;
-
     default:
         $admin_page->addTips(_AM_COMMENTS_NAV_TIPS);
         $admin_page->renderTips();
@@ -241,7 +235,7 @@ switch ($op) {
 
         $xoops->tpl()->assign('comments_count', $comments_count);
 
-        $comments_arr = array();
+        $comments_arr = [];
         $comments_start = 0;
         $comments_limit = 0;
         if ($comments_count > 0) {
@@ -277,7 +271,6 @@ switch ($op) {
             $form .= '<option value="' . $k . '"' . $sel . '>' . $v . '</option>';
         }
 
-
         $form .= '</select>&nbsp;<select class="span2" name="comments_limit">';
         foreach ($limit_array as $k) {
             $sel = '';
@@ -302,14 +295,14 @@ switch ($op) {
                     }
                 }
 
-                $comments_icon = ($comments_arr[$i]->getVar('icon') == '') ? '/images/icons/no_posticon.gif'
+                $comments_icon = ('' == $comments_arr[$i]->getVar('icon')) ? '/images/icons/no_posticon.gif'
                     : '/images/subject/' . htmlspecialchars($comments_arr[$i]->getVar('icon'), ENT_QUOTES);
                 $comments_icon = '<img src="' . \XoopsBaseConfig::get('url') . $comments_icon . '" alt="" />';
 
                 $comments['comments_id'] = $id;
                 $comments['comments_poster'] = $comments_poster_uname;
                 $comments['comments_icon'] = $comments_icon;
-                $comments['comments_title'] = '<a href="main.php?op=comments_jump&amp;item_id=' . $comments_arr[$i]->getVar("id") . '">' . $comments_arr[$i]->getVar("title")  . '</a>';
+                $comments['comments_title'] = '<a href="main.php?op=comments_jump&amp;item_id=' . $comments_arr[$i]->getVar('id') . '">' . $comments_arr[$i]->getVar('title') . '</a>';
                 $comments['comments_ip'] = $comments_arr[$i]->getVar('ip');
                 $comments['comments_date'] = XoopsLocale::formatTimestamp($comments_arr[$i]->getVar('created'));
                 $comments['comments_text'] = $myts->undoHtmlSpecialChars($comments_arr[$i]->getVar('text'));

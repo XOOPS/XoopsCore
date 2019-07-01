@@ -51,7 +51,6 @@ class CountryFlagProvider extends AbstractContract implements CountryflagInterfa
         return 'Built in CountryFlag provider';
     }
 
-
     /**
      * getFlagUrl
      *
@@ -63,7 +62,7 @@ class CountryFlagProvider extends AbstractContract implements CountryflagInterfa
     private function getFlagUrl($countryCode, $size)
     {
         $countryCode = $this->getCountryCodeOverride($countryCode);
-        $size = strtolower(substr($size, 0, 1));
+        $size = mb_strtolower(mb_substr($size, 0, 1));
         $sizeDir = '64';
         switch ($size) {
             case 's':
@@ -84,6 +83,7 @@ class CountryFlagProvider extends AbstractContract implements CountryflagInterfa
             $flagFile = $flagDir . '_unknown.png';
         }
         $url = $xoops->url($flagFile);
+
         return $url;
     }
 
@@ -94,7 +94,7 @@ class CountryFlagProvider extends AbstractContract implements CountryflagInterfa
      *
      * @var string[]
      */
-    private $overrideMap = array (
+    private $overrideMap = [
         'AC' => 'SH',       // *Ascension Island part of Saint Helena, Ascension and Tristan da Cunha
         'BQ' => 'NL',       // Caribbean Netherlands
         'BV' => 'NO',       // Bouvet Island, dependency of Norway
@@ -112,7 +112,7 @@ class CountryFlagProvider extends AbstractContract implements CountryflagInterfa
         'TA' => 'SH',       // *Tristan da Cunha part of Saint Helena, Ascension and Tristan da Cunha
         'UM' => 'US',       // U.S. Outlying Islands
         'XK' => '_kosovo',  // (User-assigned range) temporary assigned code
-    );
+    ];
 
     /**
      * getCountryOverride
@@ -126,6 +126,7 @@ class CountryFlagProvider extends AbstractContract implements CountryflagInterfa
         $countryCode = (isset($this->overrideMap[$countryCode]))
             ? $this->overrideMap[$countryCode]
             : $countryCode;
+
         return $countryCode;
     }
 
@@ -136,21 +137,19 @@ class CountryFlagProvider extends AbstractContract implements CountryflagInterfa
      * @param string   $countryCode ISO 3166-1 alpha-2 code to select flag
      * @param array    $attributes  array of attribute name => value pairs for img tag
      * @param string   $size        'small', 'medium' or 'large'
-     *
-     * @return void  - response->value set to image tag
      */
     public function getImgTag(
         Response $response,
         $countryCode,
-        $attributes = array(),
+        $attributes = [],
         $size = 'large'
     ) {
         $url = $this->getFlagUrl($countryCode, $size);
         if (!is_array($attributes)) {
-            $attributes = array();
+            $attributes = [];
         }
 
-        $imgTag = new Img(array('src' => $url, 'alt' => $countryCode));
+        $imgTag = new Img(['src' => $url, 'alt' => $countryCode]);
         $imgTag->setMerge($attributes);
         $response->setValue($imgTag->render());
     }

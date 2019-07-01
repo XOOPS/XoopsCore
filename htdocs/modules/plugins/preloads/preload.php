@@ -34,10 +34,10 @@ class PluginsPreload extends PreloadItem
     public static function eventCoreIncludeCommonClassmaps($args)
     {
         $path = dirname(__DIR__);
-        \XoopsLoad::addMap(array(
+        \XoopsLoad::addMap([
             'plugins' => $path . '/class/helper.php',
             'pluginsmanager' => $path . '/class/manager.php',
-        ));
+        ]);
     }
 
     /**
@@ -58,10 +58,10 @@ class PluginsPreload extends PreloadItem
      *
      * @param $args
      */
-    public static function eventSystemModuleInstall($args) {
+    public static function eventSystemModuleInstall($args)
+    {
         \Xoops::getInstance()->setActiveModules();
         //Adds new plugins if available and remove them if modules were deactivated
         PluginsManager::updatePlugins();
     }
-
 }

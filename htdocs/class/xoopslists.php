@@ -79,7 +79,8 @@ class XoopsLists
      */
     public static function getDirListAsArray($path)
     {
-        $ignored = array('cvs', '_darcs');
+        $ignored = ['cvs', '_darcs'];
+
         return \Xoops\Core\Lists\Directory::getList($path, $ignored);
     }
 
@@ -91,7 +92,6 @@ class XoopsLists
      *
      * @return array
      */
-
     public static function getFileListAsArray($path, $prefix = '')
     {
         return \Xoops\Core\Lists\File::getList($path, $prefix);
@@ -143,7 +143,7 @@ class XoopsLists
      */
     public static function getLangList()
     {
-        $lang_list = XoopsLists::getDirListAsArray(\XoopsBaseConfig::get('root-path') . '/language/');
+        $lang_list = self::getDirListAsArray(\XoopsBaseConfig::get('root-path') . '/language/');
 
         return $lang_list;
     }
@@ -151,7 +151,7 @@ class XoopsLists
     /**
      * gets list of locale folders inside default language directory
      *
-     * @param boolean $showInCodeLanguage true to show a code's name in the language the code represents
+     * @param bool $showInCodeLanguage true to show a code's name in the language the code represents
      *
      * @return array
      */

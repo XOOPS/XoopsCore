@@ -11,9 +11,9 @@
 
 namespace Xoops\Core\Kernel\Model;
 
+use Doctrine\DBAL\FetchMode;
 use Xoops\Core\Kernel\CriteriaElement;
 use Xoops\Core\Kernel\XoopsModelAbstract;
-use Doctrine\DBAL\FetchMode;
 
 /**
  * Object render handler class.
@@ -44,10 +44,10 @@ class Read extends XoopsModelAbstract
             if (!in_array($this->handler->keyName, $fields)) {
                 $fields[] = $this->handler->keyName;
             }
-            $first=true;
+            $first = true;
             foreach ($fields as $field) {
                 if ($first) {
-                    $first=false;
+                    $first = false;
                     $qb->select($field);
                 } else {
                     $qb->addSelect($field);
@@ -61,7 +61,7 @@ class Read extends XoopsModelAbstract
             $qb = $criteria->renderQb($qb);
         }
 
-        $ret = array();
+        $ret = [];
         $result = $qb->execute();
         if (!$result) {
             return $ret;
@@ -89,6 +89,7 @@ class Read extends XoopsModelAbstract
             }
             unset($object);
         }
+
         return $ret;
     }
 
@@ -106,6 +107,7 @@ class Read extends XoopsModelAbstract
     public function getObjects(CriteriaElement $criteria = null, $id_as_key = false, $as_object = true)
     {
         $objects = $this->getAll($criteria, null, $as_object, $id_as_key);
+
         return $objects;
     }
 
@@ -123,14 +125,14 @@ class Read extends XoopsModelAbstract
         //$qb = Xoops::getInstance()->db()->createXoopsQueryBuilder();
         $qb = $this->handler->db2->createXoopsQueryBuilder();
 
-        $ret = array();
+        $ret = [];
 
         $qb->select($this->handler->keyName);
         if (!empty($this->handler->identifierName)) {
             $qb->addSelect($this->handler->identifierName);
         }
         $qb->from($this->handler->table, null);
-        if ($limit!=0 || $start!=0) {
+        if (0 != $limit || 0 != $start) {
             $qb->setFirstResult($start)
                 ->setMaxResults($limit);
         }
@@ -149,6 +151,7 @@ class Read extends XoopsModelAbstract
             $ret[$myrow[$this->handler->keyName]] = empty($this->handler->identifierName) ? 1
                 : $myts->htmlSpecialChars($myrow[$this->handler->identifierName]);
         }
+
         return $ret;
     }
 
@@ -163,7 +166,7 @@ class Read extends XoopsModelAbstract
     {
         $qb = $this->handler->db2->createXoopsQueryBuilder();
 
-        $ret = array();
+        $ret = [];
 
         $qb->select($this->handler->keyName);
         $qb->from($this->handler->table, null);
@@ -178,6 +181,7 @@ class Read extends XoopsModelAbstract
         while ($myrow = $result->fetch(FetchMode::ASSOCIATIVE)) {
             $ret[] = $myrow[$this->handler->keyName];
         }
+
         return $ret;
     }
 
@@ -191,7 +195,7 @@ class Read extends XoopsModelAbstract
     public function getRandomObject(CriteriaElement $criteria = null)
     {
         $qb = $this->handler->db2->createXoopsQueryBuilder();
-        $qb ->select('COUNT(*)')
+        $qb->select('COUNT(*)')
             ->from($this->handler->table, null);
         if (null !== $criteria) {
             $qb = $criteria->renderQb($qb);
@@ -202,12 +206,12 @@ class Read extends XoopsModelAbstract
         $offset = mt_rand(0, $count - 1);
 
         $qb = $this->handler->db2->createXoopsQueryBuilder();
-        $qb ->select($this->handler->keyName)
+        $qb->select($this->handler->keyName)
             ->from($this->handler->table, null);
         if (null !== $criteria) {
             $qb = $criteria->renderQb($qb);
         }
-        $qb ->setFirstResult($offset)
+        $qb->setFirstResult($offset)
             ->setMaxResults(1);
 
         $result = $qb->execute();

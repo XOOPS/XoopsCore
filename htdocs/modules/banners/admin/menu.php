@@ -19,19 +19,18 @@
  * @author          Mage Gregory (AKA Mage)
  * @version         $Id: $
  */
-
-$adminmenu = array();
+$adminmenu = [];
 $i = 1;
 $adminmenu[$i]['title'] = _MI_BANNERS_INDEX;
-$adminmenu[$i]['link'] = "admin/index.php";
+$adminmenu[$i]['link'] = 'admin/index.php';
 $adminmenu[$i]['icon'] = 'home.png';
 ++$i;
 $adminmenu[$i]['title'] = _MI_BANNERS_CLIENTS;
-$adminmenu[$i]['link'] = "admin/clients.php";
+$adminmenu[$i]['link'] = 'admin/clients.php';
 $adminmenu[$i]['icon'] = 'index.png';
 ++$i;
 $adminmenu[$i]['title'] = _MI_BANNERS_BANNERS;
-$adminmenu[$i]['link'] = "admin/banners.php";
+$adminmenu[$i]['link'] = 'admin/banners.php';
 $adminmenu[$i]['icon'] = 'banners.png';
 ++$i;
 $adminmenu[$i]['title'] = _MI_BANNERS_ABOUT;

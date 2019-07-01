@@ -9,9 +9,9 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+use Xmf\Request;
 use Xoops\Core\Kernel\Handlers\XoopsModule;
 use Xoops\Core\Kernel\Handlers\XoopsUser;
-use Xmf\Request;
 
 /**
  * @category  Helper
@@ -21,7 +21,6 @@ use Xmf\Request;
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  */
-
 class Comments extends Xoops\Module\Helper\HelperAbstract
 {
     const APPROVE_NONE = 0;
@@ -68,7 +67,7 @@ class Comments extends Xoops\Module\Helper\HelperAbstract
      */
     public function getUserConfig($config)
     {
-        static $configs = array();
+        static $configs = [];
         static $fetched = false;
         /* @var $helper Userconfigs */
         if (!$fetched && $this->xoops()->isUser() && $helper = $this->xoops()->getModuleHelper('userconfigs')) {
@@ -79,6 +78,7 @@ class Comments extends Xoops\Module\Helper\HelperAbstract
             );
         }
         $fetched = true;
+
         return isset($configs[$config]) ? $configs[$config] : $this->getConfig($config);
     }
 
@@ -134,8 +134,8 @@ class Comments extends Xoops\Module\Helper\HelperAbstract
 
             echo $this->renderHeader($title, $text, $uid, $timestamp);
 
-            if (!preg_match("/^" . XoopsLocale::C_RE . "/i", $title)) {
-                $title = XoopsLocale::C_RE . " " . XoopsLocale::substr($title, 0, 56);
+            if (!preg_match('/^' . XoopsLocale::C_RE . '/i', $title)) {
+                $title = XoopsLocale::C_RE . ' ' . XoopsLocale::substr($title, 0, 56);
             }
 
             $obj->setVar('itemid', $itemid);
@@ -151,7 +151,7 @@ class Comments extends Xoops\Module\Helper\HelperAbstract
     public function displayPost()
     {
         $xoops = Xoops::getInstance();
-        if (Request::getMethod()!=='POST') {
+        if ('POST' !== Request::getMethod()) {
             $xoops->redirect(\XoopsBaseConfig::get('url'), 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
         }
         $id = Request::getInt('com_id');
@@ -212,12 +212,12 @@ class Comments extends Xoops\Module\Helper\HelperAbstract
             $op = Request::getBool('com_dopreview') ? 'preview' : $op;
             $op = Request::getBool('com_dodelete') ? 'delete' : $op;
 
-            if ($op === 'preview' || $op === 'post') {
+            if ('preview' === $op || 'post' === $op) {
                 if (!$xoops->security()->check()) {
                     $op = '';
                 }
             }
-            if ($op === 'post' && !$xoops->isUser()) {
+            if ('post' === $op && !$xoops->isUser()) {
                 $xoopsCaptcha = XoopsCaptcha::getInstance();
                 if (!$xoopsCaptcha->verify()) {
                     $captcha_message = $xoopsCaptcha->getMessage();
@@ -254,13 +254,12 @@ class Comments extends Xoops\Module\Helper\HelperAbstract
             $comment->setVar('icon', $icon);
 
             switch ($op) {
-                case "delete":
+                case 'delete':
                     $this->displayDelete();
                     break;
-
-                case "preview":
+                case 'preview':
                     $comment->setVar('doimage', 1);
-                    if ($comment->getVar('dohtml') != 0) {
+                    if (0 != $comment->getVar('dohtml')) {
                         if ($xoops->isUser()) {
                             if (!$xoops->user->isAdmin($comment->getVar('modid'))) {
                                 $comment->setVar('dohtml', 0);
@@ -278,8 +277,7 @@ class Comments extends Xoops\Module\Helper\HelperAbstract
                     $this->displayCommentForm($comment);
                     $xoops->footer();
                     break;
-
-                case "post":
+                case 'post':
                     $comment->setVar('doimage', 1);
                     $comment_handler = $this->getHandlerComment();
                     $add_userpost = false;
@@ -307,7 +305,7 @@ class Comments extends Xoops\Module\Helper\HelperAbstract
                                     } else {
                                         if (static::STATUS_HIDDEN == $old_status && static::STATUS_ACTIVE == $status) {
                                             $call_updatefunc = true;
-                                            // Comments can not be directly posted hidden,
+                                        // Comments can not be directly posted hidden,
                                             // no need to send notification here
                                         } else {
                                             if (static::STATUS_ACTIVE == $old_status && static::STATUS_HIDDEN == $status) {
@@ -375,7 +373,7 @@ class Comments extends Xoops\Module\Helper\HelperAbstract
                         } else {
                             $comment->setVar('dohtml', 0);
                             $comment->setVar('uid', 0);
-                            if ($xoops->getModuleConfig('com_anonpost', $module->getVar('dirname')) != 1) {
+                            if (1 != $xoops->getModuleConfig('com_anonpost', $module->getVar('dirname'))) {
                                 $xoops->redirect(
                                     $redirect_page . '=' . $comment->getVar('itemid')
                                     . '&amp;com_id=' . $comment->getVar('id') . '&amp;com_mode=' . $mode
@@ -385,7 +383,7 @@ class Comments extends Xoops\Module\Helper\HelperAbstract
                                 );
                             }
                         }
-                        if ($comment->getVar('uid') == 0) {
+                        if (0 == $comment->getVar('uid')) {
                             switch ($xoops->getModuleConfig('com_rule', $moddir)) {
                                 case static::APPROVE_ALL:
                                     $comment->setVar('status', static::STATUS_ACTIVE);
@@ -405,7 +403,7 @@ class Comments extends Xoops\Module\Helper\HelperAbstract
                             }
                         }
                     }
-                    if ($comment->getVar('title') == '') {
+                    if ('' == $comment->getVar('title')) {
                         $comment->setVar('title', XoopsLocale::NO_TITLE);
                     }
                     $comment->setVar('modified', time());
@@ -416,7 +414,7 @@ class Comments extends Xoops\Module\Helper\HelperAbstract
                     if (false != $comment_handler->insert($comment)) {
                         $newcid = $comment->getVar('id');
                         // set own id as root id if this is a top comment
-                        if ($comment->getVar('rootid') == 0) {
+                        if (0 == $comment->getVar('rootid')) {
                             $comment->setVar('rootid', $newcid);
                             if (!$comment_handler->updateByField($comment, 'rootid', $comment->getVar('rootid'))) {
                                 $comment_handler->delete($comment);
@@ -460,7 +458,7 @@ class Comments extends Xoops\Module\Helper\HelperAbstract
                             // Build an ABSOLUTE URL to view the comment.  Make sure we
                             // point to a viewable page (i.e. not the system administration
                             // module).
-                            $comment_tags = array();
+                            $comment_tags = [];
                             $comment_tags['X_COMMENT_URL'] = $comment_url . '=' . $comment->getVar('itemid')
                                 . '&amp;com_id=' . $comment->getVar('id')
                                 . '&amp;com_rootid=' . $comment->getVar('rootid')
@@ -543,8 +541,8 @@ class Comments extends Xoops\Module\Helper\HelperAbstract
         $reply = $this->getHandlerComment()->create();
 
         $title = $comment->getVar('title', 'e');
-        if (!preg_match("/^" . XoopsLocale::C_RE . "/i", $title)) {
-            $title = XoopsLocale::C_RE . " " . XoopsLocale::substr($title, 0, 56);
+        if (!preg_match('/^' . XoopsLocale::C_RE . '/i', $title)) {
+            $title = XoopsLocale::C_RE . ' ' . XoopsLocale::substr($title, 0, 56);
         }
         $reply->setVar('title', $title);
         $reply->setVar('modid', $comment->getVar('modid'));
@@ -581,6 +579,7 @@ class Comments extends Xoops\Module\Helper\HelperAbstract
         $ret .= _MD_COMMENTS_POSTED . ': <strong>' . XoopsLocale::formatTimestamp($timestamp)
             . '</strong><br /><br />' . $text . '<br /></td></tr>';
         $ret .= '</table>';
+
         return $ret;
     }
 
@@ -594,7 +593,7 @@ class Comments extends Xoops\Module\Helper\HelperAbstract
             if (static::APPROVE_NONE != $xoops->getModuleConfig('com_rule')) {
                 $xoops->tpl()->assign('xoops_iscommentadmin', $this->isUserAdmin());
 
-                $itemid = (trim($plugin->itemName()) != ''
+                $itemid = ('' != trim($plugin->itemName())
                     && isset($_GET[$plugin->itemName()])) ? (int)($_GET[$plugin->itemName()]) : 0;
                 if ($itemid > 0) {
                     $modid = $xoops->module->getVar('mid');
@@ -603,16 +602,16 @@ class Comments extends Xoops\Module\Helper\HelperAbstract
 
                     $order = Request::getInt('com_order', $this->getUserConfig('com_order'));
                     if ($order != static::DISPLAY_OLDEST_FIRST) {
-                        $xoops->tpl()->assign(array(
+                        $xoops->tpl()->assign([
                             'comment_order' => static::DISPLAY_NEWEST_FIRST,
-                            'order_other'   => static::DISPLAY_OLDEST_FIRST
-                        ));
+                            'order_other' => static::DISPLAY_OLDEST_FIRST,
+                        ]);
                         $dborder = 'DESC';
                     } else {
-                        $xoops->tpl()->assign(array(
+                        $xoops->tpl()->assign([
                             'comment_order' => static::DISPLAY_OLDEST_FIRST,
-                            'order_other'   => static::DISPLAY_NEWEST_FIRST
-                        ));
+                            'order_other' => static::DISPLAY_NEWEST_FIRST,
+                        ]);
                         $dborder = 'ASC';
                     }
                     // admins can view all comments and IPs, others can only view approved(active) comments
@@ -626,12 +625,12 @@ class Comments extends Xoops\Module\Helper\HelperAbstract
                     $rootid = Request::getInt('com_rootid', 0);
 
                     $comment_handler = $this->getHandlerComment();
-                    if ($mode === 'flat') {
+                    if ('flat' === $mode) {
                         $comments = $comment_handler->getByItemId($xoops->module->getVar('mid'), $itemid, $dborder);
                         $renderer = CommentsCommentRenderer::getInstance($xoops->tpl());
                         $renderer->setComments($comments);
                         $renderer->renderFlatView($admin_view);
-                    } elseif ($mode === 'thread') {
+                    } elseif ('thread' === $mode) {
                         // RMV-FIX... added extraParam stuff here
                         $comment_url = $plugin->pageName() . '?';
                         if (is_array($extraParams = $plugin->extraParams())) {
@@ -744,27 +743,27 @@ class Comments extends Xoops\Module\Helper\HelperAbstract
                         $xoops->tpl()->assign('postcomment_link', $postcomment_link);
                         $xoops->tpl()->assign('link_extra', $link_extra);
                     }
-                    $xoops->tpl()->assign(array(
-                        'comments_editlink'   => $this->url('comment_edit.php?com_modid=' . $modid . '&amp;com_itemid=' . $itemid . '&amp;com_order=' . $order . '&amp;com_mode=' . $mode . '' . $link_extra),
+                    $xoops->tpl()->assign([
+                        'comments_editlink' => $this->url('comment_edit.php?com_modid=' . $modid . '&amp;com_itemid=' . $itemid . '&amp;com_order=' . $order . '&amp;com_mode=' . $mode . '' . $link_extra),
                         'comments_deletelink' => $this->url('comment_delete.php?com_modid=' . $modid . '&amp;com_itemid=' . $itemid . '&amp;com_order=' . $order . '&amp;com_mode=' . $mode . '' . $link_extra),
-                        'comments_replylink'  => $this->url('comment_reply.php?com_modid=' . $modid . '&amp;com_itemid=' . $itemid . '&amp;com_order=' . $order . '&amp;com_mode=' . $mode . '' . $link_extra)
-                    ));
+                        'comments_replylink' => $this->url('comment_reply.php?com_modid=' . $modid . '&amp;com_itemid=' . $itemid . '&amp;com_order=' . $order . '&amp;com_mode=' . $mode . '' . $link_extra),
+                    ]);
 
                     // assign some lang variables
-                    $xoops->tpl()->assign(array(
-                        'comments_lang_from'    => _MD_COMMENTS_FROM,
-                        'comments_lang_joined'  => _MD_COMMENTS_JOINED,
-                        'comments_lang_posts'   => _MD_COMMENTS_POSTS,
-                        'comments_lang_poster'  => _MD_COMMENTS_POSTER,
-                        'comments_lang_thread'  => _MD_COMMENTS_THREAD,
-                        'comments_lang_edit'    => XoopsLocale::A_EDIT,
-                        'comments_lang_delete'  => XoopsLocale::A_DELETE,
-                        'comments_lang_reply'   => XoopsLocale::A_REPLY,
+                    $xoops->tpl()->assign([
+                        'comments_lang_from' => _MD_COMMENTS_FROM,
+                        'comments_lang_joined' => _MD_COMMENTS_JOINED,
+                        'comments_lang_posts' => _MD_COMMENTS_POSTS,
+                        'comments_lang_poster' => _MD_COMMENTS_POSTER,
+                        'comments_lang_thread' => _MD_COMMENTS_THREAD,
+                        'comments_lang_edit' => XoopsLocale::A_EDIT,
+                        'comments_lang_delete' => XoopsLocale::A_DELETE,
+                        'comments_lang_reply' => XoopsLocale::A_REPLY,
                         'comments_lang_subject' => _MD_COMMENTS_REPLIES,
-                        'comments_lang_posted'  => _MD_COMMENTS_POSTED,
+                        'comments_lang_posted' => _MD_COMMENTS_POSTED,
                         'comments_lang_updated' => _MD_COMMENTS_UPDATED,
-                        'comments_lang_notice'  => _MD_COMMENTS_NOTICE
-                    ));
+                        'comments_lang_notice' => _MD_COMMENTS_NOTICE,
+                    ]);
                 }
             }
         }
@@ -836,7 +835,7 @@ class Comments extends Xoops\Module\Helper\HelperAbstract
                 $redirect_page = $this->url('admin/main.php?com_modid=' . $modid . '&amp;com_itemid');
             } else {
                 $redirect_page = $xoops->url('modules/' . $module->getVar('dirname') . '/' . $plugin->pageName() . '?');
-                $comment_confirm_extra = array();
+                $comment_confirm_extra = [];
                 if (is_array($extraParams = $plugin->extraParams())) {
                     foreach ($extraParams as $extra_param) {
                         if (isset($_GET[$extra_param])) {
@@ -860,7 +859,7 @@ class Comments extends Xoops\Module\Helper\HelperAbstract
 
             if (false != $accesserror) {
                 $ref = $xoops->getEnv('HTTP_REFERER');
-                if ($ref != '') {
+                if ('' != $ref) {
                     $xoops->redirect($ref, 2, XoopsLocale::E_NO_ACCESS_PERMISSION);
                 } else {
                     $xoops->redirect(
@@ -888,7 +887,7 @@ class Comments extends Xoops\Module\Helper\HelperAbstract
                     $plugin->update($itemid, $comment_count);
 
                     // update user posts if its not an anonymous post
-                    if ($comment->getVar('uid') != 0) {
+                    if (0 != $comment->getVar('uid')) {
                         $member_handler = $xoops->getHandlerMember();
                         $poster = $member_handler->getUser($comment->getVar('uid'));
                         if (is_object($poster)) {
@@ -903,7 +902,7 @@ class Comments extends Xoops\Module\Helper\HelperAbstract
                     $child_comments = $xot->getFirstChild($id);
                     // now set new parent ID for direct child comments
                     $new_pid = $comment->getVar('pid');
-                    $errs = array();
+                    $errs = [];
                     foreach (array_keys($child_comments) as $i) {
                         $child_comments[$i]->setVar('pid', $new_pid);
                         // if the deleted comment is a root comment, need to change root id to own id
@@ -940,7 +939,6 @@ class Comments extends Xoops\Module\Helper\HelperAbstract
                     }
                     $xoops->redirect($redirect_page . '=' . $itemid . '&amp;com_order=' . $order . '&amp;com_mode=' . $mode, 1, _MD_COMMENTS_COMDELETED);
                     break;
-
                 case 'delete_all':
                     $rootid = $comment->getVar('rootid');
 
@@ -952,8 +950,8 @@ class Comments extends Xoops\Module\Helper\HelperAbstract
                     $child_comments = $xot->getAllChild($id);
                     // add itself here
                     $child_comments[$id] = $comment;
-                    $msgs = array();
-                    $deleted_num = array();
+                    $msgs = [];
+                    $deleted_num = [];
                     $member_handler = $xoops->getHandlerMember();
                     foreach (array_keys($child_comments) as $i) {
                         if (!$comment_handler->delete($child_comments[$i])) {
@@ -990,19 +988,18 @@ class Comments extends Xoops\Module\Helper\HelperAbstract
                         . '&amp;com_mode=' . $mode . '">' . XoopsLocale::GO_BACK . '</a>';
                     $xoops->footer();
                     break;
-
                 case 'delete':
                 default:
                     $xoops->header();
-                    $comment_confirm = array(
-                        'com_id'    => $id,
-                        'com_mode'  => $mode,
+                    $comment_confirm = [
+                        'com_id' => $id,
+                        'com_mode' => $mode,
                         'com_order' => $order,
-                        'op'        => array(
+                        'op' => [
                             _MD_COMMENTS_DELETEONE => 'delete_one',
-                            _MD_COMMENTS_DELETEALL => 'delete_all'
-                        )
-                    );
+                            _MD_COMMENTS_DELETEALL => 'delete_all',
+                        ],
+                    ];
                     if (!empty($comment_confirm_extra) && is_array($comment_confirm_extra)) {
                         $comment_confirm = $comment_confirm + $comment_confirm_extra;
                     }
@@ -1067,8 +1064,7 @@ class Comments extends Xoops\Module\Helper\HelperAbstract
         $xoops = Xoops::getInstance();
         $this->getHandlerComment()->deleteByModule($module->getVar('mid'));
 
-
-        $configNames = array('com_rule', 'com_anonpost');
+        $configNames = ['com_rule', 'com_anonpost'];
         $config_handler = $xoops->getHandlerConfig();
 
         //Delete all configs
@@ -1087,29 +1083,30 @@ class Comments extends Xoops\Module\Helper\HelperAbstract
      */
     public function getPluginableConfigs()
     {
-        $configs = array();
-        array_push($configs, array(
-            'name'        => 'com_rule',
-            'title'       => '_MD_COMMENTS_COMRULES',
+        $configs = [];
+        array_push($configs, [
+            'name' => 'com_rule',
+            'title' => '_MD_COMMENTS_COMRULES',
             'description' => '',
-            'formtype'    => 'select',
-            'valuetype'   => 'int',
-            'default'     => 1,
-            'options'     => array(
-                '_MD_COMMENTS_COMNOCOM'        => static::APPROVE_NONE,
-                '_MD_COMMENTS_COMAPPROVEALL'   => static::APPROVE_ALL,
-                '_MD_COMMENTS_COMAPPROVEUSER'  => static::APPROVE_USER,
-                '_MD_COMMENTS_COMAPPROVEADMIN' => static::APPROVE_ADMIN
-            )
-        ));
-        array_push($configs, array(
-            'name'        => 'com_anonpost',
-            'title'       => '_MD_COMMENTS_COMANONPOST',
+            'formtype' => 'select',
+            'valuetype' => 'int',
+            'default' => 1,
+            'options' => [
+                '_MD_COMMENTS_COMNOCOM' => static::APPROVE_NONE,
+                '_MD_COMMENTS_COMAPPROVEALL' => static::APPROVE_ALL,
+                '_MD_COMMENTS_COMAPPROVEUSER' => static::APPROVE_USER,
+                '_MD_COMMENTS_COMAPPROVEADMIN' => static::APPROVE_ADMIN,
+            ],
+        ]);
+        array_push($configs, [
+            'name' => 'com_anonpost',
+            'title' => '_MD_COMMENTS_COMANONPOST',
             'description' => '',
-            'formtype'    => 'yesno',
-            'valuetype'   => 'int',
-            'default'     => 0
-        ));
+            'formtype' => 'yesno',
+            'valuetype' => 'int',
+            'default' => 0,
+        ]);
+
         return $configs;
     }
 }

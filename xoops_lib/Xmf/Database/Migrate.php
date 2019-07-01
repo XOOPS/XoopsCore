@@ -33,8 +33,7 @@ use Xmf\Yaml;
  */
 class Migrate
 {
-
-    /** @var false|\Xmf\Module\Helper|\Xoops\Module\Helper\HelperAbstract  */
+    /** @var false|\Xmf\Module\Helper|\Xoops\Module\Helper\HelperAbstract */
     protected $helper;
 
     /** @var string[] table names used by module */
@@ -66,7 +65,7 @@ class Migrate
         $module = $this->helper->getModule();
         $this->moduleTables = $module->getInfo('tables');
         if (empty($this->moduleTables)) {
-            throw new \RuntimeException("No tables established in module");
+            throw new \RuntimeException('No tables established in module');
         }
         $version = $module->getInfo('version');
         $this->tableDefinitionFile = $this->helper->path("sql/{$dirname}_{$version}_migrate.yml");
@@ -112,18 +111,18 @@ class Migrate
     /**
      * Return the target database condition
      *
-     * @return array|bool table structure or false on error
-     *
      * @throws \RuntimeException
+     * @return array|bool table structure or false on error
      */
     public function getTargetDefinitions()
     {
         if (!isset($this->targetDefinitions)) {
             $this->targetDefinitions = Yaml::read($this->tableDefinitionFile);
             if (null === $this->targetDefinitions) {
-                throw new \RuntimeException("No schema definition " . $this->tableDefinitionFile);
+                throw new \RuntimeException('No schema definition ' . $this->tableDefinitionFile);
             }
         }
+
         return $this->targetDefinitions;
     }
 
@@ -138,6 +137,7 @@ class Migrate
     {
         $this->tableHandler = new Tables(); // start fresh
         $this->getSynchronizeDDL();
+
         return $this->tableHandler->executeQueue($force);
     }
 
@@ -157,6 +157,7 @@ class Migrate
                 $this->addMissingTable($tableName);
             }
         }
+
         return $this->tableHandler->dumpQueue();
     }
 
@@ -196,7 +197,7 @@ class Migrate
             $this->tableHandler->addColumn($tableName, $column['name'], $column['attributes']);
         }
         foreach ($this->targetDefinitions[$tableName]['keys'] as $key => $keyData) {
-            if ($key === 'PRIMARY') {
+            if ('PRIMARY' === $key) {
                 $this->tableHandler->addPrimaryKey($tableName, $keyData['columns']);
             } else {
                 $this->tableHandler->addIndex($key, $tableName, $keyData['columns'], $keyData['unique']);
@@ -215,7 +216,7 @@ class Migrate
     {
         foreach ($this->targetDefinitions[$tableName]['columns'] as $column) {
             $attributes = $this->tableHandler->getColumnAttributes($tableName, $column['name']);
-            if ($attributes === false) {
+            if (false === $attributes) {
                 $this->tableHandler->addColumn($tableName, $column['name'], $column['attributes']);
             } elseif ($column['attributes'] !== $attributes) {
                 $this->tableHandler->alterColumn($tableName, $column['name'], $column['attributes']);
@@ -234,7 +235,7 @@ class Migrate
         $existingIndexes = $this->tableHandler->getTableIndexes($tableName);
         if (isset($this->targetDefinitions[$tableName]['keys'])) {
             foreach ($this->targetDefinitions[$tableName]['keys'] as $key => $keyData) {
-                if ($key === 'PRIMARY') {
+                if ('PRIMARY' === $key) {
                     if (!isset($existingIndexes[$key])) {
                         $this->tableHandler->addPrimaryKey($tableName, $keyData['columns']);
                     } elseif ($existingIndexes[$key]['columns'] !== $keyData['columns']) {
@@ -274,7 +275,7 @@ class Migrate
     {
         if (isset($this->targetDefinitions[$tableName])) {
             foreach ($this->targetDefinitions[$tableName]['columns'] as $col) {
-                if (strcasecmp($col['name'], $columnName) === 0) {
+                if (0 === strcasecmp($col['name'], $columnName)) {
                     return true;
                 }
             }
@@ -295,6 +296,7 @@ class Migrate
         if (isset($this->targetDefinitions[$tableName])) {
             return true;
         }
+
         return false;
     }
 

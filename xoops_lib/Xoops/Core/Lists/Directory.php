@@ -35,11 +35,11 @@ class Directory extends ListAbstract
     public static function getList($path = '', $ignored = [])
     {
         $ignored = (array) $ignored;
-        $list = array();
+        $list = [];
         $path = rtrim($path, '/') . '/';
         if (is_dir($path) && $handle = opendir($path)) {
             while ($file = readdir($handle)) {
-                if (substr($file, 0, 1) === '.' || in_array(strtolower($file), $ignored)) {
+                if ('.' === mb_substr($file, 0, 1) || in_array(mb_strtolower($file), $ignored)) {
                     continue;
                 }
                 if (is_dir($path . $file)) {

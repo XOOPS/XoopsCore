@@ -19,7 +19,6 @@
  *
  * @return array
  */
-
 function b_xlanguage_select_show($options)
 {
     $xoops = \Xoops::getInstance();
@@ -30,7 +29,7 @@ function b_xlanguage_select_show($options)
 
     $options[3] = $helper->getConfig('theme');
 
-    $block = array();
+    $block = [];
     $helper->getHandlerLanguage()->loadConfig();
 
     if (!is_array($helper->getHandlerLanguage()->cached_config) || count($helper->getHandlerLanguage()->cached_config) < 1) {
@@ -38,9 +37,9 @@ function b_xlanguage_select_show($options)
     }
 
     $QUERY_STRING_array = array_filter(explode('&', $xoops->getEnv('QUERY_STRING')));
-    $QUERY_STRING_new = array();
+    $QUERY_STRING_new = [];
     foreach ($QUERY_STRING_array as $QUERY) {
-        if (substr($QUERY, 0, (strlen($lang_tag) + 1)) != $lang_tag . '=') {
+        if (mb_substr($QUERY, 0, (mb_strlen($lang_tag) + 1)) != $lang_tag . '=') {
             $vals = explode('=', $QUERY);
             foreach (array_keys($vals) as $key) {
                 if (preg_match('/^a-z0-9$/i', $vals[$key])) {
@@ -55,14 +54,14 @@ function b_xlanguage_select_show($options)
     $block['delimitor'] = $options[1];
     $block['number'] = $options[2];
 
-    if ($options[0]==='jquery') {
+    if ('jquery' === $options[0]) {
         $xoops = \Xoops::getInstance();
         $xoops->theme()->addBaseScriptAssets('@jqueryui');
     }
 
     $block['selected'] = $xlanguage['lang'];
 
-    if ($options[0] === 'images' || $options[0] === 'text') {
+    if ('images' === $options[0] || 'text' === $options[0]) {
         $query_string = htmlspecialchars(implode('&', $QUERY_STRING_new));
         $query_string .= empty($query_string) ? '' : '&amp;';
     } else {

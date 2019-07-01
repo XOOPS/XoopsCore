@@ -1,9 +1,8 @@
 <?php
+
 namespace Xoops\Form;
 
-require_once(__DIR__.'/../../../init_new.php');
-
-use Xoops\Form\OptionElement;
+require_once(__DIR__ . '/../../../init_new.php');
 
 class OptionElementTest extends \PHPUnit\Framework\TestCase
 {
@@ -51,7 +50,7 @@ class OptionElementTest extends \PHPUnit\Framework\TestCase
     {
         $this->object->addOptionArray([
             'key1' => 'value1',
-            'key2' => 'value2'
+            'key2' => 'value2',
         ]);
         $options = $this->object->getOptions();
         $this->assertArrayHasKey('key1', $options);

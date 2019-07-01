@@ -67,6 +67,7 @@ class Highlighter
     protected static function splitOnTag($needle, $haystack, $pre, $post)
     {
         $encoding = static::ENCODING;
+
         return preg_replace_callback(
             '#((?:(?!<[/a-z]).)*)([^>]*>|$)#si',
             function ($capture) use ($needle, $pre, $post, $encoding) {
@@ -75,20 +76,20 @@ class Highlighter
                     $p1 = mb_stripos($haystack, $needle, 0, $encoding);
                     $l1 = mb_strlen($needle, $encoding);
                     $ret = '';
-                    while ($p1 !== false) {
+                    while (false !== $p1) {
                         $ret .= mb_substr($haystack, 0, $p1, $encoding) . $pre
                             . mb_substr($haystack, $p1, $l1, $encoding) . $post;
                         $haystack = mb_substr($haystack, $p1 + $l1, mb_strlen($haystack), $encoding);
                         $p1 = mb_stripos($haystack, $needle, 0, $encoding);
                     }
                 } else {
-                    $p1 = stripos($haystack, $needle);
-                    $l1 = strlen($needle);
+                    $p1 = mb_stripos($haystack, $needle);
+                    $l1 = mb_strlen($needle);
                     $ret = '';
-                    while ($p1 !== false) {
-                        $ret .= substr($haystack, 0, $p1) . $pre . substr($haystack, $p1, $l1) . $post;
-                        $haystack = substr($haystack, $p1 + $l1);
-                        $p1 = stripos($haystack, $needle);
+                    while (false !== $p1) {
+                        $ret .= mb_substr($haystack, 0, $p1) . $pre . mb_substr($haystack, $p1, $l1) . $post;
+                        $haystack = mb_substr($haystack, $p1 + $l1);
+                        $p1 = mb_stripos($haystack, $needle);
                     }
                 }
                 $ret .= $haystack . $capture[2];

@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__.'/../../../../init_new.php';
+require_once __DIR__ . '/../../../../init_new.php';
 
 use Xoops\Core\Cache\Legacy;
 
@@ -16,7 +16,6 @@ class LegacyTest extends \PHPUnit\Framework\TestCase
      */
     protected function setUp()
     {
-
     }
 
     /**
@@ -50,7 +49,6 @@ class LegacyTest extends \PHPUnit\Framework\TestCase
         $this->assertFalse($ret);
     }
 
-
     public function testClear()
     {
         $key = 'anothename';
@@ -69,7 +67,7 @@ class LegacyTest extends \PHPUnit\Framework\TestCase
 
     public function test__call()
     {
-        $instance = new Legacy;
+        $instance = new Legacy();
         $this->assertInstanceOf('\Xoops\Core\Cache\Legacy', $instance);
 
         $ret = $instance->noSuchMethod();

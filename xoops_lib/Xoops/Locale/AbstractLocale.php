@@ -12,9 +12,9 @@
 namespace Xoops\Locale;
 
 use Patchwork\Utf8;
-use Xoops\Core\Locale\Punic\Calendar;
 use Punic\Misc;
-use \Xoops\Core\Locale\Time;
+use Xoops\Core\Locale\Punic\Calendar;
+use Xoops\Core\Locale\Time;
 
 /**
  * XOOPS localization abstract
@@ -95,6 +95,7 @@ abstract class AbstractLocale
     public static function getLegacyLanguage()
     {
         $legacyLanguages = \Xoops\Core\Locale\LegacyCodes::getLegacyName(\Xoops\Locale::getCurrent());
+
         return reset($legacyLanguages);
     }
 
@@ -118,15 +119,15 @@ abstract class AbstractLocale
      */
     public static function getFonts()
     {
-        return array(
+        return [
             'Arial',
             'Courier',
             'Georgia',
             'Helvetica',
             'Impact',
             'Verdana',
-            'Haettenschweiler'
-        );
+            'Haettenschweiler',
+        ];
     }
 
     /**
@@ -141,15 +142,15 @@ abstract class AbstractLocale
      */
     public static function getFontSizes()
     {
-        return array(
+        return [
             'xx-small' => 'xx-Small',
-            'x-small'  => 'x-Small',
-            'small'    => 'Small',
-            'medium'   => 'Medium',
-            'large'    => 'Large',
-            'x-large'  => 'x-Large',
-            'xx-large' => 'xx-Large'
-        );
+            'x-small' => 'x-Small',
+            'small' => 'Small',
+            'medium' => 'Medium',
+            'large' => 'Large',
+            'x-large' => 'x-Large',
+            'xx-large' => 'xx-Large',
+        ];
     }
 
     /**
@@ -157,21 +158,22 @@ abstract class AbstractLocale
      */
     public static function getAdminRssUrls()
     {
-        return array('https://xoops.org/modules/publisher/backend.php');
+        return ['https://xoops.org/modules/publisher/backend.php'];
     }
 
     /**
      * @param mixed   $str
-     * @param integer $start
-     * @param integer $length
+     * @param int $start
+     * @param int $length
      * @param string  $ellipsis
      *
      * @return string
      */
     public static function substr($str, $start, $length, $ellipsis = '…')
     {
-        $str2 = mb_strcut($str, $start, $length - strlen($ellipsis));
-        return $str2 . (mb_strlen($str)-$start != mb_strlen($str2) ? $ellipsis : '');
+        $str2 = mb_strcut($str, $start, $length - mb_strlen($ellipsis));
+
+        return $str2 . (mb_strlen($str) - $start != mb_strlen($str2) ? $ellipsis : '');
     }
 
     /**
@@ -233,70 +235,58 @@ abstract class AbstractLocale
     {
         $workingTime = Time::cleanTime($time);
 
-        switch (strtolower($format)) {
+        switch (mb_strtolower($format)) {
             case 'short':
             case 's':
                 return Time::formatDateTime($workingTime, 'short');
-
             case 'medium':
             case 'm':
                 return Time::formatDateTime($workingTime, 'medium');
-
             case 'long':
             case 'l':
                 return Time::formatDateTime($workingTime, 'long');
-
             case 'full':
             case 'f':
                 return Time::formatDateTime($workingTime, 'full');
-
             case 'custom':
             case 'c':
                 $specialName = Calendar::getDateRelativeName($workingTime, true);
-                if ($specialName != '') {
+                if ('' != $specialName) {
                     return $specialName;
                 }
                 // no break - fall through
             case 'elapse':
             case 'e':
                 return Time::describeRelativeInterval($workingTime);
-
             case 'short-date':
                 return Time::formatDate($workingTime, 'short');
-
             case 'short-time':
                 return Time::formatTime($workingTime, 'short');
-
             case 'medium-date':
                 return Time::formatDate($workingTime, 'medium');
-
             case 'medium-time':
                 return Time::formatTime($workingTime, 'medium');
-
             case 'long-date':
                 return Time::formatDate($workingTime, 'long');
-
             case 'long-time':
                 return Time::formatTime($workingTime, 'long');
-
             case 'full-date':
                 return Time::formatDate($workingTime, 'full');
-
             case 'full-time':
                 return Time::formatTime($workingTime, 'full');
-
             case 'rss':
                 $workingTime->setTimezone(new \DateTimeZone('UTC'));
-                return $workingTime->format($workingTime::RSS);
 
+                return $workingTime->format($workingTime::RSS);
             case 'mysql':
                 $workingTime->setTimezone(new \DateTimeZone('UTC'));
-                return $workingTime->format('Y-m-d H:i:s');
 
+                return $workingTime->format('Y-m-d H:i:s');
             default:
-                if ($format != '') {
+                if ('' != $format) {
                     return $workingTime->format($format);
                 }
+
                 return Time::formatDateTime($workingTime, 'long');
                 break;
         }

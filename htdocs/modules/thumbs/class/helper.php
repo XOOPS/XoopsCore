@@ -37,24 +37,24 @@ class Thumbs extends HelperAbstract
      * buildThumbPath
      *
      * @param string  $imgPath xoops virtual path to image to be thumbed
-     * @param integer $width   maximum width of thumbnail in pixels, 0 to use default
-     * @param integer $height  maximum height of thumbnail in pixels, 0 to use default
+     * @param int $width   maximum width of thumbnail in pixels, 0 to use default
+     * @param int $height  maximum height of thumbnail in pixels, 0 to use default
      *
      * @return string xoops virtual path for the thumbnail
      */
     public function buildThumbPath($imgPath, $width, $height)
     {
         //$xoops = \Xoops::getInstance();
-        if ($width==0 && $height==0) {
+        if (0 == $width && 0 == $height) {
             $width = $this->getConfig('thumbs_width');
             $height = $this->getConfig('thumbs_height');
         }
         $sizeDir = sprintf('/%01dx%01d/', $width, $height);
         $pathParts = pathinfo($imgPath);
-        if ($pathParts['dirname'] === '.') {
+        if ('.' === $pathParts['dirname']) {
             $pathParts['dirname'] = '';
         }
-        $thumbPath = 'assets/thumbs/' . $pathParts['dirname'].$sizeDir.$pathParts['basename'];
+        $thumbPath = 'assets/thumbs/' . $pathParts['dirname'] . $sizeDir . $pathParts['basename'];
 
         return $thumbPath;
     }
