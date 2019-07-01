@@ -20,8 +20,6 @@
  * @version         $Id$
  */
 
-use Xmf\Request;
-
 include __DIR__ . '/header.php';
 // Get main instance
 $system = System::getInstance();
@@ -30,7 +28,7 @@ $xoops->db();
 global $xoopsDB;
 
 // Get Action type
-$op = Request::getString('op', 'list');
+$op = $system->cleanVars($_REQUEST, 'op', 'list', 'string');
 
 // Call Header
 $xoops->header('admin:maintenance/maintenance_dump.tpl');
@@ -78,7 +76,7 @@ switch ($op) {
         $admin_page->renderButton();
         $dump_modules = isset($_REQUEST['dump_modules']) ? $_REQUEST['dump_modules'] : false;
         $dump_tables = isset($_REQUEST['dump_tables']) ? $_REQUEST['dump_tables'] : false;
-        $drop = Request::getInt('drop', 1);
+        $drop = $system->cleanVars($_REQUEST, 'drop', 1, 'int');
 
         if (($dump_tables == true && $dump_modules == true) || ($dump_tables == false && $dump_modules == false)) {
             $xoops->redirect("dump.php", 2, _AM_MAINTENANCE_DUMP_ERROR_TABLES_OR_MODULES);
@@ -141,7 +139,7 @@ switch ($op) {
         break;
 
     case 'dump_delete':
-        $filename = Request::getString('filename', '');
+        $filename = $system->cleanVars($_REQUEST, 'filename', '', 'string');
         if ($filename == '') {
             $xoops->redirect("dump.php", 2, _AM_MAINTENANCE_DUMP_NOFILE);
         }

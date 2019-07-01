@@ -16,9 +16,6 @@
  * @author          Laurent JEN (Aka DuGris)
  * @version         $Id$
  */
- 
-use Xmf\Request;
- 
 class XcaptchaRecaptcha extends Xcaptcha
 {
     public $config = array();
@@ -40,10 +37,10 @@ class XcaptchaRecaptcha extends Xcaptcha
 
         $system               = System::getInstance();
         $config               = array();
-        $_POST['private_key'] = Request::getString('private_key', 'Your private key', 'POST');
-        $_POST['public_key']  = Request::getString('public_key', 'Your public key', 'POST');
-        $_POST['theme']       = Request::getString('theme', 'red', 'POST');
-        $_POST['lang']        = Request::getString('lang', $default_lang, 'POST');
+        $_POST['private_key'] = $system->cleanVars($_POST, 'private_key', 'Your private key', 'string');
+        $_POST['public_key']  = $system->cleanVars($_POST, 'public_key', 'Your public key', 'string');
+        $_POST['theme']       = $system->cleanVars($_POST, 'theme', 'red', 'string');
+        $_POST['lang']        = $system->cleanVars($_POST, 'lang', $default_lang, 'string');
         foreach (array_keys($this->config) as $key) {
             $config[$key] = $_POST[$key];
         }

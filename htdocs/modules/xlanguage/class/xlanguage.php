@@ -9,7 +9,6 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-use Xmf\Request;
 use Xoops\Core\Database\Connection;
 use Xoops\Core\Kernel\XoopsObject;
 use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
@@ -69,13 +68,13 @@ class XlanguageLanguage extends XoopsObject
                     $value = $system->cleanVars($_POST[$k], 'date', date('Y-m-d'), 'date') + $system->cleanVars($_POST[$k], 'time', date('u'), 'int');
                     $this->setVar($k, isset($_POST[$k]) ? $value : $v);
                 } elseif ($this->vars[$k]['data_type'] == XOBJ_DTYPE_INT) {
-                    $value = Request::getInt($k, $v, 'POST');
+                    $value = $system->cleanVars($_POST, $k, $v, 'int');
                     $this->setVar($k, $value);
                 } elseif ($this->vars[$k]['data_type'] == XOBJ_DTYPE_ARRAY) {
-                    $value = Request::getArray($k, $v, 'POST');
+                    $value = $system->cleanVars($_POST, $k, $v, 'array');
                     $this->setVar($k, $value);
                 } else {
-                    $value = Request::getString($k, $v, 'POST');
+                    $value = $system->cleanVars($_POST, $k, $v, 'string');
                     $this->setVar($k, $value);
                 }
             }
