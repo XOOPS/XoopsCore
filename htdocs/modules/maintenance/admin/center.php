@@ -20,13 +20,15 @@
  * @version         $Id$
  */
 
+use Xmf\Request;
+
 include __DIR__ . '/header.php';
 // Get main instance
 $system = System::getInstance();
 $xoops = Xoops::getInstance();
 
 // Get Action type
-$op = $system->cleanVars($_REQUEST, 'op', 'list', 'string');
+$op = Request::getString('op', 'list');
 
 // Call Header
 $xoops->header('admin:maintenance/maintenance_center.tpl');
@@ -54,10 +56,10 @@ switch ($op) {
         $admin_page->addItemButton(_AM_MAINTENANCE_CENTER_RETURN, 'center.php', 'application-view-detail');
         $admin_page->renderButton();
 
-        $session = $system->cleanVars($_REQUEST, 'session', 1, 'int');
-        $cache = $system->cleanVars($_REQUEST, 'cache', array(), 'array');
-        $tables = $system->cleanVars($_REQUEST, 'tables', array(), 'array');
-        $tables_op = $system->cleanVars($_REQUEST, 'maintenance', array(), 'array');
+        $session = Request::getInt('session', 1);
+        $cache = Request::getArray('cache', array());
+        $tables = Request::getArray('tables', array());
+        $tables_op = Request::getArray('maintenance', array());
         $xoops->db();
         global $xoopsDB;
         $db = $xoopsDB;
