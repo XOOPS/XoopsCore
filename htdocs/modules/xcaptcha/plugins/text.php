@@ -16,6 +16,9 @@
  * @version         $Id$
  */
 
+ 
+use Xmf\Request;
+
 class XcaptchaText extends Xcaptcha
 {
     public $config = array();
@@ -33,7 +36,7 @@ class XcaptchaText extends Xcaptcha
     {
         $system = System::getInstance();
         $config = array();
-        $_POST['num_chars'] = $system->cleanVars($_POST, 'num_chars', 6, 'int');
+        $_POST['num_chars'] = Request::getInt('num_chars', 6, 'POST');
         foreach (array_keys($this->config) as $key) {
             $config[$key] = $_POST[$key];
         }
