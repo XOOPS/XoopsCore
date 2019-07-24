@@ -17,12 +17,14 @@ namespace Xmf;
  * @category  Xmf\Uuid
  * @package   Xmf
  * @author    Richard Griffith <richard@geekwright.com>
- * @copyright 2017 XOOPS Project (https://xoops.org)
- * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @link      https://xoops.org
+ * @copyright 2017-2019 XOOPS Project (https://xoops.org)
+ * @license   GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  */
 class Uuid
 {
+    // match spec for version 4 UUID as per rfc4122
+    protected const UUID_REGEX = '/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/';
+
     /**
      * generate - generate a version 4 (random) UUID
      *
@@ -40,5 +42,49 @@ class Uuid
         $data[8] = chr(ord($data[8]) & 0x3f | 0x80); // set bits 6-7 to 10
 
         return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
+    }
+
+    /**
+     * Pack a UUID into a binary string
+     *
+     * @param string $uuid a valid UUID
+     *
+     * @return string packed UUID as a binary string
+     *
+     * @throws \InvalidArgumentException
+     * @throws \UnexpectedValueException
+     */
+    public static function packAsBinary($uuid)
+    {
+        if (!preg_match(static::UUID_REGEX, $uuid)) {
+            throw new \InvalidArgumentException('Invalid UUID');
+        }
+        $return = pack("H*", str_replace('-', '', $uuid));
+        if (false === $return) {
+            throw new \UnexpectedValueException('Packing UUID Failed');
+        }
+        return $return;
+    }
+
+    /**
+     * Unpack a UUID stored as a binary string
+     *
+     * @param string $packedUuid a packed UUID as returned by packAsBinary()
+     *
+     * @return string unpacked UUID
+     *
+     * @throws \InvalidArgumentException
+     * @throws \UnexpectedValueException
+     */
+    public static function unpackBinary($packedUuid)
+    {
+        if (16 !== strlen($packedUuid)) {
+            throw new \InvalidArgumentException('Invalid packed UUID');
+        }
+        $return = vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($packedUuid), 4));
+        if (!preg_match(static::UUID_REGEX, $return)) {
+            throw new \UnexpectedValueException('Unpacking UUID Failed');
+        }
+        return $return;
     }
 }
