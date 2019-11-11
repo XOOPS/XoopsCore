@@ -308,6 +308,7 @@ class Xoops
      */
     public function theme($tpl_name = null)
     {
+        global $xoopsConfig;
         if (!isset($this->theme)) {
             if ($tpl_name) {
                 $tpl_info = $this->getTplInfo($tpl_name);
@@ -324,8 +325,9 @@ class Xoops
                 $this->setTheme($xoopsThemeFactory->createInstance(array('contentTemplate' => $this->tpl_name)));
             } else {
                 $adminThemeFactory = new \Xoops\Core\Theme\AdminFactory();
+                $cpanelTheme = isset($xoopsConfig['cpanel']) ? $xoopsConfig['cpanel'] : 'default';
                 $this->setTheme($adminThemeFactory->createInstance(array(
-                    'folderName'      => 'default', 'themesPath' => 'modules/system/themes',
+                    'folderName'      => $cpanelTheme, 'themesPath' => 'modules/system/themes',
                     'contentTemplate' => $this->tpl_name
                 )));
                 //$this->theme()->loadLocalization('admin');
@@ -603,6 +605,7 @@ class Xoops
      */
     public function header($tpl_name = null)
     {
+        global $xoopsConfig;
         static $included = false;
         if ($included) {
             return false;
@@ -623,8 +626,10 @@ class Xoops
 
         if ($this->isAdminSide) {
             $this->events()->triggerEvent('system.class.gui.header');
-            include_once $this->path('modules/system/themes/default/default.php');
-            $gui = new XoopsGuiDefault();
+            $cpanelTheme = isset($xoopsConfig['cpanel']) ? $xoopsConfig['cpanel'] : 'default';
+            include_once $this->path("modules/system/themes/{$cpanelTheme}/{$cpanelTheme}.php");
+            $cpanelClass = 'XoopsGui' . ucfirst($cpanelTheme);
+            $gui = new $cpanelClass();
             $gui->header();
         } else {
             $this->events()->triggerEvent('core.header.addmeta');
