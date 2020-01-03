@@ -10,7 +10,7 @@
  */
 
 /**
- * @copyright       XOOPS Project (http://xoops.org)
+ * @copyright      2000-2020 XOOPS Project (https://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          Richard Griffith <richard@geekwright.com>
  */
@@ -32,7 +32,7 @@ $modversion['status'] = 'Alpha';
 $modversion['release_date'] = '2013/10/05';
 
 $modversion['developer_lead'] = 'geekwright';
-$modversion['developer_website_url'] = 'http://xoops.org';
+$modversion['developer_website_url'] = 'https://xoops.org';
 $modversion['developer_website_name'] = 'Xoops';
 $modversion['developer_email'] = 'richard@geekwright.com';
 

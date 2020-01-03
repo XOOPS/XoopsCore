@@ -12,7 +12,7 @@
 namespace Xoops\Module;
 
 /**
- * @copyright 2013-2015 XOOPS Project (http://xoops.org)
+ * @copyright 2000-2020 XOOPS Project (https://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author    trabis <lusopoemas@gmail.com>
  */

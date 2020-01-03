@@ -14,7 +14,7 @@ namespace Xoops\Core;
 /**
  * XOOPS file uploader
  *
- * @copyright   XOOPS Project (http://xoops.org)
+ * @copyright  2000-2020 XOOPS Project (https://xoops.org)
  * @license     GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package     class
  * @since       2.0.0
@@ -55,9 +55,9 @@ namespace Xoops\Core;
  * @package   MediaUploader
  * @author    Kazumi Ono (http://www.myweb.ne.jp/, http://jp.xoops.org/)
  * @author    Taiwen Jiang <phppp@users.sourceforge.net>
- * @copyright 2003-2014 XOOPS Project (http://xoops.org)
+ * @copyright 2000-2020 XOOPS Project (https://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @link      http://xoops.org
+ * @link      https://xoops.org
  */
 class MediaUploader
 {

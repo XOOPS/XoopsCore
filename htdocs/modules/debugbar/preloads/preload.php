@@ -19,10 +19,10 @@ use Xoops\Core\PreloadItem;
  * @package   DebugbarLogger
  * @author    Richard Griffith <richard@geekwright.com>
  * @author    trabis <lusopoemas@gmail.com>
- * @copyright 2013 XOOPS Project (http://xoops.org)
+ * @copyright 2000-2020 XOOPS Project (https://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @version   Release: 1.0
- * @link      http://xoops.org
+ * @link      https://xoops.org
  * @since     1.0
  */
 class DebugbarPreload extends PreloadItem

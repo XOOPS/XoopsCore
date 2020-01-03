@@ -40,9 +40,9 @@ define('XOBJ_DTYPE_ENUM', Dtype::TYPE_ENUM);
  * @package   Xoops\Core\Kernel
  * @author    Kazumi Ono (AKA onokazu) <http://www.myweb.ne.jp/, http://jp.xoops.org/>
  * @author    Taiwen Jiang <phppp@users.sourceforge.net>
- * @copyright 2000-2015 XOOPS Project (http://xoops.org)
+ * @copyright 2000-2020 XOOPS Project (https://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @link      http://xoops.org
+ * @link      https://xoops.org
  * @since     2.0.0
  */
 abstract class XoopsObject implements \ArrayAccess

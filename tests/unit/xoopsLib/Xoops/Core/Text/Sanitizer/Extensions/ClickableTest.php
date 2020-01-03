@@ -46,8 +46,8 @@ class ClickableTest extends \PHPUnit\Framework\TestCase
     {
         $this->sanitizer->enableComponentForTesting('clickable');
 
-        $in = 'http://xoops.org';
-        $expected = '<a href="http://xoops.org" title="http://xoops.org"rel="external">http://xoops.org</a>';
+        $in = 'https://xoops.org';
+        $expected = '<a href="https://xoops.org" title="https://xoops.org"rel="external">https://xoops.org</a>';
         $actual = $this->sanitizer->executeFilter('clickable', $in);
         $this->assertEquals($expected, $actual);
 

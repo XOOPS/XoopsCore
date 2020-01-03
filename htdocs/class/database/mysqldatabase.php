@@ -20,7 +20,7 @@ use Doctrine\DBAL\FetchMode;
  * @author     Kazumi Ono <onokazu@xoops.org>
  * @author     readheadedrod <redheadedrod@hotmail.com>
  * @author     Richard Griffith <richard@geekwright.com>
- * @copyright  2013-2019 XOOPS Project (https://xoops.org)
+ * @copyright  2000-2020 XOOPS Project (https://xoops.org)
  * @license    GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  * @deprecated since version 2.6.0 - alpha 3. Switch to doctrine connector.
  */

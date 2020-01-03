@@ -12,7 +12,7 @@
 /**
  * Comments
  *
- * @copyright       2012-2019 XOOPS Project (https://xoops.org)
+ * @copyright       2000-2020 XOOPS Project (https://xoops.org)
  * @license         GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  * @author          trabis <lusopoemas@gmail.com>
  */

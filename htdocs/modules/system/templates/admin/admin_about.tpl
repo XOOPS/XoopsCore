@@ -54,7 +54,7 @@
 <{if $xoops_logo}>
 <br />
 <div align="center">
-    <a href="http://www.xoops.org" target="_blank">
+    <a href="https://xoops.org" target="_blank">
         <img src="<{$xoops_url}>/media/xoops/images/xoopsmicrobutton.gif" alt="XOOPS" title="XOOPS">
    </a>
 </div>

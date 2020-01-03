@@ -22,9 +22,9 @@ use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
  * @category  Modules\Smilies
  * @package   Modules
  * @author    Unknown <nobody@localhost.local>
- * @copyright 2013-2015 The XOOPS Project https://github.com/XOOPS/XoopsCore
+ * @copyright 2013-2015  2000-2020 XOOPS Project https://github.com/XOOPS/XoopsCore
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @link      http://xoops.org
+ * @link      https://xoops.org
  */
 class SmiliesSmiley extends XoopsObject
 {
@@ -47,9 +47,9 @@ class SmiliesSmiley extends XoopsObject
  * @category  Modules\Smilies
  * @package   Modules
  * @author    Unknown <nobody@localhost.local>
- * @copyright 2013-2015 The XOOPS Project https://github.com/XOOPS/XoopsCore
+ * @copyright 2013-2015  2000-2020 XOOPS Project https://github.com/XOOPS/XoopsCore
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @link      http://xoops.org
+ * @link      https://xoops.org
  */
 class SmiliesSmileyHandler extends XoopsPersistableObjectHandler
 {

@@ -22,7 +22,7 @@ use Xoops\Core\Text\Sanitizer;
  * @author    Goghs Cheng (http://www.eqiao.com, http://www.devbeez.com/)
  * @author    Taiwen Jiang <phppp@users.sourceforge.net>
  * @author    Richard Griffith <richard@geekwright.com>
- * @copyright 2000-2019 XOOPS Project (https://xoops.org)
+ * @copyright 2000-2020 XOOPS Project (https://xoops.org)
  * @license   GNU GPL 2 (http://www.gnu.org/licenses/gpl-2.0.html)
  */
 abstract class ExtensionAbstract extends SanitizerComponent

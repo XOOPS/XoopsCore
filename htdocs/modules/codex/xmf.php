@@ -10,7 +10,7 @@
  */
 
 /**
- * @copyright 2011-2018 XOOPS Project (http://xoops.org)
+ * @copyright 2000-2020 XOOPS Project (https://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author    Richard Griffith <richard@geekwright.com>
  * @author    trabis <lusopoemas@gmail.com>
@@ -94,7 +94,7 @@ $title = 'xmf - the XOOPS Module Framework';
 $article = <<<EOT
 xmf - XOOPS Module Framework
 
-XMF is Copyright © 2011-2018 The XOOPS Project
+XMF is Copyright © XOOPS Project
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -115,7 +115,7 @@ and the GNU Lesser General Public License along with this program.
 If not, see http://www.gnu.org/licenses/.
 
 You may contact the copyright holder through XOOPS Project:
-http://xoops.org
+https://xoops.org
 EOT;
 
 echo '<h4>Extracted Description</h4>';

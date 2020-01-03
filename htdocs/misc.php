@@ -16,7 +16,7 @@ use Xoops\Core\XoopsTpl;
 /**
  * XOOPS misc utilities
  *
- * @copyright       XOOPS Project (http://xoops.org)
+ * @copyright      2000-2020 XOOPS Project (https://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         core
  * @since           2.0.0

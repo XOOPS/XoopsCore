@@ -52,7 +52,7 @@ $helper = Helper::getInstance();
  * @author    trabis <lusopoemas@gmail.com>
  * @copyright 2011-2015 The XUUPS Project (http://sourceforge.net/projects/xuups/)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @link      http://xoops.org
+ * @link      https://xoops.org
  */
 class ItemForm extends SimpleForm
 {

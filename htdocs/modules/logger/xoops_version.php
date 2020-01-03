@@ -14,10 +14,10 @@
  *
  * @package   Logger
  * @author    Richard Griffith <richard@geekwright.com>
- * @copyright 2013 XOOPS Project (http://xoops.org)
+ * @copyright 2000-2020 XOOPS Project (https://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @version   Release: 1.0
- * @link      http://xoops.org
+ * @link      https://xoops.org
  * @since     1.0
  */
 $modversion = [];
@@ -36,7 +36,7 @@ $modversion['dirname'] = 'logger';
 
 //about
 $modversion['release_date'] = '2013/09/05';
-$modversion['module_website_url'] = 'http://www.xoops.org/';
+$modversion['module_website_url'] = 'https://xoops.org/';
 $modversion['module_website_name'] = 'XOOPS';
 $modversion['module_status'] = 'ALPHA 1';
 $modversion['min_php'] = '5.3.7';

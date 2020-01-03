@@ -1,6 +1,6 @@
 SchemaTool - a XOOPS developer tool to create schema files
 
-SchemaTool is Copyright © 2013 XOOPS Project
+SchemaTool is Copyright © 2000-2020 XOOPS Project
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

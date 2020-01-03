@@ -13,9 +13,9 @@
  * @category   Class
  * @package    Xml
  * @author     Kazumi Ono (AKA onokazu)
- * @copyright  2000-2016 XOOPS Project (http://xoops.org)
+ * @copyright  2000-2020 XOOPS Project (https://xoops.org)
  * @license    GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @link        http://xoops.org
+ * @link        https://xoops.org
  * @since       1.0.0
  */
 class XoopsXmlRss2Parser extends SaxParser

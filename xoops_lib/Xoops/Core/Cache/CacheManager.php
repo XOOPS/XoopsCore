@@ -21,9 +21,9 @@ use Xmf\Yaml;
  * @category  Xoops\Core\Cache
  * @package   CacheManager
  * @author    Richard Griffith <richard@geekwright.com>
- * @copyright 2015 The XOOPS Project https://github.com/XOOPS
+ * @copyright  2000-2020 XOOPS Project https://github.com/XOOPS
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @link      http://xoops.org
+ * @link      https://xoops.org
  */
 class CacheManager
 {

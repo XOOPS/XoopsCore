@@ -17,9 +17,9 @@ use Xoops\Core\Kernel\Handlers\XoopsUser;
  * @category  Helper
  * @package   Comments
  * @author    trabis <lusopoemas@gmail.com>
- * @copyright 2001-2015 XOOPS Project (http://xoops.org)
+ * @copyright 2000-2020 XOOPS Project (https://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @link      http://xoops.org
+ * @link      https://xoops.org
  */
 class Comments extends Xoops\Module\Helper\HelperAbstract
 {

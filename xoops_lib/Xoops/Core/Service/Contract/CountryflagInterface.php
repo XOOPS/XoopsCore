@@ -19,9 +19,9 @@ use Xoops\Core\Service\Response;
  * @category  Xoops\Core\Service\Contract\CountryflagInterface
  * @package   Xoops\Core
  * @author    Richard Griffith <richard@geekwright.com>
- * @copyright 2014 The XOOPS Project https://github.com/XOOPS/XoopsCore
+ * @copyright  2000-2020 XOOPS Project https://github.com/XOOPS/XoopsCore
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @link      http://xoops.org
+ * @link      https://xoops.org
  */
 interface CountryflagInterface
 {

@@ -12,7 +12,7 @@
 /**
  * System menu
  *
- * @copyright   The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright    2000-2020 XOOPS Project (https://xoops.org)
  * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @package     themes
  * @author      Andricq Nicolas (AKA MusS)
@@ -33,7 +33,7 @@ $theme_version['image']         = 'assets/img/logo.png';
 $theme_version['dirname']       = 'default';
 // About
 $theme_version['release_date']       = '2012/05/13';
-$theme_version['theme_website_url']  = 'http://www.xoops.org/';
+$theme_version['theme_website_url']  = 'https://xoops.org/';
 $theme_version['theme_website_name'] = 'XOOPS';
 $theme_version['theme_status']       = 'ALPHA';
 

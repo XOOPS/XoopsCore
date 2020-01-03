@@ -12,7 +12,7 @@
 /**
  * banners module
  *
- * @copyright       XOOPS Project (http://xoops.org)
+ * @copyright      2000-2020 XOOPS Project (https://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         banners
  * @since           2.6.0
@@ -174,9 +174,9 @@ function xoops_module_install_banners(&$module)
 
     // create banner in XOOPS client
     $banners = [
-        'xoops_flashbanner2.swf' => 'http://www.xoops.org/',
-        'xoops_banner_2.gif' => 'http://www.xoops.org/',
-        'banner.swf' => 'http://www.xoops.org/',
+        'xoops_flashbanner2.swf' => 'https://xoops.org/',
+        'xoops_banner_2.gif' => 'https://xoops.org/',
+        'banner.swf' => 'https://xoops.org/',
     ];
     foreach ($banners as $k => $v) {
         //Copy banner

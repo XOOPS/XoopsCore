@@ -10,7 +10,7 @@
 */
 
 /**
- * @copyright 2012-2016 XOOPS Project (http://xoops.org)
+ * @copyright 2000-2020 XOOPS Project (https://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author    trabis <lusopoemas@gmail.com>
  */
@@ -32,7 +32,7 @@ $modversion['dirname'] = 'codex';
 
 //about
 $modversion['release_date'] = '2012/11/25';
-$modversion['module_website_url'] = 'http://www.xoops.org/';
+$modversion['module_website_url'] = 'https://xoops.org/';
 $modversion['module_website_name'] = 'XOOPS';
 $modversion['module_status'] = 'ALPHA 1';
 $modversion['min_php'] = '5.3.7';

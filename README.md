@@ -1,4 +1,4 @@
-![alt XOOPS CMS](http://xoops.org/images/logoXoops4GithubRepository.png)
+![alt XOOPS CMS](https://xoops.org/images/logoXoops4GithubRepository.png)
 # XOOPS Core
 
 [![Backers on Open Collective](https://opencollective.com/XoopsCore/backers/badge.svg)](#backers) [![Sponsors on Open Collective](https://opencollective.com/XoopsCore/sponsors/badge.svg)](#sponsors) [![Build Status](https://img.shields.io/travis/XOOPS/XoopsCore/master.svg?style=flat)](https://travis-ci.org/XOOPS/XoopsCore)

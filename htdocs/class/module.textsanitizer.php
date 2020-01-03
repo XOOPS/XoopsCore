@@ -17,9 +17,9 @@
  * @author    Kazumi Ono <onokazu@xoops.org>
  * @author    Taiwen Jiang <phppp@users.sourceforge.net>
  * @author    Goghs Cheng
- * @copyright 2000-2015 XOOPS Project (http://xoops.org)
+ * @copyright 2000-2020 XOOPS Project (https://xoops.org)
  * @license   GNU GPL 2 (http://www.gnu.org/licenses/gpl-2.0.html)
- * @link      http://xoops.org
+ * @link      https://xoops.org
  */
 class MyTextSanitizer extends Xoops\Core\Text\Sanitizer
 {

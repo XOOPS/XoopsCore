@@ -63,7 +63,7 @@
 <footer class="footer">
     <div class="aligncenter">
         {$xoops_footer}
-        <a href="http://xoops.org" title="Design by: XOOPS UI/UX Team" target="_blank" class="credits visible-md visible-sm visible-lg">
+        <a href="https://xoops.org" title="Design by: XOOPS UI/UX Team" target="_blank" class="credits visible-md visible-sm visible-lg">
             <img src="{xoImgUrl}assets/img/favicon.png" alt="Design by: XOOPS UI/UX Team">
         </a>
     </div>

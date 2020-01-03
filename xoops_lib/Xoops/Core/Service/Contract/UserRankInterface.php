@@ -20,10 +20,10 @@ use Xoops\Core\Service\Response;
  * @category  Xoops\Core\Service\Contract
  * @package   Xoops\Core
  * @author    Richard Griffith <richard@geekwright.com>
- * @copyright 2015 The XOOPS Project https://github.com/XOOPS/XoopsCore
+ * @copyright  2000-2020 XOOPS Project https://github.com/XOOPS/XoopsCore
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @version   Release: 1.0
- * @link      http://xoops.org
+ * @link      https://xoops.org
  * @since     2.6.0
  */
 interface UserRankInterface

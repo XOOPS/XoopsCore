@@ -14,7 +14,7 @@ use Xoops\Core\PreloadItem;
 /**
  * Extended User Profile
  *
- * @copyright       2000-2016 XOOPS Project (http://xoops.org)
+ * @copyright       2000-2020 XOOPS Project (https://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         profile
  * @since           2.4.0
@@ -24,7 +24,7 @@ use Xoops\Core\PreloadItem;
 /**
  * Profile core preloads
  *
- * @copyright       2000-2016 XOOPS Project (http://xoops.org)
+ * @copyright       2000-2020 XOOPS Project (https://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          trabis <lusopoemas@gmail.com>
  */

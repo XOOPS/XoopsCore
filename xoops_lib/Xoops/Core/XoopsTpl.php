@@ -19,7 +19,7 @@ namespace Xoops\Core;
  * @author    Kazumi Ono <onokazu@xoops.org>
  * @author    Skalpa Keo <skalpa@xoops.org>
  * @author    Taiwen Jiang <phppp@users.sourceforge.net>
- * @copyright 2000-2019 XOOPS Project (https://xoops.org)
+ * @copyright 2000-2020 XOOPS Project (https://xoops.org)
  * @license   GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
 s */
 class XoopsTpl extends \Smarty

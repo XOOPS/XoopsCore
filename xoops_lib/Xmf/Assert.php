@@ -19,7 +19,7 @@ use Webmozart\Assert\Assert as BaseAssertion;
  * @category  Xmf\Assert
  * @package   Xmf
  * @author    Richard Griffith <richard@geekwright.com>
- * @copyright 2017 XOOPS Project (https://xoops.org)
+ * @copyright 2000-2020 XOOPS Project (https://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      https://xoops.org
  */

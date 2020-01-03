@@ -6,4 +6,4 @@
 
 // RSS feed URLs
 return [
-    'http://www.xoops.org/backend.php', ];
+    'https://xoops.org/backend.php', ];

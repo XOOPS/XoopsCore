@@ -8,7 +8,7 @@ $supports = [];
 
 // Support site for English
 $supports['en_US'] = [
-    'url' => 'http://www.xoops.org/',
+    'url' => 'https://xoops.org/',
     'title' => 'English support',
 ];
 

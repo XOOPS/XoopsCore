@@ -17,7 +17,7 @@ use Xoops\Core\Kernel\Handlers\XoopsModule;
 /**
  * System install module
  *
- * @copyright 2015-2019 XOOPS Project (https://xoops.org)
+ * @copyright 2000-2020 XOOPS Project (https://xoops.org)
  * @license   GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  * @since     2.6.0
  * @author    Mage Grégory (AKA Mage)

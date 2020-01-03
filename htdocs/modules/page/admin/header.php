@@ -14,7 +14,7 @@ use Xmf\Request;
 /**
  * page module
  *
- * @copyright       XOOPS Project (https://xoops.org)
+ * @copyright      2000-2020 XOOPS Project (https://xoops.org)
  * @license         2014-2019 GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  * @package         page
  * @author          Mage Grégory (AKA Mage)

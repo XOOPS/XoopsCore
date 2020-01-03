@@ -12,7 +12,7 @@
 /**
  * maintenance extensions
  *
- * @copyright       XOOPS Project (http://xoops.org)
+ * @copyright      2000-2020 XOOPS Project (https://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         maintenance
  * @since           2.6.0
@@ -41,7 +41,7 @@ $modversion['dirname'] = 'maintenance';
  Settings for configs
 */
 $modversion['release_date'] = '2012/05/11';
-$modversion['module_website_url'] = 'http://www.xoops.org/';
+$modversion['module_website_url'] = 'https://xoops.org/';
 $modversion['module_website_name'] = 'XOOPS';
 $modversion['module_status'] = 'ALPHA';
 $modversion['min_php'] = '5.3.7';

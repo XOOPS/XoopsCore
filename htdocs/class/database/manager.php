@@ -17,10 +17,10 @@
  * @category  Xoops\Class\Database\Manager
  * @package   Manager
  * @author    Haruki Setoyama  <haruki@planewave.org>
- * @copyright 2013 XOOPS Project (http://xoops.org)
+ * @copyright 2000-2020 XOOPS Project (https://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @version   Release: 2.6
- * @link      http://xoops.org
+ * @link      https://xoops.org
  * @since     2.6.0
  */
 class XoopsDatabaseManager

@@ -12,7 +12,7 @@
 /**
  * page module
  *
- * @copyright       XOOPS Project (http://xoops.org)
+ * @copyright      2000-2020 XOOPS Project (https://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         page
  * @since           2.6.0
@@ -35,7 +35,7 @@ $modversion['dirname'] = 'page';
 
 //about
 $modversion['release_date'] = '2013/01/01';
-$modversion['module_website_url'] = 'http://www.xoops.org/';
+$modversion['module_website_url'] = 'https://xoops.org/';
 $modversion['module_website_name'] = 'XOOPS';
 $modversion['module_status'] = 'Alpha';
 $modversion['min_php'] = '5.3.7';

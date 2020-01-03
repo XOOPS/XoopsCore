@@ -28,10 +28,10 @@ namespace Xoops\Core;
  * @author    Richard Griffith <richard@geekwright.com>
  * @copyright 2005 Daniel Morris
  * @copyright 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @copyright 2011-2016 XOOPS Project (http://xoops.org)
+ * @copyright 2000-2020 XOOPS Project (https://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @version   Release: 1.0
- * @link      http://xoops.org
+ * @link      https://xoops.org
  * @since     2.5.7
  */
 class FilterInput extends \Xmf\FilterInput

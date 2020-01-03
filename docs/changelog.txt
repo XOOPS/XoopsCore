@@ -1282,11 +1282,11 @@ xoopsmembers
 
 9/30/2003: Version 2.0.5 RC
 ===============================
-- Fixed email checking bug mentioned in http://www.xoops.org/modules/newbb/viewtopic.php?topic_id=12288&forum=2 (mvandam)
+- Fixed email checking bug mentioned in https://xoops.org/modules/newbb/viewtopic.php?topic_id=12288&forum=2 (mvandam)
 - Fixed a number of bugs in blocks admin page (onokazu)
 - More usability fix in blocks admin page (onokazu)
 - Fixed forum topic links to correctly use the # feature in url (onokazu)
-- Fixed password checking bug mentioned in http://www.xoops.org/modules/newbb/viewtopic.php?topic_id=12301&post_id=49369&order=0&viewmode=flat&pid=49203&forum=21#forumpost49369
+- Fixed password checking bug mentioned in https://xoops.org/modules/newbb/viewtopic.php?topic_id=12301&post_id=49369&order=0&viewmode=flat&pid=49203&forum=21#forumpost49369
 - Fixed database connection error when creating database during install (onokazu)
 - Fixed mb_output_handler causing problems in backend.php/image.php/downloader (onokazu)
 - Fixed search feature to use GET requests for prev/next/showall links (onokazu)
@@ -1359,7 +1359,7 @@ xoopsmembers
 
 3/19/2003: Version 2.0.0 RC3
 ===============================
-- a major change in the handling of theme files, the detail of which you can read in this [url=http://www.xoops.org/modules/news/article.php?storyid=677]article[/url] (onokazu)
+- a major change in the handling of theme files, the detail of which you can read in this [url=https://xoops.org/modules/news/article.php?storyid=677]article[/url] (onokazu)
 - a new global notification feature that can easily be incorporated into modules (that use Smarty) by only modifying xoops_version.php and template files (mvandam)
 - SMTP support using phpMailer (bunny)
 - group permission tables merged into one table (onokazu)
@@ -1384,6 +1384,6 @@ A bug fix release..
 The first public release of 2.0 series.
 For new features that have been added from 1.3.x, please refer to
 the articles listed below:
-http://www.xoops.org/modules/news/article.php?storyid=486
-http://www.xoops.org/modules/news/article.php?storyid=549
-http://www.xoops.org/modules/xoopsdocs/index.php?cat_id=6
+https://xoops.org/modules/news/article.php?storyid=486
+https://xoops.org/modules/news/article.php?storyid=549
+https://xoops.org/modules/xoopsdocs/index.php?cat_id=6

@@ -20,7 +20,7 @@ use Xoops\Core\Service\Response;
  *
  * @package   UserRankProvider
  * @author    Richard Griffith <richard@geekwright.com>
- * @copyright 2013-2019 XOOPS Project (https://xoops.org)
+ * @copyright 2000-2020 XOOPS Project (https://xoops.org)
  * @license   GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  */
 class UserRankProvider extends AbstractContract implements UserRankInterface

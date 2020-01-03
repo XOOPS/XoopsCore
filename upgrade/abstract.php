@@ -15,7 +15,7 @@
  * See the enclosed file license.txt for licensing information.
  * If you did not receive this file, get it at http://www.fsf.org/copyleft/gpl.html
  *
- * @copyright   The XOOPS project http://www.xoops.org/
+ * @copyright    2000-2020 XOOPS Project https://xoops.org/
  * @license     http://www.fsf.org/copyleft/gpl.html GNU General Public License (GPL)
  * @package     upgrader
  * @since       2.3.0

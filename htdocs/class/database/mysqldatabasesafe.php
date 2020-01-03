@@ -20,10 +20,10 @@
  * @author     Kazumi Ono <onokazu@xoops.org>
  * @author     readheadedrod <redheadedrod@hotmail.com>
  * @author     Richard Griffith <richard@geekwright.com>
- * @copyright  2013 XOOPS Project (http://xoops.org)
+ * @copyright  2000-2020 XOOPS Project (https://xoops.org)
  * @license    GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @version    Release: 2.6
- * @link       http://xoops.org
+ * @link       https://xoops.org
  * @since      2.6.0
  * @deprecated since version 2.6.0 - alpha 3. Switch to doctrine connector.
  */

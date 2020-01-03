@@ -7,7 +7,7 @@
  * of supporting developers from this source code or any supporting source code
  * which is considered copyrighted (c) material of the original comment or credit authors.
  *
- * @copyright   XOOPS Project (http://xoops.org)
+ * @copyright  2000-2020 XOOPS Project (https://xoops.org)
  * @license     GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package     system
  * @version     $Id:$

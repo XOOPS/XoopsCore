@@ -28,7 +28,7 @@ use Xoops\Core\XoopsTpl;
  *  {xoblock id=600 groups="0|1" cache=20}  display block just for this 2 groups and sets a cache of 20 seconds
  *  {block id=600 options="100|100|s_poweredby.gif|0"} displays block with diferent options
  *
- * @copyright   XOOPS Project (http://xoops.org)
+ * @copyright  2000-2020 XOOPS Project (https://xoops.org)
  * @license     GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author      trabis <lusopoemas@gmail.com>
  * @version     $Id$
