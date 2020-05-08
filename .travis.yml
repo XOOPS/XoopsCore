@@ -33,7 +33,7 @@ before_script:
 script:
   - xoops_lib/vendor/bin/phpunit
   - wget https://github.com/diff-sniffer/git/releases/download/0.3.2/git-phpcs.phar
-  - php php git-phpcs.phar $TRAVIS_COMMIT_RANGE
+  - php git-phpcs.phar $TRAVIS_COMMIT_RANGE
 
 after_script:
   - if [ "$TRAVIS_PHP_VERSION" != "7.4snapshot" ] && [ "$TRAVIS_PHP_VERSION" != "nightly" ]; then wget https://scrutinizer-ci.com/ocular.phar; fi
