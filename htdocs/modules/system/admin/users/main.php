@@ -335,7 +335,7 @@ switch ($op) {
     // Synchronize
     case 'users_synchronize':
         if (isset($_REQUEST['status']) && $_REQUEST['status'] == 1) {
-            synchronize($$uid, 'user');
+            synchronize($uid, 'user');
         } else {
             if (isset($_REQUEST['status']) && $_REQUEST['status'] == 2) {
                 synchronize('', 'all users');

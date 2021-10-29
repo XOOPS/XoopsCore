@@ -3,10 +3,13 @@ sudo: false
 language: php
 
 php:
-  - 7.1
+# - 7.1
   - 7.2
   - 7.3
-#  - 7.4snapshot
+  - 7.4
+
+services:
+  - mysql
 
 #matrix:
 #  allow_failures:
@@ -29,8 +32,8 @@ before_script:
 
 script:
   - xoops_lib/vendor/bin/phpunit
-  - wget https://github.com/diff-sniffer/git/releases/download/0.2.0/git-phpcs.phar
-  - php git-phpcs.phar --extensions=php origin/$TRAVIS_BRANCH...$TRAVIS_PULL_REQUEST_SHA
+  - wget https://github.com/diff-sniffer/git/releases/download/0.3.2/git-phpcs.phar
+  - php git-phpcs.phar $TRAVIS_COMMIT_RANGE
 
 after_script:
   - if [ "$TRAVIS_PHP_VERSION" != "7.4snapshot" ] && [ "$TRAVIS_PHP_VERSION" != "nightly" ]; then wget https://scrutinizer-ci.com/ocular.phar; fi
