@@ -1,6 +1,15 @@
 XOOPS 2.6 Changelog
 
 ==================================
+NOT RELEASED: Version 2.6.0 Alpha 4
+==================================
+
+Updated:
+ - jQuery to 3.7.0  (mamba)
+ - jQueryUI to 1.13.2 (mamba)
+ - jQuery Form to 4.3.0 (mamba)
+
+==================================
 2013/04/15: Version 2.6.0 Alpha 3
 ==================================
 
@@ -867,4 +876,3 @@ if (!$tpl->is_cached('module:system|system_rss.html'))
 
 Languages
  - modules/system/language/admin/avatars.php _AM_SYSTEM_AVATAR_CAT
- 
